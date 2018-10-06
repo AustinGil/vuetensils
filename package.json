@@ -1,14 +1,15 @@
 {
   "name": "va11y-js",
   "version": "0.0.1",
-  "description": "Accessible Vue UI components",
-  "main": "index.js",
-  "scripts": {
-    "test": "npm test"
-  },
+  "description": "Accessible web components for Vue.js",
   "author": "Austin Gil <austin@stegosource.com>",
-  "license": "ISC",
+  "scripts": {
+    "dev": "echo TODO",
+    "build": "echo TODO",
+    "test": "echo TODO"
+  },
   "dependencies": {
-    "va11y": "^1.0.0"
-  }
+    "vue": "^2.5.17"
+  },
+  "devDependencies": {}
 }
