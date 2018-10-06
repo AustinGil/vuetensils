@@ -1,0 +1,14 @@
+{
+  "name": "va11y-js",
+  "version": "0.0.1",
+  "description": "Accessible Vue UI components",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Austin Gil <austin@stegosource.com>",
+  "license": "ISC",
+  "dependencies": {
+    "va11y": "^1.0.0"
+  }
+}
