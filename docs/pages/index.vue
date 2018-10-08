@@ -2,7 +2,7 @@
   <section class="container">
     <div>
       <h1 class="title">
-        <pre>va11y-js</pre>
+        <pre>va11y-ui</pre>
       </h1>
       <h2 class="subtitle">
         Accessible web components for Vue.js

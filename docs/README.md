@@ -1,4 +1,4 @@
-# va11y-js-docs
+# va11y-ui-docs
 
 > docs
 
