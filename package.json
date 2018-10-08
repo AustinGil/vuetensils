@@ -1,7 +1,7 @@
 {
-  "name": "va11y-js",
+  "name": "va11y-ui",
   "version": "0.0.1",
-  "description": "Accessible web components for Vue.js",
+  "description": "Highly accessible, minimally styled web components for Vue.js",
   "author": "Austin Gil <austin@stegosource.com>",
   "scripts": {
     "dev": "echo TODO",
