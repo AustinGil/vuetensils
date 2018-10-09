@@ -81,6 +81,9 @@ const Modal = {
           {
             ref: "content",
             class: `${NAME}`,
+            attrs: {
+              tabindex: "-1"
+            },
             on: {
               focusout: this.onFocusout
             }

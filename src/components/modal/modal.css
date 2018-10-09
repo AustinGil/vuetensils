@@ -1,3 +1,7 @@
+.va11y-modal__wrapper [tabindex="-1"]:focus {
+  outline: 0;
+}
+
 .va11y-modal__wrapper {
   position: fixed;
   top: 0;
