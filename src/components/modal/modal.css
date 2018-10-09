@@ -1,5 +1,5 @@
 .va11y-modal__wrapper [tabindex="-1"]:focus {
-  outline: 0;
+  /* outline: 0; */
 }
 
 .va11y-modal__wrapper {
@@ -15,7 +15,15 @@
 }
 
 .va11y-modal {
+  position: relative;
   border: 1px solid;
   padding: 20px;
   background: #fff;
+}
+
+.va11y-modal__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateY(-100%);
 }

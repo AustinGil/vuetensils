@@ -26,12 +26,15 @@ const Modal = {
 
       methods: {
         show() {
+          this.$emit("show");
           this.$emit("change", true);
         },
         hide() {
+          this.$emit("hide");
           this.$emit("change", false);
         },
         toggle() {
+          this.$emit("toggle", this.visible);
           this.$emit("change", this.visible);
         },
         onFocusout(e) {
@@ -39,11 +42,17 @@ const Modal = {
           if (this.visible && content && !content.contains(e.relatedTarget)) {
             content.focus();
           }
-        },
-        onClickOut(evt) {
-          // backdrop clicked, hide modal
-          if (this.visible) {
-            this.hide("backdrop");
+        }
+      },
+
+      watch: {
+        visible: {
+          handler: function(next, prev) {
+            if (next === true && next != prev) {
+              this.$nextTick(() => {
+                this.$refs.content.focus();
+              });
+            }
           }
         }
       },
