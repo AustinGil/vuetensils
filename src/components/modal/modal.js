@@ -1,3 +1,4 @@
+import keycodes from "../../utils/keycodes";
 import "./modal.css";
 
 const NAME = "va11y-modal";
@@ -111,7 +112,12 @@ const Modal = {
             on: {
               click: e => {
                 const el = e.target;
-                if (el.classList.contains(`${NAME}__wrapper`)) {
+                if (el.classList.contains(`${NAME}__wrapper`) && this.dismissible) {
+                  this.hide();
+                }
+              },
+              keydown: e => {
+                if (e.keyCode === keycodes.ESC) {
                   this.hide();
                 }
               }
