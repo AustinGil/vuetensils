@@ -8,9 +8,13 @@
         Accessible web components for Vue.js
       </h2>
 
-      <va11y-modal>
+      <va11y-modal v-model="modal" @change="onChange">
         modal content
       </va11y-modal>
+
+      <button @click="onClick">toggle</button>
+
+      showing: {{ modal }}
       <!-- <div class="links">
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
@@ -21,7 +25,19 @@
 
 <script>
 export default {
-  components: {}
+  data: () => ({
+    modal: false
+  }),
+
+  methods: {
+    onClick(e) {
+      this.modal = !this.modal
+    },
+
+    onChange(e) {
+      console.log(e)
+    }
+  }
 }
 </script>
 

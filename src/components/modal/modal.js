@@ -6,22 +6,46 @@ const Modal = {
   install(Vue, options) {
     Vue.component(NAME, {
       props: {
+        visible: {
+          type: Boolean,
+          default: false
+        },
         dismissible: {
           type: Boolean,
           default: true
         }
       },
+      model: {
+        prop: "visible",
+        event: "change"
+      },
 
-      data: () => ({}),
+      data: () => ({
+        // localVisible: null
+      }),
 
-      render: function(h) {
+      methods: {
+        show() {
+          this.$emit("change", true);
+        },
+        hide() {
+          this.$emit("change", false);
+        },
+        toggle() {
+          this.$emit("change", this.visible);
+        }
+      },
+
+      render: function(create) {
+        if (!this.visible) return create(false);
+
         const $slots = this.$slots;
-        let closeButton = h(false);
+        let closeButton = create(false);
 
         if (this.dismissible) {
           $slots["close-content"] = $slots["close-content"] || "Close";
 
-          closeButton = h(
+          closeButton = create(
             "button",
             {
               class: `${NAME}__close`,
@@ -32,8 +56,7 @@ const Modal = {
               },
               on: {
                 click: e => {
-                  console.log("close!");
-                  // this.hide("header-close");
+                  this.hide();
                 }
               }
             },
@@ -41,18 +64,23 @@ const Modal = {
           );
         }
 
-        let body = h(
+        let body = create(
           "div",
           {
-            class: `${NAME}__body`
+            class: `${NAME}`
           },
           [closeButton, $slots.default]
         );
 
-        return h(
+        return create(
           "div",
           {
-            class: `${NAME}`
+            class: `${NAME}__wrapper`,
+            on: {
+              click: e => {
+                this.hide();
+              }
+            }
           },
           [body]
         );

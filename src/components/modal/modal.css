@@ -1,4 +1,4 @@
-.va11y-modal {
+.va11y-modal__wrapper {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -10,7 +10,7 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
-.va11y-modal__body {
+.va11y-modal {
   border: 1px solid;
   padding: 20px;
   background: #fff;
