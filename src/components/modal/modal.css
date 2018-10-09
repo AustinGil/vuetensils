@@ -16,8 +16,11 @@
 
 .va11y-modal {
   position: relative;
-  border: 1px solid;
-  padding: 20px;
+  max-width: 70vw;
+  max-height: 80vh;
+  overflow: auto;
+  margin: 10vh auto;
+  padding: 40px 20px 20px;
   background: #fff;
 }
 
@@ -25,5 +28,5 @@
   position: absolute;
   top: 0;
   right: 0;
-  transform: translateY(-100%);
+  /* transform: translateY(-100%); */
 }

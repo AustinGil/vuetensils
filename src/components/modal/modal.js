@@ -40,8 +40,11 @@ const Modal = {
         },
         onFocusout(e) {
           const content = this.$refs.content;
-          if (this.visible && content && !content.contains(e.relatedTarget)) {
-            content.focus();
+          const focusable = content.querySelector(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
+          if (this.visible && content && !content.contains(e.relatedTarget) && focusable) {
+            focusable.focus();
           }
         }
       },
