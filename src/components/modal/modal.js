@@ -33,6 +33,18 @@ const Modal = {
         },
         toggle() {
           this.$emit("change", this.visible);
+        },
+        onFocusout(e) {
+          const content = this.$refs.content;
+          if (this.visible && content && !content.contains(e.relatedTarget)) {
+            content.focus();
+          }
+        },
+        onClickOut(evt) {
+          // backdrop clicked, hide modal
+          if (this.visible) {
+            this.hide("backdrop");
+          }
         }
       },
 
@@ -56,7 +68,7 @@ const Modal = {
               },
               on: {
                 click: e => {
-                  this.hide();
+                  this.hide(e);
                 }
               }
             },
@@ -67,7 +79,11 @@ const Modal = {
         let body = create(
           "div",
           {
-            class: `${NAME}`
+            ref: "content",
+            class: `${NAME}`,
+            on: {
+              focusout: this.onFocusout
+            }
           },
           [closeButton, $slots.default]
         );
@@ -75,10 +91,17 @@ const Modal = {
         return create(
           "div",
           {
+            attrs: {
+              role: "dialog",
+              "aria-hidden": this.visible ? null : "true"
+            },
             class: `${NAME}__wrapper`,
             on: {
               click: e => {
-                this.hide();
+                const el = e.target;
+                if (el.classList.contains(`${NAME}__wrapper`)) {
+                  this.hide();
+                }
               }
             }
           },
