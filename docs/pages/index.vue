@@ -12,6 +12,8 @@
         modal content
       </va11y-modal>
 
+      <va11y-hidden>content</va11y-hidden>
+
       <button @click="onClick">toggle</button>
 
       showing: {{ modal }}
