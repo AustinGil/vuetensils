@@ -1,4 +1,5 @@
 import keycodes from "../../utils/keycodes";
+import Hidden from "../hidden/hidden";
 import "./modal.css";
 
 const NAME = "va11y-modal";
@@ -6,6 +7,10 @@ const NAME = "va11y-modal";
 const Modal = {
   install(Vue, options) {
     Vue.component(NAME, {
+      components: {
+        Hidden
+      },
+
       props: {
         visible: {
           type: Boolean,
@@ -20,10 +25,6 @@ const Modal = {
         prop: "visible",
         event: "change"
       },
-
-      data: () => ({
-        // localVisible: null
-      }),
 
       methods: {
         show() {
@@ -68,24 +69,26 @@ const Modal = {
         let closeButton = create(false);
 
         if (this.dismissible) {
-          $slots["close-content"] = $slots["close-content"] || "Close";
+          let closeContent = [];
+          if ($slots["close-content"]) {
+            closeContent.push($slots["close-content"]);
+          } else {
+            const text = create("va11y-hidden", ["Close"]);
+            const icon = create("span", { attrs: { "aria-hidden": true } }, "x");
+            closeContent.push(text, icon);
+          }
 
           closeButton = create(
             "button",
             {
               class: `${NAME}__close`,
-              props: {
-                // disabled: this.is_transitioning,
-                // ariaLabel: this.headerCloseLabel,
-                // textVariant: this.headerTextVariant
-              },
               on: {
                 click: e => {
                   this.hide(e);
                 }
               }
             },
-            [$slots["close-content"]]
+            closeContent
           );
         }
 
