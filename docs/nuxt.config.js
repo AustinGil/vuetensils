@@ -29,7 +29,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/modal'],
+  plugins: ['~/plugins/va11y-ui'],
 
   /*
   ** Nuxt.js modules
