@@ -1,19 +1,13 @@
-import Modal from "./components/modal/modal";
 import Hidden from "./components/hidden/hidden";
+import Alert from "./components/alert/alert";
+import Modal from "./components/modal/modal";
 
 // The whole shebang
 export default {
   install(Vue, options) {
     // Components
-    Vue.component(Modal.name, Modal);
     Vue.component(Hidden.name, Hidden);
-  }
-};
-
-// Modal
-export const VallyModal = {
-  install(Vue, options) {
-    Vue.component(Hidden.name, Hidden);
+    Vue.component(Alert.name, Alert);
     Vue.component(Modal.name, Modal);
   }
 };
@@ -22,5 +16,19 @@ export const VallyModal = {
 export const VallyHidden = {
   install(Vue, options) {
     Vue.component(Hidden.name, Hidden);
+  }
+};
+
+// Alert
+export const VallyAlert = {
+  install(Vue, options) {
+    Vue.component(Alert.name, Alert);
+  }
+};
+
+// Modal
+export const VallyModal = {
+  install(Vue, options) {
+    Vue.component(Modal.name, Modal);
   }
 };

@@ -1,0 +1,4 @@
+.va11y-alert {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,14 +1,10 @@
 import keycodes from "../../utils/keycodes";
-import Hidden from "../hidden/hidden";
 import "./modal.css";
 
 const NAME = "va11y-modal";
 
 export default {
   name: NAME,
-  components: {
-    Hidden
-  },
 
   props: {
     visible: {
@@ -68,13 +64,15 @@ export default {
     let closeButton = create(false);
 
     if (this.dismissible) {
-      let closeContent = [];
-      if ($slots["close-content"]) {
-        closeContent.push($slots["close-content"]);
-      } else {
-        const text = create("va11y-hidden", ["Close"]);
-        const icon = create("span", { attrs: { "aria-hidden": true } }, "x");
-        closeContent.push(text, icon);
+      let closeContent = this.$slots["close"];
+      if (!closeContent) {
+        closeContent = create(
+          "span",
+          {
+            attrs: { "aria-label": "Close" }
+          },
+          "x"
+        );
       }
 
       closeButton = create(
@@ -87,7 +85,7 @@ export default {
             }
           }
         },
-        closeContent
+        [closeContent]
       );
     }
 

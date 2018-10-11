@@ -12,11 +12,11 @@
         modal content
       </va11y-modal>
 
-      <va11y-hidden>content</va11y-hidden>
+      <!-- <va11y-hidden>content</va11y-hidden> -->
 
       <button @click="onClick">toggle</button>
 
-      showing: {{ modal }}
+      <va11y-alert :visible="6">content</va11y-alert>
       <!-- <div class="links">
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
