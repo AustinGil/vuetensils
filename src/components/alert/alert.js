@@ -1,4 +1,5 @@
 import Hidden from "../hidden/hidden";
+import "../../styles/shared.css";
 import "./alert.css";
 
 const NAME = "va11y-alert";
@@ -79,7 +80,7 @@ export default {
       closeButton = create(
         "button",
         {
-          class: `${NAME}__close`,
+          class: `${NAME}__close va11y-btn--plain`,
           on: {
             click: e => {
               this.hide(e);

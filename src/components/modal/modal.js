@@ -1,4 +1,5 @@
 import keycodes from "../../utils/keycodes";
+import "../../styles/shared.css";
 import "./modal.css";
 
 const NAME = "va11y-modal";
@@ -78,7 +79,7 @@ export default {
       closeButton = create(
         "button",
         {
-          class: `${NAME}__close`,
+          class: `${NAME}__close va11y-btn--plain`,
           on: {
             click: e => {
               this.hide(e);
