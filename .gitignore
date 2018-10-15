@@ -1,6 +1,5 @@
 .DS_Store
 node_modules/
-/dist/
 mysql
 npm-debug.log*
 yarn-debug.log*

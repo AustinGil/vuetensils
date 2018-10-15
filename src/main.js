@@ -13,21 +13,21 @@ export default {
 };
 
 // Hidden
-export const VallyHidden = {
+export const Va11yHidden = {
   install(Vue, options) {
     Vue.component(Hidden.name, Hidden);
   }
 };
 
 // Alert
-export const VallyAlert = {
+export const Va11yAlert = {
   install(Vue, options) {
     Vue.component(Alert.name, Alert);
   }
 };
 
 // Modal
-export const VallyModal = {
+export const Va11yModal = {
   install(Vue, options) {
     Vue.component(Modal.name, Modal);
   }
