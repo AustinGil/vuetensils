@@ -10,6 +10,10 @@
     "/src",
     "/dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bootstrap-vue/bootstrap-vue.git"
+  },
   "scripts": {
     "dev": "echo TODO",
     "build": "rimraf ./dist && webpack --config ./webpack.config.js",
