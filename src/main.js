@@ -1,4 +1,5 @@
 import Alert from "./components/Alert";
+import Dropdown from "./components/Dropdown";
 import Hidden from "./components/Hidden";
 import Intersection from "./components/Intersection";
 import Modal from "./components/Modal";
@@ -8,6 +9,7 @@ export default {
   install (Vue, options) {
     // Components
     Vue.component(Alert.name, Alert);
+    Vue.component(Dropdown.name, Dropdown);
     Vue.component(Hidden.name, Hidden);
     Vue.component(Intersection.name, Intersection);
     Vue.component(Modal.name, Modal);

@@ -9,10 +9,20 @@
       </h2>
 
       <vts-modal v-model="modal" @change="onChange">
-        modal content
+        This modal content traps the focus
         <button>another</button>
         <button>another</button>
       </vts-modal>
+
+      <vts-dropdown>
+        dropdown content
+        <button>click me</button>
+      </vts-dropdown>
+
+      <vts-dropdown>
+        dropdown content
+        <button>click me</button>
+      </vts-dropdown>
 
       <!-- <vts-hidden>content</vts-hidden> -->
 
