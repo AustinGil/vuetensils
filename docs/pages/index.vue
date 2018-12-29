@@ -10,6 +10,8 @@
 
       <vts-modal v-model="modal" @change="onChange">
         modal content
+        <button>another</button>
+        <button>another</button>
       </vts-modal>
 
       <!-- <vts-hidden>content</vts-hidden> -->
