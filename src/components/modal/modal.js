@@ -2,7 +2,7 @@ import keycodes from "../../utils/keycodes";
 import "../../styles/shared.css";
 import "./modal.css";
 
-const NAME = "va11y-modal";
+const NAME = "vts-modal";
 
 export default {
   name: NAME,
@@ -23,19 +23,19 @@ export default {
   },
 
   methods: {
-    show() {
+    show () {
       this.$emit("show");
       this.$emit("change", true);
     },
-    hide() {
+    hide () {
       this.$emit("hide");
       this.$emit("change", false);
     },
-    toggle() {
+    toggle () {
       this.$emit("toggle", this.visible);
       this.$emit("change", this.visible);
     },
-    onFocusout(e) {
+    onFocusout (e) {
       const content = this.$refs.content;
       const focusable = content.querySelector(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -48,7 +48,7 @@ export default {
 
   watch: {
     visible: {
-      handler: function(next, prev) {
+      handler: function (next, prev) {
         if (next === true && next != prev) {
           this.$nextTick(() => {
             this.$refs.content.focus();
@@ -58,7 +58,7 @@ export default {
     }
   },
 
-  render: function(create) {
+  render: function (create) {
     if (!this.visible) return create(false);
 
     const $slots = this.$slots;
@@ -79,7 +79,7 @@ export default {
       closeButton = create(
         "button",
         {
-          class: `${NAME}__close va11y-btn--plain`,
+          class: `${NAME}__close vts-btn--plain`,
           on: {
             click: e => {
               this.hide(e);

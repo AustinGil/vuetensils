@@ -1,8 +1,8 @@
-.va11y-modal__wrapper [tabindex="-1"]:focus {
+.vts-modal__wrapper [tabindex="-1"]:focus {
   outline: 0;
 }
 
-.va11y-modal__wrapper {
+.vts-modal__wrapper {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -14,7 +14,7 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
-.va11y-modal {
+.vts-modal {
   position: relative;
   max-width: 70vw;
   max-height: 80vh;
@@ -24,7 +24,7 @@
   background: #fff;
 }
 
-.va11y-modal__close {
+.vts-modal__close {
   position: absolute;
   top: 0;
   right: 0;

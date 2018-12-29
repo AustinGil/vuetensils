@@ -2,7 +2,7 @@ import Hidden from "../hidden/hidden";
 import "../../styles/shared.css";
 import "./alert.css";
 
-const NAME = "va11y-alert";
+const NAME = "vts-alert";
 
 export default {
   name: NAME,
@@ -30,11 +30,11 @@ export default {
   }),
 
   methods: {
-    show() {
+    show () {
       this.$emit("show");
       this.$emit("change", true);
     },
-    hide() {
+    hide () {
       this.$emit("hide");
       if (typeof this.visible === "number") {
         this.$emit("timer-update", 0);
@@ -44,11 +44,11 @@ export default {
       }
       this.clearTimer();
     },
-    toggle() {
+    toggle () {
       this.$emit("toggle", this.visible);
       this.$emit("change", this.visible);
     },
-    clearTimer() {
+    clearTimer () {
       if (this.timerId) {
         clearInterval(this.timerId);
         this.timerId = null;
@@ -56,11 +56,11 @@ export default {
     }
   },
 
-  destroyed() {
+  destroyed () {
     this.clearTimer();
   },
 
-  render: function(create) {
+  render: function (create) {
     if (!this.visible) return create(false);
 
     let closeButton = create(false);
@@ -80,7 +80,7 @@ export default {
       closeButton = create(
         "button",
         {
-          class: `${NAME}__close va11y-btn--plain`,
+          class: `${NAME}__close vts-btn--plain`,
           on: {
             click: e => {
               this.hide(e);

@@ -8,15 +8,15 @@
         Accessible web components for Vue.js
       </h2>
 
-      <va11y-modal v-model="modal" @change="onChange">
+      <vts-modal v-model="modal" @change="onChange">
         modal content
-      </va11y-modal>
+      </vts-modal>
 
-      <!-- <va11y-hidden>content</va11y-hidden> -->
+      <!-- <vts-hidden>content</vts-hidden> -->
 
       <button @click="onClick">toggle</button>
 
-      <va11y-alert :visible="6">content</va11y-alert>
+      <vts-alert :visible="6">content</vts-alert>
       <!-- <div class="links">
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
@@ -53,8 +53,8 @@ export default {
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;

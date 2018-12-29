@@ -54,7 +54,7 @@ module.exports = [
     output: {
       filename: `${NAME}.min.js`,
       libraryTarget: "window",
-      library: "Va11yUI"
+      library: "vuetensils"
     }
   }),
   // Config 2: For Node-based development environments

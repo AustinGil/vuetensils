@@ -29,7 +29,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/va11y-ui'],
+  plugins: ['~/plugins/vuetensils'],
 
   /*
   ** Nuxt.js modules
@@ -43,6 +43,6 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {}
+    extend (config, ctx) { }
   }
 }

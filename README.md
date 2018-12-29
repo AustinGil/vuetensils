@@ -1,4 +1,4 @@
-# Va11y UI
+# Vuetensils
 
 ### Highly accessible, minimally styled web components for Vue.js
 
@@ -13,9 +13,9 @@ Import into your Vue project:
 ```
 // main.js
 import Vue from 'vue'
-import Va11y from 'va11y-ui'
+import vuetensils from 'vuetensils'
 
-Vue.use(Va11y)
+Vue.use(vuetensils)
 ```
 
 Alternatively, import just the components you need:
@@ -23,9 +23,9 @@ Alternatively, import just the components you need:
 ```
 // main.js
 import Vue from 'vue'
-import { Va11yModal } from 'va11y-ui'
+import { VtsModal } from 'vuetensils'
 
-Vue.use(Va11yModal)
+Vue.use(VtsModal)
 ```
 
 Use the components:
@@ -34,9 +34,9 @@ Use the components:
 // Example.vue
 <template>
   <div>
-    <va11y-modal v-model="show">
+    <vts-modal v-model="show">
       My modal content
-    </va11y-modal>
+    </vts-modal>
   </div>
 </template>
 <script>
