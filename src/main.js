@@ -1,5 +1,6 @@
 import Alert from "./components/Alert";
 import Dropdown from "./components/Dropdown";
+import Fetch from "./components/Fetch";
 import Hidden from "./components/Hidden";
 import Intersection from "./components/Intersection";
 import Modal from "./components/Modal";
@@ -10,6 +11,7 @@ export default {
     // Components
     Vue.component(Alert.name, Alert);
     Vue.component(Dropdown.name, Dropdown);
+    Vue.component(Fetch.name, Fetch);
     Vue.component(Hidden.name, Hidden);
     Vue.component(Intersection.name, Intersection);
     Vue.component(Modal.name, Modal);

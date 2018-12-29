@@ -29,6 +29,17 @@
       <button @click="onClick">toggle</button>
 
       <vts-alert :visible="6">content</vts-alert>
+
+      <vts-fetch url="https://jsonplaceholder.typicode.com/users">
+        <div slot-scope="{ loading, error, response, send }">
+          <p v-if="loading">Loading...</p>
+          <p v-else-if="error">There was an error</p>
+          <template v-else>
+            <p>We got a response!</p>
+            <button @click="send('https://jsonplaceholder.typicode.com/posts')">Send another?</button>
+          </template>
+        </div>
+      </vts-fetch>
     </div>
   </section>
 </template>
