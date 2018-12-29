@@ -1,4 +1,4 @@
-# va11y-ui-docs
+# vuetensils-docs
 
 > docs
 

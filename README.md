@@ -6,7 +6,7 @@
 
 Install the project:
 
-`npm install va11y-ui`
+`npm install vuetensils`
 
 Import into your Vue project:
 

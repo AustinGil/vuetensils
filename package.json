@@ -1,11 +1,11 @@
 {
-  "name": "va11y-ui",
+  "name": "vuetensils",
   "version": "1.0.0",
-  "description": "Highly accessible, minimally styled web components for Vue.js",
+  "description": "Tasty components for Vue.js",
   "author": "Austin Gil <austin@stegosource.com>",
   "license": "MIT",
-  "main": "dist/va11y-ui.js",
-  "style": "dist/va11y-ui.min.css",
+  "main": "dist/vuetensils.js",
+  "style": "dist/vuetensils.min.css",
   "files": [
     "/src",
     "/dist"
