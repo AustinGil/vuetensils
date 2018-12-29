@@ -1,7 +1,9 @@
-
 // https://github.com/heavyy/vue-intersect
+
+const NAME = 'vts-intersection'
+
 export default {
-	name: "intersection",
+	name: NAME,
 	abstract: true,
 	props: {
 		threshold: {
@@ -10,7 +12,7 @@ export default {
 			default: () => [0, 0.2]
 		},
 		root: {
-			type: HTMLElement,
+			type: String,
 			required: false,
 			default: () => null
 		},
@@ -42,11 +44,11 @@ export default {
 		this.$nextTick(() => {
 			if (this.$slots.default && this.$slots.default.length > 1) {
 				warn(
-					"[VueIntersect] You may only wrap one element in a <intersect> component."
+					"[Vuetensils:Intersect] You may only wrap one element in a <intersect> component."
 				);
 			} else if (!this.$slots.default || this.$slots.default.length < 1) {
 				warn(
-					"[VueIntersect] You must have one child inside a <intersect> component."
+					"[Vuetensils:Intersect] You must have one child inside a <intersect> component."
 				);
 				return;
 			}
