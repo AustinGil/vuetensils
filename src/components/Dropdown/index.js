@@ -32,7 +32,8 @@ export default {
       "button",
       {
         attrs: {
-          'aria-haspopup': true
+          'aria-haspopup': true,
+          'aria-expanded': (this.isHovered || this.isFocused) ? 'true' : 'false'
         },
         on: {
           click: () => {
