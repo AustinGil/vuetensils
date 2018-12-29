@@ -1,4 +1,4 @@
-import "./hidden.css";
+import "./styles.css";
 
 const NAME = "vts-hidden";
 

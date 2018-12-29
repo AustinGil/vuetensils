@@ -1,6 +1,6 @@
 import keycodes from "../../utils/keycodes";
 import "../../styles/shared.css";
-import "./modal.css";
+import "./styles.css";
 
 const NAME = "vts-modal";
 

@@ -1,6 +1,6 @@
-import Hidden from "./components/hidden/hidden";
-import Alert from "./components/alert/alert";
-import Modal from "./components/modal/modal";
+import Hidden from "./components/Hidden";
+import Alert from "./components/Alert";
+import Modal from "./components/Modal";
 
 // The whole shebang
 export default {

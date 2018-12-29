@@ -1,6 +1,6 @@
-import Hidden from "../hidden/hidden";
+import Hidden from "../Hidden";
 import "../../styles/shared.css";
-import "./alert.css";
+import "./styles.css";
 
 const NAME = "vts-alert";
 
