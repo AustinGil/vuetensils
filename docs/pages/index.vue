@@ -40,6 +40,8 @@
           </template>
         </div>
       </vts-fetch>
+
+      <vts-loading name="ring"></vts-loading>
     </div>
   </section>
 </template>

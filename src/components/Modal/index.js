@@ -1,4 +1,4 @@
-import keycodes from "../../utils/keycodes";
+import keycodes from "../../data/keycodes";
 import "../../styles/shared.css";
 import "./styles.css";
 

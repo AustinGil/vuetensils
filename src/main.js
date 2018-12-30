@@ -3,6 +3,7 @@ import Dropdown from "./components/Dropdown";
 import Fetch from "./components/Fetch";
 import Hidden from "./components/Hidden";
 import Intersection from "./components/Intersection";
+import Loading from "./components/Loading";
 import Modal from "./components/Modal";
 
 // The whole shebang
@@ -14,6 +15,7 @@ export default {
     Vue.component(Fetch.name, Fetch);
     Vue.component(Hidden.name, Hidden);
     Vue.component(Intersection.name, Intersection);
+    Vue.component(Loading.name, Loading);
     Vue.component(Modal.name, Modal);
   }
 };
