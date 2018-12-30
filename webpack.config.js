@@ -13,6 +13,11 @@ const config = {
   output: {
     path: path.resolve(__dirname + "/dist/")
   },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    }
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: `${NAME}.min.css`,
