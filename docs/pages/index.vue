@@ -41,7 +41,7 @@
         </div>
       </vts-fetch>
 
-      <vts-loading name="ring"></vts-loading>
+      <vts-loading name="spin" fill="currentColor" stroke="none" />
     </div>
   </section>
 </template>

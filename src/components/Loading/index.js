@@ -14,13 +14,35 @@ export default {
 		name: {
 			type: String,
 			default: 'ripple'
+		},
+		width: {
+			type: String | Number
+		},
+		height: {
+			type: String | Number
+		},
+		fill: {
+			type: String,
+			default: 'none'
+		},
+		stroke: {
+			type: String,
+			default: 'currentColor'
 		}
 	},
 	render: function (create, context) {
 		return create(
-			"span",
+			"svg",
 			{
 				class: NAME,
+				attrs: {
+					xmlns: "http://www.w3.org/2000/svg",
+					viewBox: "0 0 100 100",
+					fill: this.fill,
+					stroke: this.stroke,
+					width: this.width,
+					height: this.height
+				},
 				domProps: {
 					innerHTML: svgs[this.name]
 				},
