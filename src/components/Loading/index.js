@@ -13,7 +13,7 @@ export default {
 	props: {
 		name: {
 			type: String,
-			default: 'ripple'
+			default: 'ring'
 		},
 		width: {
 			type: String | Number
