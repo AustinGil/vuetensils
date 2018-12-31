@@ -1,6 +1,16 @@
 <template>
   <div>
     <nuxt />
+    <footer>
+      <p style="margin-top: 30px; text-align: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 17.32" width="20" height="17.32">
+          <path d="M12.309 0L10 4 7.691 0H0l10 17.32L20 0h-7.691z" fill="#4DBA87" />
+          <path d="M12.309 0L10 4 7.691 0H4l6 10.392L16 0h-3.691z" fill="#435466" />
+        </svg>
+        with ❤ by
+        <a href="https://stegosource.com">Stegosource</a>
+      </p>
+    </footer>
   </div>
 </template>
 
