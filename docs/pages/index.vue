@@ -1,98 +1,294 @@
 <template>
   <section class="container">
-    <div>
-      <h1 class="title">
-        <pre>vuetensils</pre>
-      </h1>
-      <h2 class="subtitle">
-        Accessible web components for Vue.js
-      </h2>
+    <div v-html="readmeContent"></div>
 
-      <vts-modal v-model="modal" @change="onChange">
-        This modal content traps the focus
-        <button>another</button>
-        <button>another</button>
-      </vts-modal>
+    <hr>
 
-      <vts-dropdown>
-        dropdown content
-        <button>click me</button>
-      </vts-dropdown>
+    <h3>
+      <code>&lt;vts-drawer&gt;</code>
+    </h3>
 
-      <vts-dropdown>
-        dropdown content
-        <button>click me</button>
-      </vts-dropdown>
+    <pre><code>// Example.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;vts-drawer v-model="show"&gt;
+      My drawer content
+    &lt;/vts-drawer&gt;
 
-      <!-- <vts-hidden>content</vts-hidden> -->
+    &lt;button @click=&quot;show = !show&quot;&gt;Toggle Drawer&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  data: () =&gt; ({
+    show: true
+  })
+}
+&lt;/script&gt;
+</code></pre>
 
-      <button @click="modal = !modal">toggle</button>
+    <vts-drawer v-model="showDrawer">
+      My drawer content
+    </vts-drawer>
 
-      <!-- <vts-alert :visible="6">content</vts-alert> -->
+    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
 
-      <vts-fetch url="https://jsonplaceholder.typicode.com/users">
-        <div slot-scope="{ loading, error, response, send }">
-          <p v-if="loading">Loading...</p>
-          <p v-else-if="error">There was an error</p>
-          <template v-else>
-            <p>We got a response!</p>
-            <button @click="send('https://jsonplaceholder.typicode.com/posts')">Send another?</button>
-          </template>
-        </div>
-      </vts-fetch>
+    <hr>
 
-      <!-- <vts-loading /> -->
+    <h3>
+      <code>&lt;vts-dropdown&gt;</code>
+    </h3>
 
-      <vts-drawer v-model="drawer">
-        <p>this is the drawer content</p>
-        <button>click me</button>
-        <button @click="drawer = false">close</button>
-      </vts-drawer>
+    <pre><code>// Example.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;vts-dropdown&gt;
+      &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;
+      &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;
+      &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;
+    &lt;/vts-dropdown&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
 
-      <button @click="drawer = !drawer">Toggle Drawer</button>
+    <vts-dropdown>
+      <a href="#">link</a>
+      <a href="#">link</a>
+      <a href="#">link</a>
+    </vts-dropdown>
+
+    <hr>
+
+    <h3>
+      <code>&lt;vts-fetch&gt;</code>
+    </h3>
+
+    <pre><code>// Example.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;vts-fetch :url=&quot;`https://jsonplaceholder.typicode.com/users/${userId}`&quot;&gt;
+      &lt;div slot-scope=&quot;{ loading, error, response, send }&quot;&gt;
+        &lt;p v-if=&quot;loading&quot;&gt;Loading...&lt;/p&gt;
+
+        &lt;p v-else-if=&quot;error&quot;&gt;There was an error&lt;/p&gt;
+
+        &lt;template v-else&gt;
+          &lt;p&gt;JSON response:&lt;/p&gt;
+          &lt;code&gt;{ { response } }&lt;/code&gt;
+          &lt;br&gt;
+          &lt;button @click=&quot;send(`https://jsonplaceholder.typicode.com/users/${userId++}`)&quot;&gt;Get next user&lt;/button&gt;
+        &lt;/template&gt;
+      &lt;/div&gt;
+    &lt;/vts-fetch&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  data: () =&gt; ({
+    userId: 1
+  })
+}
+&lt;/script&gt;
+</code></pre>
+
+    <vts-fetch :url="`https://jsonplaceholder.typicode.com/users/${userId}`">
+      <div slot-scope="{ loading, error, response, send }">
+        <p v-if="loading">Loading...</p>
+
+        <p v-else-if="error">There was an error</p>
+
+        <template v-else>
+          <p>JSON response:</p>
+          <code>{{ response }}</code>
+          <br>
+          <button @click="send(`https://jsonplaceholder.typicode.com/users/${userId++}`)">Get next user</button>
+        </template>
+      </div>
+    </vts-fetch>
+
+    <hr>
+
+    <h3>
+      <code>&lt;vts-intersection&gt;</code>
+    </h3>
+
+    <pre><code>// Example.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;vts-intersection @enter=&quot;consoleLog('@enter fired')&quot; @leave=&quot;consoleLog('@leave fired')&quot; @change=&quot;consoleLog('@change fired')&quot;&gt;
+      Check your developer console to see updates.
+    &lt;/vts-intersection&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  methods: {
+    consoleLog: console.log
+  }
+}
+&lt;/script&gt;
+</code></pre>
+
+    <vts-intersection @enter="consoleLog('@enter fired')" @leave="consoleLog('@leave fired')" @change="consoleLog('@change fired')">
+      Check your developer console to see updates.
+    </vts-intersection>
+
+    <hr>
+
+    <h3>
+      <code>&lt;vts-loading&gt;</code>
+    </h3>
+
+    <pre><code>// Example.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;div style=&quot;max-width: 200px;&quot;&gt;
+      &lt;label&gt;
+        Loading Type:
+        &lt;select v-model=&quot;loadingType&quot;&gt;
+          &lt;option v-for=&quot;type in loadingTypes&quot; :key=&quot;type&quot; :value=&quot;type&quot;&gt;{ { type } }&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;br&gt;
+      &lt;label&gt;
+        Fill Color:
+        &lt;select v-model=&quot;fill&quot;&gt;
+          &lt;option v-for=&quot;color in colors&quot; :key=&quot;color&quot; :value=&quot;color&quot;&gt;{ { color } }&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;br&gt;
+      &lt;label&gt;
+        Stroke Color:
+        &lt;select v-model=&quot;stroke&quot;&gt;
+          &lt;option v-for=&quot;color in colors&quot; :key=&quot;color&quot; :value=&quot;color&quot;&gt;{ { color } }&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/label&gt;
+      &lt;vts-loading :name=&quot;loadingType&quot; :fill=&quot;fill&quot; :stroke=&quot;stroke&quot; /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  data: () => ({
+    loadingType: '',
+    loadingTypes: [
+      'bars',
+      'cube',
+      'infinity',
+      'gear',
+      'ring',
+      'ripple',
+      'spin'
+    ],
+    stroke: 'currentColor',
+    fill: 'none',
+    colors: [
+      'none',
+      'currentColor',
+      'red',
+      '#bada55',
+      'rgba(0, 0, 0, 0.5)'
+    ]
+  })
+}
+&lt;/script&gt;
+</code></pre>
+
+    <div style="max-width: 200px;">
+      <label>
+        Loading Type:
+        <select v-model="loadingType">
+          <option v-for="type in loadingTypes" :key="type" :value="type">{{ type }}</option>
+        </select>
+      </label>
+      <br>
+      <label>
+        Fill Color:
+        <select v-model="fill">
+          <option v-for="color in colors" :key="color" :value="color">{{ color }}</option>
+        </select>
+      </label>
+      <br>
+      <label>
+        Stroke Color:
+        <select v-model="stroke">
+          <option v-for="color in colors" :key="color" :value="color">{{ color }}</option>
+        </select>
+      </label>
+      <vts-loading :name="loadingType" :fill="fill" :stroke="stroke" />
     </div>
+
+    <hr>
+
+    <h3>
+      <code>&lt;vts-modal&gt;</code>
+    </h3>
+
+    <pre><code>// Example.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;vts-modal v-model=&quot;modal&quot;&gt;
+      This is the modal content.
+      &lt;br&gt;
+      It traps the user focus.
+      &lt;br&gt;
+      &lt;button @click=&quot;modal = false&quot;&gt;Close&lt;/button&gt;
+    &lt;/vts-modal&gt;
+    &lt;button @click=&quot;modal = !modal&quot;&gt;toggle&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  data: () => ({
+    modal: false
+  })
+}
+&lt;/script&gt;
+</code></pre>
+
+    <vts-modal v-model="modal">
+      This is the modal content.
+      <br>
+      It traps the user focus.
+      <br>
+      <button @click="modal = false">Close</button>
+    </vts-modal>
+    <button @click="modal = !modal">toggle</button>
+
   </section>
 </template>
 
 <script>
+import readmeContent from '../../README.md'
 export default {
   data: () => ({
-    modal: false,
-    drawer: false
+    readmeContent,
+    showDrawer: false,
+    userId: 1,
+    loadingType: '',
+    loadingTypes: [
+      'bars',
+      'cube',
+      'infinity',
+      'gear',
+      'ring',
+      'ripple',
+      'spin'
+    ],
+    stroke: 'currentColor',
+    fill: 'none',
+    colors: [
+      'none',
+      'currentColor',
+      'red',
+      '#bada55',
+      'rgba(0, 0, 0, 0.5)'
+    ],
+    modal: false
   }),
 
   methods: {
-    onChange(e) {
-      console.log(e)
-    }
+    consoleLog: console.log
   }
 }
 </script>
-
-<style>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-</style>

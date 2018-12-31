@@ -65,27 +65,6 @@ export default {
 			</path>
 		</g>
 	</g>`,
-	pacman: `<g>
-		<circle cx="69.8376" cy="50" r="4">
-			<animate attributeName="cx" calcMode="linear" values="95;35" keyTimes="0;1" dur="1" begin="-0.67s" repeatCount="indefinite"></animate><animate attributeName="fill-opacity" calcMode="linear" values="0;1;1" keyTimes="0;0.2;1" dur="1" begin="-0.67s" repeatCount="indefinite"></animate>
-		</circle>
-		<circle cx="90.2376" cy="50" r="4">
-			<animate attributeName="cx" calcMode="linear" values="95;35" keyTimes="0;1" dur="1" begin="-0.33s" repeatCount="indefinite"></animate>
-			<animate attributeName="fill-opacity" calcMode="linear" values="0;1;1" keyTimes="0;0.2;1" dur="1" begin="-0.33s" repeatCount="indefinite"></animate>
-		</circle>
-		<circle cx="50.0376" cy="50" r="4">
-			<animate attributeName="cx" calcMode="linear" values="95;35" keyTimes="0;1" dur="1" begin="0s" repeatCount="indefinite"></animate>
-			<animate attributeName="fill-opacity" calcMode="linear" values="0;1;1" keyTimes="0;0.2;1" dur="1" begin="0s" repeatCount="indefinite"></animate>
-		</circle>
-	</g>
-	<g transform="translate(-15 0)">
-		<path d="M50 50L20 50A30 30 0 0 0 80 50Z" transform="rotate(22.5563 50 50)">
-			<animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;45 50 50;0 50 50" keyTimes="0;0.5;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform>
-		</path>
-		<path d="M50 50L20 50A30 30 0 0 1 80 50Z" transform="rotate(-22.5563 50 50)">
-			<animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;-45 50 50;0 50 50" keyTimes="0;0.5;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform>
-		</path>
-	</g>`,
 	ring: `<circle cx="50" cy="50" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
 		<animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="1.1s" begin="0s" repeatCount="indefinite"></animateTransform>
 	</circle>`,

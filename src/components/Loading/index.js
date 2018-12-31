@@ -44,7 +44,7 @@ export default {
 					height: this.height
 				},
 				domProps: {
-					innerHTML: svgs[this.name]
+					innerHTML: svgs[this.name || 'ring']
 				},
 			}
 		);

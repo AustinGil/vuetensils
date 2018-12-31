@@ -20,9 +20,13 @@ export default {
 			type: String,
 			required: false,
 			default: () => "0px 0px 0px 0px"
+		},
+		tag: {
+			type: String,
+			default: 'div'
 		}
 	},
-	created () {
+	mounted () {
 		this.observer = new IntersectionObserver(
 			entries => {
 				if (!entries[0].isIntersecting) {
@@ -30,7 +34,6 @@ export default {
 				} else {
 					this.$emit("enter", [entries[0]]);
 				}
-
 				this.$emit("change", [entries[0]]);
 			},
 			{
@@ -39,27 +42,18 @@ export default {
 				rootMargin: this.rootMargin
 			}
 		);
-	},
-	mounted () {
-		this.$nextTick(() => {
-			if (this.$slots.default && this.$slots.default.length > 1) {
-				warn(
-					"[Vuetensils:Intersect] You may only wrap one element in a <intersect> component."
-				);
-			} else if (!this.$slots.default || this.$slots.default.length < 1) {
-				warn(
-					"[Vuetensils:Intersect] You must have one child inside a <intersect> component."
-				);
-				return;
-			}
-
-			this.observer.observe(this.$slots.default[0].elm);
-		});
+		this.observer.observe(this.$el);
 	},
 	destroyed () {
 		this.observer.disconnect();
 	},
-	render () {
-		return this.$slots.default ? this.$slots.default[0] : null;
+	render (create) {
+		return create(
+			this.tag,
+			{
+				class: NAME
+			},
+			[this.$slots.default]
+		);
 	}
 };

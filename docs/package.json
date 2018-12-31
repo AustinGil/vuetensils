@@ -11,6 +11,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/markdownit": "^1.2.3",
     "bootstrap-vue": "^2.0.0-rc.11",
     "cross-env": "^5.2.0",
     "nuxt": "^2.0.0",

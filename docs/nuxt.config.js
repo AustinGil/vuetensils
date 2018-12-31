@@ -1,4 +1,4 @@
-const pkg = require('./package')
+const pkg = require('../package')
 
 module.exports = {
   mode: 'universal',
@@ -7,13 +7,16 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: `${pkg.name} - ${pkg.description}`,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono' }
+    ]
   },
 
   /*
@@ -34,7 +37,9 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
-  modules: [],
+  modules: [
+    '@nuxtjs/markdownit'
+  ],
 
   /*
   ** Build configuration
