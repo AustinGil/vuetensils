@@ -1,0 +1,28 @@
+.vts-drawer,
+.vts-drawer__overlay {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.vts-drawer {
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.vts-drawer [tabindex="-1"]:focus {
+  outline: 0;
+}
+
+.vts-drawer__overlay {
+	position: absolute;
+}
+
+.vts-drawer__content {
+	position: relative;
+	width: 100%;
+	max-width: 300px;
+	height: 100%;
+	background: #fff;
+}

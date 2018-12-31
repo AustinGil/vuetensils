@@ -1,4 +1,3 @@
-import "../../styles/shared.css";
 import "./styles.css";
 
 const NAME = "vts-dropdown";

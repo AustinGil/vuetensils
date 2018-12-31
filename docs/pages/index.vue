@@ -26,9 +26,9 @@
 
       <!-- <vts-hidden>content</vts-hidden> -->
 
-      <button @click="onClick">toggle</button>
+      <button @click="modal = !modal">toggle</button>
 
-      <vts-alert :visible="6">content</vts-alert>
+      <!-- <vts-alert :visible="6">content</vts-alert> -->
 
       <vts-fetch url="https://jsonplaceholder.typicode.com/users">
         <div slot-scope="{ loading, error, response, send }">
@@ -41,7 +41,15 @@
         </div>
       </vts-fetch>
 
-      <vts-loading />
+      <!-- <vts-loading /> -->
+
+      <vts-drawer v-model="drawer">
+        <p>this is the drawer content</p>
+        <button>click me</button>
+        <button @click="drawer = false">close</button>
+      </vts-drawer>
+
+      <button @click="drawer = !drawer">Toggle Drawer</button>
     </div>
   </section>
 </template>
@@ -49,16 +57,13 @@
 <script>
 export default {
   data: () => ({
-    modal: false
+    modal: false,
+    drawer: false
   }),
 
   methods: {
-    onClick(e) {
-      this.modal = !this.modal
-    },
-
     onChange(e) {
-      // console.log(e)
+      console.log(e)
     }
   }
 }
