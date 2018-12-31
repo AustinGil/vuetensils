@@ -19,11 +19,24 @@ const FOCUSABLE = [
 export default {
 	name: NAME,
 
+	props: {
+		showing: {
+			type: Boolean,
+			default: false
+		},
+		width: {
+			type: String,
+			default: null
+		},
+		maxWidth: {
+			type: String,
+			default: null
+		}
+	},
 	model: {
 		prop: "showing",
 		event: "change"
 	},
-	props: ['showing'],
 
 	methods: {
 		show () {
@@ -39,13 +52,11 @@ export default {
 			this.$emit(event, !this.showing)
 			this.$emit('change', !this.showing)
 		},
-		onEsc (event) {
+		onKeydown (event) {
 			if (event.keyCode === keycodes.ESC) {
 				this.hide();
 			}
-		},
-		trapFocus (event) {
-			if (event.keyCode === 9) {
+			if (event.keyCode === keycodes.TAB) {
 				const content = this.$refs.content;
 				const focusable = Array.from(content.querySelectorAll(FOCUSABLE));
 
@@ -81,54 +92,41 @@ export default {
 		}
 	},
 
-	mounted () {
-		document.addEventListener("keydown", this.onEsc);
-
-	},
-
-	destroyed () {
-		document.removeEventListener("keydown", this.onEsc);
-	},
-
 	render (create) {
-		const overlay = create(
-			'span',
-			{
-				class: `${NAME}__overlay`,
-				on: {
-					click: () => {
-						this.hide();
-					},
-				}
-			}
-		)
+		if (!this.showing) {
+			return create(false)
+		}
 
-		const content = create(
-			"div",
+		const content = create("aside",
 			{
 				ref: "content",
 				class: `${NAME}__content`,
+				style: {
+					width: this.width || null,
+					maxWidth: this.maxWidth || null,
+				},
 				attrs: {
 					tabindex: "-1"
 					// 'aria-label': "submenu"
-				},
-				on: {
-					keydown: this.trapFocus
 				}
 			},
 			[this.$slots.default]
 		);
 
-		let drawer = create(false)
-		if (this.showing) {
-			drawer = create(
-				"aside",
-				{
-					class: NAME
-				},
-				[overlay, content]
-			)
-		}
+		const drawer = create("div",
+			{
+				class: NAME,
+				on: {
+					click: event => {
+						if (event.target.classList.contains(`${NAME}`)) {
+							this.hide();
+						}
+					},
+					keydown: this.onKeydown
+				}
+			},
+			[content]
+		)
 
 		return drawer;
 	}

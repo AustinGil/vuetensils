@@ -27,8 +27,7 @@ export default {
   },
 
   render (create) {
-    const button = create(
-      "button",
+    const button = create("button",
       {
         attrs: {
           'aria-haspopup': true,
@@ -45,8 +44,7 @@ export default {
 
     let content = create(false)
     if (this.isHovered || this.isFocused) {
-      content = create(
-        "div",
+      content = create("div",
         {
           class: `${NAME}__content`,
           attrs: {
@@ -57,8 +55,7 @@ export default {
       );
     }
 
-    return create(
-      "div",
+    return create("div",
       {
         class: NAME,
         on: {
@@ -68,7 +65,7 @@ export default {
           mouseleave: () => {
             this.isHovered = false
           },
-          focusout: (event) => {
+          focusout: event => {
             if (!this.$el.contains(event.relatedTarget)) {
               this.isFocused = false
             }

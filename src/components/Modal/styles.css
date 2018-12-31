@@ -1,8 +1,4 @@
-.vts-modal__wrapper [tabindex="-1"]:focus {
-  outline: 0;
-}
-
-.vts-modal__wrapper {
+.vts-modal {
   position: fixed;
   z-index: 100;
   top: 0;
@@ -15,18 +11,13 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
-.vts-modal {
-  position: relative;
+.vts-modal [tabindex="-1"]:focus {
+  outline: 0;
+}
+
+.vts-modal__content {
   max-width: 70vw;
   max-height: 80vh;
   overflow: auto;
-  margin: 10vh auto;
-  padding: 40px 20px 20px;
   background: #fff;
-}
-
-.vts-modal__close {
-  position: absolute;
-  top: 0;
-  right: 0;
 }

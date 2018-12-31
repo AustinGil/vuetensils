@@ -1,6 +1,6 @@
-# Vuetensils
+# Vuetensils - Tasty tools for Vue.js
 
-### Highly accessible, minimally styled web components for Vue.js
+###
 
 ## Getting Started
 

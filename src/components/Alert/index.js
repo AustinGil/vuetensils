@@ -82,8 +82,8 @@ export default {
         {
           class: `${NAME}__close vts-btn--plain`,
           on: {
-            click: e => {
-              this.hide(e);
+            click: event => {
+              this.hide(event);
             }
           }
         },

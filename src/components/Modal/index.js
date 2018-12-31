@@ -1,5 +1,4 @@
 import keycodes from "../../data/keycodes";
-import "../../styles/shared.css";
 import "./styles.css";
 
 const NAME = "vts-modal";
@@ -21,17 +20,25 @@ export default {
   name: NAME,
 
   props: {
-    visible: {
+    showing: {
       type: Boolean,
       default: false
     },
     dismissible: {
       type: Boolean,
       default: true
+    },
+    width: {
+      type: String,
+      default: null
+    },
+    maxWidth: {
+      type: String,
+      default: null
     }
   },
   model: {
-    prop: "visible",
+    prop: "showing",
     event: "change"
   },
 
@@ -45,15 +52,19 @@ export default {
       this.$emit("change", false);
     },
     toggle () {
-      this.$emit("toggle", this.visible);
-      this.$emit("change", this.visible);
+      const event = this.showing ? 'hide' : 'show'
+      this.$emit(event, !this.showing)
+      this.$emit('change', !this.showing)
     },
-    trapFocus (event) {
-      if (event.keyCode === 9) {
+    onKeydown (event) {
+      if (event.keyCode === keycodes.ESC) {
+        this.hide();
+      }
+      if (event.keyCode === keycodes.TAB) {
         const content = this.$refs.content;
         const focusable = Array.from(content.querySelectorAll(FOCUSABLE));
 
-        if (this.visible && content && !content.contains(document.activeElement) && focusable) {
+        if (this.showing && content && !content.contains(document.activeElement) && focusable) {
           event.preventDefault()
           focusable[0].focus();
         } else {
@@ -74,7 +85,7 @@ export default {
   },
 
   watch: {
-    visible: {
+    showing: {
       handler: function (next, prev) {
         if (next === true && next != prev) {
           this.$nextTick(() => {
@@ -85,76 +96,40 @@ export default {
     }
   },
 
-  render: function (create) {
-    if (!this.visible) return create(false);
-
-    const $slots = this.$slots;
-    let closeButton = create(false);
-
-    if (this.dismissible) {
-      let closeContent = this.$slots["close"];
-      if (!closeContent) {
-        closeContent = create(
-          "span",
-          {
-            attrs: { "aria-label": "Close" }
-          },
-          "x"
-        );
-      }
-
-      closeButton = create(
-        "button",
-        {
-          class: `${NAME}__close vts-btn--plain`,
-          on: {
-            click: e => {
-              this.hide(e);
-            }
-          }
-        },
-        [closeContent]
-      );
+  render (create) {
+    if (!this.showing) {
+      return create(false);
     }
 
-    let body = create(
-      "div",
+    const content = create("div",
       {
         ref: "content",
-        class: `${NAME}`,
-        attrs: {
-          tabindex: "-1"
+        class: `${NAME}__content`,
+        style: {
+          width: this.width || null,
+          maxWidth: this.maxWidth || null,
         },
-        on: {
-          keydown: this.trapFocus
+        attrs: {
+          tabindex: "-1",
+          role: "dialog"
         }
       },
-      [closeButton, $slots.default]
+      [this.$slots.default]
     );
 
-    return create(
-      "div",
+    return create("div",
       {
-        attrs: {
-          role: "dialog",
-          "aria-hidden": this.visible ? null : "true"
-        },
-        class: `${NAME}__wrapper`,
+        class: `${NAME}`,
         on: {
-          click: e => {
-            const el = e.target;
-            if (el.classList.contains(`${NAME}__wrapper`) && this.dismissible) {
+          click: event => {
+            if (event.target.classList.contains(`${NAME}`) && this.dismissible) {
               this.hide();
             }
           },
-          keydown: e => {
-            if (e.keyCode === keycodes.ESC) {
-              this.hide();
-            }
-          }
+          keydown: this.onKeydown
         }
       },
-      [body]
+      [content]
     );
   }
 };
