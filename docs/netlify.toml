@@ -1,0 +1,19 @@
+# https://www.netlify.com/docs/netlify-toml-reference/
+
+# Redirect default Netlify subdomain to primary domain
+[[redirects]]
+  from = "https://vuetensils.netlify.com/*"
+  to = "https://vuetensils.stegosource.com/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "http://matryx.netlify.com/*"
+  to = "https://vuetensils.stegosource.com/:splat"
+  status = 301
+  force = true
+
+# The following redirect is intended for use with most SPA's that handles routing internally.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+status = 200
