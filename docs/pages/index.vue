@@ -76,8 +76,10 @@ export default {
           &lt;p&gt;JSON response:&lt;/p&gt;
           &lt;code&gt;{ { response } }&lt;/code&gt;
           &lt;br&gt;
-          &lt;button @click=&quot;send(`https://jsonplaceholder.typicode.com/users/${userId++}`)&quot;&gt;Get next user&lt;/button&gt;
         &lt;/template&gt;
+
+        &lt;button @click=&quot;send(`https://jsonplaceholder.typicode.com/users/${userId++}`)&quot;&gt;Get next user&lt;/button&gt;
+        &lt;button @click=&quot;send(`https://httpstat.us/500`)&quot;&gt;Get a 500 error&lt;/button&gt;
       &lt;/div&gt;
     &lt;/vts-fetch&gt;
   &lt;/div&gt;
@@ -101,8 +103,10 @@ export default {
           <p>JSON response:</p>
           <code>{{ response }}</code>
           <br>
-          <button @click="send(`https://jsonplaceholder.typicode.com/users/${userId++}`)">Get next user</button>
         </template>
+
+        <button @click="send(`https://jsonplaceholder.typicode.com/users/${userId++}`)">Get next user</button>
+        <button @click="send('https://httpstat.us/500')">Get a 500 error</button>
       </div>
     </vts-fetch>
 
@@ -277,13 +281,7 @@ export default {
     ],
     stroke: 'currentColor',
     fill: 'none',
-    colors: [
-      'none',
-      'currentColor',
-      'red',
-      '#bada55',
-      'rgba(0, 0, 0, 0.5)'
-    ],
+    colors: ['none', 'currentColor', 'red', '#bada55', 'rgba(0, 0, 0, 0.5)'],
     modal: false
   }),
 

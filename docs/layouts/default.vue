@@ -58,6 +58,10 @@ h2 {
   text-align: center;
 }
 
+a {
+  color: #42b983;
+}
+
 pre {
   padding: 15px;
   background: #34495e;
