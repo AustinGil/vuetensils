@@ -2,7 +2,7 @@
 
 ## 🍴 A tasty toolset for Vue.js 🛠
 
-Vuetensils is a collection of Vue components desined to be light weight, accessible, and extensible. It is not a full blown UI library. Instead, it is designed to jump start a project with some of the most common UI solutions, but does not bring with it any opinionated styles. Bring your own styles, and let Vuetensils handle things like a modal popup that is accessible, traps user tab focus, and closes when the escape key is pressed.
+Vuetensils is a collection of Vue components desined to be light weight, accessible, and extensible. It is not a full blown UI library. Instead, it is designed to jump start a project with some of the most common UI solutions, but does not bring with it any opinionated styles. Bring your own styles, and let Vuetensils handle things like a modal popup that is accessible, traps user tab focus, and closes when the escape key is pressed. View on [GitHub](https://github.com/Stegosource/vuetensils) or [NPM](https://www.npmjs.com/package/vuetensils).
 
 ### Getting Started
 
