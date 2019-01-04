@@ -63,15 +63,15 @@ export default {
     if (!this.$scopedSlots.default) {
       return create(false)
     }
-    const children = this.$scopedSlots.default({
+    const scopedSlot = this.$scopedSlots.default({
       filteredItems: this.returned,
       addItem: this.addItem,
       removeItem: this.removeItem
     })
-    if (children.length) {
+    if (scopedSlot.length) {
       console.warn("[ItemsList] Requires 1 root element. Using injected <div>.")
-      return create("div", [children])
+      return create("div", [scopedSlot])
     }
-    return children
+    return scopedSlot
   }
 }
