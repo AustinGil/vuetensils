@@ -1,18 +1,18 @@
-import keycodes from "../../data/keycodes";
-import "./styles.css";
+import keycodes from "../../data/keycodes"
+import "./styles.css"
 
-const NAME = "vts-modal";
+const NAME = "vts-modal"
 const FOCUSABLE = [
-  'a[href]',
-  'area[href]',
+  "a[href]",
+  "area[href]",
   'input:not([disabled]):not([type="hidden"]):not([aria-hidden])',
-  'select:not([disabled]):not([aria-hidden])',
-  'textarea:not([disabled]):not([aria-hidden])',
-  'button:not([disabled]):not([aria-hidden])',
-  'iframe',
-  'object',
-  'embed',
-  '[contenteditable]',
+  "select:not([disabled]):not([aria-hidden])",
+  "textarea:not([disabled]):not([aria-hidden])",
+  "button:not([disabled]):not([aria-hidden])",
+  "iframe",
+  "object",
+  "embed",
+  "[contenteditable]",
   '[tabindex]:not([tabindex^="-"])'
 ]
 
@@ -35,6 +35,10 @@ export default {
     maxWidth: {
       type: String,
       default: null
+    },
+    preventScroll: {
+      type: Boolean,
+      default: true
     }
   },
   model: {
@@ -43,30 +47,30 @@ export default {
   },
 
   methods: {
-    show () {
-      this.$emit("show");
-      this.$emit("change", true);
+    show() {
+      this.$emit("show")
+      this.$emit("change", true)
     },
-    hide () {
-      this.$emit("hide");
-      this.$emit("change", false);
+    hide() {
+      this.$emit("hide")
+      this.$emit("change", false)
     },
-    toggle () {
-      const event = this.showing ? 'hide' : 'show'
+    toggle() {
+      const event = this.showing ? "hide" : "show"
       this.$emit(event, !this.showing)
-      this.$emit('change', !this.showing)
+      this.$emit("change", !this.showing)
     },
-    onKeydown (event) {
+    onKeydown(event) {
       if (event.keyCode === keycodes.ESC) {
-        this.hide();
+        this.hide()
       }
       if (event.keyCode === keycodes.TAB) {
-        const content = this.$refs.content;
-        const focusable = Array.from(content.querySelectorAll(FOCUSABLE));
+        const content = this.$refs.content
+        const focusable = Array.from(content.querySelectorAll(FOCUSABLE))
 
         if (this.showing && content && !content.contains(document.activeElement) && focusable) {
           event.preventDefault()
-          focusable[0].focus();
+          focusable[0].focus()
         } else {
           const focusedItemIndex = focusable.indexOf(document.activeElement)
 
@@ -86,28 +90,29 @@ export default {
 
   watch: {
     showing: {
-      handler: function (next, prev) {
+      handler: function(next, prev) {
         if (next === true && next != prev) {
           this.$nextTick(() => {
-            this.$refs.content.focus();
-          });
+            this.$refs.content.focus()
+          })
         }
       }
     }
   },
 
-  render (create) {
+  render(create) {
     if (!this.showing) {
-      return create(false);
+      return create(false)
     }
 
-    const content = create("div",
+    const content = create(
+      "div",
       {
         ref: "content",
         class: `${NAME}__content`,
         style: {
           width: this.width || null,
-          maxWidth: this.maxWidth || null,
+          maxWidth: this.maxWidth || null
         },
         attrs: {
           tabindex: "-1",
@@ -115,21 +120,22 @@ export default {
         }
       },
       [this.$slots.default]
-    );
+    )
 
-    return create("div",
+    return create(
+      "div",
       {
         class: `${NAME}`,
         on: {
           click: event => {
             if (event.target.classList.contains(`${NAME}`) && this.dismissible) {
-              this.hide();
+              this.hide()
             }
           },
           keydown: this.onKeydown
         }
       },
       [content]
-    );
+    )
   }
-};
+}
