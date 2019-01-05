@@ -1,14 +1,9 @@
-import Hidden from "../Hidden";
-import "../../styles/shared.css";
-import "./styles.css";
+import "./styles.css"
 
-const NAME = "vts-alert";
+const NAME = "vts-alert"
 
 export default {
   name: NAME,
-  components: {
-    Hidden
-  },
 
   props: {
     visible: {
@@ -30,43 +25,43 @@ export default {
   }),
 
   methods: {
-    show () {
-      this.$emit("show");
-      this.$emit("change", true);
+    show() {
+      this.$emit("show")
+      this.$emit("change", true)
     },
-    hide () {
-      this.$emit("hide");
+    hide() {
+      this.$emit("hide")
       if (typeof this.visible === "number") {
-        this.$emit("timer-update", 0);
-        this.$emit("change", 0);
+        this.$emit("timer-update", 0)
+        this.$emit("change", 0)
       } else {
-        this.$emit("change", false);
+        this.$emit("change", false)
       }
-      this.clearTimer();
+      this.clearTimer()
     },
-    toggle () {
-      this.$emit("toggle", this.visible);
-      this.$emit("change", this.visible);
+    toggle() {
+      this.$emit("toggle", this.visible)
+      this.$emit("change", this.visible)
     },
-    clearTimer () {
+    clearTimer() {
       if (this.timerId) {
-        clearInterval(this.timerId);
-        this.timerId = null;
+        clearInterval(this.timerId)
+        this.timerId = null
       }
     }
   },
 
-  destroyed () {
-    this.clearTimer();
+  beforeDestroy() {
+    this.clearTimer()
   },
 
-  render: function (create) {
-    if (!this.visible) return create(false);
+  render: function(create) {
+    if (!this.visible) return create(false)
 
-    let closeButton = create(false);
+    let closeButton = create(false)
 
     if (this.dismissible) {
-      let closeContent = this.$slots["close"];
+      let closeContent = this.$slots["close"]
       if (!closeContent) {
         closeContent = create(
           "span",
@@ -74,7 +69,7 @@ export default {
             attrs: { "aria-label": "Close" }
           },
           "x"
-        );
+        )
       }
 
       closeButton = create(
@@ -83,12 +78,12 @@ export default {
           class: `${NAME}__close vts-btn--plain`,
           on: {
             click: event => {
-              this.hide(event);
+              this.hide(event)
             }
           }
         },
         [closeContent]
-      );
+      )
     }
 
     return create(
@@ -97,6 +92,6 @@ export default {
         class: [`${NAME}`, this.dismissible ? `${NAME}--dismissible` : ""]
       },
       [this.$slots.default, closeButton]
-    );
+    )
   }
-};
+}

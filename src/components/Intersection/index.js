@@ -43,9 +43,9 @@ export default {
       }
     )
     this.observer.observe(this.$el)
-  },
-  destroyed() {
-    this.observer.disconnect()
+    this.$once("hook:beforeDestroy", () => {
+      this.observer.disconnect()
+    })
   },
   render(create) {
     // TODO: check variable content support

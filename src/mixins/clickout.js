@@ -1,21 +1,18 @@
 export default {
   mounted() {
     if (typeof document !== "undefined") {
-      document.documentElement.addEventListener("click", this._clickOutListener);
-    }
-  },
-  beforeDestroy() {
-    if (typeof document !== "undefined") {
-      document.documentElement.removeEventListener("click", this._clickOutListener);
+      document.documentElement.addEventListener("click", this._clickOutListener)
+      this.$once("hook:beforeDestroy", () => {
+        document.removeEventListener("click", this._clickOutListener)
+      })
     }
   },
   methods: {
     _clickOutListener(e) {
-      if (!this.$el.contains(e.target)) {
-        if (this.onClickOut) {
-          this.onClickOut();
-        }
+      if (this.$el === e.target || this.$el.contains(e.target)) {
+        return
       }
+      this.onClickOut && this.onClickOut()
     }
   }
-};
+}

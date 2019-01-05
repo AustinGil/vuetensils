@@ -1,37 +1,37 @@
-import "./styles.css";
+import "./styles.css"
 
-const NAME = "vts-dropdown";
+const NAME = "vts-dropdown"
 
 export default {
   name: NAME,
 
   data: () => ({
     isHovered: false,
-    isFocused: false,
+    isFocused: false
   }),
 
   methods: {
-    onClickout (e) {
+    onClickout(e) {
       if (!this.$el.contains(e.target)) {
-        this.isOpen = false;
+        this.isOpen = false
       }
     }
   },
 
-  mounted () {
-    document.addEventListener("click", this.onClickout);
+  mounted() {
+    document.addEventListener("click", this.onClickout)
+    this.$once("hook:beforeDestroy", () => {
+      document.removeEventListener("click", this.onClickout)
+    })
   },
 
-  destroyed () {
-    document.removeEventListener("click", this.onClickout);
-  },
-
-  render (create) {
-    const button = create("button",
+  render(create) {
+    const button = create(
+      "button",
       {
         attrs: {
-          'aria-haspopup': true,
-          'aria-expanded': (this.isHovered || this.isFocused) ? 'true' : 'false'
+          "aria-haspopup": true,
+          "aria-expanded": this.isHovered || this.isFocused ? "true" : "false"
         },
         on: {
           click: () => {
@@ -39,12 +39,13 @@ export default {
           }
         }
       },
-      'button'
-    );
+      "button"
+    )
 
     let content = create(false)
     if (this.isHovered || this.isFocused) {
-      content = create("div",
+      content = create(
+        "div",
         {
           class: `${NAME}__content`,
           attrs: {
@@ -52,10 +53,11 @@ export default {
           }
         },
         [this.$slots.default]
-      );
+      )
     }
 
-    return create("div",
+    return create(
+      "div",
       {
         class: NAME,
         on: {
@@ -73,6 +75,6 @@ export default {
         }
       },
       [button, content]
-    );
+    )
   }
-};
+}
