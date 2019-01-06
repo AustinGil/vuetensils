@@ -133,7 +133,11 @@ export default {
 &lt;/script&gt;
 </code></pre>
 
-    <vts-intersection @enter="consoleLog('@enter fired')" @leave="consoleLog('@leave fired')" @change="consoleLog('@change fired')">
+    <vts-intersection
+      @enter="consoleLog('@enter fired')"
+      @leave="consoleLog('@leave fired')"
+      @change="consoleLog('@change fired')"
+    >
       Check your developer console to see updates.
     </vts-intersection>
 
@@ -202,24 +206,40 @@ export default {
       <label>
         Loading Type:
         <select v-model="loadingType">
-          <option v-for="type in loadingTypes" :key="type" :value="type">{{ type }}</option>
+          <option
+            v-for="type in loadingTypes"
+            :key="type"
+            :value="type"
+          >{{ type }}</option>
         </select>
       </label>
       <br>
       <label>
         Fill Color:
         <select v-model="fill">
-          <option v-for="color in colors" :key="color" :value="color">{{ color }}</option>
+          <option
+            v-for="color in colors"
+            :key="color"
+            :value="color"
+          >{{ color }}</option>
         </select>
       </label>
       <br>
       <label>
         Stroke Color:
         <select v-model="stroke">
-          <option v-for="color in colors" :key="color" :value="color">{{ color }}</option>
+          <option
+            v-for="color in colors"
+            :key="color"
+            :value="color"
+          >{{ color }}</option>
         </select>
       </label>
-      <vts-loading :name="loadingType" :fill="fill" :stroke="stroke" />
+      <vts-loading
+        :name="loadingType"
+        :fill="fill"
+        :stroke="stroke"
+      />
     </div>
 
     <hr>
@@ -263,25 +283,17 @@ export default {
 </template>
 
 <script>
-import readmeContent from '../../README.md'
+import readmeContent from "../../README.md"
 export default {
   data: () => ({
     readmeContent,
     showDrawer: false,
     userId: 1,
-    loadingType: '',
-    loadingTypes: [
-      'bars',
-      'cube',
-      'infinity',
-      'gear',
-      'ring',
-      'ripple',
-      'spin'
-    ],
-    stroke: 'currentColor',
-    fill: 'none',
-    colors: ['none', 'currentColor', 'red', '#bada55', 'rgba(0, 0, 0, 0.5)'],
+    loadingType: "",
+    loadingTypes: ["bars", "ring", "ripple"],
+    stroke: "currentColor",
+    fill: "none",
+    colors: ["none", "currentColor", "red", "#bada55", "rgba(0, 0, 0, 0.5)"],
     modal: false
   }),
 
