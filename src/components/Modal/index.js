@@ -39,6 +39,9 @@ export default {
     preventScroll: {
       type: Boolean,
       default: true
+    },
+    transition: {
+      type: String
     }
   },
   model: {
@@ -91,10 +94,13 @@ export default {
   watch: {
     showing: {
       handler: function(next, prev) {
-        if (next === true && next != prev) {
+        if (next && next != prev) {
+          this.preventScroll && document.body.style.setProperty("overflow", "hidden")
           this.$nextTick(() => {
             this.$refs.content.focus()
           })
+        } else {
+          this.preventScroll && document.body.style.removeProperty("overflow")
         }
       }
     }
@@ -122,7 +128,7 @@ export default {
       [this.$slots.default]
     )
 
-    return create(
+    const modal = create(
       "div",
       {
         class: `${NAME}`,
@@ -137,5 +143,20 @@ export default {
       },
       [content]
     )
+
+    let wrapper = modal
+    if (this.transition) {
+      wrapper = create(
+        "transition",
+        {
+          attrs: {
+            name: this.transition
+          }
+        },
+        [modal]
+      )
+    }
+
+    return wrapper
   }
 }

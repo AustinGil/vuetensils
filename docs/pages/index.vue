@@ -29,7 +29,7 @@ export default {
 
     <vts-drawer
       v-model="showDrawer"
-      transition="fade"
+      transition="slide-right"
     >
       My drawer content
     </vts-drawer>
@@ -54,7 +54,10 @@ export default {
 &lt;/template&gt;
 </code></pre>
 
-    <vts-dropdown transition="fade">
+    <vts-dropdown
+      text="Show me what you got!"
+      transition="fade"
+    >
       <a href="#">link</a>
       <a href="#">link</a>
       <a href="#">link</a>
@@ -273,7 +276,10 @@ export default {
 &lt;/script&gt;
 </code></pre>
 
-    <vts-modal v-model="modal">
+    <vts-modal
+      v-model="modal"
+      transition="fade"
+    >
       This is the modal content.
       <br>
       It traps the user focus.
@@ -313,6 +319,16 @@ export default {
 
 .fade-enter,
 .fade-leave-to {
+  opacity: 0;
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: opacity 0.5s;
+}
+
+.slide-right-enter,
+.slide-right-leave-to {
   opacity: 0;
 }
 </style>

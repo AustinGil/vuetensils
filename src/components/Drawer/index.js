@@ -32,6 +32,10 @@ export default {
       type: String,
       default: null
     },
+    preventScroll: {
+      type: Boolean,
+      default: true
+    },
     transition: {
       type: String
     }
@@ -86,10 +90,13 @@ export default {
   watch: {
     showing: {
       handler: function(next, prev) {
-        if (next === true && next != prev) {
+        if (next && next != prev) {
+          this.preventScroll && document.body.style.setProperty("overflow", "hidden")
           this.$nextTick(() => {
             this.$refs.content.focus()
           })
+        } else {
+          this.preventScroll && document.body.style.removeProperty("overflow")
         }
       }
     }

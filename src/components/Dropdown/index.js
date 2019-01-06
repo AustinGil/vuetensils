@@ -6,6 +6,10 @@ export default {
   name: NAME,
 
   props: {
+    text: {
+      type: String,
+      default: ""
+    },
     transition: {
       type: String
     }
@@ -45,7 +49,7 @@ export default {
           }
         }
       },
-      "button"
+      this.text
     )
 
     let content = create(false)
@@ -60,7 +64,7 @@ export default {
         },
         [this.$slots.default]
       )
-      console.log(this.transition)
+
       if (this.transition) {
         content = create(
           "transition",
