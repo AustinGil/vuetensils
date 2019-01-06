@@ -1,4 +1,4 @@
-<template>
+/* <template>
   <div :class="classes.wrapper">
     <label
       v-if="type === 'textarea'"
@@ -225,9 +225,9 @@ export default {
 
       if (this.type === "textarea") {
         // Resize textarea to fit content
-        /* istanbul ignore next */
+        /* istanbul ignore next
         el.style.height = "auto"
-        /* istanbul ignore next */
+        /* istanbul ignore next
         el.style.height = el.scrollHeight + "px"
       }
 
@@ -497,4 +497,4 @@ export default {
     cursor: not-allowed;
   }
 }
-</style>
+</style> */

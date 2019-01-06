@@ -1,4 +1,4 @@
-<template>
+/* <template>
   <on-click-outside :do="close">
     <div class="search-select" :class="{ 'is-active': isOpen }">
       <button ref="button" @click="open" type="button" class="search-select-input">
@@ -116,4 +116,4 @@ export default {
     }
   }
 }
-</script>
+</script> */
