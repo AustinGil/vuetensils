@@ -5,6 +5,12 @@ const NAME = "vts-dropdown"
 export default {
   name: NAME,
 
+  props: {
+    transition: {
+      type: String
+    }
+  },
+
   data: () => ({
     isHovered: false,
     isFocused: false
@@ -54,6 +60,18 @@ export default {
         },
         [this.$slots.default]
       )
+      console.log(this.transition)
+      if (this.transition) {
+        content = create(
+          "transition",
+          {
+            attrs: {
+              name: this.transition
+            }
+          },
+          [content]
+        )
+      }
     }
 
     return create(

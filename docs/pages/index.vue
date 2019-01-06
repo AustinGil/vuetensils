@@ -27,7 +27,10 @@ export default {
 &lt;/script&gt;
 </code></pre>
 
-    <vts-drawer v-model="showDrawer">
+    <vts-drawer
+      v-model="showDrawer"
+      transition="fade"
+    >
       My drawer content
     </vts-drawer>
 
@@ -51,7 +54,7 @@ export default {
 &lt;/template&gt;
 </code></pre>
 
-    <vts-dropdown>
+    <vts-dropdown transition="fade">
       <a href="#">link</a>
       <a href="#">link</a>
       <a href="#">link</a>
@@ -302,3 +305,14 @@ export default {
   }
 }
 </script>
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
