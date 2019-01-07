@@ -34,9 +34,12 @@ export default {
     },
     preventScroll: {
       type: Boolean,
-      default: true
+      default: false
     },
     transition: {
+      type: String
+    },
+    bgTransition: {
       type: String
     }
   },
@@ -107,7 +110,7 @@ export default {
       return create(false)
     }
 
-    const content = create(
+    let content = create(
       "aside",
       {
         ref: "content",
@@ -123,8 +126,15 @@ export default {
       },
       [this.$slots.default]
     )
+    content = create(
+      "transition",
+      {
+        props: { name: this.transition, appear: true }
+      },
+      [content]
+    )
 
-    const drawer = create(
+    let drawer = create(
       "div",
       {
         class: NAME,
@@ -139,20 +149,14 @@ export default {
       },
       [content]
     )
+    drawer = create(
+      "transition",
+      {
+        props: { name: this.bgTransition }
+      },
+      [drawer]
+    )
 
-    let wrapper = drawer
-    if (this.transition) {
-      wrapper = create(
-        "transition",
-        {
-          attrs: {
-            name: this.transition
-          }
-        },
-        [drawer]
-      )
-    }
-
-    return wrapper
+    return drawer
   }
 }

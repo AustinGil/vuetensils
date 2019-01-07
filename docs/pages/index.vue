@@ -11,7 +11,11 @@
     <pre><code>// Example.vue
 &lt;template&gt;
   &lt;div&gt;
-    &lt;vts-drawer v-model="show"&gt;
+    &lt;vts-drawer
+      v-model="show"
+      transition="slide-right"
+      bg-transition="fade"
+    &gt;
       My drawer content
     &lt;/vts-drawer&gt;
 
@@ -30,6 +34,7 @@ export default {
     <vts-drawer
       v-model="showDrawer"
       transition="slide-right"
+      bg-transition="fade"
     >
       My drawer content
     </vts-drawer>
@@ -45,10 +50,20 @@ export default {
     <pre><code>// Example.vue
 &lt;template&gt;
   &lt;div&gt;
-    &lt;vts-dropdown&gt;
-      &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;
-      &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;
-      &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;
+    &lt;vts-dropdown
+      text="Show me what you got!"
+      transition="slide-up"
+    &gt;
+      &lt;p&gt;Here is the dropdown content.
+        &lt;br&gt;Why not add a nav?
+      &lt;/p&gt;
+      &lt;nav&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href="#"&gt;link&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="#"&gt;link&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="#"&gt;link&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/vts-dropdown&gt;
   &lt;/div&gt;
 &lt;/template&gt;
@@ -56,11 +71,18 @@ export default {
 
     <vts-dropdown
       text="Show me what you got!"
-      transition="fade"
+      transition="slide-up"
     >
-      <a href="#">link</a>
-      <a href="#">link</a>
-      <a href="#">link</a>
+      <p>Here is the dropdown content.
+        <br>Why not add a nav?
+      </p>
+      <nav>
+        <ul>
+          <li><a href="#">link</a></li>
+          <li><a href="#">link</a></li>
+          <li><a href="#">link</a></li>
+        </ul>
+      </nav>
     </vts-dropdown>
 
     <hr>
@@ -257,7 +279,11 @@ export default {
     <pre><code>// Example.vue
 &lt;template&gt;
   &lt;div&gt;
-    &lt;vts-modal v-model=&quot;modal&quot;&gt;
+    &lt;vts-modal
+      v-model=&quot;modal&quot;
+      transition="slide-up"
+      bg-transition="fade"
+    &gt;
       This is the modal content.
       &lt;br&gt;
       It traps the user focus.
@@ -278,7 +304,8 @@ export default {
 
     <vts-modal
       v-model="modal"
-      transition="fade"
+      transition="slide-up"
+      bg-transition="fade"
     >
       This is the modal content.
       <br>
@@ -287,6 +314,45 @@ export default {
       <button @click="modal = false">Close</button>
     </vts-modal>
     <button @click="modal = !modal">toggle</button>
+
+    <hr>
+
+    <p><b>NOTE:</b> this library does not include CSS transitions. The transitions on this page were added with the following styles.</p>
+
+    <pre>&lt;style&gt;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.slide-right-enter,
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transform: translateY(0);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.slide-up-enter,
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+&lt;/style&gt;</pre>
 
   </section>
 </template>
@@ -299,7 +365,7 @@ export default {
     showDrawer: false,
     userId: 1,
     loadingType: "",
-    loadingTypes: ["bars", "ring", "ripple"],
+    loadingTypes: ["dual-ring", "bars", "ring", "ripple"],
     stroke: "currentColor",
     fill: "none",
     colors: ["none", "currentColor", "red", "#bada55", "rgba(0, 0, 0, 0.5)"],
@@ -324,11 +390,24 @@ export default {
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.5s, transform 0.5s;
 }
 
 .slide-right-enter,
 .slide-right-leave-to {
   opacity: 0;
+  transform: translateX(-100%);
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transform: translateY(0);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.slide-up-enter,
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
 }
 </style>

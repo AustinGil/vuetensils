@@ -10,6 +10,9 @@ export default {
       type: String,
       default: ""
     },
+    position: {
+      type: String
+    },
     transition: {
       type: String
     }
@@ -54,28 +57,18 @@ export default {
 
     let content = create(false)
     if (this.isHovered || this.isFocused) {
-      content = create(
-        "div",
-        {
-          class: `${NAME}__content`,
-          attrs: {
-            // 'aria-label': "submenu"
-          }
-        },
-        [this.$slots.default]
-      )
-
-      if (this.transition) {
-        content = create(
-          "transition",
-          {
-            attrs: {
-              name: this.transition
-            }
-          },
-          [content]
-        )
+      let contentClass = `${NAME}__content`
+      if (!!this.position) {
+        contentClass += ` ${NAME}__content--${this.position}`
       }
+
+      content = create(
+        "transition",
+        {
+          props: { name: this.transition, appear: true }
+        },
+        [create("div", { class: contentClass }, [this.$slots.default])]
+      )
     }
 
     return create(

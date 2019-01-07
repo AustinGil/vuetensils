@@ -42,6 +42,9 @@ export default {
     },
     transition: {
       type: String
+    },
+    bgTransition: {
+      type: String
     }
   },
   model: {
@@ -111,7 +114,7 @@ export default {
       return create(false)
     }
 
-    const content = create(
+    let content = create(
       "div",
       {
         ref: "content",
@@ -127,8 +130,15 @@ export default {
       },
       [this.$slots.default]
     )
+    content = create(
+      "transition",
+      {
+        props: { name: this.transition, appear: true }
+      },
+      [content]
+    )
 
-    const modal = create(
+    let modal = create(
       "div",
       {
         class: `${NAME}`,
@@ -144,19 +154,14 @@ export default {
       [content]
     )
 
-    let wrapper = modal
-    if (this.transition) {
-      wrapper = create(
-        "transition",
-        {
-          attrs: {
-            name: this.transition
-          }
-        },
-        [modal]
-      )
-    }
+    modal = create(
+      "transition",
+      {
+        props: { name: this.bgTransition }
+      },
+      [modal]
+    )
 
-    return wrapper
+    return modal
   }
 }
