@@ -4,8 +4,9 @@
   "description": "A tasty toolset for Vue.js",
   "author": "Austin Gil <austin@stegosource.com>",
   "license": "MIT",
-  "main": "dist/vuetensils.js",
-  "style": "dist/vuetensils.min.css",
+  "main": "dist/vuetensils.umd.js",
+  "module": "dist/vuetensils.esm.js",
+  "unpkg": "dist/vuetensils.min.js",
   "files": [
     "/src",
     "/dist"
