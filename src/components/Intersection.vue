@@ -1,5 +1,4 @@
-// https://github.com/heavyy/vue-intersect
-
+<script>
 const NAME = "vts-intersection"
 
 export default {
@@ -58,3 +57,4 @@ export default {
     )
   }
 }
+</script>

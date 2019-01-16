@@ -16,9 +16,11 @@
   },
   "scripts": {
     "dev": "echo TODO",
-    "build": "rimraf ./dist && webpack --config ./webpack.config.js",
-    "bili": "rimraf ./dist && bili",
-    "test": "jest"
+    "test": "jest",
+    "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
+    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuetensils.umd.js",
+    "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuetensils.esm.js",
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vuetensils.min.js"
   },
   "keywords": [
     "web",
@@ -41,34 +43,19 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.3",
-    "@babel/runtime": "^7.2.0",
     "@vue/test-utils": "^1.0.0-beta.28",
-    "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
-    "babel-loader": "^8.0.4",
-    "bili": "^3.4.2",
-    "css-loader": "^1.0.0",
-    "cssnano": "^4.1.8",
     "jest": "^23.6.0",
-    "mini-css-extract-plugin": "^0.4.4",
-    "node-sass": "^4.9.3",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "postcss-cssnext": "^3.1.0",
-    "postcss-import": "^12.0.1",
-    "postcss-nested": "^4.1.1",
-    "postcss-simple-vars": "^5.0.1",
-    "postcss-url": "^8.0.0",
-    "rimraf": "^2.6.2",
+    "minimist": "^1.2.0",
+    "rollup": "^1.1.0",
+    "rollup-plugin-buble": "^0.19.6",
+    "rollup-plugin-filesize": "^6.0.0",
+    "rollup-plugin-replace": "^2.1.0",
+    "rollup-plugin-uglify-es": "0.0.1",
     "rollup-plugin-vue": "^4.3.2",
-    "sass-loader": "^7.1.0",
     "stylelint": "^9.9.0",
     "stylelint-config-sass-guidelines": "^5.3.0",
-    "uglifyjs-webpack-plugin": "^2.0.1",
-    "vue-template-compiler": "^2.5.21",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2",
-    "webpack-merge": "^4.1.4"
+    "vue": "^2.5.22",
+    "vue-template-compiler": "^2.5.22"
   }
 }

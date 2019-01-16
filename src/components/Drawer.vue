@@ -1,7 +1,7 @@
-import keycodes from "../../data/keycodes"
-import "./styles.css"
+<script>
+import keycodes from "../data/keycodes"
 
-const NAME = "vts-modal"
+const NAME = "vts-drawer"
 const FOCUSABLE = [
   "a[href]",
   "area[href]",
@@ -24,10 +24,6 @@ export default {
       type: Boolean,
       default: false
     },
-    dismissible: {
-      type: Boolean,
-      default: true
-    },
     width: {
       type: String,
       default: null
@@ -38,7 +34,7 @@ export default {
     },
     preventScroll: {
       type: Boolean,
-      default: true
+      default: false
     },
     transition: {
       type: String
@@ -54,15 +50,15 @@ export default {
 
   methods: {
     show() {
-      this.$emit("show")
+      this.$emit("open")
       this.$emit("change", true)
     },
     hide() {
-      this.$emit("hide")
+      this.$emit("close")
       this.$emit("change", false)
     },
     toggle() {
-      const event = this.showing ? "hide" : "show"
+      const event = this.showing ? "close" : "open"
       this.$emit(event, !this.showing)
       this.$emit("change", !this.showing)
     },
@@ -74,7 +70,7 @@ export default {
         const content = this.$refs.content
         const focusable = Array.from(content.querySelectorAll(FOCUSABLE))
 
-        if (this.showing && content && !content.contains(document.activeElement) && focusable) {
+        if (this.visible && content && !content.contains(document.activeElement) && focusable) {
           event.preventDefault()
           focusable[0].focus()
         } else {
@@ -115,7 +111,7 @@ export default {
     }
 
     let content = create(
-      "div",
+      "aside",
       {
         ref: "content",
         class: `${NAME}__content`,
@@ -124,8 +120,8 @@ export default {
           maxWidth: this.maxWidth || null
         },
         attrs: {
-          tabindex: "-1",
-          role: "dialog"
+          tabindex: "-1"
+          // 'aria-label': "submenu"
         }
       },
       [this.$slots.default]
@@ -138,13 +134,13 @@ export default {
       [content]
     )
 
-    let modal = create(
+    let drawer = create(
       "div",
       {
-        class: `${NAME}`,
+        class: NAME,
         on: {
           click: event => {
-            if (event.target.classList.contains(`${NAME}`) && this.dismissible) {
+            if (event.target.classList.contains(`${NAME}`)) {
               this.hide()
             }
           },
@@ -153,15 +149,39 @@ export default {
       },
       [content]
     )
-
-    modal = create(
+    drawer = create(
       "transition",
       {
         props: { name: this.bgTransition }
       },
-      [modal]
+      [drawer]
     )
 
-    return modal
+    return drawer
   }
 }
+</script>
+
+<style>
+.vts-drawer {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.vts-drawer [tabindex="-1"]:focus {
+  outline: 0;
+}
+
+.vts-drawer__content {
+  overflow: auto;
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
+  background: #fff;
+}
+</style>

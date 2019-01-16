@@ -1,5 +1,4 @@
-import "./styles.css"
-
+<script>
 const NAME = "vts-dropdown"
 
 export default {
@@ -93,3 +92,23 @@ export default {
     )
   }
 }
+</script>
+
+<style>
+.vts-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.vts-dropdown__content {
+  position: absolute;
+  min-width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+.vts-dropdown__content--top {
+  top: 0;
+  transform: translateY(-100%);
+}
+</style>

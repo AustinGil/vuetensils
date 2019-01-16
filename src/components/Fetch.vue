@@ -1,3 +1,4 @@
+<script>
 const NAME = "vts-fetch"
 
 export default {
@@ -12,18 +13,20 @@ export default {
     this.send()
   },
   methods: {
-    async send(url) {
+    send(url) {
       this.loading = true
       this.response = null
       this.error = null
-      try {
-        const response = await fetch(url || this.url).then(res => res.json())
-        this.response = response
-      } catch (error) {
-        this.error = error
-      } finally {
-        this.loading = false
-      }
+      fetch(url || this.url)
+        .then(res => res.json())
+        .then(response => {
+          this.response = response
+          this.loading = false
+        })
+        .catch(error => {
+          this.error = error
+          this.loading = false
+        })
     }
   },
   render() {
@@ -43,3 +46,4 @@ export default {
     return scopedSlot
   }
 }
+</script>

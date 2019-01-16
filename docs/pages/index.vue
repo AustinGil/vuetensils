@@ -2,7 +2,25 @@
   <section class="container">
     <div v-html="readmeContent"></div>
 
-    <hr>
+    <!-- <vts-img
+      src="https://source.unsplash.com/random/900x600"
+      srcset="https://source.unsplash.com/random/320x280 320w,
+             https://source.unsplash.com/random/480x360 480w,
+             https://source.unsplash.com/random/800x600 800w"
+      sizes="(max-width: 320px) 280px,
+            (max-width: 480px) 440px,
+            800px"
+    />
+    <br>
+    <br>
+    <br>
+    <br>
+    <vts-img
+      src="https://source.unsplash.com/random/901x600"
+      ref="two"
+    />
+
+    <hr> -->
 
     <h3>
       <code>&lt;vts-drawer&gt;</code>
@@ -31,15 +49,17 @@ export default {
 &lt;/script&gt;
 </code></pre>
 
-    <vts-drawer
-      v-model="showDrawer"
-      transition="slide-right"
-      bg-transition="fade"
-    >
-      My drawer content
-    </vts-drawer>
+    <no-ssr>
+      <vts-drawer
+        v-model="showDrawer"
+        transition="slide-right"
+        bg-transition="fade"
+      >
+        My drawer content
+      </vts-drawer>
 
-    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
+      <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
+    </no-ssr>
 
     <hr>
 
@@ -69,21 +89,23 @@ export default {
 &lt;/template&gt;
 </code></pre>
 
-    <vts-dropdown
-      text="Show me what you got!"
-      transition="slide-up"
-    >
-      <p>Here is the dropdown content.
-        <br>Why not add a nav?
-      </p>
-      <nav>
-        <ul>
-          <li><a href="#">link</a></li>
-          <li><a href="#">link</a></li>
-          <li><a href="#">link</a></li>
-        </ul>
-      </nav>
-    </vts-dropdown>
+    <no-ssr>
+      <vts-dropdown
+        text="Show me what you got!"
+        transition="slide-up"
+      >
+        <p>Here is the dropdown content.
+          <br>Why not add a nav?
+        </p>
+        <nav>
+          <ul>
+            <li><a href="#">link</a></li>
+            <li><a href="#">link</a></li>
+            <li><a href="#">link</a></li>
+          </ul>
+        </nav>
+      </vts-dropdown>
+    </no-ssr>
 
     <hr>
 
@@ -301,19 +323,20 @@ export default {
 }
 &lt;/script&gt;
 </code></pre>
-
-    <vts-modal
-      v-model="modal"
-      transition="slide-up"
-      bg-transition="fade"
-    >
-      This is the modal content.
-      <br>
-      It traps the user focus.
-      <br>
-      <button @click="modal = false">Close</button>
-    </vts-modal>
-    <button @click="modal = !modal">toggle</button>
+    <no-ssr>
+      <vts-modal
+        v-model="modal"
+        transition="slide-up"
+        bg-transition="fade"
+      >
+        This is the modal content.
+        <br>
+        It traps the user focus.
+        <br>
+        <button @click="modal = false">Close</button>
+      </vts-modal>
+      <button @click="modal = !modal">toggle</button>
+    </no-ssr>
 
     <hr>
 

@@ -4,6 +4,13 @@
 
 Vuetensils is a collection of Vue components desined to be light weight, accessible, and extensible. It is not a full blown UI library. Instead, it is designed to jump start a project with some of the most common UI solutions, but does not bring with it any opinionated styles. Bring your own styles, and let Vuetensils handle things like a modal popup that is accessible, traps user tab focus, and closes when the escape key is pressed. View on [GitHub](https://github.com/Stegosource/vuetensils) or [NPM](https://www.npmjs.com/package/vuetensils).
 
+Comparison of bundle sizes from other popular libraries:
+
+- None: 94.3kb
+- Vuetify: 791kb
+- BootstrapVue: 460kb
+- Vuetensils: TODO
+
 ### Getting Started
 
 #### Install:
@@ -16,6 +23,7 @@ Vuetensils is a collection of Vue components desined to be light weight, accessi
 // main.js
 import Vue from 'vue'
 import vuetensils from 'vuetensils'
+import 'vuetensils/dist/vuetensils.min.css'
 
 Vue.use(vuetensils)
 ```
