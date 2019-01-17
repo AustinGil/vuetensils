@@ -11,3 +11,8 @@
   to = "https://vuetensils.stegosource.com/:splat"
   status = 301
   force = true
+[[redirects]]
+  from = "http://vuetensils.stegosource.com/*"
+  to = "https://vuetensils.stegosource.com/:splat"
+  status = 301
+  force = true
