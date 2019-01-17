@@ -2,7 +2,7 @@
 const NAME = "vts-img"
 export default {
   name: NAME,
-  // functional: true,
+  // functional: true, // TODO
 
   props: {
     src: {
@@ -18,24 +18,26 @@ export default {
   },
 
   mounted() {
-    const observer = new IntersectionObserver(
-      entries => {
-        if (!entries[0].isIntersecting) {
-          console.log("this far...")
-          // this.$emit("leave", [entries[0]])
-        } else {
-          // this.$emit("enter", [entries[0]])
-          console.log("enter?")
-        }
-        // this.$emit("change", [entries[0]])
+    const observer = new IntersectionObserver(entries => {
+      const img = entries[0]
+      img.onload = function() {
+        // delete img.dataset.src
+        // delete img.dataset.srcset
+        // delete img.dataset.sizes
+        // delete img.onload
+        // img.classList.remove("g-image--loading")
+        // img.classList.add("g-image--loaded")
       }
-      // {
-      //   threshold: this.threshold,
-      //   root: this.root,
-      //   rootMargin: this.rootMargin
-      // }
-    )
-    observer.observe(document.querySelector("img"))
+      if (img.isIntersecting) {
+        observer.disconnect()
+        console.log("intersecting ")
+        // img.src = img.dataset.src
+        // img.srcset = img.dataset.srcset
+        // img.sizes = img.dataset.sizes
+      }
+    })
+
+    observer.observe(this.$el)
     this.$once("hook:beforeDestroy", () => {
       observer.disconnect()
     })
