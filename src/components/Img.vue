@@ -10,27 +10,33 @@ export default {
       required: true
     },
     srcset: String,
-    width: [String, Number],
-    height: [String, Number],
+    sizes: String,
+    // width: [String, Number],
+    // height: [String, Number],
     background: String,
     alt: String,
     immediate: Boolean
   },
 
   mounted() {
+    // this.$isServer
+
     const observer = new IntersectionObserver(entries => {
-      const img = entries[0]
+      const entry = entries[0]
+      const img = entry.target
       img.onload = function() {
         // delete img.dataset.src
         // delete img.dataset.srcset
         // delete img.dataset.sizes
-        // delete img.onload
-        // img.classList.remove("g-image--loading")
-        // img.classList.add("g-image--loaded")
+        delete img.onload
+        img.classList.remove(`${NAME}--loading`)
+        img.classList.add(`${NAME}--loaded`)
       }
-      if (img.isIntersecting) {
+      if (entry.isIntersecting) {
+        // Image is in viewport
+        img.classList.add(`${NAME}--loading`)
+        img.src = this.src
         observer.disconnect()
-        console.log("intersecting ")
         // img.src = img.dataset.src
         // img.srcset = img.dataset.srcset
         // img.sizes = img.dataset.sizes
@@ -44,11 +50,17 @@ export default {
   },
 
   render(create, ctx) {
+    // if (this.$parent.$isServer) {
+    //   return create(false)
+    // }
+
     // const classNames = (ctx.data.class || []).concat(['g-image'])
 
     return create("img", {
+      class: NAME,
       attrs: {
-        src: "https://source.unsplash.com/random/900x600"
+        // src: "https://source.unsplash.com/random/900x600"
+        // "data-test": "mytest"
       }
     })
   }

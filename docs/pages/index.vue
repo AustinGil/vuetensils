@@ -1,24 +1,24 @@
 <template>
   <section class="container">
-    <no-ssr>
-      <vts-img
-        src="https://source.unsplash.com/random/900x600"
-        srcset="https://source.unsplash.com/random/320x280 320w,
+    <vts-img
+      src="https://source.unsplash.com/random/900x600"
+      srcset="https://source.unsplash.com/random/320x280 320w,
                https://source.unsplash.com/random/480x360 480w,
                https://source.unsplash.com/random/800x600 800w"
-        sizes="(max-width: 320px) 280px,
+      sizes="(max-width: 320px) 280px,
               (max-width: 480px) 440px,
               800px"
-      />
-      <br>
-      <br>
-      <br>
-      <br>
-      <vts-img
-        src="https://source.unsplash.com/random/901x600"
-        ref="two"
-      />
-    </no-ssr>
+      width="900"
+      height="600"
+    />
+    <br>
+    <br>
+    <br>
+    <br>
+    <vts-img
+      src="https://source.unsplash.com/random/901x600"
+      ref="two"
+    />
 
     <div v-html="readmeContent"></div>
 
