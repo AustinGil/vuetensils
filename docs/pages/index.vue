@@ -184,7 +184,7 @@ export default {
     />
     <p>Supports alt attributes, srcsets, and placeholder images:</p>
     <vts-img
-      :src="`https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=1080&time=${Date.now()}`"
+      :src="`https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=1080`"
       width="900"
       height="600"
       alt="Always a good idea to add an alt attribute"
