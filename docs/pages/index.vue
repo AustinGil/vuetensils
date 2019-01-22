@@ -1,25 +1,5 @@
 <template>
   <section class="container">
-    <vts-img
-      src="https://source.unsplash.com/random/900x600"
-      srcset="https://source.unsplash.com/random/320x280 320w,
-               https://source.unsplash.com/random/480x360 480w,
-               https://source.unsplash.com/random/800x600 800w"
-      sizes="(max-width: 320px) 280px,
-              (max-width: 480px) 440px,
-              800px"
-      width="900"
-      height="600"
-    />
-    <br>
-    <br>
-    <br>
-    <br>
-    <vts-img
-      src="https://source.unsplash.com/random/901x600"
-      ref="two"
-    />
-
     <div v-html="readmeContent"></div>
 
     <hr>
@@ -119,7 +99,7 @@ export default {
 &lt;template&gt;
   &lt;div&gt;
     &lt;vts-fetch :url=&quot;`https://jsonplaceholder.typicode.com/users/${userId}`&quot;&gt;
-      &lt;div slot-scope=&quot;{ loading, error, response, send }&quot;&gt;
+      &lt;div slot-scope=&quot;{ loading, error, response, fetch }&quot;&gt;
         &lt;p v-if=&quot;loading&quot;&gt;Loading...&lt;/p&gt;
 
         &lt;p v-else-if=&quot;error&quot;&gt;There was an error&lt;/p&gt;
@@ -130,8 +110,8 @@ export default {
           &lt;br&gt;
         &lt;/template&gt;
 
-        &lt;button @click=&quot;send(`https://jsonplaceholder.typicode.com/users/${userId++}`)&quot;&gt;Get next user&lt;/button&gt;
-        &lt;button @click=&quot;send(`https://httpstat.us/500`)&quot;&gt;Get a 500 error&lt;/button&gt;
+        &lt;button @click=&quot;fetch(`https://jsonplaceholder.typicode.com/users/${userId++}`)&quot;&gt;Get next user&lt;/button&gt;
+        &lt;button @click=&quot;fetch(`https://httpstat.us/500`)&quot;&gt;Get a 500 error&lt;/button&gt;
       &lt;/div&gt;
     &lt;/vts-fetch&gt;
   &lt;/div&gt;
@@ -146,7 +126,7 @@ export default {
 </code></pre>
 
     <vts-fetch :url="`https://jsonplaceholder.typicode.com/users/${userId}`">
-      <div slot-scope="{ loading, error, response, send }">
+      <div slot-scope="{ loading, error, response, fetch }">
         <p v-if="loading">Loading...</p>
 
         <p v-else-if="error">There was an error</p>
@@ -157,10 +137,66 @@ export default {
           <br>
         </template>
 
-        <button @click="send(`https://jsonplaceholder.typicode.com/users/${userId++}`)">Get next user</button>
-        <button @click="send('https://httpstat.us/500')">Get a 500 error</button>
+        <button @click="fetch(`https://jsonplaceholder.typicode.com/users/${userId++}`)">Get next user</button>
+        <button @click="fetch('https://httpstat.us/500')">Get a 500 error</button>
       </div>
     </vts-fetch>
+
+    <hr>
+
+    <h3>
+      <code>&lt;vts-img&gt;</code>
+    </h3>
+    <p>Speeds up your page renders by lazy loading images.</p>
+
+    <pre><code>// Example.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;vts-img
+      src="https://source.unsplash.com/random/900x600"
+      width="900"
+      height="600"
+      background="#ddd"
+    /&gt;
+    &lt;p&gt;Supports alt attributes, srcsets, and placeholder images:&lt;/p&gt;
+    &lt;vts-img
+      src="https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=1080"
+      width="1080"
+      height="600"
+      alt="Always a good idea to add an alt attribute"
+      srcset="https://source.unsplash.com/random/320x280 320w,
+               https://source.unsplash.com/random/480x360 480w,
+               https://source.unsplash.com/random/800x600 800w"
+      sizes="(max-width: 320px) 280px,
+              (max-width: 480px) 440px,
+              800px"
+      placeholder="https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=10"
+    /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+
+    <vts-img
+      src="https://source.unsplash.com/random/900x600"
+      width="900"
+      height="600"
+      background="#ddd"
+    />
+    <p>Supports alt attributes, srcsets, and placeholder images:</p>
+    <vts-img
+      :src="`https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=1080&time=${Date.now()}`"
+      width="900"
+      height="600"
+      alt="Always a good idea to add an alt attribute"
+      srcset="https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=320 320w,
+               https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=480 480w,
+               https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=800 800w"
+      sizes="(max-width: 320px) 280px,
+              (max-width: 480px) 440px,
+              (max-width: 800px) 760px,
+              1080px"
+      placeholder="https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=10"
+    />
 
     <hr>
 

@@ -1,7 +1,9 @@
 <script>
 const NAME = "vts-img"
+
 export default {
   name: NAME,
+  inheritAttrs: false,
   // functional: true, // TODO
 
   props: {
@@ -11,35 +13,37 @@ export default {
     },
     srcset: String,
     sizes: String,
-    // width: [String, Number],
-    // height: [String, Number],
+    width: [String, Number],
+    height: [String, Number],
+    placeholder: String,
     background: String,
-    alt: String,
-    immediate: Boolean
+    immediate: Boolean,
+    alt: String
   },
 
   mounted() {
     // this.$isServer
-
     const observer = new IntersectionObserver(entries => {
       const entry = entries[0]
-      const img = entry.target
+      const wrapper = entry.target
+      const img = entry.target.querySelector(".vts-img__img")
+      const placeholder = entry.target.querySelector(".vts-img__placeholder")
+
       img.onload = function() {
-        // delete img.dataset.src
-        // delete img.dataset.srcset
-        // delete img.dataset.sizes
         delete img.onload
-        img.classList.remove(`${NAME}--loading`)
-        img.classList.add(`${NAME}--loaded`)
+        wrapper.classList.remove(`${NAME}--loading`)
+        wrapper.classList.add(`${NAME}--loaded`)
+        setTimeout(() => {
+          placeholder.remove()
+        }, 300)
       }
       if (entry.isIntersecting) {
-        // Image is in viewport
-        img.classList.add(`${NAME}--loading`)
+        // Element is in viewport
+        wrapper.classList.add(`${NAME}--loading`)
         img.src = this.src
+        if (!!this.srcset) img.srcset = this.srcset
+        if (!!this.alt) img.alt = this.alt
         observer.disconnect()
-        // img.src = img.dataset.src
-        // img.srcset = img.dataset.srcset
-        // img.sizes = img.dataset.sizes
       }
     })
 
@@ -50,19 +54,91 @@ export default {
   },
 
   render(create, ctx) {
+    // const randomStr = Math.random()
+    //   .toString(36)
+    //   .substr(2)
+    // const id = `${NAME}-${randomStr}`
     // if (this.$parent.$isServer) {
     //   return create(false)
     // }
 
-    // const classNames = (ctx.data.class || []).concat(['g-image'])
-
-    return create("img", {
-      class: NAME,
+    const img = create("img", {
+      class: `${NAME}__img`,
       attrs: {
-        // src: "https://source.unsplash.com/random/900x600"
-        // "data-test": "mytest"
+        ...this.$attrs,
+        width: this.width || false,
+        height: this.height || false
       }
     })
+
+    let placeholder = create(false)
+    // Only add the placeholder if we have something to show, and we have the dimensions
+    if ((this.placeholder || this.background) && this.width && this.height) {
+      placeholder = create("div", { class: `${NAME}__placeholder` }, [
+        create("img", {
+          attrs: {
+            src: this.placeholder,
+            width: this.width,
+            height: this.height
+          },
+          style: {
+            background: this.background || false
+          }
+        })
+      ])
+    }
+
+    // TODO: Add this when SSR support is enabled
+    // const noscript = create("noscript", [
+    //   create("img", {
+    //     attrs: {
+    //       src: this.src || ''
+    //     }
+    //   })
+    // ])
+    return create(
+      "div",
+      {
+        class: NAME
+      },
+      [placeholder, img]
+    )
   }
 }
 </script>
+
+<style>
+.vts-img {
+  position: relative;
+}
+
+.vts-img img {
+  vertical-align: top;
+}
+
+.vts-img__img {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.vts-img__placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.vts-img__placeholder img {
+  transform: scale(1.05);
+  filter: blur(10px);
+}
+
+.vts-img--loaded .vts-img__placeholder {
+  opacity: 0;
+}
+
+.vts-img--loaded .vts-img__img {
+  opacity: 1;
+}
+</style>

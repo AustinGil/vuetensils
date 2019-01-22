@@ -10,10 +10,10 @@ export default {
     error: null
   }),
   mounted() {
-    this.send()
+    this.fetch()
   },
   methods: {
-    send(url) {
+    fetch(url) {
       this.loading = true
       this.response = null
       this.error = null
@@ -37,7 +37,7 @@ export default {
       response: this.response,
       loading: this.loading,
       error: this.error,
-      send: this.send
+      fetch: this.fetch
     })
     if (scopedSlot.length) {
       console.warn("[ItemsList] Requires 1 root element. Using injected <div>.")
