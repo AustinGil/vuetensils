@@ -1,5 +1,5 @@
 import Modal from "./Modal.vue"
-import Drawer from "./Drawer.vue"
+import Drawer from "./drawer/Drawer.vue"
 import Dropdown from "./Dropdown.vue"
 import Fetch from "./Fetch.vue"
 import Img from "./Img.vue"

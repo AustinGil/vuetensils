@@ -1,5 +1,5 @@
 <script>
-import keycodes from "../data/keycodes"
+import keycodes from "../../data/keycodes"
 
 const NAME = "vts-drawer"
 const FOCUSABLE = [
@@ -16,6 +16,11 @@ const FOCUSABLE = [
   '[tabindex]:not([tabindex^="-"])'
 ]
 
+/**
+ * Component is described here.
+ *
+ * @example ./drawer.examples.md
+ */
 export default {
   name: NAME,
 

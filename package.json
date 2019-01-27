@@ -22,7 +22,9 @@
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuetensils.umd.js",
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuetensils.esm.js",
     "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vuetensils.min.js",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "styleguide": "vue-styleguidist server",
+    "styleguide:build": "vue-styleguidist build"
   },
   "keywords": [
     "web",
@@ -55,6 +57,7 @@
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.5",
     "babel-preset-vue": "^2.0.2",
+    "css-loader": "^2.1.0",
     "jest": "^23.6.0",
     "minimist": "^1.2.0",
     "rollup": "^1.1.0",
@@ -63,10 +66,13 @@
     "rollup-plugin-replace": "^2.1.0",
     "rollup-plugin-uglify-es": "0.0.1",
     "rollup-plugin-vue": "^4.3.2",
+    "style-loader": "^0.23.1",
     "stylelint": "^9.9.0",
     "stylelint-config-sass-guidelines": "^5.3.0",
     "vue": "^2.5.22",
-    "vue-loader": "^15.6.1",
-    "vue-template-compiler": "^2.5.22"
+    "vue-loader": "^15.6.2",
+    "vue-styleguidist": "^3.0.6",
+    "vue-template-compiler": "^2.5.22",
+    "webpack": "^4.29.0"
   }
 }
