@@ -29,7 +29,7 @@ export default {
         })
     }
   },
-  render() {
+  render(create) {
     if (!this.$scopedSlots.default) {
       return create(false)
     }
