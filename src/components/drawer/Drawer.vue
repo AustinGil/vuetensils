@@ -1,25 +1,11 @@
 <script>
-import keycodes from "../../data/keycodes"
+import KEYCODES from "../../data/keycodes"
+import FOCUSABLE from "../../data/focusable"
 
 const NAME = "vts-drawer"
-const FOCUSABLE = [
-  "a[href]",
-  "area[href]",
-  'input:not([disabled]):not([type="hidden"]):not([aria-hidden])',
-  "select:not([disabled]):not([aria-hidden])",
-  "textarea:not([disabled]):not([aria-hidden])",
-  "button:not([disabled]):not([aria-hidden])",
-  "iframe",
-  "object",
-  "embed",
-  "[contenteditable]",
-  '[tabindex]:not([tabindex^="-"])'
-]
 
 /**
- * Component is described here.
- *
- * @example ./drawer.examples.md
+ * Component for showing/hiding a sidebar
  */
 export default {
   name: NAME,
@@ -68,10 +54,10 @@ export default {
       this.$emit("change", !this.showing)
     },
     onKeydown(event) {
-      if (event.keyCode === keycodes.ESC) {
+      if (event.keyCode === KEYCODES.ESC) {
         this.hide()
       }
-      if (event.keyCode === keycodes.TAB) {
+      if (event.keyCode === KEYCODES.TAB) {
         const content = this.$refs.content
         const focusable = Array.from(content.querySelectorAll(FOCUSABLE))
 

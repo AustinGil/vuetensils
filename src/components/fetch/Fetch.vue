@@ -3,15 +3,23 @@ const NAME = "vts-fetch"
 
 export default {
   name: NAME,
-  props: ["url"],
+
+  props: {
+    url: {
+      type: String
+    }
+  },
+
   data: () => ({
     loading: false,
     response: null,
     error: null
   }),
+
   mounted() {
     this.fetch()
   },
+
   methods: {
     fetch(url) {
       this.loading = true
@@ -22,13 +30,16 @@ export default {
         .then(response => {
           this.response = response
           this.loading = false
+          this.$emit("success", response)
         })
         .catch(error => {
           this.error = error
           this.loading = false
+          this.$emit("error", error)
         })
     }
   },
+
   render(create) {
     if (!this.$scopedSlots.default) {
       return create(false)

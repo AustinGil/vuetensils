@@ -7,6 +7,7 @@ module.exports = {
   pagePerSection: true,
   skipComponentsWithoutExample: true,
   usageMode: "expand",
+  exampleMode: "expand",
   webpackConfig: {
     module: {
       rules: [

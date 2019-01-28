@@ -1,5 +1,5 @@
 <script>
-import svgs from "../data/svgs"
+import svgs from "../../data/svgs"
 
 const NAME = "vts-loading"
 

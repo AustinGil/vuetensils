@@ -102,6 +102,7 @@ export default {
 
 .vts-dropdown__content {
   position: absolute;
+  z-index: 5;
   min-width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: #fff;
