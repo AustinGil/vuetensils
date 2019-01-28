@@ -1,6 +1,9 @@
 <script>
 const NAME = "vts-fetch"
 
+/**
+ * Makes JSON API requests and provides responses, loading states, and errors
+ */
 export default {
   name: NAME,
 

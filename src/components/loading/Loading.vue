@@ -3,6 +3,9 @@ import svgs from "../../data/svgs"
 
 const NAME = "vts-loading"
 
+/**
+ * SVG loading icons
+ */
 export default {
   name: NAME,
   /**

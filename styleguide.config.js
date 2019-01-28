@@ -3,7 +3,12 @@ const vueLoader = require("vue-loader")
 
 module.exports = {
   require: [path.join(__dirname, "styleguide.css")],
-  components: "src/components/**/[A-Z]*.vue",
+  sections: [
+    {
+      content: "README.md",
+      components: "src/components/**/[A-Z]*.vue"
+    }
+  ],
   pagePerSection: true,
   skipComponentsWithoutExample: true,
   usageMode: "expand",

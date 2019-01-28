@@ -4,6 +4,9 @@ import FOCUSABLE from "../../data/focusable"
 
 const NAME = "vts-modal"
 
+/**
+ * A modal dialogue that traps user focus
+ */
 export default {
   name: NAME,
 

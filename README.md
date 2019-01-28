@@ -22,42 +22,40 @@ But size is not the whole story. The Libraries above provide a LOT more features
 
 #### Import into your Vue project:
 
-```
+```js static
 // main.js
-import Vue from 'vue'
-import vuetensils from 'vuetensils'
-import 'vuetensils/dist/vuetensils.min.css'
+import Vue from "vue"
+import vuetensils from "vuetensils"
+import "vuetensils/dist/vuetensils.min.css"
 
 Vue.use(vuetensils)
 ```
 
 #### Alternatively, import just the components you need:
 
-```
+```js static
 // main.js
-import Vue from 'vue'
-import { VtsModal } from 'vuetensils'
+import Vue from "vue"
+import { VtsModal } from "vuetensils"
 
 Vue.use(VtsModal)
 ```
 
 #### Use the components:
 
-```
+```html static
 // Example.vue
 <template>
-  <div>
-    <vts-modal v-model="show">
-      My modal content
-    </vts-modal>
+  <div class="my-component">
+    <vts-modal v-model="show"> My modal content</vts-modal>
   </div>
 </template>
 <script>
-export default {
-  data: () => ({
-    show: true
-  })
-}
+  export default {
+    data: () => ({
+      show: true
+    })
+  }
 </script>
 ```
 

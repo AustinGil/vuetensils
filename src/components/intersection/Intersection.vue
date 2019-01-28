@@ -1,6 +1,9 @@
 <script>
 const NAME = "vts-intersection"
 
+/**
+ * Adds [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to content and provides event callbacks
+ */
 export default {
   name: NAME,
   abstract: true,

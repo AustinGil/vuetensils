@@ -5,7 +5,7 @@ import FOCUSABLE from "../../data/focusable"
 const NAME = "vts-drawer"
 
 /**
- * Component for showing/hiding a sidebar
+ * A sidebar that can be toggled on or off
  */
 export default {
   name: NAME,
