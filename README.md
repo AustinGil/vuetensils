@@ -58,14 +58,3 @@ Vue.use(VtsModal)
   }
 </script>
 ```
-
----
-
-## Components
-
-- `<vts-drawer>` - A sidebar that can be toggled on or off.
-- `<vts-dropdown>` - Show/hide inline content.
-- `<vts-fetch>` - Makes JSON API requests and provides responses, loading states, and errors.
-- `<vts-intersection>` - Adds [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to content and provides event callbacks.
-- `<vts-loading>` - SVG loading icons.
-- `<vts-modal>` - A modal dialogue.
