@@ -10,7 +10,8 @@ export default {
       default: ""
     },
     position: {
-      type: String
+      type: String,
+      default: "bottom"
     },
     transition: {
       type: String
