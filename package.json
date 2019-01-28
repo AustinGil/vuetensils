@@ -22,7 +22,6 @@
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuetensils.umd.js",
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuetensils.esm.js",
     "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vuetensils.min.js",
-    "storybook": "start-storybook -p 9001 -c .storybook",
     "styleguide": "vue-styleguidist server",
     "styleguide:build": "vue-styleguidist build"
   },
@@ -48,11 +47,6 @@
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@storybook/addon-a11y": "^4.1.7",
-    "@storybook/addon-actions": "^4.1.9",
-    "@storybook/addon-info": "^4.1.7",
-    "@storybook/addon-options": "^4.1.7",
-    "@storybook/vue": "^4.1.7",
     "@vue/test-utils": "^1.0.0-beta.28",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.5",
