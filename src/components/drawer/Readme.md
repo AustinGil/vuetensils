@@ -44,3 +44,51 @@ export default {
 }
 </style>
 ```
+
+```vue
+<template>
+  <div>
+    <vts-drawer
+      v-model="showDrawer"
+      transition="slide-left"
+      bg-transition="fade"
+      right
+    >
+      My drawer content
+    </vts-drawer>
+
+    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    showDrawer: false
+  })
+}
+</script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active {
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.slide-left-enter,
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}
+</style>
+```

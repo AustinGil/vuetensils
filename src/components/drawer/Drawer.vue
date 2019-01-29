@@ -15,13 +15,15 @@ export default {
       type: Boolean,
       default: false
     },
+    right: {
+      type: Boolean,
+      default: false
+    },
     width: {
-      type: String,
-      default: null
+      type: String
     },
     maxWidth: {
-      type: String,
-      default: null
+      type: String
     },
     preventScroll: {
       type: Boolean,
@@ -41,16 +43,28 @@ export default {
 
   methods: {
     show() {
+      /**
+       * @event open
+       * @type { null }
+       */
       this.$emit("open")
       this.$emit("change", true)
     },
     hide() {
+      /**
+       * @event close
+       * @type { null }
+       */
       this.$emit("close")
       this.$emit("change", false)
     },
     toggle() {
       const event = this.showing ? "close" : "open"
       this.$emit(event, !this.showing)
+      /**
+       * @event change
+       * @type { boolean }
+       */
       this.$emit("change", !this.showing)
     },
     onKeydown(event) {
@@ -105,7 +119,10 @@ export default {
       "aside",
       {
         ref: "content",
-        class: `${NAME}__content`,
+        class: {
+          [`${NAME}__content`]: true,
+          [`${NAME}__content--right`]: !!this.right
+        },
         style: {
           width: this.width || null,
           maxWidth: this.maxWidth || null
@@ -174,5 +191,9 @@ export default {
   max-width: 300px;
   height: 100%;
   background: #fff;
+}
+
+.vts-drawer__content--right {
+  margin-left: auto;
 }
 </style>

@@ -24,6 +24,17 @@ img {
   transform: translateX(-100%);
 }
 
+.slide-left-enter-active,
+.slide-left-leave-active {
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.slide-left-enter,
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
