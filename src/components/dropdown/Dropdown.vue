@@ -14,7 +14,10 @@ export default {
     },
     position: {
       type: String,
-      default: "bottom"
+      default: "bottom",
+      validator(value) {
+        return ["top", "bottom"].includes(value)
+      }
     },
     transition: {
       type: String
@@ -60,10 +63,7 @@ export default {
 
     let content = create(false)
     if (this.isHovered || this.isFocused) {
-      let contentClass = `${NAME}__content`
-      if (!!this.position) {
-        contentClass += ` ${NAME}__content--${this.position}`
-      }
+      let contentClass = `${NAME}__content ${NAME}__content--${this.position}`
 
       content = create(
         "transition",

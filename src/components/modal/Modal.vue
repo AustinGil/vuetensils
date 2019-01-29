@@ -11,6 +11,9 @@ export default {
   name: NAME,
 
   props: {
+    /**
+     * @model
+     */
     showing: {
       type: Boolean,
       default: false
@@ -20,12 +23,10 @@ export default {
       default: true
     },
     width: {
-      type: String,
-      default: ""
+      type: String
     },
     maxWidth: {
-      type: String,
-      default: ""
+      type: String
     },
     preventScroll: {
       type: Boolean,
@@ -45,16 +46,28 @@ export default {
 
   methods: {
     show() {
+      /**
+       * @event show
+       * @type { boolean }
+       */
       this.$emit("show")
       this.$emit("change", true)
     },
     hide() {
+      /**
+       * @event hide
+       * @type { boolean }
+       */
       this.$emit("hide")
       this.$emit("change", false)
     },
     toggle() {
       const event = this.showing ? "hide" : "show"
       this.$emit(event, !this.showing)
+      /**
+       * @event change
+       * @type { boolean }
+       */
       this.$emit("change", !this.showing)
     },
     onKeydown(event) {

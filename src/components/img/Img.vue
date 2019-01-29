@@ -9,15 +9,20 @@ export default {
   props: {
     src: {
       type: String,
-      required: true
+      required: true,
+      default: ""
     },
     srcset: String,
     sizes: String,
-    width: [String, Number],
-    height: [String, Number],
+    width: {
+      type: [String, Number]
+    },
+    height: {
+      type: [String, Number]
+    },
     placeholder: String,
     background: String,
-    immediate: Boolean,
+    // immediate: Boolean,
     alt: String
   },
 

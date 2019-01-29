@@ -33,11 +33,19 @@ export default {
         .then(response => {
           this.response = response
           this.loading = false
+          /**
+           * @event success
+           * @type { object }
+           */
           this.$emit("success", response)
         })
         .catch(error => {
           this.error = error
           this.loading = false
+          /**
+           * @event error
+           * @type { object }
+           */
           this.$emit("error", error)
         })
     }
@@ -54,7 +62,6 @@ export default {
       fetch: this.fetch
     })
     if (scopedSlot.length) {
-      console.warn("[ItemsList] Requires 1 root element. Using injected <div>.")
       return create("div", [scopedSlot])
     }
     return scopedSlot

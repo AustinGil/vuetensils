@@ -6,21 +6,17 @@ const NAME = "vts-intersection"
  */
 export default {
   name: NAME,
-  abstract: true,
   props: {
     threshold: {
       type: Array,
-      required: false,
       default: () => [0, 0.2]
     },
     root: {
       type: String,
-      required: false,
       default: () => null
     },
     rootMargin: {
       type: String,
-      required: false,
       default: () => "0px 0px 0px 0px"
     },
     tag: {
@@ -32,10 +28,22 @@ export default {
     this.observer = new IntersectionObserver(
       entries => {
         if (!entries[0].isIntersecting) {
+          /**
+           * @event leave
+           * @type { IntersectionObserverEntry }
+           */
           this.$emit("leave", [entries[0]])
         } else {
+          /**
+           * @event enter
+           * @type { IntersectionObserverEntry }
+           */
           this.$emit("enter", [entries[0]])
         }
+        /**
+         * @event change
+         * @type { IntersectionObserverEntry }
+         */
         this.$emit("change", [entries[0]])
       },
       {
@@ -50,14 +58,7 @@ export default {
     })
   },
   render(create) {
-    // TODO: check variable content support
-    return create(
-      this.tag,
-      {
-        class: NAME
-      },
-      [this.$slots.default]
-    )
+    return create(this.tag, { class: NAME }, [this.$slots.default])
   }
 }
 </script>

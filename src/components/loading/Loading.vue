@@ -20,10 +20,10 @@ export default {
       default: "ring"
     },
     width: {
-      type: String | Number
+      type: [String, Number]
     },
     height: {
-      type: String | Number
+      type: [String, Number]
     },
     fill: {
       type: String,

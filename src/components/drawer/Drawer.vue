@@ -11,6 +11,9 @@ export default {
   name: NAME,
 
   props: {
+    /**
+     * @model
+     */
     showing: {
       type: Boolean,
       default: false
