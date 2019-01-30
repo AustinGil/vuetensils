@@ -1,9 +1,53 @@
+**NOTE: It's best to preview these on a slow/throttled connection**
+
+```vue
+<template>
+  <vts-img src="https://source.unsplash.com/random/900x600" />
+</template>
+
+<script>
+export default {}
+</script>
+
+<style>
+img {
+  max-width: 100%;
+  height: auto;
+}
+</style>
+```
+
+Pass in the image dimensions to avoid the page jumping when the image loads
+
 ```vue
 <template>
   <vts-img
-    src="https://source.unsplash.com/random/900x600"
+    src="https://source.unsplash.com/random/900x550"
     width="900"
-    height="600"
+    height="550"
+  />
+</template>
+
+<script>
+export default {}
+</script>
+
+<style>
+img {
+  max-width: 100%;
+  height: auto;
+}
+</style>
+```
+
+Add a background color as a placeholder while the image loads
+
+```vue
+<template>
+  <vts-img
+    src="https://source.unsplash.com/random/1000x550"
+    width="1000"
+    height="550"
     background="#ddd"
   />
 </template>
@@ -20,7 +64,31 @@ img {
 </style>
 ```
 
-Supports alt attributes, srcsets, and placeholder images:
+Include a smaller, blurred placeholder image
+
+```vue
+<template>
+  <vts-img
+    :src="`https://images.unsplash.com/photo-1546094324-7fd2718befe3?w=1080`"
+    width="1080"
+    height="864"
+    placeholder="https://images.unsplash.com/photo-1546094324-7fd2718befe3?w=30"
+  />
+</template>
+
+<script>
+export default {}
+</script>
+
+<style>
+img {
+  max-width: 100%;
+  height: auto;
+}
+</style>
+```
+
+Don't forget all the other best practices
 
 ```vue
 <template>
@@ -28,7 +96,7 @@ Supports alt attributes, srcsets, and placeholder images:
     :src="`https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=1080`"
     width="900"
     height="600"
-    alt="Always a good idea to add an alt attribute"
+    placeholder="https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=30"
     srcset="https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=320 320w,
       https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=480 480w,
       https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=800 800w"
@@ -36,7 +104,7 @@ Supports alt attributes, srcsets, and placeholder images:
       (max-width: 480px) 440px,
       (max-width: 800px) 760px,
       1080px"
-    placeholder="https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=10"
+    alt="Beautiful forest"
   />
 </template>
 

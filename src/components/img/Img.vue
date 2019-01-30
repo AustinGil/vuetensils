@@ -67,6 +67,38 @@ export default {
     //   return create(false)
     // }
 
+    const hasDimensions = this.width && this.height
+
+    let aspectRatio = create(false)
+    if (hasDimensions) {
+      aspectRatio = create("div", {
+        class: `${NAME}__aspect-ratio`,
+        style: {
+          paddingTop: (this.height / this.width) * 100 + "%",
+          background: this.background || false
+        }
+      })
+    }
+
+    let placeholder = create(false)
+    if (hasDimensions && this.placeholder) {
+      placeholder = create(
+        "div",
+        {
+          class: `${NAME}__placeholder`
+        },
+        [
+          create("img", {
+            attrs: {
+              src: this.placeholder,
+              width: this.width,
+              height: this.height
+            }
+          })
+        ]
+      )
+    }
+
     const img = create("img", {
       class: `${NAME}__img`,
       attrs: {
@@ -75,23 +107,6 @@ export default {
         height: this.height || false
       }
     })
-
-    let placeholder = create(false)
-    // Only add the placeholder if we have something to show, and we have the dimensions
-    if ((this.placeholder || this.background) && this.width && this.height) {
-      placeholder = create("div", { class: `${NAME}__placeholder` }, [
-        create("img", {
-          attrs: {
-            src: this.placeholder,
-            width: this.width,
-            height: this.height
-          },
-          style: {
-            background: this.background || false
-          }
-        })
-      ])
-    }
 
     // TODO: Add this when SSR support is enabled
     // const noscript = create("noscript", [
@@ -104,9 +119,12 @@ export default {
     return create(
       "div",
       {
-        class: NAME
+        class: [NAME, { [`${NAME}--has-dimensions`]: hasDimensions }],
+        style: {
+          maxWidth: this.width + "px"
+        }
       },
-      [placeholder, img]
+      [aspectRatio, placeholder, img]
     )
   }
 }
@@ -114,11 +132,20 @@ export default {
 
 <style>
 .vts-img {
+  display: inline-block;
   position: relative;
+  width: 100%;
 }
 
 .vts-img img {
   vertical-align: top;
+}
+
+.vts-img--has-dimensions .vts-img__img,
+.vts-img--has-dimensions .vts-img__placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .vts-img__img {
@@ -127,20 +154,12 @@ export default {
 }
 
 .vts-img__placeholder {
-  position: absolute;
-  top: 0;
-  left: 0;
   overflow: hidden;
-  transition: opacity 0.3s ease;
 }
 
 .vts-img__placeholder img {
   transform: scale(1.05);
   filter: blur(10px);
-}
-
-.vts-img--loaded .vts-img__placeholder {
-  opacity: 0;
 }
 
 .vts-img--loaded .vts-img__img {
