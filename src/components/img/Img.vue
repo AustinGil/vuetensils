@@ -38,9 +38,11 @@ export default {
         delete img.onload
         wrapper.classList.remove(`${NAME}--loading`)
         wrapper.classList.add(`${NAME}--loaded`)
-        setTimeout(() => {
-          placeholder.remove()
-        }, 300)
+        if (placeholder) {
+          setTimeout(() => {
+            placeholder.remove()
+          }, 300)
+        }
       }
       if (entry.isIntersecting) {
         // Element is in viewport
