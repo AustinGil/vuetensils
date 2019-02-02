@@ -22,12 +22,11 @@ export default {
     },
     placeholder: String,
     background: String,
-    // immediate: Boolean,
     alt: String
   },
 
   mounted() {
-    // this.$isServer
+    let timeOut
     const observer = new IntersectionObserver(entries => {
       const entry = entries[0]
       const wrapper = entry.target
@@ -39,7 +38,7 @@ export default {
         wrapper.classList.remove(`${NAME}--loading`)
         wrapper.classList.add(`${NAME}--loaded`)
         if (placeholder) {
-          setTimeout(() => {
+          timeOut = setTimeout(() => {
             placeholder.remove()
           }, 300)
         }
@@ -57,6 +56,9 @@ export default {
     observer.observe(this.$el)
     this.$once("hook:beforeDestroy", () => {
       observer.disconnect()
+      if (timeOut) {
+        clearTimeout(timeOut)
+      }
     })
   },
 
@@ -69,30 +71,30 @@ export default {
     //   return create(false)
     // }
 
+    let placeholderSrc = false
     const hasDimensions = this.width && this.height
-
-    let aspectRatio = create(false)
-    if (hasDimensions) {
-      aspectRatio = create("div", {
-        class: `${NAME}__aspect-ratio`,
-        style: {
-          paddingTop: (this.height / this.width) * 100 + "%",
-          background: this.background || false
-        }
-      })
-    }
-
     let placeholder = create(false)
-    if (hasDimensions && this.placeholder) {
+
+    if (hasDimensions) {
+      const w = 100
+      const canvas = document.createElement("canvas")
+      canvas.width = w
+      canvas.height = (this.height / this.width) * w
+
+      placeholderSrc = canvas.toDataURL()
+
       placeholder = create(
         "div",
         {
-          class: `${NAME}__placeholder`
+          class: `${NAME}__placeholder`,
+          style: {
+            background: this.background || false
+          }
         },
         [
           create("img", {
             attrs: {
-              src: this.placeholder,
+              src: this.placeholder || placeholderSrc,
               width: this.width,
               height: this.height
             }
@@ -105,6 +107,7 @@ export default {
       class: `${NAME}__img`,
       attrs: {
         ...this.$attrs,
+        src: placeholderSrc,
         width: this.width || false,
         height: this.height || false
       }
@@ -126,7 +129,7 @@ export default {
           maxWidth: this.width + "px"
         }
       },
-      [aspectRatio, placeholder, img]
+      [placeholder, img]
     )
   }
 }
@@ -143,19 +146,15 @@ export default {
   vertical-align: top;
 }
 
-.vts-img--has-dimensions .vts-img__img,
-.vts-img--has-dimensions .vts-img__placeholder {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
 .vts-img__img {
+  position: relative;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .vts-img__placeholder {
+  position: absolute;
+  top: 0;
   overflow: hidden;
 }
 
