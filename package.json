@@ -44,7 +44,9 @@
     "nav",
     "modal"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "popper.js": "^1.14.7"
+  },
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
