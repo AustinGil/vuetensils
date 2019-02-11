@@ -17,7 +17,7 @@
   },
   "scripts": {
     "dev": "echo TODO",
-    "test": "jest",
+    "test": "echo TODO",
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuetensils.umd.js",
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuetensils.esm.js",
@@ -47,13 +47,8 @@
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
-    "@vue/test-utils": "^1.0.0-beta.28",
-    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.5",
-    "babel-preset-vue": "^2.0.2",
     "css-loader": "^2.1.0",
-    "jest": "^23.6.0",
     "minimist": "^1.2.0",
     "rollup": "^1.1.0",
     "rollup-plugin-buble": "^0.19.6",
