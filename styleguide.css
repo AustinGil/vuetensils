@@ -46,3 +46,28 @@ img {
   opacity: 0;
   transform: translateY(10px);
 }
+
+.styled.vts-tabs {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+.styled.vts-tabs [role="tablist"] {
+  display: flex;
+}
+
+.styled.vts-tabs [role="tab"] {
+  flex-grow: 1;
+  border: 0;
+  padding: 0.5rem;
+}
+
+.styled.vts-tabs [role="tab"][aria-selected="true"] {
+  border-bottom-color: #fff;
+  background: #fff;
+}
+
+.styled.vts-tabs [role="tabpanel"] {
+  padding: 1rem;
+}
