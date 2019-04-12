@@ -58,3 +58,6 @@ Vue.use(VtsModal)
   }
 </script>
 ```
+
+<!-- TODO: https://rollup-plugin-vue.vuejs.org/examples.html#minimal -->
+<!-- TODO: https://github.com/release-it/release-it -->

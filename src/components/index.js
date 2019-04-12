@@ -6,4 +6,4 @@ import Intersection from "./intersection/Intersection.vue"
 import Loading from "./loading/Loading.vue"
 import Modal from "./modal/Modal.vue"
 
-export { Drawer, Dropdown, Fetch, Img, Intersection, Modal, Loading }
+export { Drawer, Dropdown, Fetch, Img, Intersection, Loading, Modal }
