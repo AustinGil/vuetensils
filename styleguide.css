@@ -71,3 +71,17 @@ img {
 .styled.vts-tabs [role="tabpanel"] {
   padding: 1rem;
 }
+
+.vts-alert.info {
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  padding: 10px;
+  color: #009;
+  background: #ddf;
+}
+
+.vts-alert.info .vts-alert__dismiss {
+  border: 0;
+  font: inherit;
+  background: transparent;
+}
