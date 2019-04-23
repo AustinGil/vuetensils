@@ -1,7 +1,8 @@
 const path = require("path")
-const vueLoader = require("vue-loader")
+const VueLoaderPlugin = require("vue-loader/lib/plugin")
 
 module.exports = {
+  title: "Vuetensils",
   require: [path.join(__dirname, "styleguide.css")],
   sections: [
     {
@@ -31,6 +32,6 @@ module.exports = {
         }
       ]
     },
-    plugins: [new vueLoader.VueLoaderPlugin()]
+    plugins: [new VueLoaderPlugin()]
   }
 }
