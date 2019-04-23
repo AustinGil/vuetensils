@@ -2,7 +2,7 @@
 const NAME = "vts-img"
 
 export default {
-  name: NAME,
+  // name: NAME,
   inheritAttrs: false,
   // functional: true, // TODO
 

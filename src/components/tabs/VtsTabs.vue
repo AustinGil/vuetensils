@@ -1,6 +1,14 @@
 <template>
-  <div v-if="tablist.length" class="vts-tabs">
-    <div role="tablist" :aria-label="label" :aria-orientation="orientation" class="vts-tablist">
+  <div
+    v-if="tablist.length"
+    class="vts-tabs"
+  >
+    <div
+      role="tablist"
+      :aria-label="label"
+      :aria-orientation="orientation"
+      class="vts-tablist"
+    >
       <button
         v-for="(tab, index) in tablist"
         :key="tab"
@@ -44,7 +52,7 @@ const NAME = "vts-tabs"
  * Keyboard navigation to the tabs only targets active tab. `right` key activates next tab (horizontal orientation) or loops around to start. `left` key activates previous tab (horizontal orientation) or loops around to end. `down` key activates next tab (vertical orientation) or loops around to start. `down` key activates previous tab (vertical orientation) or loops around to end. (in horizontal orientation), `home` key activates first tab. `end` key activates last tab.
  */
 export default {
-  name: NAME,
+  // name: NAME,
 
   props: {
     /**

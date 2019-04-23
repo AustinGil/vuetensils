@@ -2,13 +2,13 @@
 import KEYCODES from "../../data/keycodes"
 import FOCUSABLE from "../../data/focusable"
 
-const NAME = "vts-modal"
+const NAME = "vts-drawer"
 
 /**
- * A modal dialogue that traps user focus
+ * A sidebar that can be toggled on or off
  */
 export default {
-  name: NAME,
+  // name: NAME,
 
   props: {
     /**
@@ -18,9 +18,9 @@ export default {
       type: Boolean,
       default: false
     },
-    dismissible: {
+    right: {
       type: Boolean,
-      default: true
+      default: false
     },
     width: {
       type: String
@@ -30,7 +30,7 @@ export default {
     },
     preventScroll: {
       type: Boolean,
-      default: true
+      default: false
     },
     transition: {
       type: String
@@ -47,22 +47,22 @@ export default {
   methods: {
     show() {
       /**
-       * @event show
-       * @type { boolean }
+       * @event open
+       * @type { null }
        */
-      this.$emit("show")
+      this.$emit("open")
       this.$emit("change", true)
     },
     hide() {
       /**
-       * @event hide
-       * @type { boolean }
+       * @event close
+       * @type { null }
        */
-      this.$emit("hide")
+      this.$emit("close")
       this.$emit("change", false)
     },
     toggle() {
-      const event = this.showing ? "hide" : "show"
+      const event = this.showing ? "close" : "open"
       this.$emit(event, !this.showing)
       /**
        * @event change
@@ -78,7 +78,7 @@ export default {
         const content = this.$refs.content
         const focusable = Array.from(content.querySelectorAll(FOCUSABLE))
 
-        if (this.showing && content && !content.contains(document.activeElement) && focusable) {
+        if (this.visible && content && !content.contains(document.activeElement) && focusable) {
           event.preventDefault()
           focusable[0].focus()
         } else {
@@ -101,15 +101,13 @@ export default {
   watch: {
     showing: {
       handler: function(next, prev) {
-        if (typeof window !== "undefined") {
-          if (next && next != prev) {
-            this.preventScroll && document.body.style.setProperty("overflow", "hidden")
-            this.$nextTick(() => {
-              this.$refs.content.focus()
-            })
-          } else {
-            this.preventScroll && document.body.style.removeProperty("overflow")
-          }
+        if (next && next != prev) {
+          this.preventScroll && document.body.style.setProperty("overflow", "hidden")
+          this.$nextTick(() => {
+            this.$refs.content.focus()
+          })
+        } else {
+          this.preventScroll && document.body.style.removeProperty("overflow")
         }
       }
     }
@@ -121,17 +119,20 @@ export default {
     }
 
     let content = create(
-      "div",
+      "aside",
       {
         ref: "content",
-        class: `${NAME}__content`,
+        class: {
+          [`${NAME}__content`]: true,
+          [`${NAME}__content--right`]: !!this.right
+        },
         style: {
           width: this.width || null,
           maxWidth: this.maxWidth || null
         },
         attrs: {
-          tabindex: "-1",
-          role: "dialog"
+          tabindex: "-1"
+          // 'aria-label': "submenu"
         }
       },
       [this.$slots.default]
@@ -144,13 +145,13 @@ export default {
       [content]
     )
 
-    let modal = create(
+    let drawer = create(
       "div",
       {
-        class: `${NAME}`,
+        class: NAME,
         on: {
           click: event => {
-            if (event.target.classList.contains(`${NAME}`) && this.dismissible) {
+            if (event.target.classList.contains(`${NAME}`)) {
               this.hide()
             }
           },
@@ -159,42 +160,43 @@ export default {
       },
       [content]
     )
-
-    modal = create(
+    drawer = create(
       "transition",
       {
         props: { name: this.bgTransition }
       },
-      [modal]
+      [drawer]
     )
 
-    return modal
+    return drawer
   }
 }
 </script>
 
 <style>
-.vts-modal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.vts-drawer {
   position: fixed;
   z-index: 100;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-.vts-modal [tabindex="-1"]:focus {
+.vts-drawer [tabindex="-1"]:focus {
   outline: 0;
 }
 
-.vts-modal__content {
+.vts-drawer__content {
   overflow: auto;
-  max-width: 70vw;
-  max-height: 80vh;
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
   background: #fff;
+}
+
+.vts-drawer__content--right {
+  margin-left: auto;
 }
 </style>

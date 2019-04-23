@@ -1,6 +1,10 @@
 <template>
   <transition :name="transition">
-    <div v-if="!dismissed && !!visible" role="alert" class="vts-alert">
+    <div
+      v-if="!dismissed && !!visible"
+      role="alert"
+      class="vts-alert"
+    >
       <slot></slot>
 
       <button
@@ -19,7 +23,7 @@
 const NAME = "vts-alert"
 
 export default {
-  name: NAME,
+  // name: NAME,
 
   model: {
     prop: "visible",

@@ -5,7 +5,7 @@ const NAME = "vts-dropdown"
  * Show/hide inline content
  */
 export default {
-  name: NAME,
+  // name: NAME,
 
   props: {
     text: {
