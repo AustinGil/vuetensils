@@ -5,7 +5,7 @@ import FOCUSABLE from "../../data/focusable"
 const NAME = "vts-modal"
 
 /**
- * A modal dialogue that traps user focus
+ * A modal/dialogue component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the modal until it is closed. It also supports being closed by pressing the ESC key.
  */
 export default {
   // name: NAME,

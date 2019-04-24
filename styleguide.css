@@ -85,3 +85,13 @@ img {
   font: inherit;
   background: transparent;
 }
+
+.styled .vts-drawer {
+  background: rgba(0, 0, 255, 0.5);
+}
+
+.styled .vts-drawer__content {
+  padding: 20px;
+  color: #fff;
+  background: #222;
+}

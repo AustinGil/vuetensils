@@ -12,6 +12,8 @@ export default {}
 
 ### Using v-model
 
+With `v-model`, you can toggle an alert on or off.
+
 ```vue
 <template>
   <div>
@@ -33,6 +35,8 @@ export default {
 ```
 
 ### Dismissible
+
+Allow users to hide an alert
 
 ```vue
 <template>
@@ -66,6 +70,8 @@ export default {
 </script>
 ```
 
+You can provide your own content for the dismiss button with the `button` slot.
+
 ```vue
 <template>
   <vts-alert dismissible>
@@ -83,6 +89,8 @@ export default {}
 ```
 
 ### Countdown
+
+It also supports providing seconds to the `visible` prop (or `v-model`) so the alert will hide after a short time.
 
 ```vue
 <template>

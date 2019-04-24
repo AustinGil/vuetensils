@@ -21,11 +21,7 @@ Pass in the image dimensions to avoid the page jumping when the image loads
 
 ```vue
 <template>
-  <vts-img
-    src="https://source.unsplash.com/random/900x550"
-    width="900"
-    height="550"
-  />
+  <vts-img src="https://source.unsplash.com/random/900x550" width="900" height="550" />
 </template>
 
 <script>
@@ -40,7 +36,7 @@ img {
 </style>
 ```
 
-Add a background color as a placeholder while the image loads
+### Colored Placeholder
 
 ```vue
 <template>
@@ -64,7 +60,7 @@ img {
 </style>
 ```
 
-Include a smaller, blurred placeholder image
+### Blurred Thumbnail Placeholder
 
 ```vue
 <template>
@@ -88,7 +84,9 @@ img {
 </style>
 ```
 
-Don't forget all the other best practices
+### Misc
+
+Don't forget all the other best practices such as `srcset` attribute and `alt` text
 
 ```vue
 <template>

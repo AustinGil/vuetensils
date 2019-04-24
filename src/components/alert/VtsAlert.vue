@@ -22,6 +22,9 @@
 <script>
 const NAME = "vts-alert"
 
+/**
+ * A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
+ */
 export default {
   // name: NAME,
 
