@@ -49,7 +49,7 @@ export default {
       default: false
     },
     /**
-     * Aria-label that screen readers will read for the dismiss button
+     * Aria-label that is not visibly, but screen readers will read for the dismiss button
      */
     dismissLabel: {
       type: [String, Boolean],
