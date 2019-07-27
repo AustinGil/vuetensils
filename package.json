@@ -23,7 +23,8 @@
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuetensils.esm.js",
     "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vuetensils.min.js",
     "styleguide": "vue-styleguidist server",
-    "styleguide:build": "vue-styleguidist build"
+    "styleguide:build": "vue-styleguidist build",
+    "release": "release-it"
   },
   "keywords": [
     "web",
@@ -52,6 +53,7 @@
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.0",
     "minimist": "^1.2.0",
+    "release-it": "^12.3.4",
     "rollup": "^1.1.0",
     "rollup-plugin-buble": "^0.19.6",
     "rollup-plugin-filesize": "^6.0.0",
@@ -61,10 +63,10 @@
     "style-loader": "^0.23.1",
     "stylelint": "^9.9.0",
     "stylelint-config-sass-guidelines": "^5.3.0",
-    "vue": "^2.5.22",
-    "vue-loader": "^15.6.2",
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.1",
     "vue-styleguidist": "^3.11.7",
-    "vue-template-compiler": "^2.5.22",
+    "vue-template-compiler": "^2.6.10",
     "webpack": "^4.30.0"
   }
 }
