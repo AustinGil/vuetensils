@@ -1,12 +1,34 @@
-<script>
-const NAME = "vts-dropdown"
+<template>
+  <div class="vts-dropdown">
+    <button
+      @click="isFocused = !isFocused"
+      :aria-expanded="!!isHovered || !!isFocused"
+      aria-haspopup
+    >
+      {{ text }}
+    </button>
 
+    <transition :name="transition">
+      <div
+        v-if="!!isHovered || !!isFocused"
+        @mouseover="isHovered = true"
+        @mouseleave="isHovered = false"
+        @focusout="onFocusout"
+        class="vts-dropdown__content"
+        :class="`vts-dropdown__content__content--${position}`"
+      >
+        <slot />
+      </div>
+    </transition>
+  </div>
+</template>
+
+
+<script>
 /**
  * Show/hide inline content
  */
 export default {
-  // name: NAME,
-
   props: {
     text: {
       type: String,
@@ -34,6 +56,12 @@ export default {
       if (!this.$el.contains(e.target)) {
         this.isOpen = false
       }
+    },
+
+    onFocusout(event) {
+      if (!this.$el.contains(event.relatedTarget)) {
+        this.isFocused = false
+      }
     }
   },
 
@@ -42,58 +70,6 @@ export default {
     this.$once("hook:beforeDestroy", () => {
       document.removeEventListener("click", this.onClickout)
     })
-  },
-
-  render(create) {
-    const button = create(
-      "button",
-      {
-        attrs: {
-          "aria-haspopup": true,
-          "aria-expanded": this.isHovered || this.isFocused ? "true" : "false"
-        },
-        on: {
-          click: () => {
-            this.isFocused = !this.isFocused
-          }
-        }
-      },
-      this.text
-    )
-
-    let content = create(false)
-    if (this.isHovered || this.isFocused) {
-      let contentClass = `${NAME}__content ${NAME}__content--${this.position}`
-
-      content = create(
-        "transition",
-        {
-          props: { name: this.transition, appear: true }
-        },
-        [create("div", { class: contentClass }, [this.$slots.default])]
-      )
-    }
-
-    return create(
-      "div",
-      {
-        class: NAME,
-        on: {
-          mouseover: () => {
-            this.isHovered = true
-          },
-          mouseleave: () => {
-            this.isHovered = false
-          },
-          focusout: event => {
-            if (!this.$el.contains(event.relatedTarget)) {
-              this.isFocused = false
-            }
-          }
-        }
-      },
-      [button, content]
-    )
   }
 }
 </script>
