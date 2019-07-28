@@ -1,10 +1,12 @@
 <template>
   <transition :name="transition">
-    <div
+    <component
       v-if="!dismissed && !!visible"
+      :is="tag"
       role="alert"
       class="vts-alert"
     >
+      <!-- @slot The default slot content that is shown to the user -->
       <slot></slot>
 
       <button
@@ -13,9 +15,10 @@
         :aria-label="dismissLabel"
         class="vts-alert__dismiss"
       >
+        <!-- @slot The dismiss button content -->
         <slot name="button">&times;</slot>
       </button>
-    </div>
+    </component>
   </transition>
 </template>
 
@@ -26,37 +29,42 @@ const NAME = "vts-alert"
  * A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
  */
 export default {
-  // name: NAME,
-
   model: {
     prop: "visible",
-    event: "change"
+    event: "update"
   },
 
   props: {
     /**
-     * @model
+     * HTML tag used to wrap the component.
+     */
+    tag: {
+      type: String,
+      default: "div"
+    },
+    /**
+     * Determines whether the alert is visible. Also binds with `v-model`.
      */
     visible: {
       type: [Boolean, Number],
       default: true
     },
     /**
-     * Allows a user to dismiss this alert
+     * Allows a user to dismiss this alert.
      */
     dismissible: {
       type: Boolean,
       default: false
     },
     /**
-     * Aria-label that is not visibly, but screen readers will read for the dismiss button
+     * Aria-label that is not visibly, but screen readers will read for the dismiss button.
      */
     dismissLabel: {
       type: [String, Boolean],
       default: "Dismiss this alert"
     },
     /**
-     * The transition name if you want to add one
+     * The transition name if you want to add one.
      */
     transition: {
       type: String
@@ -93,10 +101,10 @@ export default {
       this.$emit("dismiss")
       this.dismissed = true
       if (typeof this.visible === "number") {
-        this.$emit("change", 0)
+        this.$emit("update", 0)
         this.clearTimer()
       } else {
-        this.$emit("change", false)
+        this.$emit("update", false)
       }
     },
 
@@ -106,10 +114,10 @@ export default {
       this.timerId = setTimeout(() => {
         /**
          * Fired whenever the visibility changes. Either through user interaction, or a countdown timer
-         * @event change
+         * @event update
          * @type { boolean/number }
          */
-        this.$emit("change", this.visible - 1)
+        this.$emit("update", this.visible - 1)
       }, 1000)
     },
 

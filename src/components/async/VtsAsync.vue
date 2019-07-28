@@ -63,15 +63,15 @@ export default {
       try {
         this.results = await promise
         /**
-         * Fired after promise has resolved
+         * Fired after promise has resolved with the resolved value.
          * @event resolve
-         * @type { any }
+         * @type { unknown }
          */
         this.$emit("resolve", this.results)
       } catch (error) {
         this.error = error
         /**
-         * Fired after promise has rejected
+         * Fired after promise has rejected with the rejected error.
          * @event reject
          * @type { error }
          */
@@ -79,8 +79,9 @@ export default {
       } finally {
         this.pending = false
         /**
-         * Fired after promise has fulfilled, regardless of success or failure
+         * Fired after promise has fulfilled, regardless of success or failure.
          * @event finally
+         * @type { undefined }
          */
         this.$emit("finally")
       }

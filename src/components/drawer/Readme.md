@@ -40,6 +40,28 @@ export default {
 </script>
 ```
 
+### Prevent page scroll
+
+```vue
+<template>
+  <div>
+    <vts-drawer v-model="showDrawer" noScroll>
+      My drawer content
+    </vts-drawer>
+
+    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    showDrawer: false
+  })
+}
+</script>
+```
+
 ### Add transitions
 
 ```vue
