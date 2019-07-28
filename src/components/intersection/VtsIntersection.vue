@@ -2,10 +2,10 @@
 const NAME = "vts-intersection"
 
 /**
- * Adds [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to content and provides event callbacks
+ * Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
  */
 export default {
-  name: NAME,
+  // name: NAME,
   props: {
     threshold: {
       type: Array,
@@ -27,20 +27,23 @@ export default {
   mounted() {
     this.observer = new IntersectionObserver(
       entries => {
-        if (!entries[0].isIntersecting) {
+        if (entries[0].isIntersecting) {
           /**
-           * @event leave
-           * @type { IntersectionObserverEntry }
-           */
-          this.$emit("leave", [entries[0]])
-        } else {
-          /**
+           * Fired when the observed element enters the screen.
            * @event enter
            * @type { IntersectionObserverEntry }
            */
           this.$emit("enter", [entries[0]])
+        } else {
+          /**
+           * Fired when the observed element exits the screen.
+           * @event exit
+           * @type { IntersectionObserverEntry }
+           */
+          this.$emit("exit", [entries[0]])
         }
         /**
+         * Fired when the observed element enters or exits the screen.
          * @event change
          * @type { IntersectionObserverEntry }
          */
