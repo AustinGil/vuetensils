@@ -8,6 +8,11 @@ const NAME = "vts-drawer"
  * A convenient sidebar that can be toggled on or off. When opened, it traps the user's focus so that keyboard navigation will remain within the sidebar until it is closed. It also supports being closed by pressing the ESC key.
  */
 export default {
+  model: {
+    prop: "showing",
+    event: "update"
+  },
+
   props: {
     /**
      * @model
@@ -37,10 +42,6 @@ export default {
      * Vue transition name for the background.
      */
     bgTransition: String
-  },
-  model: {
-    prop: "showing",
-    event: "update"
   },
 
   methods: {

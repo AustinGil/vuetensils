@@ -66,9 +66,7 @@ export default {
     /**
      * The transition name if you want to add one.
      */
-    transition: {
-      type: String
-    }
+    transition: String
   },
 
   data: () => ({

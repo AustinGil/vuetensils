@@ -14,15 +14,11 @@
  * ```
  */
 export default {
-  name: "VtsAsync",
-
   props: {
     /**
      * A promise reference or function that returns a promise. This is required unless you are going to manually call the promise with the `call()` method.
      */
-    await: {
-      type: [Promise, Function]
-    },
+    await: [Promise, Function],
     /**
      * The default value to provide for the `results`.
      */

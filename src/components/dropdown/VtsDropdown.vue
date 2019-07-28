@@ -1,5 +1,10 @@
 <template>
-  <div class="vts-dropdown">
+  <div
+    class="vts-dropdown"
+    @mouseenter="isHovered = true"
+    @mouseleave="isHovered = false"
+  >
+
     <button
       @click="isFocused = !isFocused"
       :aria-expanded="!!isHovered || !!isFocused"
@@ -11,8 +16,6 @@
     <transition :name="transition">
       <div
         v-if="!!isHovered || !!isFocused"
-        @mouseover="isHovered = true"
-        @mouseleave="isHovered = false"
         @focusout="onFocusout"
         class="vts-dropdown__content"
         :class="`vts-dropdown__content__content--${position}`"
@@ -26,14 +29,22 @@
 
 <script>
 /**
- * Show/hide inline content
+ * Adds a button that can show/hide dropdown content when it is hovered over, or clicked. When it is clicked, the content will persist until the user clicks out or focuses out. Includes relevant ARIA attributes for the hidden content.
  */
 export default {
   props: {
+    /**
+     * The toggle button text.
+     */
     text: {
       type: String,
       default: ""
     },
+    /**
+     * Where the content should be placed in relation to the button.
+     *
+     * Options: 'bottom', 'top'
+     */
     position: {
       type: String,
       default: "bottom",
@@ -41,9 +52,10 @@ export default {
         return ["top", "bottom"].includes(value)
       }
     },
-    transition: {
-      type: String
-    }
+    /**
+     * The trnasition name.
+     */
+    transition: String
   },
 
   data: () => ({
@@ -54,7 +66,7 @@ export default {
   methods: {
     onClickout(e) {
       if (!this.$el.contains(e.target)) {
-        this.isOpen = false
+        this.isFocused = false
       }
     },
 
