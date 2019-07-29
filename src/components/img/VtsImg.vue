@@ -7,27 +7,48 @@ const NAME = "vts-img"
  Note: This component uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) which is not supported by Internet Explorer.
  */
 export default {
-  // name: NAME,
   inheritAttrs: false,
   // functional: true, // TODO
 
   props: {
+    /**
+     * Same as the HTML attribute
+     */
     src: {
       type: String,
-      required: true,
-      default: ""
+      required: true
     },
+    /**
+     * Same as the HTML attribute
+     */
     srcset: String,
+    /**
+     * Same as the HTML attribute
+     */
     sizes: String,
-    width: {
-      type: [String, Number]
-    },
-    height: {
-      type: [String, Number]
-    },
+    /**
+     * Same as the HTML attribute
+     */
+    width: [String, Number],
+    /**
+     * Same as the HTML attribute
+     */
+    height: [String, Number],
+    /**
+     * URL of the blurred placeholder image to use if you need one (ideally a very small image).
+     */
     placeholder: String,
+    /**
+     * CSS background styles for the placeholder in case you just want colors.
+     */
     background: String,
-    alt: String
+    /**
+     * Same as the HTML attribute. This is recommended, but if left out, will default to an empty string.
+     */
+    alt: {
+      type: String,
+      default: ""
+    }
   },
 
   mounted() {
@@ -68,25 +89,23 @@ export default {
   },
 
   render(create, ctx) {
-    // const randomStr = Math.random()
-    //   .toString(36)
-    //   .substr(2)
-    // const id = `${NAME}-${randomStr}`
     // if (this.$parent.$isServer) {
     //   return create(false)
     // }
 
-    let placeholderSrc = false
+    let placeholderSrc = this.placeholder
     const hasDimensions = this.width && this.height
     let placeholder = create(false)
 
     if (hasDimensions) {
-      const w = 100
-      const canvas = document.createElement("canvas")
-      canvas.width = w
-      canvas.height = (this.height / this.width) * w
+      if (!placeholderSrc) {
+        const w = 100
+        const canvas = document.createElement("canvas")
+        canvas.width = w
+        canvas.height = (this.height / this.width) * w
 
-      placeholderSrc = canvas.toDataURL()
+        placeholderSrc = canvas.toDataURL()
+      }
 
       placeholder = create(
         "div",
@@ -99,7 +118,7 @@ export default {
         [
           create("img", {
             attrs: {
-              src: this.placeholder || placeholderSrc,
+              src: placeholderSrc,
               width: this.width,
               height: this.height
             }

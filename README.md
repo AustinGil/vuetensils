@@ -60,4 +60,5 @@ Vue.use(VtsModal)
 ```
 
 <!-- TODO: https://rollup-plugin-vue.vuejs.org/examples.html#minimal -->
-<!-- TODO: https://github.com/release-it/release-it -->
+<!-- TODO: SSR -->
+<!-- TODO: functional -->
