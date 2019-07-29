@@ -1,16 +1,49 @@
+<template>
+  <transition :name="bgTransition">
+    <component
+      v-if="showing"
+      :is="tag"
+      @click="onClick"
+      @keydown="onKeydown"
+      class="vts-modal"
+    >
+      <transition
+        :name="transition"
+        appear
+      >
+        <div
+          ref="content"
+          :style="{width: width, maxWidth: maxWidth}"
+          class="vts-modal__content"
+          tabindex="-1"
+          role="dialog"
+        >
+          <!-- @slot Content that exists within the modal. -->
+          <slot />
+        </div>
+      </transition>
+    </component>
+  </transition>
+</template>
+
 <script>
 import KEYCODES from "../../data/keycodes"
 import FOCUSABLE from "../../data/focusable"
-
-const NAME = "vts-modal"
 
 /**
  * A modal/dialogue component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the modal until it is closed. It also supports being closed by pressing the ESC key.
  */
 export default {
-  // name: NAME,
+  model: {
+    prop: "showing",
+    event: "change"
+  },
 
   props: {
+    tag: {
+      type: String,
+      default: "div"
+    },
     /**
      * @model
      */
@@ -22,26 +55,31 @@ export default {
       type: Boolean,
       default: true
     },
-    width: {
-      type: String
-    },
-    maxWidth: {
-      type: String
-    },
+    width: String,
+    maxWidth: String,
     preventScroll: {
       type: Boolean,
       default: true
     },
-    transition: {
-      type: String
-    },
-    bgTransition: {
-      type: String
-    }
+    transition: String,
+    bgTransition: String
   },
-  model: {
-    prop: "showing",
-    event: "change"
+
+  watch: {
+    showing: {
+      handler(next, prev) {
+        if (typeof window !== "undefined") {
+          if (next && next != prev) {
+            this.preventScroll && document.body.style.setProperty("overflow", "hidden")
+            this.$nextTick(() => {
+              this.$refs.content.focus()
+            })
+          } else {
+            this.preventScroll && document.body.style.removeProperty("overflow")
+          }
+        }
+      }
+    }
   },
 
   methods: {
@@ -70,6 +108,12 @@ export default {
        */
       this.$emit("change", !this.showing)
     },
+    onClick(event) {
+      if (event.target.classList.contains("vts-modal") && this.dismissible) {
+        this.hide()
+      }
+    },
+
     onKeydown(event) {
       if (event.keyCode === KEYCODES.ESC) {
         this.hide()
@@ -96,79 +140,6 @@ export default {
         }
       }
     }
-  },
-
-  watch: {
-    showing: {
-      handler: function(next, prev) {
-        if (typeof window !== "undefined") {
-          if (next && next != prev) {
-            this.preventScroll && document.body.style.setProperty("overflow", "hidden")
-            this.$nextTick(() => {
-              this.$refs.content.focus()
-            })
-          } else {
-            this.preventScroll && document.body.style.removeProperty("overflow")
-          }
-        }
-      }
-    }
-  },
-
-  render(create) {
-    if (!this.showing) {
-      return create(false)
-    }
-
-    let content = create(
-      "div",
-      {
-        ref: "content",
-        class: `${NAME}__content`,
-        style: {
-          width: this.width || null,
-          maxWidth: this.maxWidth || null
-        },
-        attrs: {
-          tabindex: "-1",
-          role: "dialog"
-        }
-      },
-      [this.$slots.default]
-    )
-    content = create(
-      "transition",
-      {
-        props: { name: this.transition, appear: true }
-      },
-      [content]
-    )
-
-    let modal = create(
-      "div",
-      {
-        class: `${NAME}`,
-        on: {
-          click: event => {
-            if (event.target.classList.contains(`${NAME}`) && this.dismissible) {
-              this.hide()
-            }
-          },
-          keydown: this.onKeydown
-        }
-      },
-      [content]
-    )
-
-    modal = create(
-      "transition",
-      {
-        props: { name: this.bgTransition }
-      },
-      [modal]
-    )
-
-    return modal
   }
 }
 </script>

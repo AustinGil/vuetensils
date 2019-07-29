@@ -26,7 +26,6 @@
   </div>
 </template>
 
-
 <script>
 /**
  * Adds a button that can show/hide dropdown content when it is hovered over, or clicked. When it is clicked, the content will persist until the user clicks out or focuses out. Includes relevant ARIA attributes for the hidden content.
@@ -36,10 +35,7 @@ export default {
     /**
      * The toggle button text.
      */
-    text: {
-      type: String,
-      default: ""
-    },
+    text: String,
     /**
      * Where the content should be placed in relation to the button.
      *

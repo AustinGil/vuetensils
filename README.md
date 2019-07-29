@@ -59,6 +59,7 @@ Vue.use(VtsModal)
 </script>
 ```
 
+<!-- TODO: Allow components to accept `tag` prop -->
 <!-- TODO: https://rollup-plugin-vue.vuejs.org/examples.html#minimal -->
 <!-- TODO: SSR -->
 <!-- TODO: functional -->
