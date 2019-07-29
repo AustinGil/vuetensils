@@ -1,24 +1,38 @@
-<script>
-const NAME = "vts-intersection"
+<template>
+  <component
+    :is="tag"
+    class="vts-intersection"
+  >
+    <!-- @slot Content to be tracked with IntersectionObserver -->
+    <slot />
+  </component>
+</template>
 
+
+<script>
 /**
  * Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
  */
 export default {
-  // name: NAME,
   props: {
+    /**
+     * The IntersectionObserver threshold value.
+     */
     threshold: {
       type: Array,
       default: () => [0, 0.2]
     },
-    root: {
-      type: String,
-      default: () => null
-    },
-    rootMargin: {
-      type: String,
-      default: () => "0px 0px 0px 0px"
-    },
+    /**
+     * The IntersectionObserver root value.
+     */
+    root: String,
+    /**
+     * The IntersectionObserver rootMargin value.
+     */
+    rootMargin: String,
+    /**
+     * The HTML tag used to wrap this component
+     */
     tag: {
       type: String,
       default: "div"
@@ -59,9 +73,6 @@ export default {
     this.$once("hook:beforeDestroy", () => {
       this.observer.disconnect()
     })
-  },
-  render(create) {
-    return create(this.tag, { class: NAME }, [this.$slots.default])
   }
 }
 </script>

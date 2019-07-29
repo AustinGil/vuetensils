@@ -1,7 +1,8 @@
+Open your console and scroll around to watch events get fired.
+
 ```vue
 <template>
   <div>
-    <p>Open your console and scroll around to watch events get fired.</p>
     <vts-intersection
       @enter="log('@enter fired for block 1')"
       @exit="log('@exit fired for block 1')"
