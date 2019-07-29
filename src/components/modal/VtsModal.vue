@@ -1,8 +1,7 @@
 <template>
   <transition :name="bgTransition">
-    <component
+    <div
       v-if="showing"
-      :is="tag"
       @click="onClick"
       @keydown="onKeydown"
       class="vts-modal"
@@ -11,7 +10,8 @@
         :name="transition"
         appear
       >
-        <div
+        <component
+          :is="tag"
           ref="content"
           :style="{width: width, maxWidth: maxWidth}"
           class="vts-modal__content"
@@ -20,9 +20,9 @@
         >
           <!-- @slot Content that exists within the modal. -->
           <slot />
-        </div>
+        </component>
       </transition>
-    </component>
+    </div>
   </transition>
 </template>
 
@@ -40,10 +40,6 @@ export default {
   },
 
   props: {
-    tag: {
-      type: String,
-      default: "div"
-    },
     /**
      * @model
      */
@@ -51,17 +47,42 @@ export default {
       type: Boolean,
       default: false
     },
+    /**
+     * HTML component for the modal content.
+     */
+    tag: {
+      type: String,
+      default: "div"
+    },
+    /**
+     * Flag to enable/prevent the modal from being closed.
+     */
     dismissible: {
       type: Boolean,
       default: true
     },
+    /**
+     * CSS width to set the modal to.
+     */
     width: String,
+    /**
+     * CSS max-width to set the modal to.
+     */
     maxWidth: String,
+    /**
+     * Prevents the page from being scrolled while the modal is open.
+     */
     preventScroll: {
       type: Boolean,
       default: true
     },
+    /**
+     * Transition name to apply to the modal.
+     */
     transition: String,
+    /**
+     * Transition name to apply to the background.
+     */
     bgTransition: String
   },
 
@@ -85,6 +106,7 @@ export default {
   methods: {
     show() {
       /**
+       * Fired when the modal opens.
        * @event show
        * @type { boolean }
        */
@@ -93,6 +115,7 @@ export default {
     },
     hide() {
       /**
+       * Fired when the modal closes.
        * @event hide
        * @type { boolean }
        */
@@ -103,6 +126,7 @@ export default {
       const event = this.showing ? "hide" : "show"
       this.$emit(event, !this.showing)
       /**
+       * Fired whenever the modal opens or closes.
        * @event change
        * @type { boolean }
        */

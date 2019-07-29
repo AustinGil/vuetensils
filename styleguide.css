@@ -95,3 +95,23 @@ img {
   color: #fff;
   background: #222;
 }
+
+.styled .vts-modal {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.styled .vts-modal__content {
+  position: relative;
+  border-radius: 7px;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+.styled .vts-modal__content button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: 0;
+  padding: 5px;
+  background: transparent;
+}
