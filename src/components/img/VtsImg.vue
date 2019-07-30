@@ -88,14 +88,14 @@ export default {
     })
   },
 
-  render(create, ctx) {
+  render(h, ctx) {
     // if (this.$parent.$isServer) {
-    //   return create(false)
+    //   return h(false)
     // }
 
-    let placeholderSrc = false
+    let dataUrl = false
     const hasDimensions = this.width && this.height
-    let placeholder = create(false)
+    let placeholder = h(false)
 
     if (hasDimensions) {
       const w = 100
@@ -103,9 +103,9 @@ export default {
       canvas.width = w
       canvas.height = (this.height / this.width) * w
 
-      placeholderSrc = canvas.toDataURL()
+      dataUrl = canvas.toDataURL()
 
-      placeholder = create(
+      placeholder = h(
         "div",
         {
           class: `${NAME}__placeholder`,
@@ -114,9 +114,9 @@ export default {
           }
         },
         [
-          create("img", {
+          h("img", {
             attrs: {
-              src: this.placeholder || placeholderSrc,
+              src: this.placeholder || dataUrl,
               width: this.width,
               height: this.height
             }
@@ -125,25 +125,25 @@ export default {
       )
     }
 
-    const img = create("img", {
+    const img = h("img", {
       class: `${NAME}__img`,
       attrs: {
         ...this.$attrs,
-        src: placeholderSrc,
+        src: dataUrl,
         width: this.width || false,
         height: this.height || false
       }
     })
 
     // TODO: Add this when SSR support is enabled
-    // const noscript = create("noscript", [
-    //   create("img", {
+    // const noscript = h("noscript", [
+    //   h("img", {
     //     attrs: {
     //       src: this.src || ''
     //     }
     //   })
     // ])
-    return create(
+    return h(
       "div",
       {
         class: [NAME, { [`${NAME}--has-dimensions`]: hasDimensions }],
