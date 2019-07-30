@@ -42,6 +42,29 @@ export default {
 </script>
 ```
 
+### Prevent scrolling
+
+```vue
+<template>
+  <div>
+    <vts-modal v-model="modal" noScroll>
+      This is the modal content.
+      <br />
+      <button @click="modal = false">Close</button>
+    </vts-modal>
+    <button @click="modal = !modal">Show the modal</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    modal: false
+  })
+}
+</script>
+```
+
 ### With transitions
 
 ```vue

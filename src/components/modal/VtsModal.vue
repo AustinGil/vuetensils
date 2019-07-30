@@ -43,10 +43,7 @@ export default {
     /**
      * @model
      */
-    showing: {
-      type: Boolean,
-      default: false
-    },
+    showing: Boolean,
     /**
      * HTML component for the modal content.
      */
@@ -72,9 +69,9 @@ export default {
     /**
      * Prevents the page from being scrolled while the modal is open.
      */
-    preventScroll: {
+    noScroll: {
       type: Boolean,
-      default: true
+      default: false
     },
     /**
      * Transition name to apply to the modal.
@@ -91,12 +88,12 @@ export default {
       handler(next, prev) {
         if (typeof window !== "undefined") {
           if (next && next != prev) {
-            this.preventScroll && document.body.style.setProperty("overflow", "hidden")
+            this.noScroll && document.body.style.setProperty("overflow", "hidden")
             this.$nextTick(() => {
               this.$refs.content.focus()
             })
           } else {
-            this.preventScroll && document.body.style.removeProperty("overflow")
+            this.noScroll && document.body.style.removeProperty("overflow")
           }
         }
       }
