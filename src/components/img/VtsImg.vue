@@ -93,19 +93,17 @@ export default {
     //   return create(false)
     // }
 
-    let placeholderSrc = this.placeholder
+    let placeholderSrc = false
     const hasDimensions = this.width && this.height
     let placeholder = create(false)
 
     if (hasDimensions) {
-      if (!placeholderSrc) {
-        const w = 100
-        const canvas = document.createElement("canvas")
-        canvas.width = w
-        canvas.height = (this.height / this.width) * w
+      const w = 100
+      const canvas = document.createElement("canvas")
+      canvas.width = w
+      canvas.height = (this.height / this.width) * w
 
-        placeholderSrc = canvas.toDataURL()
-      }
+      placeholderSrc = canvas.toDataURL()
 
       placeholder = create(
         "div",
@@ -118,7 +116,7 @@ export default {
         [
           create("img", {
             attrs: {
-              src: placeholderSrc,
+              src: this.placeholder || placeholderSrc,
               width: this.width,
               height: this.height
             }
