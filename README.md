@@ -2,61 +2,44 @@
 
 ## 🍴 A tasty toolset for Vue.js 🛠
 
-Vuetensils is a collection of Vue components desined to be light weight, accessible, and extensible. It is not a full blown UI library. Instead, it is designed to jump start a project with some of the most common UI solutions, but does not bring with it any opinionated styles. Bring your own styles, and let Vuetensils handle things like a modal popup that is accessible, traps user tab focus, and closes when the escape key is pressed. View on [GitHub](https://github.com/Stegosource/vuetensils) or [NPM](https://www.npmjs.com/package/vuetensils).
+Vuetensils is a collection of Vue components desined to be light weight, accessible, semantic, and extensible.
 
-Benchmarks - How much does a UI library add to the final bundle size?
+## Bring your own styles
 
-- No library: +0kb 🆕
-- Vuetify: +697.7kb 😱
-- Bootstrap-Vue: +365.7kb 😳
-- Bootstrap: +163.7kb 😞
-- Vuetensils: +16.7kb 👌
+Vuetensils is designed to jump start a project with some of the most common functional requirements, but no styles that need to be overwritten. Import just the features you need (like a WCAG friendly modal that traps focus and prevents scrolling), and apply your own brand. No overhead from unused styles!
 
-But size is not the whole story. The Libraries above provide a LOT more features, and if you are going to need all of them, they are excellent options. However, if you don't use all the features, there is a lot of unnecessary bloat. With Vuetensils, you get a tiny collection of functional components, to handle some of the more challenging things, and you add your own presentational components on top.
+Other libraries have a ton of great features, but if you don't use them all, there is a lot of unnecessary bloat from unused components and style. With Vuetensils, you only import what you need, and add your own presentational styles on top.
 
-### Getting Started
+View on [GitHub](https://github.com/Stegosource/vuetensils) or [NPM](https://www.npmjs.com/package/vuetensils).
 
-#### Install:
+### How it works:
+
+#### Install the library
 
 `npm install vuetensils`
 
-#### Import into your Vue project:
-
-```js static
-// main.js
-import Vue from "vue"
-import vuetensils from "vuetensils"
-import "vuetensils/dist/vuetensils.min.css"
-
-Vue.use(vuetensils)
-```
-
-#### Alternatively, import just the components you need:
-
-```js static
-// main.js
-import Vue from "vue"
-import { VtsModal } from "vuetensils"
-
-Vue.use(VtsModal)
-```
-
-#### Use the components:
+#### 2. Import just the components you want
 
 ```html static
-// Example.vue
-<template>
-  <div class="my-component">
-    <vts-modal v-model="show"> My modal content</vts-modal>
-  </div>
-</template>
 <script>
-  export default {
-    data: () => ({
-      show: true
-    })
-  }
+  // CustomAlert.vue
+  import { Alert } from "vuetensils"
+  export default Alert
 </script>
+```
+
+#### 3. Bring your own styles
+
+```html static
+<style>
+  .vts-alert {
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    padding: 0 10px;
+    color: #900;
+    background: #fdd;
+  }
+</style>
 ```
 
 <!-- TODO: Allow components to accept `tag` prop -->

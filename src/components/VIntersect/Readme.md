@@ -3,29 +3,29 @@ Open your console and scroll around to watch events get fired.
 ```vue
 <template>
   <div>
-    <vts-intersection
+    <VIntersect
       @enter="log('@enter fired for block 1')"
       @exit="log('@exit fired for block 1')"
       @change="log('@change fired for block 1')"
     >
       <div class="intersection-content">Content block 1</div>
-    </vts-intersection>
+    </VIntersect>
 
-    <vts-intersection
+    <VIntersect
       @enter="log('@enter fired for block 2')"
       @exit="log('@exit fired for block 2')"
       @change="log('@change fired for block 2')"
     >
       <div class="intersection-content">Content block 2</div>
-    </vts-intersection>
+    </VIntersect>
 
-    <vts-intersection
+    <VIntersect
       @enter="log('@enter fired for block 3')"
       @exit="log('@exit fired for block 3')"
       @change="log('@change fired for block 3')"
     >
       <div class="intersection-content">Content block 3</div>
-    </vts-intersection>
+    </VIntersect>
   </div>
 </template>
 

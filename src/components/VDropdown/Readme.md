@@ -1,6 +1,6 @@
 ```vue
 <template>
-  <vts-dropdown text="Show me what you got!">
+  <VDropdown text="Show me what you got!">
     <p>Here is the dropdown content with a nav.</p>
     <nav>
       <ul>
@@ -9,7 +9,7 @@
         <li><a href="#">link</a></li>
       </ul>
     </nav>
-  </vts-dropdown>
+  </VDropdown>
 </template>
 
 <script>
@@ -35,7 +35,7 @@ export default {}
 
 ```vue
 <template>
-  <vts-dropdown text="Show me what you got!" transition="slide-up" position="top">
+  <VDropdown text="Show me what you got!" transition="slide-up" position="top">
     <p>Here is the dropdown content with a nav.</p>
     <nav>
       <ul>
@@ -44,7 +44,7 @@ export default {}
         <li><a href="#">link</a></li>
       </ul>
     </nav>
-  </vts-dropdown>
+  </VDropdown>
 </template>
 
 <script>

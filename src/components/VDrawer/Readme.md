@@ -1,9 +1,9 @@
 ```vue
 <template>
   <div>
-    <vts-drawer v-model="showDrawer">
+    <VDrawer v-model="showDrawer">
       My drawer content
-    </vts-drawer>
+    </VDrawer>
 
     <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
   </div>
@@ -23,9 +23,9 @@ export default {
 ```vue
 <template>
   <div>
-    <vts-drawer v-model="showDrawer" right>
+    <VDrawer v-model="showDrawer" right>
       My drawer content
-    </vts-drawer>
+    </VDrawer>
 
     <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
   </div>
@@ -45,9 +45,9 @@ export default {
 ```vue
 <template>
   <div>
-    <vts-drawer v-model="showDrawer" noScroll>
+    <VDrawer v-model="showDrawer" noScroll>
       My drawer content
-    </vts-drawer>
+    </VDrawer>
 
     <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
   </div>
@@ -67,9 +67,9 @@ export default {
 ```vue
 <template>
   <div>
-    <vts-drawer v-model="showDrawer" transition="slide-right" bg-transition="fade">
+    <VDrawer v-model="showDrawer" transition="slide-right" bg-transition="fade">
       My drawer content
-    </vts-drawer>
+    </VDrawer>
 
     <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
   </div>
@@ -110,9 +110,9 @@ export default {
 ```vue
 <template>
   <div>
-    <vts-drawer v-model="showDrawer" transition="slide-left" bg-transition="fade" right>
+    <VDrawer v-model="showDrawer" transition="slide-left" bg-transition="fade" right>
       My drawer content
-    </vts-drawer>
+    </VDrawer>
 
     <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
   </div>
@@ -155,9 +155,9 @@ export default {
 ```vue
 <template>
   <div class="styled">
-    <vts-drawer v-model="showDrawer" transition="slide-right" bg-transition="fade">
+    <VDrawer v-model="showDrawer" transition="slide-right" bg-transition="fade">
       My drawer content
-    </vts-drawer>
+    </VDrawer>
 
     <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
   </div>

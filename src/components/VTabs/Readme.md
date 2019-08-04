@@ -1,27 +1,8 @@
-```vue
-<template>
-  <vts-tabs>
-    <template slot="Tab 1 label">
-      This is my content for tab 1
-    </template>
-
-    <template slot="Second tab">
-      Here's the content for tab 2.
-      <p>It supports markup, and any any other components.</p>
-    </template>
-  </vts-tabs>
-</template>
-
-<script>
-export default {}
-</script>
-```
-
-Bring your own styles
+### Styled Example
 
 ```vue
 <template>
-  <vts-tabs class="styled">
+  <VTabs class="styled">
     <template slot="Tab 1">
       Here's the content for tab 1.
     </template>
@@ -33,7 +14,7 @@ Bring your own styles
     <template slot="Tab 3">
       Here's the content for tab 3.
     </template>
-  </vts-tabs>
+  </VTabs>
 </template>
 
 <script>
@@ -66,4 +47,25 @@ export default {}
   padding: 1rem;
 }
 </style>
+```
+
+### Basic Usage
+
+```vue
+<template>
+  <VTabs>
+    <template slot="Tab 1 label">
+      This is my content for tab 1
+    </template>
+
+    <template slot="Second tab">
+      Here's the content for tab 2.
+      <p>It supports markup, and any any other components.</p>
+    </template>
+  </VTabs>
+</template>
+
+<script>
+export default {}
+</script>
 ```
