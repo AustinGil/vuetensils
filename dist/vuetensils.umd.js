@@ -4,7 +4,173 @@
   (global = global || self, factory(global.Vuetensils = {}));
 }(this, function (exports) { 'use strict';
 
-  var KEYCODES = {
+  //
+
+  /**
+   * A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
+   */
+  var script = {
+    model: {
+      prop: "visible",
+      event: "update"
+    },
+
+    props: {
+      /**
+       * HTML tag used to wrap the component.
+       */
+      tag: {
+        type: String,
+        default: "div"
+      },
+      /**
+       * Determines whether the alert is visible. Also binds with `v-model`.
+       */
+      visible: {
+        type: [Boolean, Number],
+        default: true
+      },
+      /**
+       * Allows a user to dismiss this alert.
+       */
+      dismissible: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * Aria-label that is not visibly, but screen readers will read for the dismiss button.
+       */
+      dismissLabel: {
+        type: [String, Boolean],
+        default: "Dismiss this alert"
+      },
+      /**
+       * The transition name if you want to add one.
+       */
+      transition: String
+    },
+
+    data: function () { return ({
+      dismissed: false,
+      timerId: null
+    }); },
+
+    watch: {
+      visible: {
+        handler: function handler(next) {
+          if (!!next) {
+            this.dismissed = false;
+          }
+          if (typeof this.visible === "number") {
+            this.clearTimer(); // Clear timers in case this.visible watcher adds multiples
+            this.countdown();
+          }
+        },
+        immediate: true
+      }
+    },
+
+    methods: {
+      dismiss: function dismiss() {
+        /**
+         * Fired when a user manually dismissed an alert
+         * @event dismiss
+         * @type { undefined }
+         */
+        this.$emit("dismiss");
+        this.dismissed = true;
+        if (typeof this.visible === "number") {
+          this.$emit("update", 0);
+          this.clearTimer();
+        } else {
+          this.$emit("update", false);
+        }
+      },
+
+      countdown: function countdown() {
+        var this$1 = this;
+
+        if (this.visible <= 0) { return }
+
+        this.timerId = setTimeout(function () {
+          /**
+           * Fired whenever the visibility changes. Either through user interaction, or a countdown timer
+           * @event update
+           * @type { boolean/number }
+           */
+          this$1.$emit("update", this$1.visible - 1);
+        }, 1000);
+      },
+
+      clearTimer: function clearTimer() {
+        if (this.timerId) {
+          clearInterval(this.timerId);
+          this.timerId = null;
+        }
+      }
+    },
+
+    beforeDestroy: function beforeDestroy() {
+      this.clearTimer();
+    }
+  };
+
+  /* script */
+              var __vue_script__ = script;
+              
+  /* template */
+  var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":_vm.transition}},[(!_vm.dismissed && !!_vm.visible)?_c(_vm.tag,{tag:"component",staticClass:"vts-alert",attrs:{"role":"alert"}},[_vm._t("default"),_vm._v(" "),(_vm.dismissible)?_c('button',{staticClass:"vts-alert__dismiss",attrs:{"aria-label":_vm.dismissLabel},on:{"click":_vm.dismiss}},[_vm._t("button",[_vm._v("×")])],2):_vm._e()],2):_vm._e()],1)};
+  var __vue_staticRenderFns__ = [];
+
+    /* style */
+    var __vue_inject_styles__ = undefined;
+    /* scoped */
+    var __vue_scope_id__ = undefined;
+    /* module identifier */
+    var __vue_module_identifier__ = undefined;
+    /* functional template */
+    var __vue_is_functional_template__ = false;
+    /* component normalizer */
+    function __vue_normalize__(
+      template, style, script$$1,
+      scope, functional, moduleIdentifier,
+      createInjector, createInjectorSSR
+    ) {
+      var component = (typeof script$$1 === 'function' ? script$$1.options : script$$1) || {};
+
+      // For security concerns, we use only base name in production mode.
+      component.__file = "VtsAlert.vue";
+
+      if (!component.render) {
+        component.render = template.render;
+        component.staticRenderFns = template.staticRenderFns;
+        component._compiled = true;
+
+        if (functional) { component.functional = true; }
+      }
+
+      component._scopeId = scope;
+
+      return component
+    }
+    /* style inject */
+    
+    /* style inject SSR */
+    
+
+    
+    var VtsAlert = __vue_normalize__(
+      { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
+      __vue_inject_styles__,
+      __vue_script__,
+      __vue_scope_id__,
+      __vue_is_functional_template__,
+      __vue_module_identifier__,
+      undefined,
+      undefined
+    );
+
+  var keycodes = {
     ENTER: 13,
     SPACE: 32,
     TAB: 9,
@@ -29,62 +195,79 @@
     '[tabindex]:not([tabindex^="-"])'
   ];
 
-  var NAME = "vts-drawer";
+  var NAME$1 = "vts-drawer";
 
   /**
-   * A sidebar that can be toggled on or off
+   * A convenient sidebar that can be toggled on or off. When opened, it traps the user's focus so that keyboard navigation will remain within the sidebar until it is closed. It also supports being closed by pressing the ESC key.
    */
-  var script = {
-    name: NAME,
-
-    props: {
-      showing: {
-        type: Boolean,
-        default: false
-      },
-      width: {
-        type: String,
-        default: null
-      },
-      maxWidth: {
-        type: String,
-        default: null
-      },
-      preventScroll: {
-        type: Boolean,
-        default: false
-      },
-      transition: {
-        type: String
-      },
-      bgTransition: {
-        type: String
-      }
-    },
+  var script$1 = {
     model: {
       prop: "showing",
-      event: "change"
+      event: "update"
+    },
+
+    props: {
+      /**
+       * @model
+       */
+      showing: Boolean,
+      /**
+       * Flag to place the drawer on the right side.
+       */
+      right: Boolean,
+      /**
+       * CSS width value.
+       */
+      width: String,
+      /**
+       * CSS max-width value.
+       */
+      maxWidth: String,
+      /**
+       * Disable page scrolling when drawer is open.
+       */
+      noScroll: Boolean,
+      /**
+       * Vue transition name.
+       */
+      transition: String,
+      /**
+       * Vue transition name for the background.
+       */
+      bgTransition: String
     },
 
     methods: {
       show: function show() {
+        /**
+         * @event open
+         * @type { undefined }
+         */
         this.$emit("open");
-        this.$emit("change", true);
+        this.$emit("update", true);
       },
       hide: function hide() {
+        /**
+         * @event close
+         * @type { undefined }
+         */
         this.$emit("close");
-        this.$emit("change", false);
+        this.$emit("update", false);
       },
       toggle: function toggle() {
         var event = this.showing ? "close" : "open";
         this.$emit(event, !this.showing);
-        this.$emit("change", !this.showing);
+        /**
+         * @event update
+         * @type { boolean }
+         */
+        this.$emit("update", !this.showing);
       },
       onKeydown: function onKeydown(event) {
-        if (event.keyCode === KEYCODES.ESC) {
+        if (event.keyCode === keycodes.ESC) {
           this.hide();
         }
-        if (event.keyCode === KEYCODES.TAB) {
+        if (event.keyCode === keycodes.TAB) {
           var content = this.$refs.content;
           var focusable = Array.from(content.querySelectorAll(FOCUSABLE));
 
@@ -114,12 +297,12 @@
           var this$1 = this;
 
           if (next && next != prev) {
-            this.preventScroll && document.body.style.setProperty("overflow", "hidden");
+            this.noScroll && document.body.style.setProperty("overflow", "hidden");
             this.$nextTick(function () {
               this$1.$refs.content.focus();
             });
           } else {
-            this.preventScroll && document.body.style.removeProperty("overflow");
+            this.noScroll && document.body.style.removeProperty("overflow");
           }
         }
       }
@@ -127,6 +310,7 @@
 
     render: function render(create) {
       var this$1 = this;
+      var obj;
 
       if (!this.showing) {
         return create(false)
@@ -136,7 +320,7 @@
         "aside",
         {
           ref: "content",
-          class: (NAME + "__content"),
+          class: ( obj = {}, obj[(NAME$1 + "__content")] = true, obj[(NAME$1 + "__content--right")] = !!this.right, obj ),
           style: {
             width: this.width || null,
             maxWidth: this.maxWidth || null
@@ -159,10 +343,10 @@
       var drawer = create(
         "div",
         {
-          class: NAME,
+          class: NAME$1,
           on: {
             click: function (event) {
-              if (event.target.classList.contains(("" + NAME))) {
+              if (event.target.classList.contains(("" + NAME$1))) {
                 this$1.hide();
               }
             },
@@ -184,32 +368,32 @@
   };
 
   /* script */
-              var __vue_script__ = script;
+              var __vue_script__$1 = script$1;
               
   /* template */
 
     /* style */
-    var __vue_inject_styles__ = function (inject) {
+    var __vue_inject_styles__$1 = function (inject) {
       if (!inject) { return }
-      inject("data-v-f2509bcc_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background-color:rgba(0,0,0,.2)}.vts-drawer [tabindex=\"-1\"]:focus{outline:0}.vts-drawer__content{overflow:auto;width:100%;max-width:300px;height:100%;background:#fff}", map: undefined, media: undefined });
+      inject("data-v-61da2e16_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background-color:rgba(0,0,0,.2)}.vts-drawer [tabindex=\"-1\"]:focus{outline:0}.vts-drawer__content{overflow:auto;width:100%;max-width:300px;height:100%;background:#fff}.vts-drawer__content--right{margin-left:auto}", map: undefined, media: undefined });
 
     };
     /* scoped */
-    var __vue_scope_id__ = undefined;
+    var __vue_scope_id__$1 = undefined;
     /* module identifier */
-    var __vue_module_identifier__ = undefined;
+    var __vue_module_identifier__$1 = undefined;
     /* functional template */
-    var __vue_is_functional_template__ = undefined;
+    var __vue_is_functional_template__$1 = undefined;
     /* component normalizer */
-    function __vue_normalize__(
-      template, style, script$$1,
+    function __vue_normalize__$1(
+      template, style, script,
       scope, functional, moduleIdentifier,
       createInjector, createInjectorSSR
     ) {
-      var component = (typeof script$$1 === 'function' ? script$$1.options : script$$1) || {};
+      var component = (typeof script === 'function' ? script.options : script) || {};
 
       // For security concerns, we use only base name in production mode.
-      component.__file = "Drawer.vue";
+      component.__file = "VtsDrawer.vue";
 
       if (!component.render) {
         component.render = template.render;
@@ -319,37 +503,71 @@
     
 
     
-    var Drawer = __vue_normalize__(
+    var VtsDrawer = __vue_normalize__$1(
       {},
-      __vue_inject_styles__,
-      __vue_script__,
-      __vue_scope_id__,
-      __vue_is_functional_template__,
-      __vue_module_identifier__,
+      __vue_inject_styles__$1,
+      __vue_script__$1,
+      __vue_scope_id__$1,
+      __vue_is_functional_template__$1,
+      __vue_module_identifier__$1,
       __vue_create_injector__,
       undefined
     );
 
-  var NAME$1 = "vts-dropdown";
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
 
   /**
-   * Show/hide inline content
+   * Adds a button that can show/hide dropdown content when it is hovered over, or clicked. When it is clicked, the content will persist until the user clicks out or focuses out. Includes relevant ARIA attributes for the hidden content.
    */
-  var script$1 = {
-    name: NAME$1,
-
+  var script$2 = {
     props: {
-      text: {
-        type: String,
-        default: ""
-      },
+      /**
+       * The toggle button text.
+       */
+      text: String,
+      /**
+       * Where the content should be placed in relation to the button.
+       *
+       * Options: 'bottom', 'top'
+       */
       position: {
         type: String,
-        default: "bottom"
+        default: "bottom",
+        validator: function validator(value) {
+          return ["top", "bottom"].includes(value)
+        }
       },
-      transition: {
-        type: String
-      }
+      /**
+       * The trnasition name.
+       */
+      transition: String
     },
 
     data: function () { return ({
@@ -360,7 +578,13 @@
     methods: {
       onClickout: function onClickout(e) {
         if (!this.$el.contains(e.target)) {
-          this.isOpen = false;
+          this.isFocused = false;
+        }
+      },
+
+      onFocusout: function onFocusout(event) {
+        if (!this.$el.contains(event.relatedTarget)) {
+          this.isFocused = false;
         }
       }
     },
@@ -372,85 +596,30 @@
       this.$once("hook:beforeDestroy", function () {
         document.removeEventListener("click", this$1.onClickout);
       });
-    },
-
-    render: function render(create) {
-      var this$1 = this;
-
-      var button = create(
-        "button",
-        {
-          attrs: {
-            "aria-haspopup": true,
-            "aria-expanded": this.isHovered || this.isFocused ? "true" : "false"
-          },
-          on: {
-            click: function () {
-              this$1.isFocused = !this$1.isFocused;
-            }
-          }
-        },
-        this.text
-      );
-
-      var content = create(false);
-      if (this.isHovered || this.isFocused) {
-        var contentClass = NAME$1 + "__content";
-        if (!!this.position) {
-          contentClass += " " + NAME$1 + "__content--" + (this.position);
-        }
-
-        content = create(
-          "transition",
-          {
-            props: { name: this.transition, appear: true }
-          },
-          [create("div", { class: contentClass }, [this.$slots.default])]
-        );
-      }
-
-      return create(
-        "div",
-        {
-          class: NAME$1,
-          on: {
-            mouseover: function () {
-              this$1.isHovered = true;
-            },
-            mouseleave: function () {
-              this$1.isHovered = false;
-            },
-            focusout: function (event) {
-              if (!this$1.$el.contains(event.relatedTarget)) {
-                this$1.isFocused = false;
-              }
-            }
-          }
-        },
-        [button, content]
-      )
     }
   };
 
   /* script */
-              var __vue_script__$1 = script$1;
+              var __vue_script__$2 = script$2;
               
   /* template */
+  var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vts-dropdown",on:{"mouseenter":function($event){_vm.isHovered = true;},"mouseleave":function($event){_vm.isHovered = false;}}},[_c('button',{attrs:{"aria-expanded":!!_vm.isHovered || !!_vm.isFocused,"aria-haspopup":""},on:{"click":function($event){_vm.isFocused = !_vm.isFocused;}}},[_vm._v("\n    "+_vm._s(_vm.text)+"\n  ")]),_vm._v(" "),_c('transition',{attrs:{"name":_vm.transition}},[(!!_vm.isHovered || !!_vm.isFocused)?_c('div',{staticClass:"vts-dropdown__content",class:("vts-dropdown__content__content--" + _vm.position),on:{"focusout":_vm.onFocusout}},[_vm._t("default")],2):_vm._e()])],1)};
+  var __vue_staticRenderFns__$1 = [];
 
     /* style */
-    var __vue_inject_styles__$1 = function (inject) {
+    var __vue_inject_styles__$2 = function (inject) {
       if (!inject) { return }
-      inject("data-v-20fceb6c_0", { source: ".vts-dropdown{display:inline-block;position:relative}.vts-dropdown__content{position:absolute;z-index:5;min-width:100%;border:1px solid rgba(0,0,0,.2);background-color:#fff}.vts-dropdown__content--top{top:0;transform:translateY(-100%)}", map: undefined, media: undefined });
+      inject("data-v-2f2cd290_0", { source: ".vts-dropdown{display:inline-block;position:relative}.vts-dropdown__content{position:absolute;z-index:5;min-width:100%;border:1px solid rgba(0,0,0,.2);background-color:#fff}.vts-dropdown__content--top{top:0;transform:translateY(-100%)}", map: undefined, media: undefined });
 
     };
     /* scoped */
-    var __vue_scope_id__$1 = undefined;
+    var __vue_scope_id__$2 = undefined;
     /* module identifier */
-    var __vue_module_identifier__$1 = undefined;
+    var __vue_module_identifier__$2 = undefined;
     /* functional template */
-    var __vue_is_functional_template__$1 = undefined;
+    var __vue_is_functional_template__$2 = false;
     /* component normalizer */
-    function __vue_normalize__$1(
+    function __vue_normalize__$2(
       template, style, script,
       scope, functional, moduleIdentifier,
       createInjector, createInjectorSSR
@@ -458,7 +627,7 @@
       var component = (typeof script === 'function' ? script.options : script) || {};
 
       // For security concerns, we use only base name in production mode.
-      component.__file = "Dropdown.vue";
+      component.__file = "VtsDropdown.vue";
 
       if (!component.render) {
         component.render = template.render;
@@ -568,160 +737,73 @@
     
 
     
-    var Dropdown = __vue_normalize__$1(
-      {},
-      __vue_inject_styles__$1,
-      __vue_script__$1,
-      __vue_scope_id__$1,
-      __vue_is_functional_template__$1,
-      __vue_module_identifier__$1,
-      __vue_create_injector__$1,
-      undefined
-    );
-
-  var NAME$2 = "vts-fetch";
-
-  /**
-   * Makes JSON API requests and provides responses, loading states, and errors
-   */
-  var script$2 = {
-    name: NAME$2,
-
-    props: {
-      url: {
-        type: String
-      }
-    },
-
-    data: function () { return ({
-      loading: false,
-      response: null,
-      error: null
-    }); },
-
-    mounted: function mounted() {
-      this.fetch();
-    },
-
-    methods: {
-      fetch: function fetch$1(url) {
-        var this$1 = this;
-
-        this.loading = true;
-        this.response = null;
-        this.error = null;
-        fetch(url || this.url)
-          .then(function (res) { return res.json(); })
-          .then(function (response) {
-            this$1.response = response;
-            this$1.loading = false;
-            this$1.$emit("success", response);
-          })
-          .catch(function (error) {
-            this$1.error = error;
-            this$1.loading = false;
-            this$1.$emit("error", error);
-          });
-      }
-    },
-
-    render: function render(create) {
-      if (!this.$scopedSlots.default) {
-        return create(false)
-      }
-      var scopedSlot = this.$scopedSlots.default({
-        response: this.response,
-        loading: this.loading,
-        error: this.error,
-        fetch: this.fetch
-      });
-      if (scopedSlot.length) {
-        console.warn("[ItemsList] Requires 1 root element. Using injected <div>.");
-        return create("div", [scopedSlot])
-      }
-      return scopedSlot
-    }
-  };
-
-  /* script */
-              var __vue_script__$2 = script$2;
-              
-  /* template */
-
-    /* style */
-    var __vue_inject_styles__$2 = undefined;
-    /* scoped */
-    var __vue_scope_id__$2 = undefined;
-    /* module identifier */
-    var __vue_module_identifier__$2 = undefined;
-    /* functional template */
-    var __vue_is_functional_template__$2 = undefined;
-    /* component normalizer */
-    function __vue_normalize__$2(
-      template, style, script,
-      scope, functional, moduleIdentifier,
-      createInjector, createInjectorSSR
-    ) {
-      var component = (typeof script === 'function' ? script.options : script) || {};
-
-      // For security concerns, we use only base name in production mode.
-      component.__file = "Fetch.vue";
-
-      if (!component.render) {
-        component.render = template.render;
-        component.staticRenderFns = template.staticRenderFns;
-        component._compiled = true;
-
-        if (functional) { component.functional = true; }
-      }
-
-      component._scopeId = scope;
-
-      return component
-    }
-    /* style inject */
-    
-    /* style inject SSR */
-    
-
-    
-    var Fetch = __vue_normalize__$2(
-      {},
+    var VtsDropdown = __vue_normalize__$2(
+      { render: __vue_render__$1, staticRenderFns: __vue_staticRenderFns__$1 },
       __vue_inject_styles__$2,
       __vue_script__$2,
       __vue_scope_id__$2,
       __vue_is_functional_template__$2,
       __vue_module_identifier__$2,
-      undefined,
+      __vue_create_injector__$1,
       undefined
     );
 
-  var NAME$3 = "vts-img";
+  var NAME$2 = "vts-img";
 
+  /**
+   * Drop in replacement for the HTML `<img>` tag which supports lazy-loading. Improves load times by waiting for the image to scroll into view before actually downloading it.
+   *
+   Note: This component uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) which is not supported by Internet Explorer.
+   */
   var script$3 = {
-    name: NAME$3,
     inheritAttrs: false,
     // functional: true, // TODO
 
     props: {
+      /**
+       * Same as the HTML attribute
+       */
       src: {
         type: String,
         required: true
       },
+      /**
+       * Same as the HTML attribute
+       */
       srcset: String,
+      /**
+       * Same as the HTML attribute
+       */
       sizes: String,
+      /**
+       * Same as the HTML attribute
+       */
       width: [String, Number],
+      /**
+       * Same as the HTML attribute
+       */
       height: [String, Number],
+      /**
+       * URL of the blurred placeholder image to use if you need one (ideally a very small image).
+       */
       placeholder: String,
+      /**
+       * CSS background styles for the placeholder in case you just want colors.
+       */
       background: String,
-      immediate: Boolean,
-      alt: String
+      /**
+       * Same as the HTML attribute. This is recommended, but if left out, will default to an empty string.
+       */
+      alt: {
+        type: String,
+        default: ""
+      }
     },
 
     mounted: function mounted() {
       var this$1 = this;
 
-      // this.$isServer
+      var timeOut;
       var observer = new IntersectionObserver(function (entries) {
         var entry = entries[0];
         var wrapper = entry.target;
@@ -730,15 +812,17 @@
 
         img.onload = function() {
           delete img.onload;
-          wrapper.classList.remove((NAME$3 + "--loading"));
-          wrapper.classList.add((NAME$3 + "--loaded"));
-          setTimeout(function () {
-            placeholder.remove();
-          }, 300);
+          wrapper.classList.remove((NAME$2 + "--loading"));
+          wrapper.classList.add((NAME$2 + "--loaded"));
+          if (placeholder) {
+            timeOut = setTimeout(function () {
+              placeholder.remove();
+            }, 300);
+          }
         };
         if (entry.isIntersecting) {
           // Element is in viewport
-          wrapper.classList.add((NAME$3 + "--loading"));
+          wrapper.classList.add((NAME$2 + "--loading"));
           img.src = this$1.src;
           if (!!this$1.srcset) { img.srcset = this$1.srcset; }
           if (!!this$1.alt) { img.alt = this$1.alt; }
@@ -749,54 +833,74 @@
       observer.observe(this.$el);
       this.$once("hook:beforeDestroy", function () {
         observer.disconnect();
+        if (timeOut) {
+          clearTimeout(timeOut);
+        }
       });
     },
 
-    render: function render(create, ctx) {
-      // const randomStr = Math.random()
-      //   .toString(36)
-      //   .substr(2)
-      // const id = `${NAME}-${randomStr}`
+    render: function render(h, ctx) {
+      var obj;
+
       // if (this.$parent.$isServer) {
-      //   return create(false)
+      //   return h(false)
       // }
 
-      var img = create("img", {
-        class: (NAME$3 + "__img"),
-        attrs: Object.assign({}, this.$attrs,
-          {width: this.width || false,
-          height: this.height || false})
-      });
+      var dataUrl = false;
+      var hasDimensions = this.width && this.height;
+      var placeholder = h(false);
 
-      var placeholder = create(false);
-      // Only add the placeholder if we have something to show, and we have the dimensions
-      if ((this.placeholder || this.background) && this.width && this.height) {
-        placeholder = create("div", { class: (NAME$3 + "__placeholder") }, [
-          create("img", {
-            attrs: {
-              src: this.placeholder,
-              width: this.width,
-              height: this.height
-            },
+      if (hasDimensions) {
+        var w = 100;
+        var canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = (this.height / this.width) * w;
+
+        dataUrl = canvas.toDataURL();
+
+        placeholder = h(
+          "div",
+          {
+            class: (NAME$2 + "__placeholder"),
             style: {
               background: this.background || false
             }
-          })
-        ]);
+          },
+          [
+            h("img", {
+              attrs: {
+                src: this.placeholder || dataUrl,
+                width: this.width,
+                height: this.height
+              }
+            })
+          ]
+        );
       }
 
+      var img = h("img", {
+        class: (NAME$2 + "__img"),
+        attrs: Object.assign({}, this.$attrs,
+          {src: dataUrl,
+          width: this.width || false,
+          height: this.height || false})
+      });
+
       // TODO: Add this when SSR support is enabled
-      // const noscript = create("noscript", [
-      //   create("img", {
+      // const noscript = h("noscript", [
+      //   h("img", {
       //     attrs: {
       //       src: this.src || ''
       //     }
       //   })
       // ])
-      return create(
+      return h(
         "div",
         {
-          class: NAME$3
+          class: [NAME$2, ( obj = {}, obj[(NAME$2 + "--has-dimensions")] = hasDimensions, obj )],
+          style: {
+            maxWidth: this.width + "px"
+          }
         },
         [placeholder, img]
       )
@@ -811,7 +915,7 @@
     /* style */
     var __vue_inject_styles__$3 = function (inject) {
       if (!inject) { return }
-      inject("data-v-1b3c3a1b_0", { source: ".vts-img{position:relative}.vts-img img{vertical-align:top}.vts-img__img{opacity:0;transition:opacity .3s ease}.vts-img__placeholder{position:absolute;top:0;left:0;overflow:hidden;transition:opacity .3s ease}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img--loaded .vts-img__placeholder{opacity:0}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
+      inject("data-v-ab249c36_0", { source: ".vts-img{display:inline-block;position:relative;width:100%}.vts-img img{vertical-align:top}.vts-img__img{position:relative;opacity:0;transition:opacity .3s ease}.vts-img__placeholder{position:absolute;top:0;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -829,7 +933,7 @@
       var component = (typeof script === 'function' ? script.options : script) || {};
 
       // For security concerns, we use only base name in production mode.
-      component.__file = "Img.vue";
+      component.__file = "VtsImg.vue";
 
       if (!component.render) {
         component.render = template.render;
@@ -939,7 +1043,7 @@
     
 
     
-    var Img = __vue_normalize__$3(
+    var VtsImg = __vue_normalize__$3(
       {},
       __vue_inject_styles__$3,
       __vue_script__$3,
@@ -950,30 +1054,41 @@
       undefined
     );
 
-  var NAME$4 = "vts-intersection";
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
 
   /**
-   * Adds [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to content and provides event callbacks
+   * Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
    */
   var script$4 = {
-    name: NAME$4,
-    abstract: true,
     props: {
+      /**
+       * The IntersectionObserver threshold value.
+       */
       threshold: {
         type: Array,
-        required: false,
         default: function () { return [0, 0.2]; }
       },
-      root: {
-        type: String,
-        required: false,
-        default: function () { return null; }
-      },
-      rootMargin: {
-        type: String,
-        required: false,
-        default: function () { return "0px 0px 0px 0px"; }
-      },
+      /**
+       * The IntersectionObserver root value.
+       */
+      root: String,
+      /**
+       * The IntersectionObserver rootMargin value.
+       */
+      rootMargin: String,
+      /**
+       * The HTML tag used to wrap this component
+       */
       tag: {
         type: String,
         default: "div"
@@ -984,11 +1099,26 @@
 
       this.observer = new IntersectionObserver(
         function (entries) {
-          if (!entries[0].isIntersecting) {
-            this$1.$emit("leave", [entries[0]]);
-          } else {
+          if (entries[0].isIntersecting) {
+            /**
+             * Fired when the observed element enters the screen.
+             * @event enter
+             * @type { IntersectionObserverEntry }
+             */
             this$1.$emit("enter", [entries[0]]);
+          } else {
+            /**
+             * Fired when the observed element exits the screen.
+             * @event exit
+             * @type { IntersectionObserverEntry }
+             */
+            this$1.$emit("exit", [entries[0]]);
           }
+          /**
+           * Fired when the observed element enters or exits the screen.
+           * @event change
+           * @type { IntersectionObserverEntry }
+           */
           this$1.$emit("change", [entries[0]]);
         },
         {
@@ -1001,16 +1131,6 @@
       this.$once("hook:beforeDestroy", function () {
         this$1.observer.disconnect();
       });
-    },
-    render: function render(create) {
-      // TODO: check variable content support
-      return create(
-        this.tag,
-        {
-          class: NAME$4
-        },
-        [this.$slots.default]
-      )
     }
   };
 
@@ -1018,6 +1138,8 @@
               var __vue_script__$4 = script$4;
               
   /* template */
+  var __vue_render__$2 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c(_vm.tag,{tag:"component",staticClass:"vts-intersection"},[_vm._t("default")],2)};
+  var __vue_staticRenderFns__$2 = [];
 
     /* style */
     var __vue_inject_styles__$4 = undefined;
@@ -1026,7 +1148,7 @@
     /* module identifier */
     var __vue_module_identifier__$4 = undefined;
     /* functional template */
-    var __vue_is_functional_template__$4 = undefined;
+    var __vue_is_functional_template__$4 = false;
     /* component normalizer */
     function __vue_normalize__$4(
       template, style, script,
@@ -1036,7 +1158,7 @@
       var component = (typeof script === 'function' ? script.options : script) || {};
 
       // For security concerns, we use only base name in production mode.
-      component.__file = "Intersection.vue";
+      component.__file = "VtsIntersection.vue";
 
       if (!component.render) {
         component.render = template.render;
@@ -1056,8 +1178,8 @@
     
 
     
-    var Intersection = __vue_normalize__$4(
-      {},
+    var VtsIntersection = __vue_normalize__$4(
+      { render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 },
       __vue_inject_styles__$4,
       __vue_script__$4,
       __vue_scope_id__$4,
@@ -1067,197 +1189,120 @@
       undefined
     );
 
-  var svgs = {
-    bars: "<rect y=\"30\" height=\"40\" x=\"15\" width=\"10\">\n\t\t<animate attributeName=\"opacity\" calcMode=\"spline\" values=\"1;0.2;1\" keyTimes=\"0;0.5;1\" dur=\"1.5\" keySplines=\"0.5 0 0.5 1;0.5 0 0.5 1\" begin=\"-0.6s\"   repeatCount=\"indefinite\"></animate>\n\t</rect>\n\t<rect y=\"30\" height=\"40\" x=\"35\" width=\"10\">\n\t\t<animate attributeName=\"opacity\" calcMode=\"spline\" values=\"1;0.2;1\" keyTimes=\"0;0.5;1\" dur=\"1.5\" keySplines=\"0.5 0 0.5 1;0.5 0 0.5 1\" begin=\"-0.4s\"   repeatCount=\"indefinite\"></animate>\n\t</rect>\n\t<rect y=\"30\" height=\"40\" x=\"55\" width=\"10\">\n\t\t<animate attributeName=\"opacity\" calcMode=\"spline\" values=\"1;0.2;1\" keyTimes=\"0;0.5;1\" dur=\"1.5\" keySplines=\"0.5 0 0.5 1;0.5 0 0.5 1\" begin=\"-0.2s\"   repeatCount=\"indefinite\"></animate>\n\t</rect>\n\t<rect y=\"30\" height=\"40\" x=\"75\" width=\"10\">\n\t\t<animate attributeName=\"opacity\" calcMode=\"spline\" values=\"1;0.2;1\" keyTimes=\"0;0.5;1\" dur=\"1.5\" keySplines=\"0.5 0 0.5 1;0.5 0 0.5 1\" begin=\"0s\"   repeatCount=\"indefinite\"></animate>\n  </rect>",
-    //   dots: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="white">
-    //   <circle transform="translate(8 0)" cx="0" cy="16" r="0">
-    //     <animate attributeName="r" values="0; 4; 0; 0" dur="1.2s" repeatCount="indefinite" begin="0"
-    //       keytimes="0;0.2;0.7;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline" />
-    //   </circle>
-    //   <circle transform="translate(16 0)" cx="0" cy="16" r="0">
-    //     <animate attributeName="r" values="0; 4; 0; 0" dur="1.2s" repeatCount="indefinite" begin="0.3"
-    //       keytimes="0;0.2;0.7;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline" />
-    //   </circle>
-    //   <circle transform="translate(24 0)" cx="0" cy="16" r="0">
-    //     <animate attributeName="r" values="0; 4; 0; 0" dur="1.2s" repeatCount="indefinite" begin="0.6"
-    //       keytimes="0;0.2;0.7;1" keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8" calcMode="spline" />
-    //   </circle>
-    // </svg>`,
-    ring: "<circle cx=\"50\" cy=\"50\" stroke-width=\"5\" r=\"45\" stroke-dasharray=\"164.93361431346415 56.97787143782138\">\n\t\t<animateTransform attributeName=\"transform\" type=\"rotate\" calcMode=\"linear\" values=\"0 50 50;360 50 50\" keyTimes=\"0;1\" dur=\"1.5\" begin=\"0s\" repeatCount=\"indefinite\"></animateTransform>\n\t</circle>",
-    ripple: "<circle cx=\"50\" cy=\"50\" r=\"0\" stroke-width=\"2\">\n\t\t<animate attributeName=\"r\" calcMode=\"spline\" values=\"0;40\" keyTimes=\"0;1\" dur=\"2\" keySplines=\"0 0.2 0.8 1\" begin=\"-1.05s\" repeatCount=\"indefinite\"></animate>\n\t\t<animate attributeName=\"opacity\" calcMode=\"spline\" values=\"1;0\" keyTimes=\"0;1\" dur=\"2\" keySplines=\"0.2 0 0.8 1\" begin=\"-1.05s\" repeatCount=\"indefinite\"></animate>\n\t</circle>\n\t<circle cx=\"50\" cy=\"50\" r=\"0\" stroke-width=\"2\">\n\t\t<animate attributeName=\"r\" calcMode=\"spline\" values=\"0;40\" keyTimes=\"0;1\" dur=\"2\" keySplines=\"0 0.2 0.8 1\" begin=\"0s\" repeatCount=\"indefinite\"></animate>\n\t\t<animate attributeName=\"opacity\" calcMode=\"spline\" values=\"1;0\" keyTimes=\"0;1\" dur=\"2\" keySplines=\"0.2 0 0.8 1\" begin=\"0s\" repeatCount=\"indefinite\"></animate>\n\t</circle>",
-    "dual-ring": "<circle cx=\"50\" cy=\"50\" stroke-linecap=\"round\" r=\"40\" stroke-width=\"4\" stroke-dasharray=\"62.83185307179586 62.83185307179586\" transform=\"rotate(45.5694 50 50)\">\n\t\t<animateTransform attributeName=\"transform\" type=\"rotate\" calcMode=\"linear\" values=\"0 50 50;360 50 50\" keyTimes=\"0;1\" dur=\"1.5\" begin=\"0s\" repeatCount=\"indefinite\"></animateTransform>\n  </circle>"
-    //   spin: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="white">
-    //   <path opacity=".25" d="M16 0 A16 16 0 0 0 16 32 A16 16 0 0 0 16 0 M16 4 A12 12 0 0 1 16 28 A12 12 0 0 1 16 4"/>
-    //   <path d="M16 0 A16 16 0 0 1 32 16 L28 16 A12 12 0 0 0 16 4z">
-    //     <animateTransform attributeName="transform" type="rotate" from="0 16 16" to="360 16 16" dur="0.8s" repeatCount="indefinite" />
-    //   </path>
-    // </svg>`
-  };
-
-  var NAME$5 = "vts-loading";
+  //
 
   /**
-   * SVG loading icons
+   * A modal/dialogue component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the modal until it is closed. It also supports being closed by pressing the ESC key.
    */
   var script$5 = {
-    name: NAME$5,
-    /**
-     * TODO
-     * size: width / height
-     * stroke: color / width / dasharray
-     * animation: timing
-     */
-    props: {
-      name: {
-        type: String,
-        default: "ring"
-      },
-      width: {
-        type: String | Number
-      },
-      height: {
-        type: String | Number
-      },
-      fill: {
-        type: String,
-        default: "none"
-      },
-      stroke: {
-        type: String,
-        default: "currentColor"
-      }
-    },
-    render: function(create, context) {
-      return create("svg", {
-        class: NAME$5,
-        attrs: {
-          xmlns: "http://www.w3.org/2000/svg",
-          viewBox: "0 0 100 100",
-          fill: this.fill,
-          stroke: this.stroke,
-          width: this.width,
-          height: this.height
-        },
-        domProps: {
-          innerHTML: svgs[this.name || "ring"]
-        }
-      })
-    }
-  };
-
-  /* script */
-              var __vue_script__$5 = script$5;
-              
-  /* template */
-
-    /* style */
-    var __vue_inject_styles__$5 = undefined;
-    /* scoped */
-    var __vue_scope_id__$5 = undefined;
-    /* module identifier */
-    var __vue_module_identifier__$5 = undefined;
-    /* functional template */
-    var __vue_is_functional_template__$5 = undefined;
-    /* component normalizer */
-    function __vue_normalize__$5(
-      template, style, script,
-      scope, functional, moduleIdentifier,
-      createInjector, createInjectorSSR
-    ) {
-      var component = (typeof script === 'function' ? script.options : script) || {};
-
-      // For security concerns, we use only base name in production mode.
-      component.__file = "Loading.vue";
-
-      if (!component.render) {
-        component.render = template.render;
-        component.staticRenderFns = template.staticRenderFns;
-        component._compiled = true;
-
-        if (functional) { component.functional = true; }
-      }
-
-      component._scopeId = scope;
-
-      return component
-    }
-    /* style inject */
-    
-    /* style inject SSR */
-    
-
-    
-    var Loading = __vue_normalize__$5(
-      {},
-      __vue_inject_styles__$5,
-      __vue_script__$5,
-      __vue_scope_id__$5,
-      __vue_is_functional_template__$5,
-      __vue_module_identifier__$5,
-      undefined,
-      undefined
-    );
-
-  var NAME$6 = "vts-modal";
-
-  /**
-   * A modal dialogue that traps user focus
-   */
-  var script$6 = {
-    name: NAME$6,
-
-    props: {
-      showing: {
-        type: Boolean,
-        default: false
-      },
-      dismissible: {
-        type: Boolean,
-        default: true
-      },
-      width: {
-        type: String,
-        default: ""
-      },
-      maxWidth: {
-        type: String,
-        default: ""
-      },
-      preventScroll: {
-        type: Boolean,
-        default: true
-      },
-      transition: {
-        type: String
-      },
-      bgTransition: {
-        type: String
-      }
-    },
     model: {
       prop: "showing",
       event: "change"
     },
 
+    props: {
+      /**
+       * @model
+       */
+      showing: Boolean,
+      /**
+       * HTML component for the modal content.
+       */
+      tag: {
+        type: String,
+        default: "div"
+      },
+      /**
+       * Flag to enable/prevent the modal from being closed.
+       */
+      dismissible: {
+        type: Boolean,
+        default: true
+      },
+      /**
+       * CSS width to set the modal to.
+       */
+      width: String,
+      /**
+       * CSS max-width to set the modal to.
+       */
+      maxWidth: String,
+      /**
+       * Prevents the page from being scrolled while the modal is open.
+       */
+      noScroll: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * Transition name to apply to the modal.
+       */
+      transition: String,
+      /**
+       * Transition name to apply to the background.
+       */
+      bgTransition: String
+    },
+
+    watch: {
+      showing: {
+        handler: function handler(next, prev) {
+          var this$1 = this;
+
+          if (typeof window !== "undefined") {
+            if (next && next != prev) {
+              this.noScroll && document.body.style.setProperty("overflow", "hidden");
+              this.$nextTick(function () {
+                this$1.$refs.content.focus();
+              });
+            } else {
+              this.noScroll && document.body.style.removeProperty("overflow");
+            }
+          }
+        }
+      }
+    },
+
     methods: {
       show: function show() {
+        /**
+         * Fired when the modal opens.
+         * @event show
+         * @type { boolean }
+         */
         this.$emit("show");
         this.$emit("change", true);
       },
       hide: function hide() {
+        /**
+         * Fired when the modal closes.
+         * @event hide
+         * @type { boolean }
+         */
         this.$emit("hide");
         this.$emit("change", false);
       },
       toggle: function toggle() {
         var event = this.showing ? "hide" : "show";
         this.$emit(event, !this.showing);
+        /**
+         * Fired whenever the modal opens or closes.
+         * @event change
+         * @type { boolean }
+         */
         this.$emit("change", !this.showing);
       },
-      onKeydown: function onKeydown(event) {
-        if (event.keyCode === KEYCODES.ESC) {
+      onClick: function onClick(event) {
+        if (event.target.classList.contains("vts-modal") && this.dismissible) {
           this.hide();
         }
-        if (event.keyCode === KEYCODES.TAB) {
+      },
+
+      onKeydown: function onKeydown(event) {
+        if (event.keyCode === keycodes.ESC) {
+          this.hide();
+        }
+        if (event.keyCode === keycodes.TAB) {
           var content = this.$refs.content;
           var focusable = Array.from(content.querySelectorAll(FOCUSABLE));
 
@@ -1279,105 +1324,30 @@
           }
         }
       }
-    },
-
-    watch: {
-      showing: {
-        handler: function(next, prev) {
-          var this$1 = this;
-
-          if (typeof window !== "undefined") {
-            if (next && next != prev) {
-              this.preventScroll && document.body.style.setProperty("overflow", "hidden");
-              this.$nextTick(function () {
-                this$1.$refs.content.focus();
-              });
-            } else {
-              this.preventScroll && document.body.style.removeProperty("overflow");
-            }
-          }
-        }
-      }
-    },
-
-    render: function render(create) {
-      var this$1 = this;
-
-      if (!this.showing) {
-        return create(false)
-      }
-
-      var content = create(
-        "div",
-        {
-          ref: "content",
-          class: (NAME$6 + "__content"),
-          style: {
-            width: this.width || null,
-            maxWidth: this.maxWidth || null
-          },
-          attrs: {
-            tabindex: "-1",
-            role: "dialog"
-          }
-        },
-        [this.$slots.default]
-      );
-      content = create(
-        "transition",
-        {
-          props: { name: this.transition, appear: true }
-        },
-        [content]
-      );
-
-      var modal = create(
-        "div",
-        {
-          class: ("" + NAME$6),
-          on: {
-            click: function (event) {
-              if (event.target.classList.contains(("" + NAME$6)) && this$1.dismissible) {
-                this$1.hide();
-              }
-            },
-            keydown: this.onKeydown
-          }
-        },
-        [content]
-      );
-
-      modal = create(
-        "transition",
-        {
-          props: { name: this.bgTransition }
-        },
-        [modal]
-      );
-
-      return modal
     }
   };
 
   /* script */
-              var __vue_script__$6 = script$6;
+              var __vue_script__$5 = script$5;
               
   /* template */
+  var __vue_render__$3 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":_vm.bgTransition}},[(_vm.showing)?_c('div',{staticClass:"vts-modal",on:{"click":_vm.onClick,"keydown":_vm.onKeydown}},[_c('transition',{attrs:{"name":_vm.transition,"appear":""}},[_c(_vm.tag,{ref:"content",tag:"component",staticClass:"vts-modal__content",style:({width: _vm.width, maxWidth: _vm.maxWidth}),attrs:{"tabindex":"-1","role":"dialog"}},[_vm._t("default")],2)],1)],1):_vm._e()])};
+  var __vue_staticRenderFns__$3 = [];
 
     /* style */
-    var __vue_inject_styles__$6 = function (inject) {
+    var __vue_inject_styles__$5 = function (inject) {
       if (!inject) { return }
-      inject("data-v-f4cf9684_0", { source: ".vts-modal{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.2)}.vts-modal [tabindex=\"-1\"]:focus{outline:0}.vts-modal__content{overflow:auto;max-width:70vw;max-height:80vh;background:#fff}", map: undefined, media: undefined });
+      inject("data-v-76dae86a_0", { source: ".vts-modal{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.2)}.vts-modal [tabindex=\"-1\"]:focus{outline:0}.vts-modal__content{overflow:auto;max-width:70vw;max-height:80vh;background:#fff}", map: undefined, media: undefined });
 
     };
     /* scoped */
-    var __vue_scope_id__$6 = undefined;
+    var __vue_scope_id__$5 = undefined;
     /* module identifier */
-    var __vue_module_identifier__$6 = undefined;
+    var __vue_module_identifier__$5 = undefined;
     /* functional template */
-    var __vue_is_functional_template__$6 = undefined;
+    var __vue_is_functional_template__$5 = false;
     /* component normalizer */
-    function __vue_normalize__$6(
+    function __vue_normalize__$5(
       template, style, script,
       scope, functional, moduleIdentifier,
       createInjector, createInjectorSSR
@@ -1385,7 +1355,7 @@
       var component = (typeof script === 'function' ? script.options : script) || {};
 
       // For security concerns, we use only base name in production mode.
-      component.__file = "Modal.vue";
+      component.__file = "VtsModal.vue";
 
       if (!component.render) {
         component.render = template.render;
@@ -1495,65 +1465,196 @@
     
 
     
-    var Modal = __vue_normalize__$6(
-      {},
+    var VtsModal = __vue_normalize__$5(
+      { render: __vue_render__$3, staticRenderFns: __vue_staticRenderFns__$3 },
+      __vue_inject_styles__$5,
+      __vue_script__$5,
+      __vue_scope_id__$5,
+      __vue_is_functional_template__$5,
+      __vue_module_identifier__$5,
+      __vue_create_injector__$3,
+      undefined
+    );
+
+  //
+
+  /**
+   * Show and hide content based on which tabs are selected.
+   *
+   * Implements best practices for accessible tab components based on W3C. Includes HTML5 role attributes (tablist, tab, tabpanel), aria attributes (aria-label, aria-selected, aria-controls, aria-labelledby), and ideal keyboard navigation.
+   *
+   * Keyboard navigation to the tabs only targets active tab. `right` key activates next tab (horizontal orientation) or loops around to start. `left` key activates previous tab (horizontal orientation) or loops around to end. `down` key activates next tab (vertical orientation) or loops around to start. `down` key activates previous tab (vertical orientation) or loops around to end. (in horizontal orientation), `home` key activates first tab. `end` key activates last tab.
+   */
+  var script$6 = {
+    // name: NAME,
+
+    props: {
+      /**
+       * Support for aria-label attribute
+       */
+      label: String,
+      /**
+       * Support for aria-orientation attribute
+       */
+      orientation: {
+        type: String,
+        default: "horizontal"
+      }
+    },
+
+    data: function () { return ({
+      activeIndex: 0
+    }); },
+
+    computed: {
+      tablist: function tablist() {
+        return Object.keys(this.$slots)
+      },
+
+      id: function id() {
+        if (this.$attrs.id) { return this.$attrs.id }
+        return Array(6)
+          .fill()
+          .map(function () { return Math.floor(36 * Math.random()).toString(36); })
+          .join("")
+      }
+    },
+
+    methods: {
+      onKeydown: function onKeydown(event) {
+        var keyCode = event.keyCode;
+        switch (keyCode) {
+          case keycodes.END:
+            event.preventDefault();
+            this.activeIndex = this.tablist.length - 1;
+            this.setFocus();
+            break
+          case keycodes.HOME:
+            event.preventDefault();
+            this.activeIndex = 0;
+            this.setFocus();
+            break
+          // Up and down are in keydown because we need to prevent page scroll >:)
+          case keycodes.LEFT:
+          case keycodes.RIGHT:
+          case keycodes.UP:
+          case keycodes.DOWN:
+            this.determineOrientation(event);
+            break
+        }
+      },
+
+      // When a tablist's aria-orientation is set to vertical, only up and down arrow should function. In all other cases only left and right arrow function.
+      determineOrientation: function determineOrientation(event) {
+        var keyCode = event.keyCode;
+        var proceed = false;
+        if (this.orientation === "vertical") {
+          if (keyCode === keycodes.UP || keyCode === keycodes.DOWN) {
+            event.preventDefault();
+            proceed = true;
+          }
+        } else {
+          if (keyCode === keycodes.LEFT || keyCode === keycodes.RIGHT) {
+            proceed = true;
+          }
+        }
+        if (proceed) {
+          this.switchTabOnArrowPress(event);
+          this.setFocus();
+        }
+      },
+
+      // Either focus the next, previous, first, or last tab depening on key pressed
+      switchTabOnArrowPress: function switchTabOnArrowPress(event) {
+        var keyCode = event.keyCode;
+        var directions = {};
+        directions[keycodes.LEFT] = -1;
+        directions[keycodes.UP] = -1;
+        directions[keycodes.RIGHT] = 1;
+        directions[keycodes.DOWN] = 1;
+
+        /* istanbul ignore next */
+        if (!directions[keyCode]) { return }
+        var nextIndex = this.activeIndex + directions[keyCode];
+        if (nextIndex < 0) {
+          this.activeIndex = this.$refs.tab.length - 1;
+        } else if (nextIndex >= this.$refs.tab.length) {
+          this.activeIndex = 0;
+        } else {
+          this.activeIndex = nextIndex;
+        }
+      },
+
+      setFocus: function setFocus() {
+        this.$refs.tab[this.activeIndex].focus();
+      }
+    }
+  };
+
+  /* script */
+              var __vue_script__$6 = script$6;
+              
+  /* template */
+  var __vue_render__$4 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.tablist.length)?_c('div',{staticClass:"vts-tabs"},[_c('div',{staticClass:"vts-tablist",attrs:{"role":"tablist","aria-label":_vm.label,"aria-orientation":_vm.orientation}},_vm._l((_vm.tablist),function(tab,index){return _c('button',{key:tab,ref:"tab",refInFor:true,class:("vts-tabs__tab vts-tabs__tab--" + index),attrs:{"aria-selected":index === _vm.activeIndex,"tabindex":index === _vm.activeIndex ? false : -1,"id":(_vm.id + "-tab-" + index),"aria-controls":(_vm.id + "-panel-" + index),"role":"tab"},on:{"keydown":_vm.onKeydown,"click":function($event){_vm.activeIndex = index;}}},[_vm._v(_vm._s(tab))])}),0),_vm._v(" "),_vm._l((_vm.tablist),function(tab,index){return _c('div',{key:tab,class:("vts-tabs__panel vts-tabs__panel--" + index),attrs:{"id":(_vm.id + "-panel-" + index),"aria-labelledby":(_vm.id + "-tab-" + index),"hidden":index !== _vm.activeIndex,"tabindex":"0","role":"tabpanel"}},[_vm._t(tab)],2)})],2):_vm._e()};
+  var __vue_staticRenderFns__$4 = [];
+
+    /* style */
+    var __vue_inject_styles__$6 = undefined;
+    /* scoped */
+    var __vue_scope_id__$6 = undefined;
+    /* module identifier */
+    var __vue_module_identifier__$6 = undefined;
+    /* functional template */
+    var __vue_is_functional_template__$6 = false;
+    /* component normalizer */
+    function __vue_normalize__$6(
+      template, style, script,
+      scope, functional, moduleIdentifier,
+      createInjector, createInjectorSSR
+    ) {
+      var component = (typeof script === 'function' ? script.options : script) || {};
+
+      // For security concerns, we use only base name in production mode.
+      component.__file = "VtsTabs.vue";
+
+      if (!component.render) {
+        component.render = template.render;
+        component.staticRenderFns = template.staticRenderFns;
+        component._compiled = true;
+
+        if (functional) { component.functional = true; }
+      }
+
+      component._scopeId = scope;
+
+      return component
+    }
+    /* style inject */
+    
+    /* style inject SSR */
+    
+
+    
+    var VtsTabs = __vue_normalize__$6(
+      { render: __vue_render__$4, staticRenderFns: __vue_staticRenderFns__$4 },
       __vue_inject_styles__$6,
       __vue_script__$6,
       __vue_scope_id__$6,
       __vue_is_functional_template__$6,
       __vue_module_identifier__$6,
-      __vue_create_injector__$3,
+      undefined,
       undefined
     );
 
+  // To allow individual component use, export components
 
-
-  var components = /*#__PURE__*/Object.freeze({
-    Drawer: Drawer,
-    Dropdown: Dropdown,
-    Fetch: Fetch,
-    Img: Img,
-    Intersection: Intersection,
-    Modal: Modal,
-    Loading: Loading
-  });
-
-  // Import vue components
-
-  // install function executed by Vue.use()
-  function install(Vue) {
-    if (install.installed) { return }
-    install.installed = true;
-    Object.keys(components).forEach(function (key) {
-      Vue.component(components[key].name, components[key]);
-    });
-  }
-
-  // Create module definition for Vue.use()
-  var plugin = {
-    install: install
-  };
-
-  // To auto-install when vue is found
-  /* global window global */
-  var GlobalVue = null;
-  if (typeof window !== "undefined") {
-    GlobalVue = window.Vue;
-  } else if (typeof global !== "undefined") {
-    GlobalVue = global.Vue;
-  }
-  if (GlobalVue) {
-    GlobalVue.use(plugin);
-  }
-
-  exports.default = plugin;
-  exports.Drawer = Drawer;
-  exports.Dropdown = Dropdown;
-  exports.Fetch = Fetch;
-  exports.Img = Img;
-  exports.Intersection = Intersection;
-  exports.Modal = Modal;
-  exports.Loading = Loading;
+  exports.Alert = VtsAlert;
+  exports.Drawer = VtsDrawer;
+  exports.Dropdown = VtsDropdown;
+  exports.Img = VtsImg;
+  exports.Intersection = VtsIntersection;
+  exports.Modal = VtsModal;
+  exports.Tabs = VtsTabs;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

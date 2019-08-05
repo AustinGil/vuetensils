@@ -2,7 +2,7 @@
 
 ```vue
 <template>
-  <vts-img src="https://source.unsplash.com/random/900x600" />
+  <VImg src="https://source.unsplash.com/random/900x600" />
 </template>
 
 <script>
@@ -21,7 +21,7 @@ Pass in the image dimensions to avoid the page jumping when the image loads
 
 ```vue
 <template>
-  <vts-img src="https://source.unsplash.com/random/900x550" width="900" height="550" />
+  <VImg src="https://source.unsplash.com/random/900x550" width="900" height="550" />
 </template>
 
 <script>
@@ -40,7 +40,7 @@ img {
 
 ```vue
 <template>
-  <vts-img
+  <VImg
     src="https://source.unsplash.com/random/1000x550"
     width="1000"
     height="550"
@@ -64,7 +64,7 @@ img {
 
 ```vue
 <template>
-  <vts-img
+  <VImg
     :src="`https://images.unsplash.com/photo-1546094324-7fd2718befe3?w=1080`"
     width="1080"
     height="864"
@@ -90,7 +90,7 @@ Don't forget all the other best practices such as `srcset` attribute and `alt` t
 
 ```vue
 <template>
-  <vts-img
+  <VImg
     :src="`https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=1080`"
     width="900"
     height="600"

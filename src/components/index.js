@@ -1,9 +1,8 @@
-import Alert from "./alert/Alert.vue"
-import Drawer from "./drawer/Drawer.vue"
-import Dropdown from "./dropdown/Dropdown.vue"
-import Img from "./img/Img.vue"
-import Intersection from "./intersection/Intersection.vue"
-import Modal from "./modal/Modal.vue"
-import Tabs from "./tabs/Tabs.vue"
-
-export { Alert, Drawer, Dropdown, Img, Intersection, Modal, Tabs }
+export { default as VAlert } from "./VAlert/VAlert.vue"
+export { default as VAsync } from "./VAsync/VAsync.vue"
+export { default as VDrawer } from "./VDrawer/VDrawer.vue"
+export { default as VDropdown } from "./VDropdown/VDropdown.vue"
+export { default as VImg } from "./VImg/VImg.vue"
+export { default as VIntersect } from "./VIntersect/VIntersect.vue"
+export { default as VModal } from "./VModal/VModal.vue"
+export { default as VTabs } from "./VTabs/VTabs.vue"

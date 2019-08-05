@@ -2,12 +2,12 @@
 
 ```vue
 <template>
-  <VtsAsync :await="httpRequest">
+  <VAsync :await="httpRequest">
     <template slot-scope="{ results }">
       <h3>{{ results.title }}</h3>
       <p>{{ results.body }}</p>
     </template>
-  </VtsAsync>
+  </VAsync>
 </template>
 
 <script>
@@ -27,12 +27,12 @@ This component uses a custom Promise that waits 3 second to resolve
 
 ```vue
 <template>
-  <VtsAsync :await="sleep">
+  <VAsync :await="sleep">
     <template slot-scope="{ pending }">
       <p v-if="pending">just...a bit...more...</p>
       <p v-else>Ok, we're done</p>
     </template>
-  </VtsAsync>
+  </VAsync>
 </template>
 
 <script>
@@ -48,13 +48,13 @@ export default {
 
 ```vue
 <template>
-  <VtsAsync :await="sleep">
+  <VAsync :await="sleep">
     <template slot-scope="{ pending, error }">
       <p v-if="pending">just...a bit...more...</p>
       <pre v-else-if="error">{{ error }}</pre>
       <p v-else>Ok, we're done</p>
     </template>
-  </VtsAsync>
+  </VAsync>
 </template>
 
 <script>
@@ -76,13 +76,13 @@ Note: If you pass a promise directly, the promise will be invoked immediately an
 
 ```vue
 <template>
-  <VtsAsync>
+  <VAsync>
     <template slot-scope="{ pending, results, call }">
       <p v-if="pending">just...a bit...more...</p>
       <p v-else-if="results">{{ results }}</p>
       <button @click="call(waitForIt)">Call promise</button>
     </template>
-  </VtsAsync>
+  </VAsync>
 </template>
 
 <script>
@@ -104,13 +104,13 @@ Pass a function that returns the promise in order to make it truly dynamic. This
 
 ```vue
 <template>
-  <VtsAsync>
+  <VAsync>
     <template slot-scope="{ pending, results, call }">
       <p v-if="pending">just...a bit...more...</p>
       <p v-else-if="results">{{ results }}</p>
       <button @click="call(waitForIt)">Call promise</button>
     </template>
-  </VtsAsync>
+  </VAsync>
 </template>
 
 <script>
