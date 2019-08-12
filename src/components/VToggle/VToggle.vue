@@ -1,17 +1,15 @@
 <template>
-  <div
-    class="vts-toggle"
-    :class="{ 'vts-toggle--open': isOpen }"
-  >
+  <div class="vts-toggle" :class="{ 'vts-toggle--open': isOpen }">
     <button
       :id="`${id}-label`"
       ref="label"
       :disabled="disabled"
       :aria-controls="`${id}-content`"
       :aria-expanded="isOpen"
-      @click="setOpen(!isOpen)"
+      @click="isOpen = !isOpen"
       class="vts-toggle__button"
     >
+      <!-- @slot The content that goes inside the button -->
       <slot name="label" />
     </button>
 
@@ -30,6 +28,7 @@
         role="region"
         class="vts-toggle__content"
       >
+        <!-- @slot The content that goes inside the toggleable region -->
         <slot />
       </div>
     </transition>
@@ -37,8 +36,14 @@
 </template>
 
 <script>
+/**
+ * Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
+ */
 export default {
   props: {
+    /**
+     * The content inside the toggle button
+     */
     label: {
       type: String,
       required: true
@@ -48,9 +53,11 @@ export default {
     startOpen: Boolean
   },
 
-  data: () => ({
-    isOpen: false
-  }),
+  data() {
+    return {
+      isOpen: !!this.isOpen
+    }
+  },
 
   computed: {
     id() {
@@ -66,43 +73,25 @@ export default {
     }
   },
 
-  mounted() {
-    this.isOpen = this.startOpen
-  },
-
   methods: {
     collapse(el) {
-      el.style.height = "0"
+      el.style.height = 0
     },
 
     expand(el) {
       el.style.height = el.scrollHeight + "px"
-
-      // only works with this prop accessed again
+      // Force repaint to make sure the animation is triggered correctly.
       el.scrollHeight
-      // (╯°□°）╯︵ ┻━┻
     },
 
     resetHeight(el) {
-      el.style.height = ""
-    },
-
-    setOpen(isOpen) {
-      this.isOpen = isOpen
+      el.style.height = null
     }
   }
 }
 </script>
 
 <style>
-.vts-toggle {
-  overflow: hidden;
-}
-
-.vts-toggle__label:focus {
-  outline: 0;
-}
-
 .vts-toggle__content {
   overflow: hidden;
   transition: height 300ms ease;

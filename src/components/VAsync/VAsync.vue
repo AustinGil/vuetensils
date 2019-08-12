@@ -18,12 +18,16 @@ export default {
     /**
      * A promise reference or function that returns a promise. This is required unless you are going to manually call the promise with the `call()` method.
      */
-    await: [Promise, Function],
+    await: {
+      type: [Promise, Function],
+      default: () => Promise.resolve(),
+    },
     /**
      * The default value to provide for the `results`.
      */
     default: {
-      default: ""
+      type: undefined,
+      default: undefined,
     },
     /**
      * Flag to control immediate execution of the promise passed by `await` prop on `mounted()` hook.
