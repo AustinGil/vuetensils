@@ -20,14 +20,14 @@ export default {
      */
     await: {
       type: [Promise, Function],
-      default: () => Promise.resolve(),
+      default: () => Promise.resolve()
     },
     /**
      * The default value to provide for the `results`.
      */
     default: {
       type: undefined,
-      default: undefined,
+      default: undefined
     },
     /**
      * Flag to control immediate execution of the promise passed by `await` prop on `mounted()` hook.
@@ -49,7 +49,7 @@ export default {
   },
 
   methods: {
-    async trigger(promise) {
+    trigger(promise) {
       if (!promise) return
 
       promise = typeof promise === "function" ? promise() : promise
@@ -60,31 +60,34 @@ export default {
       this.results = this.default
       this.error = null
 
-      try {
-        this.results = await promise
-        /**
-         * Fired after promise has resolved with the resolved value.
-         * @event resolve
-         * @type { unknown }
-         */
-        this.$emit("resolve", this.results)
-      } catch (error) {
-        this.error = error
-        /**
-         * Fired after promise has rejected with the rejected error.
-         * @event reject
-         * @type { error }
-         */
-        this.$emit("reject", error)
-      } finally {
-        this.pending = false
-        /**
-         * Fired after promise has fulfilled, regardless of success or failure.
-         * @event finally
-         * @type { undefined }
-         */
-        this.$emit("finally")
-      }
+      return promise
+        .then(results => {
+          this.results = results
+          /**
+           * Fired after promise has resolved with the resolved value.
+           * @event resolve
+           * @type { unknown }
+           */
+          this.$emit("resolve", this.results)
+        })
+        .catch(error => {
+          this.error = error
+          /**
+           * Fired after promise has rejected with the rejected error.
+           * @event reject
+           * @type { error }
+           */
+          this.$emit("reject", error)
+        })
+        .finally(() => {
+          this.pending = false
+          /**
+           * Fired after promise has fulfilled, regardless of success or failure.
+           * @event finally
+           * @type { undefined }
+           */
+          this.$emit("finally")
+        })
     },
 
     /**
@@ -109,7 +112,7 @@ export default {
       call: this.call
     })
 
-    if (scopedSlot.length > 1) {
+    if (scopedSlot && scopedSlot.length > 1) {
       return h("div", [scopedSlot])
     }
 

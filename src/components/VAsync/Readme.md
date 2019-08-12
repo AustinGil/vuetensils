@@ -4,8 +4,10 @@
 <template>
   <VAsync :await="httpRequest">
     <template slot-scope="{ results }">
-      <h3>{{ results.title }}</h3>
-      <p>{{ results.body }}</p>
+      <div v-if="results">
+        <h3>{{ results.title }}</h3>
+        <p>{{ results.body }}</p>
+      </div>
     </template>
   </VAsync>
 </template>
