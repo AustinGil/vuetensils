@@ -16,7 +16,7 @@
     "url": "git+https://github.com/Stegosource/vuetensils.git"
   },
   "scripts": {
-    "dev": "echo TODO",
+    "dev": "npm run styleguide",
     "test": "echo TODO",
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuetensils.umd.js",

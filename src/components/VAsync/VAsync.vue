@@ -1,4 +1,6 @@
+
 <script>
+import { safeSlot } from "../../utils"
 /**
  * A renderless component for awaiting promises to resolve; great for making HTTP requests.
  *
@@ -28,11 +30,7 @@ export default {
     default: {
       type: undefined,
       default: undefined
-    },
-    /**
-     * Flag to control immediate execution of the promise passed by `await` prop on `mounted()` hook.
-     */
-    lazy: Boolean
+    }
   },
 
   data() {
@@ -43,9 +41,15 @@ export default {
     }
   },
 
-  mounted() {
-    if (this.lazy) return
-    this.trigger(this.await)
+  watch: {
+    await: {
+      handler: "trigger",
+      immediate: true
+    },
+
+    pending(pending) {
+      this.$emit("pending", pending)
+    }
   },
 
   methods: {
@@ -88,35 +92,39 @@ export default {
            */
           this.$emit("finally")
         })
-    },
-
-    /**
-     * Used for manually calling promises from the default scoped slot. Can accept a new promise (or function that resolves to a promise), or falls back to the `await` prop.
-     * @param { promise, function } promise
-     * @public
-     */
-    call(promise) {
-      this.trigger(promise || this.await)
     }
   },
 
   render(h, test) {
-    if (!this.$scopedSlots.default) {
-      return h(false)
+    const pending = this.pending
+
+    if (pending && this.$scopedSlots.pending) {
+      const pendingSlot = this.$scopedSlots.pending()
+      return safeSlot(h, pendingSlot)
     }
 
-    const scopedSlot = this.$scopedSlots.default({
-      pending: this.pending,
-      results: typeof this.results !== "undefined" ? this.results : this.default,
-      error: this.error,
-      call: this.call
+    const error = this.error
+
+    if (error && this.$scopedSlots.reject) {
+      const rejectSlot = this.$scopedSlots.reject(error)
+      return safeSlot(h, rejectSlot)
+    }
+
+    const results = this.results === undefined ? this.default : this.results
+
+    if (results !== undefined && this.$scopedSlots.resolve) {
+      const resolveSlot = this.$scopedSlots.resolve(results)
+      return safeSlot(h, resolveSlot)
+    }
+
+    if (!this.$scopedSlots.default) return h(false)
+
+    const defaultSlot = this.$scopedSlots.default({
+      pending,
+      results,
+      error
     })
-
-    if (scopedSlot && scopedSlot.length > 1) {
-      return h("div", [scopedSlot])
-    }
-
-    return scopedSlot
+    return safeSlot(h, defaultSlot)
   }
 }
 </script>
