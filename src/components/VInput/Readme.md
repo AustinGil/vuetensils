@@ -1,79 +1,172 @@
+### Use
+
+```html
+<script>
+  import { VInput } from "vuetensils"
+  export default VInput
+</script>
+
+<style>
+  /** Your custom styles here */
+</style>
+```
+
+### Styled Example
+
 ```vue
 <template>
-  <div>
-    {{ input }}
-    <VInput v-model="input" label="Radios" type="select" :options="[1, 2, 3, 4]" required>
-      <template v-slot:description="invalid">
-        <pre>{{ invalid }}</pre>
-      </template>
-    </VInput>
+  <div class="styled">
+    <form @submit.prevent>
+      <VInput v-model="name" label="Your Name:" />
+    </form>
+    <p v-if="name">Hello {{ name }}!</p>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    input: ""
+    name: ""
   })
 }
+</script>
+
+<style>
+.styled .vts-input__text {
+  font-size: 14px;
+}
+
+.vts-input__input {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+</style>
+```
+
+### Input Types
+
+Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#Form_%3Cinput%3E_types) except the `file` type. Additionally accepts `textarea` and `select`.
+
+```vue
+<template>
+  <VInput label="text:" />
+</template>
+
+<script>
+export default {}
 </script>
 ```
 
 ```vue
 <template>
-  <div>
-    {{ input }}
-    <VInput v-model="input" label="test" type="checkbox" required />
-  </div>
+  <VInput label="email:" type="email" />
 </template>
 
 <script>
-export default {
-  data: () => ({
-    input: ""
-  })
-}
+export default {}
 </script>
 ```
 
 ```vue
 <template>
-  <form @submit.prevent>
-    {{ input }}
-    <br />
-    <VInput
-      v-model="input"
-      label="test"
-      required
-      min="1"
-      max="2"
-      minlength="2"
-      maxlength="20"
-      pattern="[0-9]{4}"
-    >
-      <template v-slot:description="invalid">
-        Here's a description of the input, and I also have access to the validation state object.
-        <pre>{{ invalid }}</pre>
-        Which I can transform into an error list:
-        <ul>
-          <li
-            v-for="invalid in Object.keys(invalid).filter(
-              key => invalid[key] && key !== 'anyInvalid'
-            )"
-          >
-            {{ errorText(invalid) }}
-          </li>
-        </ul>
-      </template>
-    </VInput>
-  </form>
+  <VInput label="textarea:" type="textarea" />
+</template>
+
+<script>
+export default {}
+</script>
+```
+
+```vue
+<template>
+  <VInput label="checkbox" type="checkbox" />
+</template>
+
+<script>
+export default {}
+</script>
+```
+
+```vue
+<template>
+  <VInput type="radio" :options="['option 1', 'option 2', 'option 3', 'option 4']" />
+</template>
+
+<script>
+export default {}
+</script>
+```
+
+```vue
+<template>
+  <VInput
+    label="select"
+    type="select"
+    :options="['option 1', 'option 2', 'option 3', 'option 4']"
+  />
+</template>
+
+<script>
+export default {}
+</script>
+```
+
+### Description
+
+If you want to add a description to your input, the best way to do that is to include an `aria-describedby` attribute. With this component, you can simply use the description slot.
+
+```vue
+<template>
+  <VInput label="email" type="email">
+    <template #slot:description>
+      Please provide your email.
+    </template>
+  </VInput>
+</template>
+
+<script>
+export default {}
+</script>
+```
+
+### Validation
+
+```vue
+<template>
+  <VInput
+    v-model="value"
+    label="test"
+    required
+    min="1"
+    max="2"
+    minlength="2"
+    maxlength="20"
+    pattern="[0-9]{4}"
+  >
+    <template v-slot:description="invalid">
+      Here's a description of the input, and I also have access to the validation state object.
+      <pre>{{ invalid }}</pre>
+      Which I can transform into an error list:
+      <ul>
+        <li
+          v-for="invalid in Object.keys(invalid).filter(
+            key => invalid[key] && key !== 'anyInvalid'
+          )"
+        >
+          {{ errorText(invalid) }}
+        </li>
+      </ul>
+    </template>
+  </VInput>
 </template>
 
 <script>
 export default {
   data: () => ({
-    input: "blah",
-    options: [1, 2, 3]
+    value: ""
   }),
 
   methods: {
@@ -87,25 +180,5 @@ export default {
     }
   }
 }
-</script>
-```
-
-```vue
-<template>
-  <VInput label="test" type="textarea" class="styled" placeholder="test" />
-</template>
-
-<script>
-export default {}
-</script>
-```
-
-```vue
-<template>
-  <VInput label="test" type="textarea" class="styled" placeholder="test" />
-</template>
-
-<script>
-export default {}
 </script>
 ```

@@ -1,21 +1,28 @@
 <template>
-  <div class="vts-input" :class="{ 'vts-input--invalid': invalid.anyInvalid }">
+  <div
+    class="vts-input"
+    :class="{
+      'vts-input--invalid': invalid.anyInvalid,
+      'vts-input--required': $attrs.hasOwnProperty('required')
+    }"
+  >
     <template v-if="$attrs.type === 'radio'">
-      <label v-for="option in computedOptions" :key="option.value">
+      <label v-for="option in computedOptions" :key="option.value" class="vts-input__label">
         <input
           ref="input"
-          :checked="option.value"
+          :checked="value === option.value"
           :type="$attrs.type"
           :name="option.name"
           @input="$emit('update', option.value)"
           v-on="$listeners"
           :aria-describedby="invalid.anyInvalid && `${id}__description`"
+          class="vts-input__input"
         />
         <span class="vts-input__text">{{ option.label }}</span>
       </label>
     </template>
 
-    <label v-else>
+    <label v-else class="vts-input__label">
       <span v-if="$attrs.type !== 'checkbox'" class="vts-input__text">{{ label }}</span>
       <component
         ref="input"
@@ -26,6 +33,7 @@
         @input="onInput"
         v-on="$listeners"
         :aria-describedby="invalid.anyInvalid && `${id}__description`"
+        class="vts-input__input"
       >
         <template v-if="tag === 'textarea'">
           {{ value }}
@@ -48,6 +56,7 @@
       class="vts-input__description"
       role="alert"
     >
+      <!-- @slot Scoped slot for the input description. Provides the validation state. -->
       <slot name="description" v-bind="invalid" />
     </div>
   </div>
@@ -69,6 +78,9 @@ function invalidState({ validity }) {
   }
 }
 
+/**
+ * Input component that automatically includes labels, validation, and aria descriptions for any errors.
+ */
 export default {
   inheritAttrs: false,
 
@@ -77,16 +89,24 @@ export default {
   },
 
   props: {
+    /**
+     * Every input should have a label with the exception of `radio` which supports labels for the `options` prop.
+     */
     label: {
-      type: String,
-      required: true
+      type: String
     },
 
+    /**
+     * The input value. Works for all inputs except type `radio`. See `options` prop.
+     */
     value: {
       type: [String, Number, Boolean],
       default: ""
     },
 
+    /**
+     * An array of options used for inputs of type `radio` or type `select`
+     */
     options: {
       type: Array,
       default: () => []
@@ -141,6 +161,10 @@ export default {
   methods: {
     onInput({ target }) {
       const value = this.$attrs.type === "checkbox" ? target.checked : target.value
+      /**
+       * @event update
+       * @type { any }
+       */
       this.$emit("update", value)
     },
 
