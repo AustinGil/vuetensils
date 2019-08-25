@@ -1,13 +1,8 @@
 <template>
   <transition :name="transition">
-    <component
-      v-if="!dismissed && !!visible"
-      :is="tag"
-      role="alert"
-      class="vts-alert"
-    >
+    <component v-if="!dismissed && !!visible" :is="tag" role="alert" class="vts-alert">
       <!-- @slot The default slot content that is shown to the user -->
-      <slot></slot>
+      <slot />
 
       <button
         v-if="dismissible"

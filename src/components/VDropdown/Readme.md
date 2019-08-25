@@ -1,14 +1,9 @@
+### Styled Examples
+
 ```vue
 <template>
-  <VDropdown text="Show me what you got!">
-    <p>Here is the dropdown content with a nav.</p>
-    <nav>
-      <ul>
-        <li><a href="#">link</a></li>
-        <li><a href="#">link</a></li>
-        <li><a href="#">link</a></li>
-      </ul>
-    </nav>
+  <VDropdown text="Show me what you got!" transition="slide-up" class="styled">
+    Here is some custom dropdwon content.
   </VDropdown>
 </template>
 
@@ -29,6 +24,28 @@ export default {}
   transform: translateY(10px);
 }
 </style>
+```
+
+### Unstyled Examples
+
+```vue
+<template>
+  <VDropdown text="Show me what you got!">
+    <p>This will close on click-out or focus-out.</p>
+    <p>Try keyboard navigation.</p>
+    <nav>
+      <ul>
+        <li><a href="#">link</a></li>
+        <li><a href="#">link</a></li>
+        <li><a href="#">link</a></li>
+      </ul>
+    </nav>
+  </VDropdown>
+</template>
+
+<script>
+export default {}
+</script>
 ```
 
 ### With a transition

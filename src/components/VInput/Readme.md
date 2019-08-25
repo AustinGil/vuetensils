@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style>
-.styled .vts-input__text {
+.vts-input__text {
   font-size: 14px;
 }
 

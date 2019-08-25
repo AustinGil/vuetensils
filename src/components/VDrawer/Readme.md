@@ -1,3 +1,60 @@
+### Styled Examples
+
+```vue
+<template>
+  <div class="styled">
+    <VDrawer v-model="showDrawer" transition="slide-right" bg-transition="fade">
+      My drawer content
+    </VDrawer>
+
+    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    showDrawer: false
+  })
+}
+</script>
+
+<style>
+.vts-drawer {
+  background: rgba(0, 0, 255, 0.5);
+}
+
+.vts-drawer__content {
+  padding: 20px;
+  color: #fff;
+  background: #222;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.slide-right-enter,
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+</style>
+```
+
+### Unstyled Examples
+
 ```vue
 <template>
   <div>
@@ -146,61 +203,6 @@ export default {
 .slide-left-leave-to {
   opacity: 0;
   transform: translateX(100%);
-}
-</style>
-```
-
-### Styled
-
-```vue
-<template>
-  <div class="styled">
-    <VDrawer v-model="showDrawer" transition="slide-right" bg-transition="fade">
-      My drawer content
-    </VDrawer>
-
-    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
-  </div>
-</template>
-
-<script>
-export default {
-  data: () => ({
-    showDrawer: false
-  })
-}
-</script>
-
-<style>
-.vts-drawer {
-  background: rgba(0, 0, 255, 0.5);
-}
-
-.vts-drawer__content {
-  padding: 20px;
-  color: #fff;
-  background: #222;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.slide-right-enter-active,
-.slide-right-leave-active {
-  transition: opacity 0.5s, transform 0.5s;
-}
-
-.slide-right-enter,
-.slide-right-leave-to {
-  opacity: 0;
-  transform: translateX(-100%);
 }
 </style>
 ```

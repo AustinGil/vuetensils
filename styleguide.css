@@ -57,6 +57,26 @@ img {
   transform: translateY(10px);
 }
 
+.styled .vts-dropdown__button {
+  border: 0;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+  color: #fff;
+  background: darkcyan;
+  transition: border-radius 0.5s ease;
+}
+
+.styled .vts-dropdown__button[aria-expanded] {
+  border-radius: 5px 5px 0 0;
+}
+
+.styled .vts-dropdown__content {
+  border: 1px solid darkcyan;
+  border-radius: 0 0 5px 5px;
+  padding: 10px;
+}
+
 .styled .vts-input__text {
   font-size: 14px;
 }
@@ -143,6 +163,7 @@ img {
   width: 100%;
   border: 0;
   padding: 5px;
+  font-size: 18px;
   text-align: left;
   color: #fff;
   background-color: mediumseagreen;

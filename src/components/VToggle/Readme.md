@@ -16,6 +16,24 @@
 <script>
 export default {}
 </script>
+
+<styles>
+.vts-toggle__button {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 5px;
+  font-size: 18px;
+  text-align: left;
+  color: #fff;
+  background-color: mediumseagreen;
+}
+
+.toggle-content {
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+</styles>
 ```
 
 ### Basic Usage
