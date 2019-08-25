@@ -2,30 +2,19 @@
 <script>
 import { safeSlot } from "../../utils"
 /**
- * A renderless component for awaiting promises to resolve; great for making HTTP requests.
- *
- * Supports delayed resolution, manual promise calling, and re-triggering promises. The default scoped slot provides an object with the following signature:
- *
- * ```
- * {
- *   pending: Boolean;
- *   results: Any;
- *   error: Error;
- *   call: Function; // used to manually call a promise
- * }
- * ```
+ * A renderless component for awaiting promises to resolve; great for making HTTP requests. Supports showing pending, resolved, or rejected promises.
  */
 export default {
   props: {
     /**
-     * A promise reference or function that returns a promise. This is required unless you are going to manually call the promise with the `call()` method.
+     * A promise or function that returns a promise.
      */
     await: {
       type: [Promise, Function],
       default: () => Promise.resolve()
     },
     /**
-     * The default value to provide for the `results`.
+     * The default value to provide for the `results`. Useful if the promise resolve value is undefined.
      */
     default: {
       type: undefined,
@@ -47,8 +36,16 @@ export default {
       immediate: true
     },
 
-    pending(pending) {
-      this.$emit("pending", pending)
+    pending: {
+      handler(pending) {
+        /**
+         * Fired whenever the pending status changes.
+         * @event pending
+         * @type { boolean }
+         */
+        this.$emit("pending", pending)
+      },
+      immediate: true
     }
   },
 
@@ -95,7 +92,7 @@ export default {
     }
   },
 
-  render(h, test) {
+  render(h) {
     const pending = this.pending
 
     if (pending && this.$scopedSlots.pending) {
@@ -105,19 +102,19 @@ export default {
 
     const error = this.error
 
-    if (error && this.$scopedSlots.reject) {
-      const rejectSlot = this.$scopedSlots.reject(error)
+    if (!pending && error && this.$scopedSlots.rejected) {
+      const rejectSlot = this.$scopedSlots.rejected(error)
       return safeSlot(h, rejectSlot)
     }
 
     const results = this.results === undefined ? this.default : this.results
 
-    if (this.$scopedSlots.resolve) {
-      const resolveSlot = this.$scopedSlots.resolve(results)
+    if (!pending && this.$scopedSlots.resolved) {
+      const resolveSlot = this.$scopedSlots.resolved(results)
       return safeSlot(h, resolveSlot)
     }
 
-    if (!this.$scopedSlots.default) return h(false)
+    if (!this.$scopedSlots.default) return
 
     const defaultSlot = this.$scopedSlots.default({
       pending,
