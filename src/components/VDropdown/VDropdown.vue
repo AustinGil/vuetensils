@@ -1,16 +1,13 @@
 <template>
-  <div
-    class="vts-dropdown"
-    @mouseenter="isHovered = true"
-    @mouseleave="isHovered = false"
-  >
-
+  <div class="vts-dropdown" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
     <button
       @click="isFocused = !isFocused"
       :aria-expanded="!!isHovered || !!isFocused"
       aria-haspopup
+      class="vts-dropdown__trigger"
     >
-      {{ text }}
+      <!-- @slot The content within the trigger button -->
+      <slot name="trigger">{{ text }}</slot>
     </button>
 
     <transition :name="transition">
@@ -20,6 +17,7 @@
         class="vts-dropdown__content"
         :class="`vts-dropdown__content__content--${position}`"
       >
+        <!-- @slot The dropdown content -->
         <slot />
       </div>
     </transition>
