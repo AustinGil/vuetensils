@@ -3,7 +3,7 @@ import vue from "rollup-plugin-vue"
 import buble from "rollup-plugin-buble"
 import commonjs from "rollup-plugin-commonjs"
 import replace from "rollup-plugin-replace"
-import uglify from "rollup-plugin-uglify-es"
+// import uglify from "rollup-plugin-uglify-es"
 import minimist from "minimist"
 import filesize from "rollup-plugin-filesize"
 
@@ -35,8 +35,8 @@ const config = {
 }
 
 // Only minify browser (iife) version
-if (argv.format === "iife") {
-  config.plugins.push(uglify())
-}
+// if (argv.format === "iife") {
+//   config.plugins.push(uglify())
+// }
 
 export default config
