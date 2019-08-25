@@ -2,23 +2,57 @@
 
 ## 🍴 A tasty toolset for Vue.js 🛠
 
-Vuetensils is a collection of Vue components desined to be light weight, accessible, semantic, and extensible.
+- [Docs](https://vuetensils.stegosource.com/)
+- [GitHub](https://github.com/Stegosource/vuetensils)
+- [NPM](https://www.npmjs.com/package/vuetensils)
+
+Vuetensils is a collection of **unstyled** Vue components that focus on:
+
+- Accessible components
+- Semantic markup
+- Light weight
+- Custom styling
 
 ## Bring your own styles
 
-Vuetensils is designed to jump start a project with some of the most common functional requirements, but no styles that need to be overwritten. Import just the features you need (like a WCAG friendly modal that traps focus and prevents scrolling), and apply your own brand. No overhead from unused styles!
+Vuetensil's components are designed to be starting points for some of the most common UI features while encouraging you to customize the design without adding extra bloat. Because they are unstyled, you can add your own brand without worrying about ticky overwrites, `!important` rules, or excess bloat.
 
-Other libraries have a ton of great features, but if you don't use them all, there is a lot of unnecessary bloat from unused components and style. With Vuetensils, you only import what you need, and add your own presentational styles on top.
+Import just the features you need (like a WCAG-friendly modal that traps focus and prevents scrolling), and apply your custom design. No overhead from unused styles!
 
-View on [GitHub](https://github.com/Stegosource/vuetensils) or [NPM](https://www.npmjs.com/package/vuetensils).
+## Inspiration
 
-### How it works:
+If I want my projects to follow best practices for semantic markup and accessibility, what are my options:
 
-#### Install the library
+#### I could write my own library 😱
+
+- ✔️ My styles would be exactly how I want them.
+- ✔️ My bundle size will be very small because I'll only use what I need.
+- ❌ It's going to take a lot of time.
+- ❌ I'll have to create every component from scratch.
+- ❌ I probably won't follow all the best practices right.
+
+#### I could rely on a third party library 😵
+
+- ✔️ It will save me a LOT of time.
+- ✔️ I will have many component options to choose from.
+- ❌ I'll still have to confirm they follow best practices.
+- ❌ I will either have to use their styles, or end up overwriting them.
+- ❌ There may be a lot of unused code that could bloat the bundle size.
+
+#### I could use Vuetensils 😍
+
+- ✔️ The only styles added are the ones I write.
+- ✔️ I only include the components I'm actually going to use.
+- ✔️ My components will be accessible and semantic.
+- ✔️ The bundle size will stay as small as possible.
+
+## How it works:
+
+#### 1. Install the library
 
 `npm install vuetensils`
 
-#### 2. Import & extend just the components you want
+#### 2. Use just the components you need
 
 ```html
 <script>

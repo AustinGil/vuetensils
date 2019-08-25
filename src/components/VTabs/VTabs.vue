@@ -1,14 +1,6 @@
 <template>
-  <div
-    v-if="tablist.length"
-    class="vts-tabs"
-  >
-    <div
-      role="tablist"
-      :aria-label="label"
-      :aria-orientation="orientation"
-      class="vts-tablist"
-    >
+  <div v-if="tablist.length" class="vts-tabs">
+    <div role="tablist" :aria-label="label" :aria-orientation="orientation" class="vts-tablist">
       <button
         v-for="(tab, index) in tablist"
         :key="tab"
@@ -21,7 +13,9 @@
         :aria-controls="`${id}-panel-${index}`"
         :class="`vts-tabs__tab vts-tabs__tab--${index}`"
         role="tab"
-      >{{ tab }}</button>
+      >
+        {{ tab }}
+      </button>
     </div>
 
     <div
@@ -34,7 +28,7 @@
       tabindex="0"
       role="tabpanel"
     >
-      <slot :name="tab"></slot>
+      <slot :name="tab" />
     </div>
   </div>
 </template>
