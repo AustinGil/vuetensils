@@ -25,7 +25,7 @@
     "styleguide": "vue-styleguidist server",
     "styleguide:build": "vue-styleguidist build",
     "release": "release-it",
-    "publish": "npm run build && release-it"
+    "deploy": "npm run build && release-it"
   },
   "keywords": [
     "web",
