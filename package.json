@@ -24,7 +24,8 @@
     "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vuetensils.min.js",
     "styleguide": "vue-styleguidist server",
     "styleguide:build": "vue-styleguidist build",
-    "release": "release-it"
+    "release": "release-it",
+    "publish": "npm run build && release-it"
   },
   "keywords": [
     "web",
