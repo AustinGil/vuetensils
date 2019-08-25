@@ -1,13 +1,11 @@
-## Make an HTTP request
+This component is great for handling any asynchronous tasks that involve promises. For example, HTTP requests:
 
 ```vue
 <template>
   <VAsync :await="httpRequest">
-    <template slot-scope="{ results }">
-      <div v-if="results">
-        <h3>{{ results.title }}</h3>
-        <p>{{ results.body }}</p>
-      </div>
+    <template v-slot:resolved="results">
+      <h3>{{ results.title }}</h3>
+      <p>{{ results.body }}</p>
     </template>
   </VAsync>
 </template>
@@ -25,14 +23,15 @@ export default {
 
 ## Handle pending states
 
-This component uses a custom Promise that waits 3 second to resolve
-
 ```vue
 <template>
   <VAsync :await="sleep">
-    <template slot-scope="{ pending }">
-      <p v-if="pending">just...a bit...more...</p>
-      <p v-else>Ok, we're done</p>
+    <template v-slot:pending>
+      just...a bit...more...
+    </template>
+
+    <template v-slot:resolved>
+      Ok, we're done
     </template>
   </VAsync>
 </template>
@@ -51,10 +50,12 @@ export default {
 ```vue
 <template>
   <VAsync :await="sleep">
-    <template slot-scope="{ pending, error }">
-      <p v-if="pending">just...a bit...more...</p>
-      <pre v-else-if="error">{{ error }}</pre>
-      <p v-else>Ok, we're done</p>
+    <template v-slot:pending>
+      just...a bit...more...
+    </template>
+
+    <template v-slot:rejected="error">
+      {{ error }}
     </template>
   </VAsync>
 </template>
@@ -72,17 +73,50 @@ export default {
 </script>
 ```
 
-## Wait until later to assign the promise
+## Access full state with default scoped slot
 
 ```vue
 <template>
-  <VAsync :await="waitForIt">
-    <template slot-scope="{ pending, results }">
-      <p v-if="pending">just...a bit...more...</p>
-      <p v-else-if="results">{{ results }}</p>
-      <button @click="onClick">Call promise</button>
-    </template>
-  </VAsync>
+  <div>
+    <VAsync :await="sleep">
+      <template v-slot:default="{ pending, results, error }">
+        <p v-if="pending">just...a bit...more...</p>
+        <p v-else-if="error">{{ results }}</p>
+        <p v-else="results">{{ results }}</p>
+      </template>
+    </VAsync>
+  </div>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    sleep: new Promise((res, rej) =>
+      setTimeout(() => {
+        res("Woop! We're done")
+      }, 2000)
+    )
+  })
+}
+</script>
+```
+
+## Dynamically assign promise
+
+```vue
+<template>
+  <div>
+    <VAsync :await="waitForIt">
+      <template v-slot:pending>
+        <p>just...a bit...more...</p>
+      </template>
+
+      <template v-slot:resolved="results">
+        <p>{{ results }}</p>
+      </template>
+    </VAsync>
+    <button @click="onClick">Call new promise</button>
+  </div>
 </template>
 
 <script>
@@ -110,9 +144,12 @@ export default {
 <template>
   <div>
     <VAsync ref="async">
-      <template slot-scope="{ pending, results }">
-        <p v-if="pending">just...a bit...more...</p>
-        <p v-else-if="results">{{ results }}</p>
+      <template v-slot:pending>
+        <p>just...a bit...more...</p>
+      </template>
+
+      <template v-slot:resolved="results">
+        <p>{{ results }}</p>
       </template>
     </VAsync>
     <button @click="onClick">Call promise</button>
