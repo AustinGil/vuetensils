@@ -1,12 +1,16 @@
 <template>
   <div
     class="vts-input"
-    :class="{
-      'vts-input--invalid': invalid.anyInvalid,
-      'vts-input--required': $attrs.hasOwnProperty('required')
-    }"
+    :class="[
+      `vts-input--${$attrs.type || 'text'}`,
+      {
+        'vts-input--invalid': invalid.anyInvalid,
+        'vts-input--required': $attrs.hasOwnProperty('required')
+      }
+    ]"
   >
-    <template v-if="$attrs.type === 'radio'">
+    <fieldset v-if="$attrs.type === 'radio'" class="vts-input__fieldset">
+      <legend v-if="label" class="vts-input__text">{{ label }}</legend>
       <label v-for="option in computedOptions" :key="option.value" class="vts-input__label">
         <input
           ref="input"
@@ -14,13 +18,14 @@
           :type="$attrs.type"
           :name="option.name"
           @input="$emit('update', option.value)"
+          @blur="onBlur"
           v-on="$listeners"
           :aria-describedby="invalid.anyInvalid && `${id}__description`"
           class="vts-input__input"
         />
         <span class="vts-input__text">{{ option.label }}</span>
       </label>
-    </template>
+    </fieldset>
 
     <label v-else class="vts-input__label">
       <span v-if="$attrs.type !== 'checkbox'" class="vts-input__text">{{ label }}</span>
@@ -31,6 +36,7 @@
         :id="`${id}__input`"
         v-bind="$attrs"
         @input="onInput"
+        @blur="onBlur"
         v-on="$listeners"
         :aria-describedby="invalid.anyInvalid && `${id}__description`"
         class="vts-input__input"
@@ -57,26 +63,13 @@
       role="alert"
     >
       <!-- @slot Scoped slot for the input description. Provides the validation state. -->
-      <slot name="description" v-bind="invalid" />
+      <slot name="description" v-bind="{ dirty, anyInvalid, invalid }" />
     </div>
   </div>
 </template>
 
 <script>
 import { randomString } from "../../utils"
-
-function invalidState({ validity }) {
-  return {
-    anyInvalid: !validity.valid,
-    required: validity.valueMissing,
-    minLength: validity.tooShort,
-    maxLength: validity.tooLong,
-    min: validity.rangeOverflow,
-    max: validity.rangeUnderflow,
-    type: validity.typeMismatch,
-    pattern: validity.patternMismatch
-  }
-}
 
 /**
  * Input component that automatically includes labels, validation, and aria descriptions for any errors.
@@ -114,9 +107,9 @@ export default {
   },
 
   data: () => ({
-    invalid: {
-      anyInvalid: false
-    }
+    dirty: false,
+    anyInvalid: false,
+    invalid: {}
   }),
 
   computed: {
@@ -168,11 +161,26 @@ export default {
       this.$emit("update", value)
     },
 
+    onBlur() {
+      this.dirty = true
+    },
+
     validate() {
       const input = this.$refs.input
       if (Array.isArray(input)) return
 
-      this.invalid = invalidState(input)
+      const { validity } = input
+
+      this.anyInvalid = !validity.valid
+      this.invalid = {
+        required: validity.valueMissing,
+        minLength: validity.tooShort,
+        maxLength: validity.tooLong,
+        min: validity.rangeOverflow,
+        max: validity.rangeUnderflow,
+        type: validity.typeMismatch,
+        pattern: validity.patternMismatch
+      }
     }
   }
 }

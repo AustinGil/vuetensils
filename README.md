@@ -18,20 +18,17 @@ View on [GitHub](https://github.com/Stegosource/vuetensils) or [NPM](https://www
 
 `npm install vuetensils`
 
-#### 2. Import just the components you want
+#### 2. Import & extend just the components you want
 
-```html static
+```html
 <script>
   // CustomAlert.vue
-  import { Alert } from "vuetensils"
-  export default Alert
+  import { VAlert } from "vuetensils"
+  export default VAlert
 </script>
-```
 
-#### 3. Bring your own styles
-
-```html static
 <style>
+  /* Bring your own styles */
   .vts-alert {
     border: 1px solid currentColor;
     border-radius: 4px;
@@ -40,6 +37,34 @@ View on [GitHub](https://github.com/Stegosource/vuetensils) or [NPM](https://www
     background: #fdd;
   }
 </style>
+```
+
+#### 3. Register your styled commponents
+
+Globally:
+
+```js static
+// main.js
+import Vue from "vue"
+import CustomAlert from "./path/to/CustomAlert.vue"
+
+Vue.component("WhateverName", CustomAlert)
+```
+
+Locally:
+
+```html static
+<script>
+  // SomeComponent.vue
+  import CustomAlert from "./path/to/CustomAlert.vue"
+
+  export default {
+    components: {
+      WhateverName: CustomAlert
+    }
+    // ...
+  }
+</script>
 ```
 
 <!-- TODO: Toggles: https://codepen.io/heydon/pen/QqzRvQ/ -->

@@ -1,26 +1,10 @@
-### Use
-
-```html
-<script>
-  import { VInput } from "vuetensils"
-  export default VInput
-</script>
-
-<style>
-  /** Your custom styles here */
-</style>
-```
-
 ### Styled Example
 
 ```vue
 <template>
-  <div class="styled">
-    <form @submit.prevent>
-      <VInput v-model="name" label="Your Name:" />
-    </form>
-    <p v-if="name">Hello {{ name }}!</p>
-  </div>
+  <form @submit.prevent class="styled">
+    <VInput v-model="name" label="Your Name:" />
+  </form>
 </template>
 
 <script>
@@ -116,13 +100,13 @@ export default {}
 
 ### Description
 
-If you want to add a description to your input, the best way to do that is to include an `aria-describedby` attribute. With this component, you can simply use the description slot.
+If you want to add a description to your input, the best practice is to include an `aria-describedby` attribute in combination with an ID on the description element. Fortunately, with this component you can simply use the description slot.
 
 ```vue
 <template>
-  <VInput label="email" type="email">
-    <template #slot:description>
-      Please provide your email.
+  <VInput label="Features:">
+    <template v-slot:description>
+      Are there any other features you would like to see?
     </template>
   </VInput>
 </template>
@@ -133,6 +117,10 @@ export default {}
 ```
 
 ### Validation
+
+This component supports [HTML5 input validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation). The input's `invalid` status is provided to the description slot.
+
+Note that client-side validation is never a substitute for server-side validation.
 
 ```vue
 <template>
@@ -146,19 +134,23 @@ export default {}
     maxlength="20"
     pattern="[0-9]{4}"
   >
-    <template v-slot:description="invalid">
-      Here's a description of the input, and I also have access to the validation state object.
-      <pre>{{ invalid }}</pre>
-      Which I can transform into an error list:
-      <ul>
-        <li
-          v-for="invalid in Object.keys(invalid).filter(
-            key => invalid[key] && key !== 'anyInvalid'
-          )"
-        >
-          {{ errorText(invalid) }}
-        </li>
+    <template v-slot:description="state">
+      <ul v-if="state.dirty && state.anyInvalid">
+        <template v-for="[key, isInvalid] in Object.entries(state.invalid)">
+          <li v-if="key === 'required' && isInvalid" :key="key">
+            This field is required
+          </li>
+          <li v-if="key === 'minLength' && isInvalid" :key="key">
+            Must be at least 2 characters
+          </li>
+          <li v-if="key === 'pattern' && isInvalid" :key="key">
+            Must be a 4 digit number
+          </li>
+        </template>
       </ul>
+      <br />
+      <p>Validation state:</p>
+      <pre>{{ state }}</pre>
     </template>
   </VInput>
 </template>
@@ -167,18 +159,7 @@ export default {}
 export default {
   data: () => ({
     value: ""
-  }),
-
-  methods: {
-    errorText(error) {
-      const map = {
-        required: "This field is required",
-        minLength: "Must be at least 2 characters",
-        pattern: "Must be a 4 digit number"
-      }
-      return map[error]
-    }
-  }
+  })
 }
 </script>
 ```

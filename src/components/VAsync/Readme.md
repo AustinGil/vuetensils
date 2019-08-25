@@ -72,17 +72,15 @@ export default {
 </script>
 ```
 
-## Wait until later to show results
-
-Note: If you pass a promise directly, the promise will be invoked immediately and any future references will already be resolved. Clicking the button again shows the immediate results.
+## Wait until later to assign the promise
 
 ```vue
 <template>
-  <VAsync>
-    <template slot-scope="{ pending, results, call }">
+  <VAsync :await="waitForIt">
+    <template slot-scope="{ pending, results }">
       <p v-if="pending">just...a bit...more...</p>
       <p v-else-if="results">{{ results }}</p>
-      <button @click="call(waitForIt)">Call promise</button>
+      <button @click="onClick">Call promise</button>
     </template>
   </VAsync>
 </template>
@@ -90,41 +88,49 @@ Note: If you pass a promise directly, the promise will be invoked immediately an
 <script>
 export default {
   data: () => ({
-    waitForIt: new Promise(res => {
-      setTimeout(() => {
-        res("Ok, we're done now.")
-      }, 500)
-    })
-  })
-}
-</script>
-```
+    waitForIt: null
+  }),
 
-## Dynamic promises
-
-Pass a function that returns the promise in order to make it truly dynamic. This allows you to re-call the same promise, or change it to a new one.
-
-```vue
-<template>
-  <VAsync>
-    <template slot-scope="{ pending, results, call }">
-      <p v-if="pending">just...a bit...more...</p>
-      <p v-else-if="results">{{ results }}</p>
-      <button @click="call(waitForIt)">Call promise</button>
-    </template>
-  </VAsync>
-</template>
-
-<script>
-export default {
-  data: () => ({
-    waitForIt: () =>
-      new Promise(res => {
+  methods: {
+    onClick() {
+      this.waitForIt = new Promise(res => {
         setTimeout(() => {
           res("Ok, we're done now.")
         }, 500)
       })
-  })
+    }
+  }
+}
+</script>
+```
+
+## Call promise using refs
+
+```vue
+<template>
+  <div>
+    <VAsync ref="async">
+      <template slot-scope="{ pending, results }">
+        <p v-if="pending">just...a bit...more...</p>
+        <p v-else-if="results">{{ results }}</p>
+      </template>
+    </VAsync>
+    <button @click="onClick">Call promise</button>
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    onClick() {
+      const promise = new Promise(res => {
+        setTimeout(() => {
+          res("Ok, we're done now.")
+        }, 500)
+      })
+      this.$refs.async.awaitOn(promise)
+    }
+  }
 }
 </script>
 ```

@@ -43,7 +43,7 @@ export default {
 
   watch: {
     await: {
-      handler: "trigger",
+      handler: "awaitOn",
       immediate: true
     },
 
@@ -53,7 +53,7 @@ export default {
   },
 
   methods: {
-    trigger(promise) {
+    awaitOn(promise) {
       if (!promise) return
 
       promise = typeof promise === "function" ? promise() : promise
@@ -112,7 +112,7 @@ export default {
 
     const results = this.results === undefined ? this.default : this.results
 
-    if (results !== undefined && this.$scopedSlots.resolve) {
+    if (this.$scopedSlots.resolve) {
       const resolveSlot = this.$scopedSlots.resolve(results)
       return safeSlot(h, resolveSlot)
     }
