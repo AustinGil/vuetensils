@@ -2,6 +2,7 @@
 
 ## 🍴 A tasty toolset for Vue.js 🛠
 
+- [Docs](https://vuetensils.stegosource.com/)
 - [GitHub](https://github.com/Stegosource/vuetensils)
 - [NPM](https://www.npmjs.com/package/vuetensils)
 
