@@ -9,6 +9,10 @@ img {
   height: auto;
 }
 
+.styled {
+  font-family: sans-serif;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
@@ -51,6 +55,18 @@ img {
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(10px);
+}
+
+.styled .vts-input__text {
+  font-size: 14px;
+}
+
+.styled .vts-input__input {
+  display: block;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 5px;
 }
 
 .styled.vts-tabs {

@@ -2,6 +2,7 @@ const path = require("path")
 const VueLoaderPlugin = require("vue-loader/lib/plugin")
 
 module.exports = {
+  serverPort: 8080,
   title: "Vuetensils",
   require: [path.join(__dirname, "styleguide.css")],
   sections: [
