@@ -170,6 +170,14 @@
       undefined
     );
 
+  function safeSlot(h, slot) {
+    if (slot && slot.length > 1) {
+      return h("div", [slot])
+    }
+    return slot
+  }
+
+  //
   /**
    * A renderless component for awaiting promises to resolve; great for making HTTP requests.
    *
@@ -199,11 +207,7 @@
       default: {
         type: undefined,
         default: undefined
-      },
-      /**
-       * Flag to control immediate execution of the promise passed by `await` prop on `mounted()` hook.
-       */
-      lazy: Boolean
+      }
     },
 
     data: function data() {
@@ -214,13 +218,19 @@
       }
     },
 
-    mounted: function mounted() {
-      if (this.lazy) { return }
-      this.trigger(this.await);
+    watch: {
+      await: {
+        handler: "awaitOn",
+        immediate: true
+      },
+
+      pending: function pending(pending$1) {
+        this.$emit("pending", pending$1);
+      }
     },
 
     methods: {
-      trigger: function trigger(promise) {
+      awaitOn: function awaitOn(promise) {
         var this$1 = this;
 
         if (!promise) { return }
@@ -261,35 +271,39 @@
              */
             this$1.$emit("finally");
           })
-      },
-
-      /**
-       * Used for manually calling promises from the default scoped slot. Can accept a new promise (or function that resolves to a promise), or falls back to the `await` prop.
-       * @param { promise, function } promise
-       * @public
-       */
-      call: function call(promise) {
-        this.trigger(promise || this.await);
       }
     },
 
     render: function render(h, test) {
-      if (!this.$scopedSlots.default) {
-        return h(false)
+      var pending = this.pending;
+
+      if (pending && this.$scopedSlots.pending) {
+        var pendingSlot = this.$scopedSlots.pending();
+        return safeSlot(h, pendingSlot)
       }
 
-      var scopedSlot = this.$scopedSlots.default({
-        pending: this.pending,
-        results: typeof this.results !== "undefined" ? this.results : this.default,
-        error: this.error,
-        call: this.call
+      var error = this.error;
+
+      if (error && this.$scopedSlots.reject) {
+        var rejectSlot = this.$scopedSlots.reject(error);
+        return safeSlot(h, rejectSlot)
+      }
+
+      var results = this.results === undefined ? this.default : this.results;
+
+      if (this.$scopedSlots.resolve) {
+        var resolveSlot = this.$scopedSlots.resolve(results);
+        return safeSlot(h, resolveSlot)
+      }
+
+      if (!this.$scopedSlots.default) { return h(false) }
+
+      var defaultSlot = this.$scopedSlots.default({
+        pending: pending,
+        results: results,
+        error: error
       });
-
-      if (scopedSlot && scopedSlot.length > 1) {
-        return h("div", [scopedSlot])
-      }
-
-      return scopedSlot
+      return safeSlot(h, defaultSlot)
     }
   };
 
