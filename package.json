@@ -25,7 +25,43 @@
     "styleguide": "vue-styleguidist server",
     "styleguide:build": "vue-styleguidist build",
     "release": "release-it",
+    "commit": "git add . && git commit",
     "deploy": "npm run build && release-it"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@commitlint/prompt": "^8.1.0",
+    "babel-loader": "^8.0.6",
+    "commitizen": "^4.0.3",
+    "css-loader": "^3.2.0",
+    "cz-conventional-changelog": "^3.0.2",
+    "husky": "^3.0.4",
+    "minimist": "^1.2.0",
+    "release-it": "^12.3.5",
+    "rollup": "^1.20.1",
+    "rollup-plugin-buble": "^0.19.8",
+    "rollup-plugin-commonjs": "^10.0.2",
+    "rollup-plugin-filesize": "^6.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-uglify-es": "0.0.1",
+    "rollup-plugin-vue": "^5.0.1",
+    "style-loader": "^1.0.0",
+    "stylelint": "^10.1.0",
+    "stylelint-config-sass-guidelines": "^6.0.0",
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.1",
+    "vue-styleguidist": "^3.22.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.39.2"
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "keywords": [
     "vue",
@@ -61,27 +97,9 @@
     "toggle",
     "collapse"
   ],
-  "dependencies": {},
-  "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "babel-loader": "^8.0.6",
-    "css-loader": "^3.2.0",
-    "minimist": "^1.2.0",
-    "release-it": "^12.3.5",
-    "rollup": "^1.20.1",
-    "rollup-plugin-buble": "^0.19.8",
-    "rollup-plugin-commonjs": "^10.0.2",
-    "rollup-plugin-filesize": "^6.2.0",
-    "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-uglify-es": "0.0.1",
-    "rollup-plugin-vue": "^5.0.1",
-    "style-loader": "^1.0.0",
-    "stylelint": "^10.1.0",
-    "stylelint-config-sass-guidelines": "^6.0.0",
-    "vue": "^2.6.10",
-    "vue-loader": "^15.7.1",
-    "vue-styleguidist": "^3.22.2",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.39.2"
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
