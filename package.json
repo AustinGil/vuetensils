@@ -18,6 +18,7 @@
   "scripts": {
     "dev": "npm run styleguide",
     "test": "echo TODO",
+    "lint": "eslint --fix src",
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuetensils.umd.js",
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuetensils.esm.js",
@@ -26,7 +27,8 @@
     "styleguide:build": "vue-styleguidist build",
     "release": "release-it",
     "commit": "git add . && git commit",
-    "deploy": "npm run build && release-it"
+    "deploy": "npm run build && release-it",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {},
   "devDependencies": {
@@ -34,10 +36,13 @@
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
     "@commitlint/prompt": "^8.1.0",
+    "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "commitizen": "^4.0.3",
     "css-loader": "^3.2.0",
     "cz-conventional-changelog": "^3.0.2",
+    "eslint": "^6.2.2",
+    "eslint-plugin-vue": "^5.2.3",
     "husky": "^3.0.4",
     "minimist": "^1.2.0",
     "release-it": "^12.3.5",
@@ -48,6 +53,7 @@
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-uglify-es": "0.0.1",
     "rollup-plugin-vue": "^5.0.1",
+    "semantic-release": "^15.13.24",
     "style-loader": "^1.0.0",
     "stylelint": "^10.1.0",
     "stylelint-config-sass-guidelines": "^6.0.0",
@@ -59,6 +65,7 @@
   },
   "husky": {
     "hooks": {
+      "pre-commit": "npm run lint && git add",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
