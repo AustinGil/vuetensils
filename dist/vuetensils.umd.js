@@ -12,7 +12,7 @@
   var script = {
     model: {
       prop: "visible",
-      event: "update"
+      event: "update",
     },
 
     props: {
@@ -21,38 +21,38 @@
        */
       tag: {
         type: String,
-        default: "div"
+        default: "div",
       },
       /**
        * Determines whether the alert is visible. Also binds with `v-model`.
        */
       visible: {
         type: [Boolean, Number],
-        default: true
+        default: true,
       },
       /**
        * Allows a user to dismiss this alert.
        */
       dismissible: {
         type: Boolean,
-        default: false
+        default: false,
       },
       /**
        * Aria-label that is not visibly, but screen readers will read for the dismiss button.
        */
       dismissLabel: {
         type: [String, Boolean],
-        default: "Dismiss this alert"
+        default: "Dismiss this alert",
       },
       /**
        * The transition name if you want to add one.
        */
-      transition: String
+      transition: String,
     },
 
     data: function () { return ({
       dismissed: false,
-      timerId: null
+      timerId: null,
     }); },
 
     watch: {
@@ -66,8 +66,8 @@
             this.countdown();
           }
         },
-        immediate: true
-      }
+        immediate: true,
+      },
     },
 
     methods: {
@@ -107,12 +107,12 @@
           clearInterval(this.timerId);
           this.timerId = null;
         }
-      }
+      },
     },
 
     beforeDestroy: function beforeDestroy() {
       this.clearTimer();
-    }
+    },
   };
 
   function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
@@ -204,7 +204,7 @@
   var __vue_script__ = script;
 
   /* template */
-  var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":_vm.transition}},[(!_vm.dismissed && !!_vm.visible)?_c(_vm.tag,{tag:"component",staticClass:"vts-alert",attrs:{"role":"alert"}},[_vm._t("default"),_vm._v(" "),(_vm.dismissible)?_c('button',{staticClass:"vts-alert__dismiss",attrs:{"aria-label":_vm.dismissLabel},on:{"click":_vm.dismiss}},[_vm._t("button",[_vm._v("×")])],2):_vm._e()],2):_vm._e()],1)};
+  var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":_vm.transition}},[(!_vm.dismissed && !!_vm.visible)?_c(_vm.tag,{tag:"component",staticClass:"vts-alert",attrs:{"role":"alert"}},[_vm._t("default"),_vm._v(" "),(_vm.dismissible)?_c('button',{staticClass:"vts-alert__dismiss",attrs:{"aria-label":_vm.dismissLabel},on:{"click":_vm.dismiss}},[_vm._t("dismiss",[_vm._v("×")])],2):_vm._e()],2):_vm._e()],1)};
   var __vue_staticRenderFns__ = [];
 
     /* style */
@@ -241,54 +241,51 @@
 
   //
   /**
-   * A renderless component for awaiting promises to resolve; great for making HTTP requests.
-   *
-   * Supports delayed resolution, manual promise calling, and re-triggering promises. The default scoped slot provides an object with the following signature:
-   *
-   * ```
-   * {
-   *   pending: Boolean;
-   *   results: Any;
-   *   error: Error;
-   *   call: Function; // used to manually call a promise
-   * }
-   * ```
+   * A renderless component for awaiting promises to resolve; great for making HTTP requests. Supports showing pending, resolved, or rejected promises.
    */
   var script$1 = {
     props: {
       /**
-       * A promise reference or function that returns a promise. This is required unless you are going to manually call the promise with the `call()` method.
+       * A promise or function that returns a promise.
        */
       await: {
         type: [Promise, Function],
-        default: function () { return Promise.resolve(); }
+        default: function () { return Promise.resolve(); },
       },
       /**
-       * The default value to provide for the `results`.
+       * The default value to provide for the `results`. Useful if the promise resolve value is undefined.
        */
       default: {
         type: undefined,
-        default: undefined
-      }
+        default: undefined,
+      },
     },
 
     data: function data() {
       return {
         pending: false,
         results: this.default,
-        error: null
+        error: null,
       }
     },
 
     watch: {
       await: {
         handler: "awaitOn",
-        immediate: true
+        immediate: true,
       },
 
-      pending: function pending(pending$1) {
-        this.$emit("pending", pending$1);
-      }
+      pending: {
+        handler: function handler(pending) {
+          /**
+           * Fired whenever the pending status changes.
+           * @event pending
+           * @type { boolean }
+           */
+          this.$emit("pending", pending);
+        },
+        immediate: true,
+      },
     },
 
     methods: {
@@ -333,40 +330,44 @@
              */
             this$1.$emit("finally");
           })
-      }
+      },
     },
 
-    render: function render(h, test) {
+    render: function render(h) {
       var pending = this.pending;
 
       if (pending && this.$scopedSlots.pending) {
+        /** @slot Rendered while the promise is in a pending state */
         var pendingSlot = this.$scopedSlots.pending();
         return safeSlot(h, pendingSlot)
       }
 
       var error = this.error;
 
-      if (error && this.$scopedSlots.reject) {
-        var rejectSlot = this.$scopedSlots.reject(error);
+      if (!pending && error && this.$scopedSlots.rejected) {
+        /** @slot Rendered when the promise has rejected. Provides the caught error. */
+        var rejectSlot = this.$scopedSlots.rejected(error);
         return safeSlot(h, rejectSlot)
       }
 
       var results = this.results === undefined ? this.default : this.results;
 
-      if (this.$scopedSlots.resolve) {
-        var resolveSlot = this.$scopedSlots.resolve(results);
+      if (!pending && this.$scopedSlots.resolved) {
+        /** @slot Rendered when the promise has resolved. Provides the results. */
+        var resolveSlot = this.$scopedSlots.resolved(results);
         return safeSlot(h, resolveSlot)
       }
 
-      if (!this.$scopedSlots.default) { return h(false) }
+      if (!this.$scopedSlots.default) { return }
 
+      /** @slot Provides the status of the component for pending state, error, or results. */
       var defaultSlot = this.$scopedSlots.default({
         pending: pending,
         results: results,
-        error: error
+        error: error,
       });
       return safeSlot(h, defaultSlot)
-    }
+    },
   };
 
   /* script */
@@ -711,6 +712,8 @@
   //
   //
   //
+  //
+  //
 
   /**
    * Adds a button that can show/hide dropdown content when it is hovered over, or clicked. When it is clicked, the content will persist until the user clicks out or focuses out. Includes relevant ARIA attributes for the hidden content.
@@ -731,17 +734,17 @@
         default: "bottom",
         validator: function validator(value) {
           return ["top", "bottom"].includes(value)
-        }
+        },
       },
       /**
-       * The trnasition name.
+       * The transition name.
        */
-      transition: String
+      transition: String,
     },
 
     data: function () { return ({
       isHovered: false,
-      isFocused: false
+      isFocused: false,
     }); },
 
     methods: {
@@ -755,7 +758,7 @@
         if (!this.$el.contains(event.relatedTarget)) {
           this.isFocused = false;
         }
-      }
+      },
     },
 
     mounted: function mounted() {
@@ -765,20 +768,20 @@
       this.$once("hook:beforeDestroy", function () {
         document.removeEventListener("click", this$1.onClickout);
       });
-    }
+    },
   };
 
   /* script */
   var __vue_script__$3 = script$3;
 
   /* template */
-  var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vts-dropdown",on:{"mouseenter":function($event){_vm.isHovered = true;},"mouseleave":function($event){_vm.isHovered = false;}}},[_c('button',{attrs:{"aria-expanded":!!_vm.isHovered || !!_vm.isFocused,"aria-haspopup":""},on:{"click":function($event){_vm.isFocused = !_vm.isFocused;}}},[_vm._v("\n    "+_vm._s(_vm.text)+"\n  ")]),_vm._v(" "),_c('transition',{attrs:{"name":_vm.transition}},[(!!_vm.isHovered || !!_vm.isFocused)?_c('div',{staticClass:"vts-dropdown__content",class:("vts-dropdown__content__content--" + _vm.position),on:{"focusout":_vm.onFocusout}},[_vm._t("default")],2):_vm._e()])],1)};
+  var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vts-dropdown",on:{"mouseenter":function($event){_vm.isHovered = true;},"mouseleave":function($event){_vm.isHovered = false;}}},[_c('button',{staticClass:"vts-dropdown__trigger",attrs:{"aria-expanded":!!_vm.isHovered || !!_vm.isFocused,"aria-haspopup":""},on:{"click":function($event){_vm.isFocused = !_vm.isFocused;}}},[_vm._t("trigger",[_vm._v(_vm._s(_vm.text))])],2),_vm._v(" "),_c('transition',{attrs:{"name":_vm.transition}},[(!!_vm.isHovered || !!_vm.isFocused)?_c('div',{staticClass:"vts-dropdown__content",class:("vts-dropdown__content--" + _vm.position),on:{"focusout":_vm.onFocusout}},[_vm._t("default")],2):_vm._e()])],1)};
   var __vue_staticRenderFns__$1 = [];
 
     /* style */
     var __vue_inject_styles__$3 = function (inject) {
       if (!inject) { return }
-      inject("data-v-2c69ccac_0", { source: ".vts-dropdown{display:inline-block;position:relative}.vts-dropdown__content{position:absolute;z-index:5;min-width:100%;border:1px solid rgba(0,0,0,.2);background-color:#fff}.vts-dropdown__content--top{top:0;transform:translateY(-100%)}", map: undefined, media: undefined });
+      inject("data-v-14edecde_0", { source: ".vts-dropdown{display:inline-block;position:relative}.vts-dropdown__content{position:absolute;z-index:5;min-width:100%;border:1px solid rgba(0,0,0,.2);background-color:#fff}.vts-dropdown__content--top{top:0;transform:translateY(-100%)}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -1396,7 +1399,7 @@
   var __vue_script__$7 = script$7;
 
   /* template */
-  var __vue_render__$4 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.tablist.length)?_c('div',{staticClass:"vts-tabs"},[_c('div',{staticClass:"vts-tablist",attrs:{"role":"tablist","aria-label":_vm.label,"aria-orientation":_vm.orientation}},_vm._l((_vm.tablist),function(tab,index){return _c('button',{key:tab,ref:"tab",refInFor:true,class:("vts-tabs__tab vts-tabs__tab--" + index),attrs:{"aria-selected":index === _vm.activeIndex,"tabindex":index === _vm.activeIndex ? false : -1,"id":(_vm.id + "-tab-" + index),"aria-controls":(_vm.id + "-panel-" + index),"role":"tab"},on:{"keydown":_vm.onKeydown,"click":function($event){_vm.activeIndex = index;}}},[_vm._v(_vm._s(tab))])}),0),_vm._v(" "),_vm._l((_vm.tablist),function(tab,index){return _c('div',{key:tab,class:("vts-tabs__panel vts-tabs__panel--" + index),attrs:{"id":(_vm.id + "-panel-" + index),"aria-labelledby":(_vm.id + "-tab-" + index),"hidden":index !== _vm.activeIndex,"tabindex":"0","role":"tabpanel"}},[_vm._t(tab)],2)})],2):_vm._e()};
+  var __vue_render__$4 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.tablist.length)?_c('div',{staticClass:"vts-tabs"},[_c('div',{staticClass:"vts-tablist",attrs:{"role":"tablist","aria-label":_vm.label,"aria-orientation":_vm.orientation}},_vm._l((_vm.tablist),function(tab,index){return _c('button',{key:tab,ref:"tab",refInFor:true,class:("vts-tabs__tab vts-tabs__tab--" + index),attrs:{"aria-selected":index === _vm.activeIndex,"tabindex":index === _vm.activeIndex ? false : -1,"id":(_vm.id + "-tab-" + index),"aria-controls":(_vm.id + "-panel-" + index),"role":"tab"},on:{"keydown":_vm.onKeydown,"click":function($event){_vm.activeIndex = index;}}},[_vm._v("\n      "+_vm._s(tab)+"\n    ")])}),0),_vm._v(" "),_vm._l((_vm.tablist),function(tab,index){return _c('div',{key:tab,class:("vts-tabs__panel vts-tabs__panel--" + index),attrs:{"id":(_vm.id + "-panel-" + index),"aria-labelledby":(_vm.id + "-tab-" + index),"hidden":index !== _vm.activeIndex,"tabindex":"0","role":"tabpanel"}},[_vm._t(tab)],2)})],2):_vm._e()};
   var __vue_staticRenderFns__$4 = [];
 
     /* style */
