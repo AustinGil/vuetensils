@@ -26,7 +26,7 @@
     "styleguide": "vue-styleguidist server",
     "styleguide:build": "vue-styleguidist build",
     "commit": "git add . && git commit",
-    "deploy": "npm run build && release-it"
+    "deploy": "release-it"
   },
   "dependencies": {},
   "devDependencies": {
