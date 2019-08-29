@@ -1,6 +1,11 @@
 <template>
   <transition :name="transition">
-    <component v-if="!dismissed && !!visible" :is="tag" role="alert" class="vts-alert">
+    <component
+      v-if="!dismissed && !!visible"
+      :is="tag"
+      role="alert"
+      class="vts-alert"
+    >
       <!-- @slot The default slot content that is shown to the user -->
       <slot />
 
@@ -11,7 +16,7 @@
         class="vts-alert__dismiss"
       >
         <!-- @slot The dismiss button content -->
-        <slot name="button">&times;</slot>
+        <slot name="dismiss">&times;</slot>
       </button>
     </component>
   </transition>
@@ -26,7 +31,7 @@ const NAME = "vts-alert"
 export default {
   model: {
     prop: "visible",
-    event: "update"
+    event: "update",
   },
 
   props: {
@@ -35,38 +40,38 @@ export default {
      */
     tag: {
       type: String,
-      default: "div"
+      default: "div",
     },
     /**
      * Determines whether the alert is visible. Also binds with `v-model`.
      */
     visible: {
       type: [Boolean, Number],
-      default: true
+      default: true,
     },
     /**
      * Allows a user to dismiss this alert.
      */
     dismissible: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * Aria-label that is not visibly, but screen readers will read for the dismiss button.
      */
     dismissLabel: {
       type: [String, Boolean],
-      default: "Dismiss this alert"
+      default: "Dismiss this alert",
     },
     /**
      * The transition name if you want to add one.
      */
-    transition: String
+    transition: String,
   },
 
   data: () => ({
     dismissed: false,
-    timerId: null
+    timerId: null,
   }),
 
   watch: {
@@ -80,8 +85,8 @@ export default {
           this.countdown()
         }
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
 
   methods: {
@@ -119,11 +124,11 @@ export default {
         clearInterval(this.timerId)
         this.timerId = null
       }
-    }
+    },
   },
 
   beforeDestroy() {
     this.clearTimer()
-  }
+  },
 }
 </script>

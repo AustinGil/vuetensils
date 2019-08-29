@@ -10,8 +10,8 @@
 <script>
 export default {
   data: () => ({
-    name: ""
-  })
+    name: "",
+  }),
 }
 </script>
 
@@ -76,7 +76,11 @@ export default {}
 
 ```vue
 <template>
-  <VInput type="radio" :options="['option 1', 'option 2', 'option 3', 'option 4']" />
+  <VInput
+    type="radio"
+    label="radio"
+    :options="['option 1', 'option 2', 'option 3', 'option 4']"
+  />
 </template>
 
 <script>
@@ -136,7 +140,7 @@ Note that client-side validation is never a substitute for server-side validatio
   >
     <template v-slot:description="state">
       <ul v-if="state.dirty && state.anyInvalid">
-        <template v-for="[key, isInvalid] in Object.entries(state.invalid)">
+        <template v-for="(isInvalid, key) in state.invalid">
           <li v-if="key === 'required' && isInvalid" :key="key">
             This field is required
           </li>
@@ -158,8 +162,8 @@ Note that client-side validation is never a substitute for server-side validatio
 <script>
 export default {
   data: () => ({
-    value: ""
-  })
+    value: "",
+  }),
 }
 </script>
 ```

@@ -11,29 +11,29 @@ export default {
      */
     await: {
       type: [Promise, Function],
-      default: () => Promise.resolve()
+      default: () => Promise.resolve(),
     },
     /**
      * The default value to provide for the `results`. Useful if the promise resolve value is undefined.
      */
     default: {
       type: undefined,
-      default: undefined
-    }
+      default: undefined,
+    },
   },
 
   data() {
     return {
       pending: false,
       results: this.default,
-      error: null
+      error: null,
     }
   },
 
   watch: {
     await: {
       handler: "awaitOn",
-      immediate: true
+      immediate: true,
     },
 
     pending: {
@@ -45,8 +45,8 @@ export default {
          */
         this.$emit("pending", pending)
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
 
   methods: {
@@ -89,13 +89,14 @@ export default {
            */
           this.$emit("finally")
         })
-    }
+    },
   },
 
   render(h) {
     const pending = this.pending
 
     if (pending && this.$scopedSlots.pending) {
+      /** @slot Rendered while the promise is in a pending state */
       const pendingSlot = this.$scopedSlots.pending()
       return safeSlot(h, pendingSlot)
     }
@@ -103,6 +104,7 @@ export default {
     const error = this.error
 
     if (!pending && error && this.$scopedSlots.rejected) {
+      /** @slot Rendered when the promise has rejected. Provides the caught error. */
       const rejectSlot = this.$scopedSlots.rejected(error)
       return safeSlot(h, rejectSlot)
     }
@@ -110,18 +112,20 @@ export default {
     const results = this.results === undefined ? this.default : this.results
 
     if (!pending && this.$scopedSlots.resolved) {
+      /** @slot Rendered when the promise has resolved. Provides the results. */
       const resolveSlot = this.$scopedSlots.resolved(results)
       return safeSlot(h, resolveSlot)
     }
 
     if (!this.$scopedSlots.default) return
 
+    /** @slot Provides the status of the component for pending state, error, or results. */
     const defaultSlot = this.$scopedSlots.default({
       pending,
       results,
-      error
+      error,
     })
     return safeSlot(h, defaultSlot)
-  }
+  },
 }
 </script>

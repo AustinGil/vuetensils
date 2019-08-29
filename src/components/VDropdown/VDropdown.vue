@@ -1,5 +1,9 @@
 <template>
-  <div class="vts-dropdown" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+  <div
+    class="vts-dropdown"
+    @mouseenter="isHovered = true"
+    @mouseleave="isHovered = false"
+  >
     <button
       @click="isFocused = !isFocused"
       :aria-expanded="!!isHovered || !!isFocused"
@@ -15,7 +19,7 @@
         v-if="!!isHovered || !!isFocused"
         @focusout="onFocusout"
         class="vts-dropdown__content"
-        :class="`vts-dropdown__content__content--${position}`"
+        :class="`vts-dropdown__content--${position}`"
       >
         <!-- @slot The dropdown content -->
         <slot />
@@ -44,17 +48,17 @@ export default {
       default: "bottom",
       validator(value) {
         return ["top", "bottom"].includes(value)
-      }
+      },
     },
     /**
-     * The trnasition name.
+     * The transition name.
      */
-    transition: String
+    transition: String,
   },
 
   data: () => ({
     isHovered: false,
-    isFocused: false
+    isFocused: false,
   }),
 
   methods: {
@@ -68,7 +72,7 @@ export default {
       if (!this.$el.contains(event.relatedTarget)) {
         this.isFocused = false
       }
-    }
+    },
   },
 
   mounted() {
@@ -76,7 +80,7 @@ export default {
     this.$once("hook:beforeDestroy", () => {
       document.removeEventListener("click", this.onClickout)
     })
-  }
+  },
 }
 </script>
 

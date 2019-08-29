@@ -2,7 +2,12 @@
 
 ```vue
 <template>
-  <VDropdown text="Show me what you got!" transition="slide-up" class="styled">
+  <VDropdown
+    text="Show me what you got!"
+    transition="slide-up"
+    class="styled"
+    position="top"
+  >
     Here is some custom dropdwon content.
   </VDropdown>
 </template>
@@ -12,6 +17,26 @@ export default {}
 </script>
 
 <style>
+.vts-dropdown__trigger {
+  border: 0;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+  color: #fff;
+  background: darkcyan;
+  transition: border-radius 0.5s ease;
+}
+
+.vts-dropdown__trigger[aria-expanded] {
+  border-radius: 5px 5px 0 0;
+}
+
+.vts-dropdown__content {
+  border: 1px solid darkcyan;
+  border-radius: 0 0 5px 5px;
+  padding: 10px;
+}
+
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);

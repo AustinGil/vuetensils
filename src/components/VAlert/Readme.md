@@ -88,8 +88,8 @@ With `v-model`, you can toggle an alert on or off.
 <script>
 export default {
   data: () => ({
-    alert: false
-  })
+    alert: false,
+  }),
 }
 </script>
 ```
@@ -124,22 +124,22 @@ export default {}
 <script>
 export default {
   data: () => ({
-    alert: false
-  })
+    alert: false,
+  }),
 }
 </script>
 ```
 
-You can provide your own content for the dismiss button with the `button` slot.
+You can provide your own content for the dismiss button with the `dismiss` slot.
 
 ```vue
 <template>
   <v-alert dismissible>
     Click that button to make me go away
 
-    <template slot="button"
-      >Hide</template
-    >
+    <template slot="dismiss">
+      Hide
+    </template>
   </v-alert>
 </template>
 
@@ -165,8 +165,8 @@ It also supports providing seconds to the `visible` prop (or `v-model`) so the a
 <script>
 export default {
   data: () => ({
-    countdown: 10
-  })
+    countdown: 10,
+  }),
 }
 </script>
 ```
@@ -187,8 +187,8 @@ export default {
 <script>
 export default {
   data: () => ({
-    alert: false
-  })
+    alert: false,
+  }),
 }
 </script>
 
