@@ -1,0 +1,19 @@
+backend:
+  name: github
+  repo: stegosource/vuetensils
+  # branch: master
+
+# publish_mode: editorial_workflow
+
+media_folder: "docs/.vuepress/public/assets"
+public_folder: "/assets"
+
+collections:
+  - name: "doc"
+    label: "Doc"
+    folder: "docs"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }

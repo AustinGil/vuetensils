@@ -16,15 +16,15 @@
     "url": "git+https://github.com/Stegosource/vuetensils.git"
   },
   "scripts": {
-    "dev": "npm run styleguide",
+    "dev": "npm run docs:dev",
     "test": "echo TODO",
     "lint": "eslint --fix src",
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuetensils.umd.js",
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuetensils.esm.js",
     "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vuetensils.min.js",
-    "styleguide": "vue-styleguidist server",
-    "styleguide:build": "vue-styleguidist build",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "commit": "git add . && git commit",
     "deploy": "release-it"
   },
@@ -37,7 +37,6 @@
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "commitizen": "^4.0.3",
-    "css-loader": "^3.2.0",
     "cz-conventional-changelog": "^3.0.2",
     "eslint": "^6.2.2",
     "eslint-plugin-vue": "^5.2.3",
@@ -51,14 +50,9 @@
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-uglify-es": "0.0.1",
     "rollup-plugin-vue": "^5.0.1",
-    "style-loader": "^1.0.0",
     "stylelint": "^10.1.0",
     "stylelint-config-sass-guidelines": "^6.0.0",
-    "vue": "^2.6.10",
-    "vue-loader": "^15.7.1",
-    "vue-styleguidist": "^3.22.2",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.39.2"
+    "vuepress": "^1.0.3"
   },
   "husky": {
     "hooks": {
