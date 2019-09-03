@@ -1,4 +1,5 @@
 const fs = require("fs")
+const path = require("path")
 
 var dirpath = "./docs"
 
@@ -25,9 +26,29 @@ module.exports = {
     title: "Documentation!!!",
     // logo: "/static/logo.png",
     repo: "stegosource/vuetensils",
-    sidebar: sb,
+    // sidebar: sb,
     // lastUpdated: "Last Updated",
     nav: [{ text: "Home", link: "/" }],
+    // sidebar: sb
+    // sidebar: "auto",
+    sidebar: {
+      "/guide/": [""],
+    },
     ga: "UA-32074770-16",
   },
+  // plugins: [
+  //   [
+  //     "live",
+  //     {
+  //       // optional: use layout to customize how the live editor is going to look like
+  //       // layout: path.resolve(__dirname, "./myCustomLayout.vue")
+  //     },
+  //   ],
+  //   [
+  //     "docgen",
+  //     {
+  //       componentsDir: path.join(__dirname, "../../src/components"),
+  //     },
+  //   ],
+  // ],
 }

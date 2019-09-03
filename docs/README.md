@@ -5,7 +5,7 @@ actionText: Get Started →
 actionLink: /guide/
 features:
   - title: Accessibile
-    # details:
+  # details:
   - title: Semantic
     # details:
   - title: Light Weight
