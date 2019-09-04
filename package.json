@@ -52,6 +52,7 @@
     "rollup-plugin-vue": "^5.0.1",
     "stylelint": "^10.1.0",
     "stylelint-config-sass-guidelines": "^6.0.0",
+    "vue-docgen-api": "^3.22.0",
     "vuepress": "^1.0.3",
     "vuepress-plugin-docgen": "^1.2.9",
     "vuepress-plugin-live": "^1.4.2"
