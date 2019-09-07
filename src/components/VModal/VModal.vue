@@ -1,19 +1,11 @@
 <template>
   <transition :name="bgTransition">
-    <div
-      v-if="showing"
-      @click="onClick"
-      @keydown="onKeydown"
-      class="vts-modal"
-    >
-      <transition
-        :name="transition"
-        appear
-      >
+    <div v-if="showing" @click="onClick" @keydown="onKeydown" class="vts-modal">
+      <transition :name="transition" appear>
         <component
           :is="tag"
           ref="content"
-          :style="{width: width, maxWidth: maxWidth}"
+          :style="{ width: width, maxWidth: maxWidth }"
           class="vts-modal__content"
           tabindex="-1"
           role="dialog"
@@ -36,7 +28,7 @@ import FOCUSABLE from "../../data/focusable"
 export default {
   model: {
     prop: "showing",
-    event: "change"
+    event: "change",
   },
 
   props: {
@@ -49,14 +41,14 @@ export default {
      */
     tag: {
       type: String,
-      default: "div"
+      default: "div",
     },
     /**
      * Flag to enable/prevent the modal from being closed.
      */
     dismissible: {
       type: Boolean,
-      default: true
+      default: true,
     },
     /**
      * CSS width to set the modal to.
@@ -71,7 +63,7 @@ export default {
      */
     noScroll: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * Transition name to apply to the modal.
@@ -80,7 +72,7 @@ export default {
     /**
      * Transition name to apply to the background.
      */
-    bgTransition: String
+    bgTransition: String,
   },
 
   watch: {
@@ -88,7 +80,8 @@ export default {
       handler(next, prev) {
         if (typeof window !== "undefined") {
           if (next && next != prev) {
-            this.noScroll && document.body.style.setProperty("overflow", "hidden")
+            this.noScroll &&
+              document.body.style.setProperty("overflow", "hidden")
             this.$nextTick(() => {
               this.$refs.content.focus()
             })
@@ -96,8 +89,8 @@ export default {
             this.noScroll && document.body.style.removeProperty("overflow")
           }
         }
-      }
-    }
+      },
+    },
   },
 
   methods: {
@@ -141,9 +134,16 @@ export default {
       }
       if (event.keyCode === KEYCODES.TAB) {
         const content = this.$refs.content
+        if (!content) return
+
         const focusable = Array.from(content.querySelectorAll(FOCUSABLE))
 
-        if (this.showing && content && !content.contains(document.activeElement) && focusable) {
+        if (!focusable.length) {
+          event.preventDefault()
+          return
+        }
+
+        if (!content.contains(document.activeElement)) {
           event.preventDefault()
           focusable[0].focus()
         } else {
@@ -160,8 +160,8 @@ export default {
           }
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

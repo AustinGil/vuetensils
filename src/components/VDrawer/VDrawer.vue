@@ -10,7 +10,7 @@ const NAME = "vts-drawer"
 export default {
   model: {
     prop: "showing",
-    event: "update"
+    event: "update",
   },
 
   props: {
@@ -41,7 +41,7 @@ export default {
     /**
      * Vue transition name for the background.
      */
-    bgTransition: String
+    bgTransition: String,
   },
 
   methods: {
@@ -76,9 +76,16 @@ export default {
       }
       if (event.keyCode === KEYCODES.TAB) {
         const content = this.$refs.content
+        if (!content) return
+
         const focusable = Array.from(content.querySelectorAll(FOCUSABLE))
 
-        if (this.visible && content && !content.contains(document.activeElement) && focusable) {
+        if (!focusable.length) {
+          event.preventDefault()
+          return
+        }
+
+        if (!content.contains(document.activeElement)) {
           event.preventDefault()
           focusable[0].focus()
         } else {
@@ -95,7 +102,7 @@ export default {
           }
         }
       }
-    }
+    },
   },
 
   watch: {
@@ -109,8 +116,8 @@ export default {
         } else {
           this.noScroll && document.body.style.removeProperty("overflow")
         }
-      }
-    }
+      },
+    },
   },
 
   render(create) {
@@ -124,23 +131,23 @@ export default {
         ref: "content",
         class: {
           [`${NAME}__content`]: true,
-          [`${NAME}__content--right`]: !!this.right
+          [`${NAME}__content--right`]: !!this.right,
         },
         style: {
           width: this.width || null,
-          maxWidth: this.maxWidth || null
+          maxWidth: this.maxWidth || null,
         },
         attrs: {
-          tabindex: "-1"
+          tabindex: "-1",
           // 'aria-label': "submenu"
-        }
+        },
       },
       [this.$slots.default]
     )
     content = create(
       "transition",
       {
-        props: { name: this.transition, appear: true }
+        props: { name: this.transition, appear: true },
       },
       [content]
     )
@@ -155,21 +162,21 @@ export default {
               this.hide()
             }
           },
-          keydown: this.onKeydown
-        }
+          keydown: this.onKeydown,
+        },
       },
       [content]
     )
     drawer = create(
       "transition",
       {
-        props: { name: this.bgTransition }
+        props: { name: this.bgTransition },
       },
       [drawer]
     )
 
     return drawer
-  }
+  },
 }
 </script>
 
