@@ -26,27 +26,52 @@ const path = require("path")
 module.exports = {
   title: "Vuetensils",
   description: "A tasty toolset for Vue.js",
+  head: [
+    [
+      "link",
+      { rel: "stylesheet", type: "text/css", href: "/static/styles.css" },
+    ],
+  ],
   themeConfig: {
     home: true,
     title: "Documentation!!!",
     logo: "/static/logo.png",
     repo: "stegosource/vuetensils",
-    // // lastUpdated: "Last Updated",
+    lastUpdated: "Last Updated",
     nav: [{ text: "Home", link: "/" }, { text: "Docs", link: "/introduction" }],
-    // // sidebar: sb
-    sidebar: {
-      // "/Introduction": ["Guide"],
-      "/components/": ["VAlert"],
-      "/": ["Introduction"],
-    },
+    sidebar: [
+      "/Introduction",
+      {
+        title: "Components",
+        collapsable: false,
+        children: [
+          "/components/VAlert",
+          "/components/VAsync",
+          "/components/VDrawer",
+          "/components/VDropdown",
+          "/components/VImg",
+          "/components/VInput",
+          "/components/VIntersect",
+          "/components/VModal",
+          "/components/VTabs",
+          "/components/VToggle",
+        ],
+      },
+    ],
     ga: "UA-32074770-16",
   },
-  // plugins: [
-  //   [
-  //     "live",
-  //     {
-  //       layout: path.resolve(__dirname, "./custom-layout"),
-  //     },
-  //   ],
-  // ],
+  plugins: [
+    [
+      "live",
+      {
+        layout: path.resolve(__dirname, "./LivePreview"),
+      },
+    ],
+    [
+      "docgen",
+      {
+        componentsDir: path.join(__dirname, "../../src/components"),
+      },
+    ],
+  ],
 }

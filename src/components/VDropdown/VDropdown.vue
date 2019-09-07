@@ -3,6 +3,7 @@
     class="vts-dropdown"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
+    @focusout="onFocusout"
   >
     <button
       @click="isFocused = !isFocused"
@@ -17,7 +18,6 @@
     <transition :name="transition">
       <div
         v-if="!!isHovered || !!isFocused"
-        @focusout="onFocusout"
         class="vts-dropdown__content"
         :class="`vts-dropdown__content--${position}`"
       >

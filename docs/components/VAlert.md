@@ -1,16 +1,21 @@
 # VAlert
 
-### Styled Examples
+A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
+
+## Styled Examples
 
 ```vue live
 <template>
-  <VAlert class="error">
-    <h3>Danger!</h3>
-    <p>Something went horribly wrong!!!</p>
-  </VAlert>
+  <div class="styled">
+    <VAlert class="error">
+      <h3>Danger!</h3>
+      <p>Something went horribly wrong!!!</p>
+    </VAlert>
+  </div>
 </template>
+```
 
-<style>
+```css
 .vts-alert.error {
   border: 1px solid currentColor;
   border-radius: 4px;
@@ -18,27 +23,23 @@
   color: #900;
   background: #fdd;
 }
-</style>
 ```
 
 ```vue live
 <template>
   <div class="styled">
-    <v-alert class="info" dismissible>
+    <VAlert class="info" dismissible>
       Did you know that giraffes are afraid of heights?
-    </v-alert>
+    </VAlert>
   </div>
 </template>
+```
 
-<script>
-export default {}
-</script>
-
-<style>
+```css
 .vts-alert.info {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   border: 1px solid currentColor;
   border-radius: 4px;
   padding: 10px;
@@ -51,35 +52,30 @@ export default {}
   font: inherit;
   background: transparent;
 }
-</style>
 ```
 
-### Unstyled Examples
+## Unstyled Examples
 
-```vue
+```vue live
 <template>
-  <v-alert>
+  <VAlert>
     Here's something I need to tell you about.
-  </v-alert>
+  </VAlert>
 </template>
-
-<script>
-export default {}
-</script>
 ```
 
-### Using v-model
+## Using v-model
 
 With `v-model`, you can toggle an alert on or off.
 
-```vue
+```vue live
 <template>
   <div>
     <button @click="alert = !alert">Toggle alert</button>
 
-    <v-alert v-model="alert">
+    <VAlert v-model="alert">
       I can be toggled
-    </v-alert>
+    </VAlert>
   </div>
 </template>
 
@@ -92,30 +88,26 @@ export default {
 </script>
 ```
 
-### Dismissible
+## Dismissible
 
 Allow users to hide an alert
 
-```vue
+```vue live
 <template>
-  <v-alert dismissible>
+  <VAlert dismissible>
     Click that button to make me go away
-  </v-alert>
+  </VAlert>
 </template>
-
-<script>
-export default {}
-</script>
 ```
 
-```vue
+```vue live
 <template>
   <div>
     <button @click="alert = true">Show alert</button>
 
-    <v-alert v-model="alert" dismissible>
+    <VAlert v-model="alert" dismissible>
       Click that button to make me go away
-    </v-alert>
+    </VAlert>
   </div>
 </template>
 
@@ -130,33 +122,29 @@ export default {
 
 You can provide your own content for the dismiss button with the `dismiss` slot.
 
-```vue
+```vue live
 <template>
-  <v-alert dismissible>
+  <VAlert dismissible>
     Click that button to make me go away
 
     <template slot="dismiss">
       Hide
     </template>
-  </v-alert>
+  </VAlert>
 </template>
-
-<script>
-export default {}
-</script>
 ```
 
-### Countdown
+## Countdown
 
 It also supports providing seconds to the `visible` prop (or `v-model`) so the alert will hide after a short time.
 
-```vue
+```vue live
 <template>
   <div>
     <button @click="countdown = 10">Reset time</button>
-    <v-alert v-model="countdown" dismissible>
+    <VAlert v-model="countdown" dismissible>
       This alert will dismiss in {{ countdown }} seconds.
-    </v-alert>
+    </VAlert>
   </div>
 </template>
 
@@ -169,16 +157,16 @@ export default {
 </script>
 ```
 
-### Transitions
+## Transitions
 
-```vue
+```vue live
 <template>
   <div>
     <button @click="alert = !alert">Toggle alert</button>
 
-    <v-alert v-model="alert" transition="fade">
+    <VAlert v-model="alert" transition="fade">
       I can be toggled
-    </v-alert>
+    </VAlert>
   </div>
 </template>
 
@@ -189,8 +177,9 @@ export default {
   }),
 }
 </script>
+```
 
-<style>
+```css
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
@@ -200,5 +189,4 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
-</style>
 ```
