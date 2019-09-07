@@ -1,6 +1,12 @@
 # Introduction
 
-Vuetensils is a collection of **unstyled** Vue components that focus on:
+🍴 A tasty toolset for Vue.js 🛠
+
+- [Docs](https://vuetensils.stegosource.com/)
+- [GitHub](https://github.com/Stegosource/vuetensils)
+- [NPM](https://www.npmjs.com/package/vuetensils)
+
+Vuetensils is a collection of **mostly unstyled** Vue components that focus on:
 
 - Accessible components
 - Semantic markup
@@ -46,37 +52,16 @@ If I want my projects to follow best practices for semantic markup and accessibi
 
 `npm install vuetensils`
 
-#### 2. Use just the components you need
-
-```html
-<script>
-  // CustomAlert.vue
-  import { VAlert } from "vuetensils"
-  export default VAlert
-</script>
-
-<style>
-  /* Bring your own styles */
-  .vts-alert {
-    border: 1px solid currentColor;
-    border-radius: 4px;
-    padding: 0 10px;
-    color: #900;
-    background: #fdd;
-  }
-</style>
-```
-
-#### 3. Register your styled commponents
+#### 2. Register just the components you need
 
 Globally:
 
 ```js static
 // main.js
 import Vue from "vue"
-import CustomAlert from "./path/to/CustomAlert.vue"
+import { VAlert } from "vuetensils"
 
-Vue.component("WhateverName", CustomAlert)
+Vue.component("VAlert", VAlert)
 ```
 
 Locally:
@@ -84,15 +69,38 @@ Locally:
 ```html static
 <script>
   // SomeComponent.vue
-  import CustomAlert from "./path/to/CustomAlert.vue"
+  import { VAlert } from "vuetensils"
 
   export default {
     components: {
-      WhateverName: CustomAlert,
+      VAlert,
     },
     // ...
   }
 </script>
+```
+
+#### 3. Use the components in your template
+
+```html
+<template>
+  <div class="some-component">
+    <VAlert>Hey, I'm an alert!</VAlert>
+  </div>
+</template>
+```
+
+#### 4. Bring your own styles
+
+```css
+/* Bring your own styles */
+.vts-alert {
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  padding: 0 10px;
+  color: #900;
+  background: #fdd;
+}
 ```
 
 <!-- TODO: Toggles: https://codepen.io/heydon/pen/QqzRvQ/ -->
@@ -100,3 +108,4 @@ Locally:
 <!-- TODO: https://rollup-plugin-vue.vuejs.org/examples.html#minimal -->
 <!-- TODO: SSR -->
 <!-- TODO: functional -->
+<!-- TODO: https://medium.com/faun/automate-your-npm-publish-with-github-actions-dfe8059645dd -->

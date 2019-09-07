@@ -28,26 +28,6 @@ export default {
 ```
 
 ```css
-.vts-modal {
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.vts-modal__content {
-  position: relative;
-  border-radius: 7px;
-  padding: 20px;
-  font-family: sans-serif;
-}
-
-.vts-modal__content button {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  border: 0;
-  padding: 5px;
-  background: transparent;
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
@@ -68,6 +48,32 @@ export default {
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(10px);
+}
+
+.vts-modal {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.vts-modal__content {
+  position: relative;
+  border-radius: 7px;
+  padding: 20px;
+  font-family: sans-serif;
+  transition: transform 0.3s;
+}
+
+.fade-enter .vts-modal__content,
+.fade-leave-active .vts-modal__content {
+  transform: translateY(20px);
+}
+
+.vts-modal__content button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: 0;
+  padding: 5px;
+  background: transparent;
 }
 ```
 

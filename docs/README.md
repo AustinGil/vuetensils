@@ -2,7 +2,7 @@
 home: true
 heroImage: /static/logo.png
 actionText: Get Started →
-actionLink: /introduction/
+actionLink: /Introduction.html#introduction
 features:
   - title: Accessibile
   # details:

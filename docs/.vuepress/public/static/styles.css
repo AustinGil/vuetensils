@@ -9,6 +9,13 @@ img {
   height: auto;
 }
 
+body .live-preview pre {
+  margin: initial;
+  padding: initial;
+  line-height: initial;
+  background: initial;
+}
+
 .styled {
   font-family: sans-serif;
 }
