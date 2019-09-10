@@ -5,10 +5,10 @@ actionText: Get Started →
 actionLink: /Introduction.html#introduction
 features:
   - title: Accessibile
-  # details:
-  - title: Semantic
-    # details:
+    details: Develop Vue apps with accessibility baked in; ARIA attributes, roles, focus traps, etc.
   - title: Light Weight
-    # details:
+    details: No bloat from unused components or styles. Not difficult CSS to overwrite.
+  - title: Custom Styles
+    details: Bring your own styles and enjoy guiltless components to match your company brand.
 footer: MIT Licensed | Copyright © 2018-present </> with ❤️️ by Stegosource
 ---

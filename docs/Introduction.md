@@ -56,7 +56,7 @@ If I want my projects to follow best practices for semantic markup and accessibi
 
 Globally:
 
-```js static
+```js
 // main.js
 import Vue from "vue"
 import { VAlert } from "vuetensils"
@@ -66,23 +66,23 @@ Vue.component("VAlert", VAlert)
 
 Locally:
 
-```html static
+```vue
 <script>
-  // SomeComponent.vue
-  import { VAlert } from "vuetensils"
+// SomeComponent.vue
+import { VAlert } from "vuetensils"
 
-  export default {
-    components: {
-      VAlert,
-    },
-    // ...
-  }
+export default {
+  components: {
+    VAlert,
+  },
+  // ...
+}
 </script>
 ```
 
 #### 3. Use the components in your template
 
-```html
+```vue
 <template>
   <div class="some-component">
     <VAlert>Hey, I'm an alert!</VAlert>
@@ -93,7 +93,7 @@ Locally:
 #### 4. Bring your own styles
 
 ```css
-/* Bring your own styles */
+/* Some CSS file */
 .vts-alert {
   border: 1px solid currentColor;
   border-radius: 4px;
