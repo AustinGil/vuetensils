@@ -1,3 +1,27 @@
+<template>
+  <transition :name="bgTransition" appear>
+    <div
+      v-if="showing"
+      @click="onBgClick"
+      @keydown="onKeydown"
+      class="vts-drawer"
+    >
+      <transition :name="transition" appear>
+        <component
+          :is="tag"
+          ref="content"
+          class="vts-drawer__content"
+          :class="{ 'vts-drawer__content--right': !!right }"
+          :style="{ width: width, maxWidth: maxWidth }"
+          tabindex="-1"
+        >
+          <slot />
+        </component>
+      </transition>
+    </div>
+  </transition>
+</template>
+
 <script>
 import KEYCODES from "../../data/keycodes"
 import FOCUSABLE from "../../data/focusable"
@@ -18,6 +42,10 @@ export default {
      * @model
      */
     showing: Boolean,
+    tag: {
+      type: String,
+      default: "aside",
+    },
     /**
      * Flag to place the drawer on the right side.
      */
@@ -45,6 +73,12 @@ export default {
   },
 
   methods: {
+    onBgClick(e) {
+      if (event.target.classList.contains(`${NAME}`)) {
+        this.hide()
+      }
+    },
+
     show() {
       /**
        * @event open
@@ -53,6 +87,7 @@ export default {
       this.$emit("open")
       this.$emit("update", true)
     },
+
     hide() {
       /**
        * @event close
@@ -61,6 +96,7 @@ export default {
       this.$emit("close")
       this.$emit("update", false)
     },
+
     toggle() {
       const event = this.showing ? "close" : "open"
       this.$emit(event, !this.showing)
@@ -70,6 +106,7 @@ export default {
        */
       this.$emit("update", !this.showing)
     },
+
     onKeydown(event) {
       if (event.keyCode === KEYCODES.ESC) {
         this.hide()
@@ -118,64 +155,6 @@ export default {
         }
       },
     },
-  },
-
-  render(create) {
-    if (!this.showing) {
-      return create(false)
-    }
-
-    let content = create(
-      "aside",
-      {
-        ref: "content",
-        class: {
-          [`${NAME}__content`]: true,
-          [`${NAME}__content--right`]: !!this.right,
-        },
-        style: {
-          width: this.width || null,
-          maxWidth: this.maxWidth || null,
-        },
-        attrs: {
-          tabindex: "-1",
-          // 'aria-label': "submenu"
-        },
-      },
-      [this.$slots.default]
-    )
-    content = create(
-      "transition",
-      {
-        props: { name: this.transition, appear: true },
-      },
-      [content]
-    )
-
-    let drawer = create(
-      "div",
-      {
-        class: NAME,
-        on: {
-          click: event => {
-            if (event.target.classList.contains(`${NAME}`)) {
-              this.hide()
-            }
-          },
-          keydown: this.onKeydown,
-        },
-      },
-      [content]
-    )
-    drawer = create(
-      "transition",
-      {
-        props: { name: this.bgTransition },
-      },
-      [drawer]
-    )
-
-    return drawer
   },
 }
 </script>
