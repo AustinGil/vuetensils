@@ -16,7 +16,7 @@ export default {
      */
     src: {
       type: String,
-      required: true
+      required: true,
     },
     /**
      * Same as the HTML attribute
@@ -42,13 +42,11 @@ export default {
      * CSS background styles for the placeholder in case you just want colors.
      */
     background: String,
-    /**
-     * Same as the HTML attribute. This is recommended, but if left out, will default to an empty string.
-     */
-    alt: {
-      type: String,
-      default: ""
-    }
+
+    classes: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   mounted() {
@@ -108,31 +106,32 @@ export default {
       placeholder = h(
         "div",
         {
-          class: `${NAME}__placeholder`,
+          class: [`${NAME}__placeholder`, classes.placeholder],
           style: {
-            background: this.background || false
-          }
+            background: this.background || false,
+          },
         },
         [
           h("img", {
             attrs: {
               src: this.placeholder || dataUrl,
               width: this.width,
-              height: this.height
-            }
-          })
+              height: this.height,
+              alt: this.$attrs.alt || "",
+            },
+          }),
         ]
       )
     }
 
     const img = h("img", {
-      class: `${NAME}__img`,
+      class: [`${NAME}__img`, classes.img],
       attrs: {
         ...this.$attrs,
         src: dataUrl,
         width: this.width || false,
-        height: this.height || false
-      }
+        height: this.height || false,
+      },
     })
 
     // TODO: Add this when SSR support is enabled
@@ -146,14 +145,18 @@ export default {
     return h(
       "div",
       {
-        class: [NAME, { [`${NAME}--has-dimensions`]: hasDimensions }],
+        class: [
+          NAME,
+          { [`${NAME}--has-dimensions`]: hasDimensions },
+          classes.root,
+        ],
         style: {
-          maxWidth: this.width + "px"
-        }
+          maxWidth: this.width + "px",
+        },
       },
       [placeholder, img]
     )
-  }
+  },
 }
 </script>
 

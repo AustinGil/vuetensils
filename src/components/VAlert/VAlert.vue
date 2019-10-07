@@ -4,7 +4,7 @@
       v-if="!dismissed && !!visible"
       :is="tag"
       role="alert"
-      class="vts-alert"
+      :class="['vts-alert', classes.root]"
     >
       <!-- @slot The default slot content that is shown to the user -->
       <slot />
@@ -13,7 +13,7 @@
         v-if="dismissible"
         @click="dismiss"
         :aria-label="dismissLabel"
-        class="vts-alert__dismiss"
+        :class="['vts-alert__dismiss', classes.dismiss]"
       >
         <!-- @slot The dismiss button content -->
         <slot name="dismiss">&times;</slot>
@@ -67,6 +67,11 @@ export default {
      * The transition name if you want to add one.
      */
     transition: String,
+
+    classes: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   data: () => ({

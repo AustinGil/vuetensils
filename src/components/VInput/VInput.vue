@@ -1,17 +1,27 @@
 <template>
   <div
-    class="vts-input"
     :class="[
+      'vts-input',
       `vts-input--${$attrs.type || 'text'}`,
       {
         'vts-input--invalid': invalid.anyInvalid,
-        'vts-input--required': $attrs.hasOwnProperty('required')
-      }
+        'vts-input--required': $attrs.hasOwnProperty('required'),
+      },
+      classes.root,
     ]"
   >
-    <fieldset v-if="$attrs.type === 'radio'" class="vts-input__fieldset">
-      <legend v-if="label" class="vts-input__text">{{ label }}</legend>
-      <label v-for="option in computedOptions" :key="option.value" class="vts-input__label">
+    <fieldset
+      v-if="$attrs.type === 'radio'"
+      :class="['vts-input__fieldset', classes.fieldset]"
+    >
+      <legend v-if="label" :class="['vts-input__text', classes.text]">
+        {{ label }}
+      </legend>
+      <label
+        v-for="option in computedOptions"
+        :key="option.value"
+        :class="['vts-input__label', classes.label]"
+      >
         <input
           ref="input"
           :checked="value === option.value"
@@ -23,12 +33,19 @@
           :aria-describedby="invalid.anyInvalid && `${id}__description`"
           class="vts-input__input"
         />
-        <span class="vts-input__text">{{ option.label }}</span>
+        <span :class="['vts-input__text', classes.text]">
+          {{ option.label }}
+        </span>
       </label>
     </fieldset>
 
-    <label v-else class="vts-input__label">
-      <span v-if="$attrs.type !== 'checkbox'" class="vts-input__text">{{ label }}</span>
+    <label v-else :class="['vts-input__label', classes.label]">
+      <span
+        v-if="$attrs.type !== 'checkbox'"
+        :class="['vts-input__text', classes.text]"
+      >
+        {{ label }}
+      </span>
       <component
         ref="input"
         :is="tag"
@@ -39,7 +56,7 @@
         @blur="onBlur"
         v-on="$listeners"
         :aria-describedby="invalid.anyInvalid && `${id}__description`"
-        class="vts-input__input"
+        :class="['vts-input__input', classes.input]"
       >
         <template v-if="tag === 'textarea'">
           {{ value }}
@@ -53,13 +70,18 @@
           {{ option.label }}
         </option>
       </component>
-      <span v-if="$attrs.type === 'checkbox'" class="vts-input__text">{{ label }}</span>
+      <span
+        v-if="$attrs.type === 'checkbox'"
+        :class="['vts-input__text', classes.text]"
+      >
+        {{ label }}
+      </span>
     </label>
 
     <div
       v-if="$scopedSlots.description"
       :id="`${id}__description`"
-      class="vts-input__description"
+      :class="['vts-input__description', classes.description]"
       role="alert"
     >
       <!-- @slot Scoped slot for the input description. Provides the validation state. -->
@@ -78,7 +100,7 @@ export default {
   inheritAttrs: false,
 
   model: {
-    event: "update"
+    event: "update",
   },
 
   props: {
@@ -86,7 +108,7 @@ export default {
      * Every input should have a label with the exception of `radio` which supports labels for the `options` prop.
      */
     label: {
-      type: String
+      type: String,
     },
 
     /**
@@ -94,7 +116,7 @@ export default {
      */
     value: {
       type: [String, Number, Boolean],
-      default: ""
+      default: "",
     },
 
     /**
@@ -102,14 +124,19 @@ export default {
      */
     options: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
+
+    classes: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   data: () => ({
     dirty: false,
     anyInvalid: false,
-    invalid: {}
+    invalid: {},
   }),
 
   computed: {
@@ -138,13 +165,13 @@ export default {
         item.required = true
         return item
       })
-    }
+    },
   },
 
   watch: {
     value: {
-      handler: "validate"
-    }
+      handler: "validate",
+    },
   },
 
   mounted() {
@@ -153,7 +180,8 @@ export default {
 
   methods: {
     onInput({ target }) {
-      const value = this.$attrs.type === "checkbox" ? target.checked : target.value
+      const value =
+        this.$attrs.type === "checkbox" ? target.checked : target.value
       /**
        * @event update
        * @type { any }
@@ -179,9 +207,9 @@ export default {
         min: validity.rangeOverflow,
         max: validity.rangeUnderflow,
         type: validity.typeMismatch,
-        pattern: validity.patternMismatch
+        pattern: validity.patternMismatch,
       }
-    }
-  }
+    },
+  },
 }
 </script>

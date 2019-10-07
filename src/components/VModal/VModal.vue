@@ -1,12 +1,17 @@
 <template>
   <transition :name="bgTransition">
-    <div v-if="showing" @click="onClick" @keydown="onKeydown" class="vts-modal">
+    <div
+      v-if="showing"
+      @click="onClick"
+      @keydown="onKeydown"
+      :class="['vts-modal', classes.root]"
+    >
       <transition :name="transition" appear>
         <component
           :is="tag"
           ref="content"
           :style="{ width: width, maxWidth: maxWidth }"
-          class="vts-modal__content"
+          :class="['vts-modal__content', classes.content]"
           tabindex="-1"
           role="dialog"
         >
@@ -73,6 +78,11 @@ export default {
      * Transition name to apply to the background.
      */
     bgTransition: String,
+
+    classes: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   watch: {

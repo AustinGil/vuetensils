@@ -1,5 +1,8 @@
 <template>
-  <div class="vts-toggle" :class="{ 'vts-toggle--open': isOpen }">
+  <div
+    class="vts-toggle"
+    :class="[{ 'vts-toggle--open': isOpen }, classes.root]"
+  >
     <button
       :id="`${id}-label`"
       ref="label"
@@ -7,7 +10,7 @@
       :aria-controls="`${id}-content`"
       :aria-expanded="isOpen"
       @click="isOpen = !isOpen"
-      class="vts-toggle__button"
+      :class="['vts-toggle__label', classes.label]"
     >
       <!-- @slot The content that goes inside the button -->
       <slot name="label" />
@@ -26,7 +29,7 @@
         :aria-hidden="!isOpen"
         v-show="isOpen && !disabled"
         role="region"
-        class="vts-toggle__content"
+        :class="['vts-toggle__content', classes.content]"
       >
         <!-- @slot The content that goes inside the toggleable region -->
         <slot />
@@ -46,16 +49,20 @@ export default {
      */
     label: {
       type: String,
-      required: true
+      required: true,
     },
 
     disabled: Boolean,
-    startOpen: Boolean
+
+    classes: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   data() {
     return {
-      isOpen: !!this.isOpen
+      isOpen: !!this.isOpen,
     }
   },
 
@@ -70,7 +77,7 @@ export default {
           .map(() => Math.floor(36 * Math.random()).toString(36))
           .join("")
       )
-    }
+    },
   },
 
   methods: {
@@ -86,8 +93,8 @@ export default {
 
     resetHeight(el) {
       el.style.height = null
-    }
-  }
+    },
+  },
 }
 </script>
 

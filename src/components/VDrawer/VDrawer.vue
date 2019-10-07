@@ -4,14 +4,17 @@
       v-if="showing"
       @click="onBgClick"
       @keydown="onKeydown"
-      class="vts-drawer"
+      :class="['vts-drawer', classes.root]"
     >
       <transition :name="transition" appear>
         <component
           :is="tag"
           ref="content"
-          class="vts-drawer__content"
-          :class="{ 'vts-drawer__content--right': !!right }"
+          :class="[
+            'vts-drawer__content',
+            { 'vts-drawer__content--right': !!right },
+            classes.content,
+          ]"
           :style="{ width: width, maxWidth: maxWidth }"
           tabindex="-1"
         >
@@ -70,6 +73,11 @@ export default {
      * Vue transition name for the background.
      */
     bgTransition: String,
+
+    classes: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   methods: {

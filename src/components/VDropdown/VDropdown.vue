@@ -9,7 +9,7 @@
       @click="isFocused = !isFocused"
       :aria-expanded="!!isHovered || !!isFocused"
       aria-haspopup
-      class="vts-dropdown__trigger"
+      :class="['vts-dropdown__trigger', classes.trigger]"
     >
       <!-- @slot The content within the trigger button -->
       <slot name="trigger">{{ text }}</slot>
@@ -19,7 +19,7 @@
       <div
         v-if="!!isHovered || !!isFocused"
         class="vts-dropdown__content"
-        :class="`vts-dropdown__content--${position}`"
+        :class="[`vts-dropdown__content--${position}`, classes.content]"
       >
         <!-- @slot The dropdown content -->
         <slot />
@@ -54,6 +54,11 @@ export default {
      * The transition name.
      */
     transition: String,
+
+    classes: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   data: () => ({

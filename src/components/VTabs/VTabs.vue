@@ -1,6 +1,11 @@
 <template>
-  <div v-if="tablist.length" class="vts-tabs">
-    <div role="tablist" :aria-label="label" :aria-orientation="orientation" class="vts-tablist">
+  <div v-if="tablist.length" :class="['vts-tabs', classes.root]">
+    <div
+      role="tablist"
+      :aria-label="label"
+      :aria-orientation="orientation"
+      :class="['vts-tabs__tablist', classes.tablist]"
+    >
       <button
         v-for="(tab, index) in tablist"
         :key="tab"
@@ -11,7 +16,7 @@
         :tabindex="index === activeIndex ? false : -1"
         :id="`${id}-tab-${index}`"
         :aria-controls="`${id}-panel-${index}`"
-        :class="`vts-tabs__tab vts-tabs__tab--${index}`"
+        :class="[`vts-tabs__tab vts-tabs__tab--${index}`, classes.tab]"
         role="tab"
       >
         {{ tab }}
@@ -24,7 +29,7 @@
       :id="`${id}-panel-${index}`"
       :aria-labelledby="`${id}-tab-${index}`"
       :hidden="index !== activeIndex"
-      :class="`vts-tabs__panel vts-tabs__panel--${index}`"
+      :class="[`vts-tabs__panel vts-tabs__panel--${index}`, classes.panel]"
       tabindex="0"
       role="tabpanel"
     >
@@ -58,12 +63,17 @@ export default {
      */
     orientation: {
       type: String,
-      default: "horizontal"
-    }
+      default: "horizontal",
+    },
+
+    classes: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   data: () => ({
-    activeIndex: 0
+    activeIndex: 0,
   }),
 
   computed: {
@@ -77,7 +87,7 @@ export default {
         .fill()
         .map(() => Math.floor(36 * Math.random()).toString(36))
         .join("")
-    }
+    },
   },
 
   methods: {
@@ -131,7 +141,7 @@ export default {
         [keycodes.LEFT]: -1,
         [keycodes.UP]: -1,
         [keycodes.RIGHT]: 1,
-        [keycodes.DOWN]: 1
+        [keycodes.DOWN]: 1,
       }
 
       /* istanbul ignore next */
@@ -148,7 +158,7 @@ export default {
 
     setFocus() {
       this.$refs.tab[this.activeIndex].focus()
-    }
-  }
+    },
+  },
 }
 </script>
