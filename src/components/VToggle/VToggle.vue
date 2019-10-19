@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="vts-toggle"
-    :class="[{ 'vts-toggle--open': isOpen }, classes.root]"
-  >
+  <div :class="['vts-toggle', { 'vts-toggle--open': isOpen }, classes.root]">
     <button
       :id="`${id}-label`"
       ref="label"
@@ -86,13 +83,15 @@ export default {
     },
 
     expand(el) {
-      el.style.height = el.scrollHeight + "px"
+      el.style.overflow = "hidden"
+      el.style.height = `${el.scrollHeight}px`
       // Force repaint to make sure the animation is triggered correctly.
       el.scrollHeight
     },
 
     resetHeight(el) {
-      el.style.height = null
+      el.style.overflow = "visible"
+      el.style.height = ""
     },
   },
 }
@@ -100,7 +99,6 @@ export default {
 
 <style>
 .vts-toggle__content {
-  overflow: hidden;
   transition: height 300ms ease;
 }
 </style>
