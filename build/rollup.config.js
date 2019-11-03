@@ -20,13 +20,10 @@ const config = {
         isProduction: true,
       },
     }),
-    require("rollup-plugin-babel")({
-      exclude: "node_modules/**",
-    }),
     require("rollup-plugin-commonjs")(),
-    // require("rollup-plugin-buble")({
-    //   objectAssign: "Object.assign",
-    // }),
+    require("rollup-plugin-buble")({
+      objectAssign: "Object.assign",
+    }),
     require("rollup-plugin-filesize")(),
   ],
 }
