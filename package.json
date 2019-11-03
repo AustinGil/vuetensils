@@ -44,6 +44,7 @@
     "minimist": "^1.2.0",
     "release-it": "^12.4.3",
     "rollup": "^1.26.3",
+    "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-buble": "^0.19.8",
     "rollup-plugin-commonjs": "^10.0.2",
     "rollup-plugin-filesize": "^6.2.1",

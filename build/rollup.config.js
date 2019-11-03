@@ -1,37 +1,34 @@
 // rollup.config.js
-import vue from "rollup-plugin-vue"
-import buble from "rollup-plugin-buble"
-import commonjs from "rollup-plugin-commonjs"
-import replace from "rollup-plugin-replace"
 // import uglify from "rollup-plugin-uglify-es"
-import minimist from "minimist"
-import filesize from "rollup-plugin-filesize"
 
-const argv = minimist(process.argv.slice(2))
+const argv = require("minimist")(process.argv.slice(2))
 
 const config = {
   input: "src/entry.js",
   output: {
     name: "Vuetensils",
-    exports: "named"
+    exports: "named",
   },
   plugins: [
-    replace({
-      "process.env.NODE_ENV": JSON.stringify("production")
+    require("rollup-plugin-replace")({
+      "process.env.NODE_ENV": JSON.stringify("production"),
     }),
-    vue({
+    require("rollup-plugin-vue")({
       css: true,
       compileTemplate: true,
       template: {
-        isProduction: true
-      }
+        isProduction: true,
+      },
     }),
-    commonjs(),
-    buble({
-      objectAssign: "Object.assign"
+    require("rollup-plugin-babel")({
+      exclude: "node_modules/**",
     }),
-    filesize()
-  ]
+    require("rollup-plugin-commonjs")(),
+    // require("rollup-plugin-buble")({
+    //   objectAssign: "Object.assign",
+    // }),
+    require("rollup-plugin-filesize")(),
+  ],
 }
 
 // Only minify browser (iife) version
