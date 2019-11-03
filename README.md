@@ -103,6 +103,21 @@ export default {
 }
 ```
 
+<!-- TODO: Babel transpiler -->
+<!-- TODO: Datatable -->
+<!-- TODO: Toast/notification -->
+<!-- TODO: Better range input -->
+<!-- TODO: Breadcrumbs -->
+<!-- TODO: Calendar -->
+<!-- TODO: datetime input -->
+<!-- TODO: rating -->
+<!-- TODO: Tooltip -->
+<!-- TODO: Resize directive -->
+<!-- TODO: lazyload directive -->
+<!-- TODO: clickout directive -->
+<!-- TODO: autofocus directive -->
+<!-- TODO: container query directive -->
+<!-- TODO: copy directive -->
 <!-- TODO: Toggles: https://codepen.io/heydon/pen/QqzRvQ/ -->
 <!-- TODO: Allow components to accept `tag` prop -->
 <!-- TODO: https://rollup-plugin-vue.vuejs.org/examples.html#minimal -->
