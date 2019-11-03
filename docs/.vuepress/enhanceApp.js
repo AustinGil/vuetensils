@@ -9,7 +9,9 @@ import {
   VModal,
   VTabs,
   VToggle,
-} from "../../src/entry"
+  autofocus,
+  clickout,
+} from "vuetensils"
 
 export default ({ Vue, options, router, siteData }) => {
   Vue.component("VAlert", VAlert)
@@ -22,4 +24,7 @@ export default ({ Vue, options, router, siteData }) => {
   Vue.component("VModal", VModal)
   Vue.component("VTabs", VTabs)
   Vue.component("VToggle", VToggle)
+
+  Vue.directive("autofocus", autofocus)
+  Vue.directive("clickout", clickout)
 }
