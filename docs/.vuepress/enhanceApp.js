@@ -11,7 +11,7 @@ import {
   VToggle,
   autofocus,
   clickout,
-} from "vuetensils"
+} from "../../dist/vuetensils.umd"
 
 export default ({ Vue, options, router, siteData }) => {
   Vue.component("VAlert", VAlert)
