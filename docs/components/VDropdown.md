@@ -97,3 +97,11 @@ Adds a button that can show/hide dropdown content when it is hovered over, or cl
   transform: translateY(10px);
 }
 ```
+
+### Custom Classes
+
+This component can accept a `classes` prop to cusomize the output HTML classes:
+
+```
+:classes="{ root: 'root-class', trigger: 'trigger-class', content: 'content-class' }"
+```

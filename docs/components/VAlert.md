@@ -190,3 +190,11 @@ export default {
   opacity: 0;
 }
 ```
+
+### Custom Classes
+
+This component can accept a `classes` prop to cusomize the output HTML classes:
+
+```
+:classes="{ root: 'root-class', dismiss: 'dismiss-class' }"
+```

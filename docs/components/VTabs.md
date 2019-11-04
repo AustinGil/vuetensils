@@ -69,3 +69,11 @@ Keyboard navigation to the tabs only targets active tab. `right` key activates n
   </VTabs>
 </template>
 ```
+
+### Custom Classes
+
+This component can accept a `classes` prop to cusomize the output HTML classes:
+
+```
+:classes="{ root: 'root-class', tablist: 'tablist-class', tab: 'tab-class' }"
+```

@@ -168,3 +168,11 @@ export default {
   transform: translateX(-100%);
 }
 ```
+
+### Custom Classes
+
+This component can accept a `classes` prop to cusomize the output HTML classes:
+
+```
+:classes="{ root: 'root-class', content: 'content-class' }"
+```

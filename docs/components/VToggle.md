@@ -49,3 +49,11 @@ Toggle the visibility of content. Useful for something like an FAQ page, for exa
   </VToggle>
 </template>
 ```
+
+### Custom Classes
+
+This component can accept a `classes` prop to cusomize the output HTML classes:
+
+```
+:classes="{ root: 'root-class', label: 'label-class', content: 'content-class' }"
+```
