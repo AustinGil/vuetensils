@@ -82,7 +82,7 @@ Don't forget all the other best practices such as `srcset` attribute and `alt` t
 </template>
 ```
 
-### Custom Classes
+## Custom Classes
 
 This component can accept a `classes` prop to cusomize the output HTML classes:
 

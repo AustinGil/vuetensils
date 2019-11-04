@@ -50,7 +50,7 @@ Toggle the visibility of content. Useful for something like an FAQ page, for exa
 </template>
 ```
 
-### Custom Classes
+## Custom Classes
 
 This component can accept a `classes` prop to cusomize the output HTML classes:
 

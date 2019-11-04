@@ -98,7 +98,7 @@ Adds a button that can show/hide dropdown content when it is hovered over, or cl
 }
 ```
 
-### Custom Classes
+## Custom Classes
 
 This component can accept a `classes` prop to cusomize the output HTML classes:
 

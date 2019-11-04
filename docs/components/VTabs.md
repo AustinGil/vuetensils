@@ -70,7 +70,7 @@ Keyboard navigation to the tabs only targets active tab. `right` key activates n
 </template>
 ```
 
-### Custom Classes
+## Custom Classes
 
 This component can accept a `classes` prop to cusomize the output HTML classes:
 

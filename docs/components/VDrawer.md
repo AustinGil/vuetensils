@@ -169,7 +169,7 @@ export default {
 }
 ```
 
-### Custom Classes
+## Custom Classes
 
 This component can accept a `classes` prop to cusomize the output HTML classes:
 
