@@ -1,78 +1,78 @@
 import { normalizeComponent, createInjector } from 'vue-runtime-helpers';
 
 //
+
 /**
  * A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
  */
-
 var script = {
   model: {
     prop: "visible",
-    event: "update"
+    event: "update",
   },
+
   props: {
     /**
      * HTML tag used to wrap the component.
      */
     tag: {
       type: String,
-      default: "div"
+      default: "div",
     },
-
     /**
      * Determines whether the alert is visible. Also binds with `v-model`.
      */
     visible: {
       type: [Boolean, Number],
-      default: true
+      default: true,
     },
-
     /**
      * Allows a user to dismiss this alert.
      */
     dismissible: {
       type: Boolean,
-      default: false
+      default: false,
     },
-
     /**
      * Aria-label that is not visibly, but screen readers will read for the dismiss button.
      */
     dismissLabel: {
       type: [String, Boolean],
-      default: "Dismiss this alert"
+      default: "Dismiss this alert",
     },
-
     /**
      * The transition name if you want to add one.
      */
     transition: String,
+
     classes: {
       type: Object,
-      default: function () { return ({}); }
-    }
+      default: function default$1() {
+        return {}
+      },
+    },
   },
-  data: function () { return ({
-    dismissed: false,
-    timerId: null
-  }); },
+
+  data: function data() {
+    return {dismissed: false,
+    timerId: null,
+  }},
+
   watch: {
     visible: {
       handler: function handler(next) {
         if (!!next) {
           this.dismissed = false;
         }
-
         if (typeof this.visible === "number") {
           this.clearTimer(); // Clear timers in case this.visible watcher adds multiples
-
           this.countdown();
         }
       },
-
-      immediate: true
-    }
+      immediate: true,
+    },
   },
+
   methods: {
     dismiss: function dismiss() {
       /**
@@ -82,7 +82,6 @@ var script = {
        */
       this.$emit("dismiss");
       this.dismissed = true;
-
       if (typeof this.visible === "number") {
         this.$emit("update", 0);
         this.clearTimer();
@@ -92,16 +91,15 @@ var script = {
     },
 
     countdown: function countdown() {
-      var this$1 = this;
+      if (this.visible <= 0) { return }
 
-      if (this.visible <= 0) { return; }
-      this.timerId = setTimeout(function () {
+      this.timerId = setTimeout(function() {
         /**
          * Fired whenever the visibility changes. Either through user interaction, or a countdown timer
          * @event update
          * @type { boolean/number }
          */
-        this$1.$emit("update", this$1.visible - 1);
+        this.$emit("update", this.visible - 1);
       }, 1000);
     },
 
@@ -110,14 +108,12 @@ var script = {
         clearInterval(this.timerId);
         this.timerId = null;
       }
-    }
-
+    },
   },
 
   beforeDestroy: function beforeDestroy() {
     this.clearTimer();
-  }
-
+  },
 };
 
 /* script */
@@ -156,31 +152,31 @@ var __vue_staticRenderFns__ = [];
     undefined
   );
 
-function randomString(length, allowed) {
+function randomString(
+  length,
+  allowed
+) {
   if ( length === void 0 ) length = 10;
   if ( allowed === void 0 ) allowed = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   var result = "";
-
   for (var i = 0; i < length; i++) {
     result += allowed.charAt(Math.floor(Math.random() * allowed.length));
   }
-
-  return result;
+  return result
 }
+
 function safeSlot(h, slot) {
   if (slot && slot.length > 1) {
-    return h("div", [slot]);
+    return h("div", [slot])
   }
-
-  return slot;
+  return slot
 }
 
 //
 /**
  * A renderless component for awaiting promises to resolve; great for making HTTP requests. Supports showing pending, resolved, or rejected promises.
  */
-
 var script$1 = {
   props: {
     /**
@@ -188,31 +184,33 @@ var script$1 = {
      */
     await: {
       type: [Promise, Function],
-      default: function () { return Promise.resolve(); }
+      default: function default$1() {
+        return Promise.resolve()
+      },
     },
-
     /**
      * The default value to provide for the `results`. Useful if the promise resolve value is undefined.
      */
     default: {
       type: undefined,
-      default: undefined
-    }
+      default: undefined,
+    },
   },
 
   data: function data() {
     return {
       pending: false,
       results: this.default,
-      error: null
-    };
+      error: null,
+    }
   },
 
   watch: {
     await: {
       handler: "awaitOn",
-      immediate: true
+      immediate: true,
     },
+
     pending: {
       handler: function handler(pending) {
         /**
@@ -222,50 +220,53 @@ var script$1 = {
          */
         this.$emit("pending", pending);
       },
-
-      immediate: true
-    }
+      immediate: true,
+    },
   },
+
   methods: {
     awaitOn: function awaitOn(promise) {
       var this$1 = this;
 
-      if (!promise) { return; }
+      if (!promise) { return }
+
       promise = typeof promise === "function" ? promise() : promise;
-      if (!promise.then) { return; }
+
+      if (!promise.then) { return }
+
       this.pending = true;
       this.results = this.default;
       this.error = null;
-      return promise.then(function (results) {
-        this$1.results = results;
-        /**
-         * Fired after promise has resolved with the resolved value.
-         * @event resolve
-         * @type { unknown }
-         */
 
-        this$1.$emit("resolve", this$1.results);
-      }).catch(function (error) {
-        this$1.error = error;
-        /**
-         * Fired after promise has rejected with the rejected error.
-         * @event reject
-         * @type { error }
-         */
-
-        this$1.$emit("reject", error);
-      }).finally(function () {
-        this$1.pending = false;
-        /**
-         * Fired after promise has fulfilled, regardless of success or failure.
-         * @event finally
-         * @type { undefined }
-         */
-
-        this$1.$emit("finally");
-      });
-    }
-
+      return promise
+        .then(function (results) {
+          this$1.results = results;
+          /**
+           * Fired after promise has resolved with the resolved value.
+           * @event resolve
+           * @type { unknown }
+           */
+          this$1.$emit("resolve", this$1.results);
+        })
+        .catch(function (error) {
+          this$1.error = error;
+          /**
+           * Fired after promise has rejected with the rejected error.
+           * @event reject
+           * @type { error }
+           */
+          this$1.$emit("reject", error);
+        })
+        .finally(function()  {
+          this.pending = false;
+          /**
+           * Fired after promise has fulfilled, regardless of success or failure.
+           * @event finally
+           * @type { undefined }
+           */
+          this.$emit("finally");
+        })
+    },
   },
 
   render: function render(h) {
@@ -274,7 +275,7 @@ var script$1 = {
     if (pending && this.$scopedSlots.pending) {
       /** @slot Rendered while the promise is in a pending state */
       var pendingSlot = this.$scopedSlots.pending();
-      return safeSlot(h, pendingSlot);
+      return safeSlot(h, pendingSlot)
     }
 
     var error = this.error;
@@ -282,7 +283,7 @@ var script$1 = {
     if (!pending && error && this.$scopedSlots.rejected) {
       /** @slot Rendered when the promise has rejected. Provides the caught error. */
       var rejectSlot = this.$scopedSlots.rejected(error);
-      return safeSlot(h, rejectSlot);
+      return safeSlot(h, rejectSlot)
     }
 
     var results = this.results === undefined ? this.default : this.results;
@@ -290,20 +291,19 @@ var script$1 = {
     if (!pending && this.$scopedSlots.resolved) {
       /** @slot Rendered when the promise has resolved. Provides the results. */
       var resolveSlot = this.$scopedSlots.resolved(results);
-      return safeSlot(h, resolveSlot);
+      return safeSlot(h, resolveSlot)
     }
 
-    if (!this.$scopedSlots.default) { return; }
-    /** @slot Provides the status of the component for pending state, error, or results. */
+    if (!this.$scopedSlots.default) { return }
 
+    /** @slot Provides the status of the component for pending state, error, or results. */
     var defaultSlot = this.$scopedSlots.default({
       pending: pending,
       results: results,
-      error: error
+      error: error,
     });
-    return safeSlot(h, defaultSlot);
-  }
-
+    return safeSlot(h, defaultSlot)
+  },
 };
 
 /* script */
@@ -351,19 +351,33 @@ var keycodes = {
   DOWN: 40
 };
 
-var FOCUSABLE = ["a[href]", "area[href]", 'input:not([disabled]):not([type="hidden"]):not([aria-hidden])', "select:not([disabled]):not([aria-hidden])", "textarea:not([disabled]):not([aria-hidden])", "button:not([disabled]):not([aria-hidden])", "iframe", "object", "embed", "[contenteditable]", '[tabindex]:not([tabindex^="-"])'];
+var FOCUSABLE = [
+  "a[href]",
+  "area[href]",
+  'input:not([disabled]):not([type="hidden"]):not([aria-hidden])',
+  "select:not([disabled]):not([aria-hidden])",
+  "textarea:not([disabled]):not([aria-hidden])",
+  "button:not([disabled]):not([aria-hidden])",
+  "iframe",
+  "object",
+  "embed",
+  "[contenteditable]",
+  '[tabindex]:not([tabindex^="-"])'
+];
 
 //
+
 var NAME = "vts-drawer";
+
 /**
  * A convenient sidebar that can be toggled on or off. When opened, it traps the user's focus so that keyboard navigation will remain within the sidebar until it is closed. It also supports being closed by pressing the ESC key.
  */
-
 var script$2 = {
   model: {
     prop: "showing",
-    event: "update"
+    event: "update",
   },
+
   props: {
     /**
      * @model
@@ -371,43 +385,41 @@ var script$2 = {
     showing: Boolean,
     tag: {
       type: String,
-      default: "aside"
+      default: "aside",
     },
-
     /**
      * Flag to place the drawer on the right side.
      */
     right: Boolean,
-
     /**
      * CSS width value.
      */
     width: String,
-
     /**
      * CSS max-width value.
      */
     maxWidth: String,
-
     /**
      * Disable page scrolling when drawer is open.
      */
     noScroll: Boolean,
-
     /**
      * Vue transition name.
      */
     transition: String,
-
     /**
      * Vue transition name for the background.
      */
     bgTransition: String,
+
     classes: {
       type: Object,
-      default: function () { return ({}); }
-    }
+      default: function default$1()  {
+        return {}
+      },
+    },
   },
+
   methods: {
     onBgClick: function onBgClick(e) {
       if (event.target.classList.contains(("" + NAME))) {
@@ -440,7 +452,6 @@ var script$2 = {
        * @event update
        * @type { boolean }
        */
-
       this.$emit("update", !this.showing);
     },
 
@@ -448,15 +459,15 @@ var script$2 = {
       if (event.keyCode === keycodes.ESC) {
         this.hide();
       }
-
       if (event.keyCode === keycodes.TAB) {
         var content = this.$refs.content;
-        if (!content) { return; }
+        if (!content) { return }
+
         var focusable = Array.from(content.querySelectorAll(FOCUSABLE));
 
         if (!focusable.length) {
           event.preventDefault();
-          return;
+          return
         }
 
         if (!content.contains(document.activeElement)) {
@@ -476,25 +487,23 @@ var script$2 = {
           }
         }
       }
-    }
-
+    },
   },
+
   watch: {
     showing: {
-      handler: function (next, prev) {
-        var this$1 = this;
-
+      handler: function(next, prev) {
         if (next && next != prev) {
           this.noScroll && document.body.style.setProperty("overflow", "hidden");
-          this.$nextTick(function () {
-            this$1.$refs.content.focus();
+          this.$nextTick(function()  {
+            this.$refs.content.focus();
           });
         } else {
           this.noScroll && document.body.style.removeProperty("overflow");
         }
-      }
-    }
-  }
+      },
+    },
+  },
 };
 
 /* script */
@@ -510,7 +519,7 @@ var __vue_staticRenderFns__$1 = [];
   /* style */
   var __vue_inject_styles__$2 = function (inject) {
     if (!inject) { return }
-    inject("data-v-c734400c_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background-color:rgba(0,0,0,.2)}.vts-drawer [tabindex=\"-1\"]:focus{outline:0}.vts-drawer__content{overflow:auto;width:100%;max-width:300px;height:100%;background:#fff}.vts-drawer__content--right{margin-left:auto}", map: undefined, media: undefined });
+    inject("data-v-05aebcd9_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background-color:rgba(0,0,0,.2)}.vts-drawer [tabindex=\"-1\"]:focus{outline:0}.vts-drawer__content{overflow:auto;width:100%;max-width:300px;height:100%;background:#fff}.vts-drawer__content--right{margin-left:auto}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -578,7 +587,6 @@ var script$3 = {
      * The toggle button text.
      */
     text: String,
-
     /**
      * Where the content should be placed in relation to the button.
      *
@@ -587,26 +595,29 @@ var script$3 = {
     position: {
       type: String,
       default: "bottom",
-
       validator: function validator(value) {
-        return ["top", "bottom"].includes(value);
-      }
-
+        return ["top", "bottom"].includes(value)
+      },
     },
-
     /**
      * The transition name.
      */
     transition: String,
+
     classes: {
       type: Object,
-      default: function () { return ({}); }
-    }
+      default: function default$1() {
+        return {}
+      },
+    },
   },
-  data: function () { return ({
+
+  data: function data ()  {
+    return {
     isHovered: false,
-    isFocused: false
-  }); },
+    isFocused: false,
+  }},
+
   methods: {
     onClickout: function onClickout(e) {
       if (!this.$el.contains(e.target)) {
@@ -618,19 +629,15 @@ var script$3 = {
       if (!this.$el.contains(event.relatedTarget)) {
         this.isFocused = false;
       }
-    }
-
+    },
   },
 
   mounted: function mounted() {
-    var this$1 = this;
-
     document.addEventListener("click", this.onClickout);
-    this.$once("hook:beforeDestroy", function () {
-      document.removeEventListener("click", this$1.onClickout);
+    this.$once("hook:beforeDestroy", function()  {
+      document.removeEventListener("click", this.onClickout);
     });
-  }
-
+  },
 };
 
 /* script */
@@ -643,7 +650,7 @@ var __vue_staticRenderFns__$2 = [];
   /* style */
   var __vue_inject_styles__$3 = function (inject) {
     if (!inject) { return }
-    inject("data-v-f87e4d62_0", { source: ".vts-dropdown{display:inline-block;position:relative}.vts-dropdown__content{position:absolute;z-index:5;min-width:100%;border:1px solid rgba(0,0,0,.2);background-color:#fff}.vts-dropdown__content--top{top:0;transform:translateY(-100%)}", map: undefined, media: undefined });
+    inject("data-v-77ad00de_0", { source: ".vts-dropdown{display:inline-block;position:relative}.vts-dropdown__content{position:absolute;z-index:5;min-width:100%;border:1px solid rgba(0,0,0,.2);background-color:#fff}.vts-dropdown__content--top{top:0;transform:translateY(-100%)}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -672,57 +679,55 @@ var __vue_staticRenderFns__$2 = [];
   );
 
 var NAME$1 = "vts-img";
+
 /**
  * Drop in replacement for the HTML `<img>` tag which supports lazy-loading. Improves load times by waiting for the image to scroll into view before actually downloading it.
  *
  Note: This component uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) which is not supported by Internet Explorer.
  */
-
 var script$4 = {
   inheritAttrs: false,
   // functional: true, // TODO
+
   props: {
     /**
      * Same as the HTML attribute
      */
     src: {
       type: String,
-      required: true
+      required: true,
     },
-
     /**
      * Same as the HTML attribute
      */
     srcset: String,
-
     /**
      * Same as the HTML attribute
      */
     sizes: String,
-
     /**
      * Same as the HTML attribute
      */
     width: [String, Number],
-
     /**
      * Same as the HTML attribute
      */
     height: [String, Number],
-
     /**
      * URL of the blurred placeholder image to use if you need one (ideally a very small image).
      */
     placeholder: String,
-
     /**
      * CSS background styles for the placeholder in case you just want colors.
      */
     background: String,
+
     classes: {
       type: Object,
-      default: function () { return ({}); }
-    }
+      default: function default$1()  {
+        return {}
+      },
+    },
   },
 
   mounted: function mounted() {
@@ -735,18 +740,16 @@ var script$4 = {
       var img = entry.target.querySelector(".vts-img__img");
       var placeholder = entry.target.querySelector(".vts-img__placeholder");
 
-      img.onload = function () {
+      img.onload = function() {
         delete img.onload;
         wrapper.classList.remove((NAME$1 + "--loading"));
         wrapper.classList.add((NAME$1 + "--loaded"));
-
         if (placeholder) {
-          timeOut = setTimeout(function () {
+          timeOut = setTimeout(function() {
             placeholder.remove();
           }, 300);
         }
       };
-
       if (entry.isIntersecting) {
         // Element is in viewport
         wrapper.classList.add((NAME$1 + "--loading"));
@@ -756,10 +759,10 @@ var script$4 = {
         observer.disconnect();
       }
     });
-    observer.observe(this.$el);
-    this.$once("hook:beforeDestroy", function () {
-      observer.disconnect();
 
+    observer.observe(this.$el);
+    this.$once("hook:beforeDestroy", function()  {
+      observer.disconnect();
       if (timeOut) {
         clearTimeout(timeOut);
       }
@@ -772,6 +775,7 @@ var script$4 = {
     // if (this.$parent.$isServer) {
     //   return h(false)
     // }
+
     var dataUrl = false;
     var hasDimensions = this.width && this.height;
     var placeholder = h(false);
@@ -780,21 +784,28 @@ var script$4 = {
       var w = 100;
       var canvas = document.createElement("canvas");
       canvas.width = w;
-      canvas.height = this.height / this.width * w;
+      canvas.height = (this.height / this.width) * w;
+
       dataUrl = canvas.toDataURL();
-      placeholder = h("div", {
-        class: [(NAME$1 + "__placeholder"), classes.placeholder],
-        style: {
-          background: this.background || false
-        }
-      }, [h("img", {
-        attrs: {
-          src: this.placeholder || dataUrl,
-          width: this.width,
-          height: this.height,
-          alt: this.$attrs.alt || ""
-        }
-      })]);
+
+      placeholder = h(
+        "div",
+        {
+          class: [(NAME$1 + "__placeholder"), classes.placeholder],
+          style: {
+            background: this.background || false,
+          },
+        },
+        [
+          h("img", {
+            attrs: {
+              src: this.placeholder || dataUrl,
+              width: this.width,
+              height: this.height,
+              alt: this.$attrs.alt || "",
+            },
+          }) ]
+      );
     }
 
     var img = h("img", {
@@ -802,8 +813,10 @@ var script$4 = {
       attrs: Object.assign({}, this.$attrs,
         {src: dataUrl,
         width: this.width || false,
-        height: this.height || false})
-    }); // TODO: Add this when SSR support is enabled
+        height: this.height || false}),
+    });
+
+    // TODO: Add this when SSR support is enabled
     // const noscript = h("noscript", [
     //   h("img", {
     //     attrs: {
@@ -811,15 +824,20 @@ var script$4 = {
     //     }
     //   })
     // ])
-
-    return h("div", {
-      class: [NAME$1, ( obj = {}, obj[(NAME$1 + "--has-dimensions")] = hasDimensions, obj ), classes.root],
-      style: {
-        maxWidth: this.width + "px"
-      }
-    }, [placeholder, img]);
-  }
-
+    return h(
+      "div",
+      {
+        class: [
+          NAME$1,
+          ( obj = {}, obj[(NAME$1 + "--has-dimensions")] = hasDimensions, obj ),
+          classes.root ],
+        style: {
+          maxWidth: this.width + "px",
+        },
+      },
+      [placeholder, img]
+    )
+  },
 };
 
 /* script */
@@ -830,7 +848,7 @@ var __vue_script__$4 = script$4;
   /* style */
   var __vue_inject_styles__$4 = function (inject) {
     if (!inject) { return }
-    inject("data-v-18f38ea6_0", { source: ".vts-img{display:inline-block;position:relative;width:100%}.vts-img img{vertical-align:top}.vts-img__img{position:relative;opacity:0;transition:opacity .3s ease}.vts-img__placeholder{position:absolute;top:0;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
+    inject("data-v-3541ae8a_0", { source: ".vts-img{display:inline-block;position:relative;width:100%}.vts-img img{vertical-align:top}.vts-img__img{position:relative;opacity:0;transition:opacity .3s ease}.vts-img__placeholder{position:absolute;top:0;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -859,21 +877,23 @@ var __vue_script__$4 = script$4;
   );
 
 //
+
 /**
  * Input component that automatically includes labels, validation, and aria descriptions for any errors.
  */
-
 var script$5 = {
   inheritAttrs: false,
+
   model: {
-    event: "update"
+    event: "update",
   },
+
   props: {
     /**
      * Every input should have a label with the exception of `radio` which supports labels for the `options` prop.
      */
     label: {
-      type: String
+      type: String,
     },
 
     /**
@@ -881,7 +901,7 @@ var script$5 = {
      */
     value: {
       type: [String, Number, Boolean],
-      default: ""
+      default: "",
     },
 
     /**
@@ -889,35 +909,41 @@ var script$5 = {
      */
     options: {
       type: Array,
-      default: function () { return []; }
+      default: function()  {
+        return []
+      }
     },
+
     classes: {
       type: Object,
-      default: function () { return ({}); }
+      default: function() {
+        return {}
+      },
+    },
+  },
+
+  data: function() {
+    return {
+      dirty: false,
+    anyInvalid: false,
+    invalid: {},
     }
   },
-  data: function () { return ({
-    dirty: false,
-    anyInvalid: false,
-    invalid: {}
-  }); },
+
   computed: {
     tag: function tag() {
       var type = this.$attrs.type || "text";
-
       if (type === "textarea") {
-        return "textarea";
+        return "textarea"
       }
-
       if (type === "select") {
-        return "select";
+        return "select"
       }
-
-      return "input";
+      return "input"
     },
 
     id: function id() {
-      return this.$attrs.id || "vts-" + randomString(6);
+      return this.$attrs.id || "vts-" + randomString(6)
     },
 
     computedOptions: function computedOptions() {
@@ -925,22 +951,20 @@ var script$5 = {
 
       return this.options.map(function (item) {
         // Each item should be an object with at least value and label which we can bind to later
-        item = typeof item === "object" ? item : {
-          value: item
-        };
+        item = typeof item === "object" ? item : { value: item };
         Object.assign(item, this$1.$attrs);
         item.label = item.label || item.value;
         item.name = item.name || this$1.id;
         item.required = true;
-        return item;
-      });
-    }
-
+        return item
+      })
+    },
   },
+
   watch: {
     value: {
-      handler: "validate"
-    }
+      handler: "validate",
+    },
   },
 
   mounted: function mounted() {
@@ -951,12 +975,12 @@ var script$5 = {
     onInput: function onInput(ref) {
       var target = ref.target;
 
-      var value = this.$attrs.type === "checkbox" ? target.checked : target.value;
+      var value =
+        this.$attrs.type === "checkbox" ? target.checked : target.value;
       /**
        * @event update
        * @type { any }
        */
-
       this.$emit("update", value);
     },
 
@@ -966,8 +990,10 @@ var script$5 = {
 
     validate: function validate() {
       var input = this.$refs.input;
-      if (Array.isArray(input)) { return; }
+      if (Array.isArray(input)) { return }
+
       var validity = input.validity;
+
       this.anyInvalid = !validity.valid;
       this.invalid = {
         required: validity.valueMissing,
@@ -976,11 +1002,10 @@ var script$5 = {
         min: validity.rangeOverflow,
         max: validity.rangeUnderflow,
         type: validity.typeMismatch,
-        pattern: validity.patternMismatch
+        pattern: validity.patternMismatch,
       };
-    }
-
-  }
+    },
+  },
 };
 
 /* script */
@@ -1048,19 +1073,18 @@ var script$6 = {
      */
     threshold: {
       type: Array,
-      default: function () { return [0, 0.2]; }
+      default: function () {
+        return [0, 0.2]
+      }
     },
-
     /**
      * The IntersectionObserver root value.
      */
     root: String,
-
     /**
      * The IntersectionObserver rootMargin value.
      */
     rootMargin: String,
-
     /**
      * The HTML tag used to wrap this component
      */
@@ -1069,45 +1093,44 @@ var script$6 = {
       default: "div"
     }
   },
-
   mounted: function mounted() {
     var this$1 = this;
 
-    this.observer = new IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting) {
+    this.observer = new IntersectionObserver(
+      function (entries) {
+        if (entries[0].isIntersecting) {
+          /**
+           * Fired when the observed element enters the screen.
+           * @event enter
+           * @type { IntersectionObserverEntry }
+           */
+          this$1.$emit("enter", [entries[0]]);
+        } else {
+          /**
+           * Fired when the observed element exits the screen.
+           * @event exit
+           * @type { IntersectionObserverEntry }
+           */
+          this$1.$emit("exit", [entries[0]]);
+        }
         /**
-         * Fired when the observed element enters the screen.
-         * @event enter
+         * Fired when the observed element enters or exits the screen.
+         * @event change
          * @type { IntersectionObserverEntry }
          */
-        this$1.$emit("enter", [entries[0]]);
-      } else {
-        /**
-         * Fired when the observed element exits the screen.
-         * @event exit
-         * @type { IntersectionObserverEntry }
-         */
-        this$1.$emit("exit", [entries[0]]);
+        this$1.$emit("change", [entries[0]]);
+      },
+      {
+        threshold: this.threshold,
+        root: this.root,
+        rootMargin: this.rootMargin
       }
-      /**
-       * Fired when the observed element enters or exits the screen.
-       * @event change
-       * @type { IntersectionObserverEntry }
-       */
-
-
-      this$1.$emit("change", [entries[0]]);
-    }, {
-      threshold: this.threshold,
-      root: this.root,
-      rootMargin: this.rootMargin
-    });
+    );
     this.observer.observe(this.$el);
-    this.$once("hook:beforeDestroy", function () {
-      this$1.observer.disconnect();
+    this.$once("hook:beforeDestroy", function()  {
+      this.observer.disconnect();
     });
   }
-
 };
 
 /* script */
@@ -1147,88 +1170,85 @@ var __vue_staticRenderFns__$4 = [];
   );
 
 //
+
 /**
  * A modal/dialogue component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the modal until it is closed. It supports being closed by clicking outside the modal content or pressing the ESC key.
  */
-
 var script$7 = {
   model: {
     prop: "showing",
-    event: "change"
+    event: "change",
   },
+
   props: {
     /**
      * @model
      */
     showing: Boolean,
-
     /**
      * HTML component for the modal content.
      */
     tag: {
       type: String,
-      default: "div"
+      default: "div",
     },
-
     /**
      * Flag to enable/prevent the modal from being closed.
      */
     dismissible: {
       type: Boolean,
-      default: true
+      default: true,
     },
-
     /**
      * CSS width to set the modal to.
      */
     width: String,
-
     /**
      * CSS max-width to set the modal to.
      */
     maxWidth: String,
-
     /**
      * Prevents the page from being scrolled while the modal is open.
      */
     noScroll: {
       type: Boolean,
-      default: false
+      default: false,
     },
-
     /**
      * Transition name to apply to the modal.
      */
     transition: String,
-
     /**
      * Transition name to apply to the background.
      */
     bgTransition: String,
+
     classes: {
       type: Object,
-      default: function () { return ({}); }
-    }
+      default: function() {
+        return {}
+      },
+    },
   },
+
   watch: {
     showing: {
       handler: function handler(next, prev) {
-        var this$1 = this;
-
         if (typeof window !== "undefined") {
           if (next && next != prev) {
-            this.noScroll && document.body.style.setProperty("overflow", "hidden");
-            this.$nextTick(function () {
-              this$1.$refs.content.focus();
+            this.noScroll &&
+              document.body.style.setProperty("overflow", "hidden");
+            this.$nextTick(function()  {
+              this.$refs.content.focus();
             });
           } else {
             this.noScroll && document.body.style.removeProperty("overflow");
           }
         }
-      }
-
-    }
+      },
+    },
   },
+
   methods: {
     show: function show() {
       /**
@@ -1239,7 +1259,6 @@ var script$7 = {
       this.$emit("show");
       this.$emit("change", true);
     },
-
     hide: function hide() {
       /**
        * Fired when the modal closes.
@@ -1249,7 +1268,6 @@ var script$7 = {
       this.$emit("hide");
       this.$emit("change", false);
     },
-
     toggle: function toggle() {
       var event = this.showing ? "hide" : "show";
       this.$emit(event, !this.showing);
@@ -1258,10 +1276,8 @@ var script$7 = {
        * @event change
        * @type { boolean }
        */
-
       this.$emit("change", !this.showing);
     },
-
     onClick: function onClick(event) {
       if (event.target.classList.contains("vts-modal") && this.dismissible) {
         this.hide();
@@ -1272,15 +1288,15 @@ var script$7 = {
       if (event.keyCode === keycodes.ESC) {
         this.hide();
       }
-
       if (event.keyCode === keycodes.TAB) {
         var content = this.$refs.content;
-        if (!content) { return; }
+        if (!content) { return }
+
         var focusable = Array.from(content.querySelectorAll(FOCUSABLE));
 
         if (!focusable.length) {
           event.preventDefault();
-          return;
+          return
         }
 
         if (!content.contains(document.activeElement)) {
@@ -1300,9 +1316,8 @@ var script$7 = {
           }
         }
       }
-    }
-
-  }
+    },
+  },
 };
 
 /* script */
@@ -1315,7 +1330,7 @@ var __vue_staticRenderFns__$5 = [];
   /* style */
   var __vue_inject_styles__$7 = function (inject) {
     if (!inject) { return }
-    inject("data-v-944cc660_0", { source: ".vts-modal{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.2)}.vts-modal [tabindex=\"-1\"]:focus{outline:0}.vts-modal__content{overflow:auto;max-width:70vw;max-height:80vh;background:#fff}", map: undefined, media: undefined });
+    inject("data-v-4d57ff0e_0", { source: ".vts-modal{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.2)}.vts-modal [tabindex=\"-1\"]:focus{outline:0}.vts-modal__content{overflow:auto;max-width:70vw;max-height:80vh;background:#fff}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -1344,6 +1359,7 @@ var __vue_staticRenderFns__$5 = [];
   );
 
 //
+
 /**
  * Show and hide content based on which tabs are selected.
  *
@@ -1351,65 +1367,72 @@ var __vue_staticRenderFns__$5 = [];
  *
  * Keyboard navigation to the tabs only targets active tab. `right` key activates next tab (horizontal orientation) or loops around to start. `left` key activates previous tab (horizontal orientation) or loops around to end. `down` key activates next tab (vertical orientation) or loops around to start. `down` key activates previous tab (vertical orientation) or loops around to end. (in horizontal orientation), `home` key activates first tab. `end` key activates last tab.
  */
-
 var script$8 = {
   // name: NAME,
+
   props: {
     /**
      * Support for aria-label attribute
      */
     label: String,
-
     /**
      * Support for aria-orientation attribute
      */
     orientation: {
       type: String,
-      default: "horizontal"
+      default: "horizontal",
     },
+
     classes: {
       type: Object,
-      default: function () { return ({}); }
-    }
+      default: function()  {
+        return {}
+      }
+    },
   },
-  data: function () { return ({
-    activeIndex: 0
-  }); },
+
+  data: function() {
+    return {
+    activeIndex: 0,
+  }},
+
   computed: {
     tablist: function tablist() {
-      return Object.keys(this.$slots);
+      return Object.keys(this.$slots)
     },
 
     id: function id() {
-      if (this.$attrs.id) { return this.$attrs.id; }
-      return Array(6).fill().map(function () { return Math.floor(36 * Math.random()).toString(36); }).join("");
-    }
-
+      if (this.$attrs.id) { return this.$attrs.id }
+      return Array(6)
+        .fill()
+        .map(function() {
+          return Math.floor(36 * Math.random()).toString(36)
+        })
+        .join("")
+    },
   },
+
   methods: {
     onKeydown: function onKeydown(event) {
       var keyCode = event.keyCode;
-
       switch (keyCode) {
         case keycodes.END:
           event.preventDefault();
           this.activeIndex = this.tablist.length - 1;
           this.setFocus();
-          break;
-
+          break
         case keycodes.HOME:
           event.preventDefault();
           this.activeIndex = 0;
           this.setFocus();
-          break;
+          break
         // Up and down are in keydown because we need to prevent page scroll >:)
-
         case keycodes.LEFT:
         case keycodes.RIGHT:
         case keycodes.UP:
         case keycodes.DOWN:
           this.determineOrientation(event);
-          break;
+          break
       }
     },
 
@@ -1417,7 +1440,6 @@ var script$8 = {
     determineOrientation: function determineOrientation(event) {
       var keyCode = event.keyCode;
       var proceed = false;
-
       if (this.orientation === "vertical") {
         if (keyCode === keycodes.UP || keyCode === keycodes.DOWN) {
           event.preventDefault();
@@ -1428,7 +1450,6 @@ var script$8 = {
           proceed = true;
         }
       }
-
       if (proceed) {
         this.switchTabOnArrowPress(event);
         this.setFocus();
@@ -1443,11 +1464,10 @@ var script$8 = {
       directions[keycodes.UP] = -1;
       directions[keycodes.RIGHT] = 1;
       directions[keycodes.DOWN] = 1;
+
       /* istanbul ignore next */
-
-      if (!directions[keyCode]) { return; }
+      if (!directions[keyCode]) { return }
       var nextIndex = this.activeIndex + directions[keyCode];
-
       if (nextIndex < 0) {
         this.activeIndex = this.$refs.tab.length - 1;
       } else if (nextIndex >= this.$refs.tab.length) {
@@ -1459,9 +1479,8 @@ var script$8 = {
 
     setFocus: function setFocus() {
       this.$refs.tab[this.activeIndex].focus();
-    }
-
-  }
+    },
+  },
 };
 
 /* script */
@@ -1548,28 +1567,41 @@ var script$9 = {
      */
     label: {
       type: String,
-      required: true
+      required: true,
     },
+
     disabled: Boolean,
+
     classes: {
       type: Object,
-      default: function () { return ({}); }
-    }
+      default: function() {
+        return {}
+      }
+    },
   },
 
   data: function data() {
     return {
-      isOpen: !!this.isOpen
-    };
+      isOpen: !!this.isOpen,
+    }
   },
 
   computed: {
     id: function id() {
-      if (this.$attrs.id) { return this.$attrs.id; }
-      return "vts-toggle-" + Array(6).fill().map(function () { return Math.floor(36 * Math.random()).toString(36); }).join("");
-    }
+      if (this.$attrs.id) { return this.$attrs.id }
 
+      return (
+        "vts-toggle-" +
+        Array(6)
+          .fill()
+          .map(function() {
+            return Math.floor(36 * Math.random()).toString(36)
+          })
+          .join("")
+      )
+    },
   },
+
   methods: {
     collapse: function collapse(el) {
       el.style.height = 0;
@@ -1577,17 +1609,16 @@ var script$9 = {
 
     expand: function expand(el) {
       el.style.overflow = "hidden";
-      el.style.height = (el.scrollHeight) + "px"; // Force repaint to make sure the animation is triggered correctly.
-
+      el.style.height = (el.scrollHeight) + "px";
+      // Force repaint to make sure the animation is triggered correctly.
       el.scrollHeight;
     },
 
     resetHeight: function resetHeight(el) {
       el.style.overflow = "visible";
       el.style.height = "";
-    }
-
-  }
+    },
+  },
 };
 
 /* script */
@@ -1600,7 +1631,7 @@ var __vue_staticRenderFns__$7 = [];
   /* style */
   var __vue_inject_styles__$9 = function (inject) {
     if (!inject) { return }
-    inject("data-v-7974b5ac_0", { source: ".vts-toggle__content{transition:height .3s ease}", map: undefined, media: undefined });
+    inject("data-v-b1c96b66_0", { source: ".vts-toggle__content{transition:height .3s ease}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -1629,7 +1660,7 @@ var __vue_staticRenderFns__$7 = [];
   );
 
 var autofocus = {
-  inserted: function (el) { return el.focus(); }
+  inserted: function (el) { return el.focus(); },
 };
 
 var clickout = {
@@ -1639,12 +1670,10 @@ var clickout = {
     document.body.addEventListener("click", binding.value);
     el.addEventListener("click", binding.stop);
   },
-
   unbind: function unbind(el, binding) {
     document.body.removeEventListener("click", binding.value);
     el.removeEventListener("click", binding.stop);
-  }
-
+  },
 };
 
 export { VAlert, VAsync, VDrawer, VDropdown, VImg, VInput, VIntersect, VModal, VTabs, VToggle, autofocus, clickout };
