@@ -17,8 +17,8 @@
 <script>
 export default {
   data: () => ({
-    modal: false
-  })
+    modal: false,
+  }),
 }
 </script>
 
@@ -82,8 +82,8 @@ export default {
 <script>
 export default {
   data: () => ({
-    modal: false
-  })
+    modal: false,
+  }),
 }
 </script>
 ```
@@ -105,8 +105,8 @@ export default {
 <script>
 export default {
   data: () => ({
-    modal: false
-  })
+    modal: false,
+  }),
 }
 </script>
 ```
@@ -128,8 +128,8 @@ export default {
 <script>
 export default {
   data: () => ({
-    modal: false
-  })
+    modal: false,
+  }),
 }
 </script>
 ```
@@ -153,8 +153,8 @@ export default {
 <script>
 export default {
   data: () => ({
-    modal: false
-  })
+    modal: false,
+  }),
 }
 </script>
 
@@ -181,4 +181,12 @@ export default {
   transform: translateY(10px);
 }
 </style>
+```
+
+### Custom Classes
+
+This component can accept a `classes` prop to cusomize the output HTML classes:
+
+```
+:classes="{ root: 'root-class', content: 'content-class' }"
 ```

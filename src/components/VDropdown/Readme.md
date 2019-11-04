@@ -107,3 +107,11 @@ export default {}
 }
 </style>
 ```
+
+### Custom Classes
+
+This component can accept a `classes` prop to cusomize the output HTML classes:
+
+```
+:classes="{ root: 'root-class', trigger: 'trigger-class', content: 'content-class' }"
+```

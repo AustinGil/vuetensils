@@ -53,3 +53,11 @@ export default {}
 export default {}
 </script>
 ```
+
+### Custom Classes
+
+This component can accept a `classes` prop to cusomize the output HTML classes:
+
+```
+:classes="{ root: 'root-class', label: 'label-class', content: 'content-class' }"
+```

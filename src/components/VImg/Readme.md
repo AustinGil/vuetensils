@@ -21,7 +21,11 @@ Pass in the image dimensions to avoid the page jumping when the image loads
 
 ```vue
 <template>
-  <VImg src="https://source.unsplash.com/random/900x550" width="900" height="550" />
+  <VImg
+    src="https://source.unsplash.com/random/900x550"
+    width="900"
+    height="550"
+  />
 </template>
 
 <script>
@@ -116,4 +120,12 @@ img {
   height: auto;
 }
 </style>
+```
+
+### Custom Classes
+
+This component can accept a `classes` prop to cusomize the output HTML classes:
+
+```
+:classes="{ root: 'root-class', placeholder: 'placeholder-class', img: 'img-class' }"
 ```

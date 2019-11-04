@@ -14,8 +14,8 @@
 <script>
 export default {
   data: () => ({
-    showDrawer: false
-  })
+    showDrawer: false,
+  }),
 }
 </script>
 
@@ -69,8 +69,8 @@ export default {
 <script>
 export default {
   data: () => ({
-    showDrawer: false
-  })
+    showDrawer: false,
+  }),
 }
 </script>
 ```
@@ -91,8 +91,8 @@ export default {
 <script>
 export default {
   data: () => ({
-    showDrawer: false
-  })
+    showDrawer: false,
+  }),
 }
 </script>
 ```
@@ -113,8 +113,8 @@ export default {
 <script>
 export default {
   data: () => ({
-    showDrawer: false
-  })
+    showDrawer: false,
+  }),
 }
 </script>
 ```
@@ -135,8 +135,8 @@ export default {
 <script>
 export default {
   data: () => ({
-    showDrawer: false
-  })
+    showDrawer: false,
+  }),
 }
 </script>
 
@@ -167,7 +167,12 @@ export default {
 ```vue
 <template>
   <div>
-    <VDrawer v-model="showDrawer" transition="slide-left" bg-transition="fade" right>
+    <VDrawer
+      v-model="showDrawer"
+      transition="slide-left"
+      bg-transition="fade"
+      right
+    >
       My drawer content
     </VDrawer>
 
@@ -178,8 +183,8 @@ export default {
 <script>
 export default {
   data: () => ({
-    showDrawer: false
-  })
+    showDrawer: false,
+  }),
 }
 </script>
 
@@ -205,4 +210,12 @@ export default {
   transform: translateX(100%);
 }
 </style>
+```
+
+### Custom Classes
+
+This component can accept a `classes` prop to cusomize the output HTML classes:
+
+```
+:classes="{ root: 'root-class', content: 'content-class' }"
 ```
