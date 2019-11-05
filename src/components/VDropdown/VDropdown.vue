@@ -1,6 +1,6 @@
 <template>
   <div
-    class="vts-dropdown"
+    :class="['vts-dropdown', classes.root]"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
     @focusout="onFocusout"
