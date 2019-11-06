@@ -57,6 +57,15 @@ module.exports = {
           "/components/VToggle",
         ],
       },
+      {
+        title: "Directives",
+        collapsable: false,
+        children: [
+          "/directives/autofocus",
+          "/directives/clickout",
+          "/directives/copy",
+        ],
+      },
     ],
   },
   plugins: [

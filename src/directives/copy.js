@@ -1,13 +1,8 @@
 /**
  * Copies a string of text to the user's clipboard
  * @param {String} content The content within the downloaded file
- * @param {Boolean} [richHtml=false]
  */
-function copyToClipboard(content, richHtml = false) {
-  if (!richHtml && navigator.clipboard) {
-    return navigator.clipboard.writeText(content)
-  }
-
+function copyToClipboard(content) {
   const activeEl = document.activeElement
 
   const textarea = document.createElement("textarea")
@@ -35,9 +30,9 @@ function copyToClipboard(content, richHtml = false) {
     document.execCommand("copy")
   }
 
-  activeEl && activeEl.focus()
-
   document.body.removeChild(textarea)
+
+  activeEl && activeEl.focus()
 }
 
 export default {
