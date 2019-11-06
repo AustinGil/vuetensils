@@ -42,11 +42,11 @@ function copyToClipboard(content, richHtml = false) {
 
 export default {
   bind(el, binding, vnode) {
-    console.log(vnode.$on)
-    el.addEventListener("click", binding)
+    binding.handler = () => copyToClipboard(binding.value)
+
+    el.addEventListener("click", binding.handler)
   },
   unbind(el, binding) {
-    // document.body.removeEventListener("click", binding.value)
-    // el.removeEventListener("click", binding.stop)
+    el.removeEventListener("click", binding.handler)
   },
 }
