@@ -93,39 +93,43 @@ export default {
   },
 
   render(h) {
-    const pending = this.pending
+    const { pending, error, results: data, default: defaultData } = this
 
-    if (pending && this.$scopedSlots.pending) {
-      /** @slot Rendered while the promise is in a pending state */
-      const pendingSlot = this.$scopedSlots.pending()
-      return safeSlot(h, pendingSlot)
-    }
-
-    const error = this.error
-
-    if (!pending && error && this.$scopedSlots.rejected) {
-      /** @slot Rendered when the promise has rejected. Provides the caught error. */
-      const rejectSlot = this.$scopedSlots.rejected(error)
-      return safeSlot(h, rejectSlot)
-    }
-
-    const results = this.results === undefined ? this.default : this.results
-
-    if (!pending && this.$scopedSlots.resolved) {
-      /** @slot Rendered when the promise has resolved. Provides the results. */
-      const resolveSlot = this.$scopedSlots.resolved(results)
-      return safeSlot(h, resolveSlot)
-    }
-
-    if (!this.$scopedSlots.default) return
-
+    /** @slot Rendered while the promise is in a pending state */
+    const pendingSlot = this.$scopedSlots.pending
+    /** @slot Rendered when the promise has rejected. Provides the caught error. */
+    const rejectSlot = this.$scopedSlots.reject
+    /** @slot Rendered when the promise has resolved. Provides the results. */
+    const resolveSlot = this.$scopedSlots.resolve
     /** @slot Provides the status of the component for pending state, error, or results. */
-    const defaultSlot = this.$scopedSlots.default({
-      pending,
-      results,
-      error,
-    })
-    return safeSlot(h, defaultSlot)
+    const defaultSlot = this.$scopedSlots.default
+
+    if (pending && pendingSlot) {
+      return safeSlot(h, pendingSlot())
+    }
+
+    if (!pending && error) {
+      if (!rejectSlot) return
+
+      return safeSlot(h, rejectSlot(error))
+    }
+
+    const results = data === undefined ? defaultData : data
+
+    if (!pending && resolveSlot) {
+      return safeSlot(h, resolveSlot(results))
+    }
+
+    if (!defaultSlot) return
+
+    return safeSlot(
+      h,
+      defaultSlot({
+        pending,
+        results,
+        error,
+      })
+    )
   },
 }
 </script>
