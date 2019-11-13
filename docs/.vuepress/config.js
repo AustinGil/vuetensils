@@ -26,19 +26,16 @@ const path = require("path")
 module.exports = {
   title: "Vuetensils",
   description: "A tasty toolset for Vue.js",
-  head: [
-    [
-      "link",
-      { rel: "stylesheet", type: "text/css", href: "/static/styles.css" },
-    ],
-  ],
   themeConfig: {
     home: true,
     title: "Documentation!!!",
     logo: "/static/logo.png",
     repo: "stegosource/vuetensils",
     lastUpdated: "Last Updated",
-    nav: [{ text: "Home", link: "/" }, { text: "Docs", link: "/introduction" }],
+    nav: [
+      { text: "Home", link: "/" },
+      { text: "Docs", link: "/introduction" },
+    ],
     sidebar: [
       "/Introduction",
       {

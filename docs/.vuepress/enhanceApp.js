@@ -32,3 +32,5 @@ export default ({ Vue, options, router, siteData }) => {
   Vue.directive("clickout", clickout)
   Vue.directive("copy", copy)
 }
+
+import "./public/static/styles.css"

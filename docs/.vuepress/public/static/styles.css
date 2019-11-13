@@ -120,8 +120,22 @@ body .live-preview pre {
   padding: 10px;
 }
 
+.styled .vts-file__dropzone {
+  display: flex;
+  justify-content: center;
+  border: 3px dashed skyblue;
+  border-radius: 5px;
+  padding: 30px;
+  background: lightblue;
+  transition: background-color 0.2s ease;
+}
+
 .vts-file--droppable .vts-file__dropzone {
-  background: red;
+  background: skyblue;
+}
+
+.vts-file--selected .vts-file__dropzone {
+  background: greenyellow;
 }
 
 .styled .vts-input__text {

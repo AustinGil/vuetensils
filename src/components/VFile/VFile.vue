@@ -4,7 +4,7 @@
       'vts-file',
       {
         'vts-file--droppable': droppable,
-        'vts-file--filled': !!files.length,
+        'vts-file--selected': !!files.length,
       },
       classes.root,
     ]"
@@ -12,7 +12,7 @@
     <input
       ref="input"
       v-bind="$attrs"
-      @change.prevent="$emit('change', $event.target.files)"
+      @change="onChange"
       v-on="$listeners"
       type="file"
       :class="['vts-file__input', classes.input]"
@@ -22,9 +22,9 @@
       <slot name="label">{{ label }}</slot>
     </span>
 
-    <div
+    <span
       :class="['vts-file__dropzone', classes.dropzone]"
-      @drop.prevent="$emit('change', $event.dataTransfer.files)"
+      @drop.prevent="onDrop"
       @dragenter.prevent="droppable = true"
       @dragleave.prevent="droppable = false"
       @dragover.prevent
@@ -37,10 +37,10 @@
         </template>
 
         <template v-else>
-          No file chosen
+          Choose files or drop here
         </template>
       </slot>
-    </div>
+    </span>
   </label>
 </template>
 
@@ -48,7 +48,7 @@
 export default {
   model: {
     prop: "files",
-    event: "change",
+    event: "update",
   },
 
   props: {
@@ -79,8 +79,15 @@ export default {
   },
 
   methods: {
+    onDrop(event) {
+      this.$emit("update", event.dataTransfer.files)
+    },
+    onChange(event) {
+      this.$emit("update", event.target.files)
+    },
+
     clear() {
-      this.$emit("change", [])
+      this.$emit("update", [])
       this.$refs.input.value = null
     },
   },
@@ -100,7 +107,8 @@ export default {
 }
 
 .vts-file__dropzone {
-  appearance: searchfield;
+  border: 1px solid;
+  padding: 2px;
 }
 
 input:focus ~ .vts-file__dropzone {
