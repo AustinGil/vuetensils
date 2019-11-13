@@ -98,9 +98,9 @@ export default {
     /** @slot Rendered while the promise is in a pending state */
     const pendingSlot = this.$scopedSlots.pending
     /** @slot Rendered when the promise has rejected. Provides the caught error. */
-    const rejectSlot = this.$scopedSlots.reject
+    const rejectedSlot = this.$scopedSlots.rejected
     /** @slot Rendered when the promise has resolved. Provides the results. */
-    const resolveSlot = this.$scopedSlots.resolve
+    const resolvedSlot = this.$scopedSlots.resolved
     /** @slot Provides the status of the component for pending state, error, or results. */
     const defaultSlot = this.$scopedSlots.default
 
@@ -109,15 +109,15 @@ export default {
     }
 
     if (!pending && error) {
-      if (!rejectSlot) return
+      if (!rejectedSlot) return
 
-      return safeSlot(h, rejectSlot(error))
+      return safeSlot(h, rejectedSlot(error))
     }
 
     const results = data === undefined ? defaultData : data
 
-    if (!pending && resolveSlot) {
-      return safeSlot(h, resolveSlot(results))
+    if (!pending && resolvedSlot) {
+      return safeSlot(h, resolvedSlot(results))
     }
 
     if (!defaultSlot) return

@@ -7,7 +7,7 @@ This component is great for handling any asynchronous tasks that involve promise
 ```vue live
 <template>
   <VAsync :await="httpRequest">
-    <template v-slot:resolved="results">
+    <template #resolved="results">
       <h3>{{ results.title }}</h3>
       <p>{{ results.body }}</p>
     </template>
@@ -30,11 +30,11 @@ export default {
 ```vue live
 <template>
   <VAsync :await="sleep">
-    <template v-slot:pending>
+    <template #pending>
       just...a bit...more...
     </template>
 
-    <template v-slot:resolved>
+    <template #resolved>
       Ok, we're done
     </template>
   </VAsync>
@@ -54,11 +54,11 @@ export default {
 ```vue live
 <template>
   <VAsync :await="sleep">
-    <template v-slot:pending>
+    <template #pending>
       just...a bit...more...
     </template>
 
-    <template v-slot:rejected="error">
+    <template #rejected="error">
       {{ error }}
     </template>
   </VAsync>
@@ -83,7 +83,7 @@ export default {
 <template>
   <div>
     <VAsync :await="sleep">
-      <template v-slot:default="{ pending, results, error }">
+      <template #default="{ pending, results, error }">
         <p v-if="pending">just...a bit...more...</p>
         <p v-else-if="error">{{ results }}</p>
         <p v-else="results">{{ results }}</p>
@@ -111,11 +111,11 @@ export default {
 <template>
   <div>
     <VAsync :await="waitForIt">
-      <template v-slot:pending>
+      <template #pending>
         <p>just...a bit...more...</p>
       </template>
 
-      <template v-slot:resolved="results">
+      <template #resolved="results">
         <p>{{ results }}</p>
       </template>
     </VAsync>
@@ -148,11 +148,11 @@ export default {
 <template>
   <div>
     <VAsync ref="async">
-      <template v-slot:pending>
+      <template #pending>
         <p>just...a bit...more...</p>
       </template>
 
-      <template v-slot:resolved="results">
+      <template #resolved="results">
         <p>{{ results }}</p>
       </template>
     </VAsync>

@@ -27,6 +27,7 @@
           :checked="value === option.value"
           :type="$attrs.type"
           :name="option.name"
+          :value="option.value"
           @input="$emit('update', option.value)"
           @blur="onBlur"
           v-on="$listeners"
