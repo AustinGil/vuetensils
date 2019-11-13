@@ -49,6 +49,7 @@ module.exports = {
           "/components/VAsync",
           "/components/VDrawer",
           "/components/VDropdown",
+          "/components/VFile",
           "/components/VImg",
           "/components/VInput",
           "/components/VIntersect",

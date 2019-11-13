@@ -3,6 +3,7 @@ import {
   VAsync,
   VDrawer,
   VDropdown,
+  VFile,
   VImg,
   VInput,
   VIntersect,
@@ -19,6 +20,7 @@ export default ({ Vue, options, router, siteData }) => {
   Vue.component("VAsync", VAsync)
   Vue.component("VDrawer", VDrawer)
   Vue.component("VDropdown", VDropdown)
+  Vue.component("VFile", VFile)
   Vue.component("VImg", VImg)
   Vue.component("VInput", VInput)
   Vue.component("VIntersect", VIntersect)

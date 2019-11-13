@@ -120,6 +120,10 @@ body .live-preview pre {
   padding: 10px;
 }
 
+.vts-file--droppable .vts-file__dropzone {
+  background: red;
+}
+
 .styled .vts-input__text {
   font-size: 14px;
 }

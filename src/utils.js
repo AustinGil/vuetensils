@@ -10,8 +10,5 @@ export function randomString(
 }
 
 export function safeSlot(h, slot) {
-  if (slot && slot.length > 1) {
-    return h("div", [slot])
-  }
-  return slot
+  return slot.length > 1 ? h("div", slot) : slot
 }
