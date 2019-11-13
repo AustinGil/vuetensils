@@ -51,6 +51,8 @@ export default {
 
   mounted() {
     let timeOut
+    const { src, srcset, alt } = this
+
     const observer = new IntersectionObserver(entries => {
       const entry = entries[0]
       const wrapper = entry.target
@@ -70,9 +72,9 @@ export default {
       if (entry.isIntersecting) {
         // Element is in viewport
         wrapper.classList.add(`${NAME}--loading`)
-        img.src = this.src
-        if (!!this.srcset) img.srcset = this.srcset
-        if (!!this.alt) img.alt = this.alt
+        img.src = src
+        if (!!srcset) img.srcset = srcset
+        if (!!alt) img.alt = alt
         observer.disconnect()
       }
     })
@@ -91,15 +93,16 @@ export default {
     //   return h(false)
     // }
 
+    const { width, height, $attrs, classes } = this
     let dataUrl = false
-    const hasDimensions = this.width && this.height
+    const hasDimensions = width && height
     let placeholder = h(false)
 
     if (hasDimensions) {
       const w = 100
       const canvas = document.createElement("canvas")
       canvas.width = w
-      canvas.height = (this.height / this.width) * w
+      canvas.height = (height / width) * w
 
       dataUrl = canvas.toDataURL()
 
@@ -115,9 +118,9 @@ export default {
           h("img", {
             attrs: {
               src: this.placeholder || dataUrl,
-              width: this.width,
-              height: this.height,
-              alt: this.$attrs.alt || "",
+              width,
+              height,
+              alt: $attrs.alt || "",
             },
           }),
         ]
@@ -127,10 +130,10 @@ export default {
     const img = h("img", {
       class: [`${NAME}__img`, classes.img],
       attrs: {
-        ...this.$attrs,
+        ...$attrs,
         src: dataUrl,
-        width: this.width || false,
-        height: this.height || false,
+        width: width || false,
+        height: height || false,
       },
     })
 
@@ -151,7 +154,7 @@ export default {
           classes.root,
         ],
         style: {
-          maxWidth: this.width + "px",
+          maxWidth: width + "px",
         },
       },
       [placeholder, img]
