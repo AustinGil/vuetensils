@@ -51,6 +51,7 @@ module.exports = {
           "/components/VInput",
           "/components/VIntersect",
           "/components/VModal",
+          "/components/VResize",
           "/components/VTabs",
           "/components/VToggle",
         ],
@@ -58,11 +59,7 @@ module.exports = {
       {
         title: "Directives",
         collapsable: false,
-        children: [
-          "/directives/autofocus",
-          "/directives/clickout",
-          "/directives/copy",
-        ],
+        children: ["/directives/autofocus", "/directives/clickout", "/directives/copy"],
       },
     ],
   },

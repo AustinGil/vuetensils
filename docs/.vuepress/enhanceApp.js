@@ -8,6 +8,7 @@ import {
   VInput,
   VIntersect,
   VModal,
+  VResize,
   VTabs,
   VToggle,
   autofocus,
@@ -27,6 +28,7 @@ export default ({ Vue, options, router, siteData }) => {
   Vue.component("VInput", VInput)
   Vue.component("VIntersect", VIntersect)
   Vue.component("VModal", VModal)
+  Vue.component("VResize", VResize)
   Vue.component("VTabs", VTabs)
   Vue.component("VToggle", VToggle)
 
