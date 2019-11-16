@@ -3,6 +3,7 @@ import {
   VAsync,
   VDrawer,
   VDropdown,
+  VFile,
   VImg,
   VInput,
   VIntersect,
@@ -15,10 +16,13 @@ import {
 } from "../../src/entry"
 
 export default ({ Vue, options, router, siteData }) => {
+  Vue.prototype.$log = console.log
+
   Vue.component("VAlert", VAlert)
   Vue.component("VAsync", VAsync)
   Vue.component("VDrawer", VDrawer)
   Vue.component("VDropdown", VDropdown)
+  Vue.component("VFile", VFile)
   Vue.component("VImg", VImg)
   Vue.component("VInput", VInput)
   Vue.component("VIntersect", VIntersect)
@@ -30,3 +34,5 @@ export default ({ Vue, options, router, siteData }) => {
   Vue.directive("clickout", clickout)
   Vue.directive("copy", copy)
 }
+
+import "./public/static/styles.css"
