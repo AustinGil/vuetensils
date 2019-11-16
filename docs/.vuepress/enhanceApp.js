@@ -16,6 +16,8 @@ import {
 } from "../../src/entry"
 
 export default ({ Vue, options, router, siteData }) => {
+  Vue.prototype.$log = console.log
+
   Vue.component("VAlert", VAlert)
   Vue.component("VAsync", VAsync)
   Vue.component("VDrawer", VDrawer)

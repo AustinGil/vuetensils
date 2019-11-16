@@ -130,11 +130,11 @@ body .live-preview pre {
   transition: background-color 0.2s ease;
 }
 
-.vts-file--droppable .vts-file__dropzone {
+.styled .vts-file--droppable .vts-file__dropzone {
   background: skyblue;
 }
 
-.vts-file--selected .vts-file__dropzone {
+.styled .vts-file--selected .vts-file__dropzone {
   background: greenyellow;
 }
 

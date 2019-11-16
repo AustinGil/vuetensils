@@ -4,9 +4,9 @@
       'vts-file',
       {
         'vts-file--droppable': droppable,
-        'vts-file--selected': !!files.length,
+        'vts-file--selected': !!localFiles.length,
       },
-      classes.root,
+      classes.label,
     ]"
   >
     <input
@@ -22,25 +22,32 @@
       <slot name="label">{{ label }}</slot>
     </span>
 
-    <span
-      :class="['vts-file__dropzone', classes.dropzone]"
-      @drop.prevent="onDrop"
-      @dragenter.prevent="droppable = true"
-      @dragleave.prevent="droppable = false"
-      @dragover.prevent
-    >
-      <slot v-bind="{ files, droppable, clear }">
-        <template v-if="files.length">
+    <div @dragenter.prevent="droppable = true" class="vts-file__dropzone">
+      <slot v-bind="{ files: localFiles, droppable }">
+        <span v-if="localFiles.length" aria-hidden="true">
           {{
-            files.length > 1 ? `${files.length} files selected` : files[0].name
+            localFiles.length > 1
+              ? `${localFiles.length} files selected`
+              : localFiles[0].name
           }}
-        </template>
+        </span>
 
-        <template v-else>
+        <span v-else aria-hidden="true">
           Choose files or drop here
-        </template>
+        </span>
       </slot>
-    </span>
+
+      <span
+        v-if="droppable"
+        class="vts-file__overlay"
+        @drop.prevent="onDrop"
+        @dragenter.stop="droppable = true"
+        @dragleave.stop="droppable = false"
+        @dragover.prevent
+      >
+        <slot name="overlay" />
+      </span>
+    </div>
   </label>
 </template>
 
@@ -58,7 +65,7 @@ export default {
     },
 
     files: {
-      type: [Array, FileList],
+      type: Array,
       default: () => [],
     },
 
@@ -69,27 +76,41 @@ export default {
   },
 
   data: () => ({
+    localFiles: [],
     droppable: false,
   }),
 
   watch: {
-    files() {
+    files(files) {
+      this.localFiles = files
+    },
+    localFiles(files) {
       this.droppable = false
     },
   },
 
   methods: {
-    onDrop(event) {
-      this.$emit("update", event.dataTransfer.files)
-    },
     onChange(event) {
-      this.$emit("update", event.target.files)
+      const files = Array.from(event.target.files)
+      this.localFiles = files
+      this.$emit("update", files)
     },
 
-    clear() {
-      this.$emit("update", [])
-      this.$refs.input.value = null
+    onDrop(event) {
+      let files = Array.from(event.dataTransfer.files)
+      const isMulti = !!this.$attrs.multiple
+      if (!isMulti && files.length > 1) {
+        files.length = 1
+      }
+      this.localFiles = files
+      this.$emit("update", files)
     },
+
+    // clear() {
+    //   this.localFiles = []
+    //   this.$refs.input.value = null
+    //   this.$emit("update", [])
+    // },
   },
 }
 </script>
@@ -107,8 +128,18 @@ export default {
 }
 
 .vts-file__dropzone {
+  position: relative;
+  box-sizing: border-box;
   border: 1px solid;
   padding: 2px;
+}
+
+.vts-file__overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 input:focus ~ .vts-file__dropzone {
