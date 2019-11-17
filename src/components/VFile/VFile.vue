@@ -13,7 +13,6 @@
       ref="input"
       v-bind="$attrs"
       @change="onChange"
-      :value="localFiles"
       v-on="$listeners"
       type="file"
       :class="['vts-file__input', classes.input]"
@@ -98,8 +97,8 @@ export default {
     },
 
     onDrop(event) {
-      let files = Array.from(event.dataTransfer.files)
-      const isMulti = !!this.$attrs.multiple
+      const files = Array.from(event.dataTransfer.files)
+      const isMulti = this.$attrs.multiple != null
       if (!isMulti && files.length > 1) {
         files.length = 1
       }
