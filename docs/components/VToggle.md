@@ -2,6 +2,34 @@
 
 Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
 
+## Installation
+
+Globally:
+
+```js
+// main.js
+import Vue from "vue"
+import { VToggle } from "vuetensils"
+
+Vue.component("VToggle", VToggle)
+```
+
+Locally:
+
+```vue
+<script>
+// SomeComponent.vue
+import { VToggle } from "vuetensils"
+
+export default {
+  components: {
+    VToggle,
+  },
+  // ...
+}
+</script>
+```
+
 ## Styled Example
 
 ```vue live

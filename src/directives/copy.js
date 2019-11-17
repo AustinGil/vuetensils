@@ -13,22 +13,7 @@ function copyToClipboard(content) {
   document.body.appendChild(textarea)
   textarea.select()
 
-  if (richHtml) {
-    const listener = e => {
-      e.preventDefault()
-
-      if (e.clipboardData) {
-        e.clipboardData.setData("text/html", content)
-        e.clipboardData.setData("text/plain", content)
-      }
-    }
-
-    document.addEventListener("copy", listener)
-    document.execCommand("copy")
-    document.removeEventListener("copy", listener)
-  } else {
-    document.execCommand("copy")
-  }
+  document.execCommand("copy")
 
   document.body.removeChild(textarea)
 

@@ -2,6 +2,34 @@
 
 A renderless component for awaiting promises to resolve; great for making HTTP requests. Supports showing pending, resolved, or rejected promises.
 
+## Installation
+
+Globally:
+
+```js
+// main.js
+import Vue from "vue"
+import { VAsync } from "vuetensils"
+
+Vue.component("VAsync", VAsync)
+```
+
+Locally:
+
+```vue
+<script>
+// SomeComponent.vue
+import { VAsync } from "vuetensils"
+
+export default {
+  components: {
+    VAsync,
+  },
+  // ...
+}
+</script>
+```
+
 This component is great for handling any asynchronous tasks that involve promises. For example, HTTP requests:
 
 ```vue live

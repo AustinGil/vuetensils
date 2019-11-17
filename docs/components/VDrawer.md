@@ -2,6 +2,34 @@
 
 A convenient sidebar that can be toggled on or off. When opened, it traps the user's focus so that keyboard navigation will remain within the sidebar until it is closed. It also supports being closed by pressing the ESC key.
 
+## Installation
+
+Globally:
+
+```js
+// main.js
+import Vue from "vue"
+import { VDrawer } from "vuetensils"
+
+Vue.component("VDrawer", VDrawer)
+```
+
+Locally:
+
+```vue
+<script>
+// SomeComponent.vue
+import { VDrawer } from "vuetensils"
+
+export default {
+  components: {
+    VDrawer,
+  },
+  // ...
+}
+</script>
+```
+
 ## Styled Examples
 
 ```vue live

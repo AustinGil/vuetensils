@@ -2,6 +2,34 @@
 
 Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
 
+## Installation
+
+Globally:
+
+```js
+// main.js
+import Vue from "vue"
+import { VIntersect } from "vuetensils"
+
+Vue.component("VIntersect", VIntersect)
+```
+
+Locally:
+
+```vue
+<script>
+// SomeComponent.vue
+import { VIntersect } from "vuetensils"
+
+export default {
+  components: {
+    VIntersect,
+  },
+  // ...
+}
+</script>
+```
+
 **Open your console and scroll around to watch events get fired.**
 
 ```vue live

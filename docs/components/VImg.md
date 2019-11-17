@@ -4,13 +4,41 @@ Drop in replacement for the HTML `<img>` tag which supports lazy-loading. Improv
 
 Note: This component uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) which is not supported by Internet Explorer.
 
-This site has the following global CSS:
+Note that this site has the following global CSS which is applied to examples:
 
 ```css
 img {
   max-width: 100%;
   height: auto;
 }
+```
+
+## Installation
+
+Globally:
+
+```js
+// main.js
+import Vue from "vue"
+import { VImg } from "vuetensils"
+
+Vue.component("VImg", VImg)
+```
+
+Locally:
+
+```vue
+<script>
+// SomeComponent.vue
+import { VImg } from "vuetensils"
+
+export default {
+  components: {
+    VImg,
+  },
+  // ...
+}
+</script>
 ```
 
 ## Default use
@@ -25,11 +53,7 @@ Pass in the image dimensions to avoid the page jumping when the image loads
 
 ```vue live
 <template>
-  <VImg
-    src="https://source.unsplash.com/random/900x550"
-    width="900"
-    height="550"
-  />
+  <VImg src="https://source.unsplash.com/random/900x550" width="900" height="550" />
 </template>
 ```
 

@@ -2,6 +2,34 @@
 
 A modal/dialogue component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the modal until it is closed. It supports being closed by clicking outside the modal content or pressing the ESC key.
 
+## Installation
+
+Globally:
+
+```js
+// main.js
+import Vue from "vue"
+import { VModal } from "vuetensils"
+
+Vue.component("VModal", VModal)
+```
+
+Locally:
+
+```vue
+<script>
+// SomeComponent.vue
+import { VModal } from "vuetensils"
+
+export default {
+  components: {
+    VModal,
+  },
+  // ...
+}
+</script>
+```
+
 ## Styled Example
 
 ```vue live

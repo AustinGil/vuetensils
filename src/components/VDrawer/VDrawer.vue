@@ -1,14 +1,14 @@
 <template>
   <transition :name="bgTransition" appear>
-    <div
+    <component
+      :is="tag"
       v-if="showing"
       @click="onBgClick"
       @keydown="onKeydown"
       :class="['vts-drawer', classes.root]"
     >
       <transition :name="transition" appear>
-        <component
-          :is="tag"
+        <div
           ref="content"
           :class="[
             'vts-drawer__content',
@@ -19,9 +19,9 @@
           tabindex="-1"
         >
           <slot />
-        </component>
+        </div>
       </transition>
-    </div>
+    </component>
   </transition>
 </template>
 
