@@ -1,21 +1,21 @@
 # Introduction
 
-🍴 A tasty toolset for Vue.js 🛠
+A "naked" component library for Vue.js focused on being:
+
+- Accessible
+- Semantic
+- Light weight
+- Extensible
+
+Links:
 
 - [Docs](https://vuetensils.stegosource.com/)
 - [GitHub](https://github.com/Stegosource/vuetensils)
 - [NPM](https://www.npmjs.com/package/vuetensils)
 
-Vuetensils is a collection of **mostly unstyled** Vue components that focus on:
+## Naked Components
 
-- Accessible components
-- Semantic markup
-- Light weight
-- Custom styling
-
-## Bring your own styles
-
-Vuetensil's components are designed to be starting points for some of the most common UI features while encouraging you to customize the design without adding extra bloat. Because they are unstyled, you can add your own brand without worrying about ticky overwrites, `!important` rules, or excess bloat.
+Vuetensil's components are designed to be starting points for some of the most common UI features. They bring all the functionality you would expect from a UI library, but only the bare minimum styles to avoid adding any extra bloat. You can work on the branding, and you don't have to worry about the accessibility.
 
 Import just the features you need (like a WCAG-friendly modal that traps focus and prevents scrolling), and apply your custom design. No overhead from unused styles!
 
@@ -112,12 +112,10 @@ export default {
 <!-- TODO: datetime input -->
 <!-- TODO: rating -->
 <!-- TODO: Tooltip -->
-<!-- TODO: Resize directive -->
 <!-- TODO: intersection observer directive -->
 <!-- TODO: lazyload directive -->
 <!-- TODO: container query directive -->
 <!-- TODO: Toggles: https://codepen.io/heydon/pen/QqzRvQ/ -->
-<!-- TODO: Allow components to accept `tag` prop -->
 <!-- TODO: https://rollup-plugin-vue.vuejs.org/examples.html#minimal -->
 <!-- TODO: SSR -->
 <!-- TODO: functional -->

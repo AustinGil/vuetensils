@@ -2,6 +2,34 @@
 
 File selector that behaves like a native file input. However, it can be extended to behave like a drag and drop file selector.
 
+## Installation
+
+Globally:
+
+```js
+// main.js
+import Vue from "vue"
+import { VFile } from "vuetensils"
+
+Vue.component("VFile", VFile)
+```
+
+Locally:
+
+```vue
+<script>
+// SomeComponent.vue
+import { VFile } from "vuetensils"
+
+export default {
+  components: {
+    VFile,
+  },
+  // ...
+}
+</script>
+```
+
 ```vue live
 <template>
   <div class="styled">

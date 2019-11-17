@@ -6,6 +6,34 @@ Implements best practices for accessible tab components based on W3C. Includes H
 
 Keyboard navigation to the tabs only targets active tab. `right` key activates next tab (horizontal orientation) or loops around to start. `left` key activates previous tab (horizontal orientation) or loops around to end. `down` key activates next tab (vertical orientation) or loops around to start. `down` key activates previous tab (vertical orientation) or loops around to end. (in horizontal orientation), `home` key activates first tab. `end` key activates last tab.
 
+## Installation
+
+Globally:
+
+```js
+// main.js
+import Vue from "vue"
+import { VTabs } from "vuetensils"
+
+Vue.component("VTabs", VTabs)
+```
+
+Locally:
+
+```vue
+<script>
+// SomeComponent.vue
+import { VTabs } from "vuetensils"
+
+export default {
+  components: {
+    VTabs,
+  },
+  // ...
+}
+</script>
+```
+
 ## Styled Example
 
 ```vue live

@@ -2,6 +2,34 @@
 
 Input component that automatically includes labels, validation, and aria descriptions for any errors.
 
+## Installation
+
+Globally:
+
+```js
+// main.js
+import Vue from "vue"
+import { VInput } from "vuetensils"
+
+Vue.component("VInput", VInput)
+```
+
+Locally:
+
+```vue
+<script>
+// SomeComponent.vue
+import { VInput } from "vuetensils"
+
+export default {
+  components: {
+    VInput,
+  },
+  // ...
+}
+</script>
+```
+
 ## Styled Example
 
 ```vue live
@@ -64,11 +92,7 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
 
 ```vue live
 <template>
-  <VInput
-    type="radio"
-    label="radio"
-    :options="['option 1', 'option 2', 'option 3', 'option 4']"
-  />
+  <VInput type="radio" label="radio" :options="['option 1', 'option 2', 'option 3', 'option 4']" />
 </template>
 ```
 

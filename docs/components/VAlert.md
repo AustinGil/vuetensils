@@ -2,6 +2,34 @@
 
 A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
 
+## Installation
+
+Globally:
+
+```js
+// main.js
+import Vue from "vue"
+import { VAlert } from "vuetensils"
+
+Vue.component("VAlert", VAlert)
+```
+
+Locally:
+
+```vue
+<script>
+// SomeComponent.vue
+import { VAlert } from "vuetensils"
+
+export default {
+  components: {
+    VAlert,
+  },
+  // ...
+}
+</script>
+```
+
 ## Styled Examples
 
 ```vue live
