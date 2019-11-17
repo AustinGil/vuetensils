@@ -13,6 +13,7 @@
       ref="input"
       v-bind="$attrs"
       @change="onChange"
+      :value="localFiles"
       v-on="$listeners"
       type="file"
       :class="['vts-file__input', classes.input]"
@@ -129,9 +130,6 @@ export default {
 
 .vts-file__dropzone {
   position: relative;
-  box-sizing: border-box;
-  border: 1px solid;
-  padding: 2px;
 }
 
 .vts-file__overlay {
