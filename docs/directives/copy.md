@@ -33,7 +33,7 @@ Local install:
 <template>
   <div>
     <p>Click this button then paste somewhere</p>
-    <button v-copy="`Clipboard says what?`" @click="test">
+    <button v-copy="`Clipboard says what?`">
       Click to copy
     </button>
   </div>
