@@ -30,6 +30,8 @@ export default {
 </script>
 ```
 
+## Styled Example
+
 ```vue live
 <template>
   <div class="styled">
