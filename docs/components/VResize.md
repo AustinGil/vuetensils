@@ -2,6 +2,8 @@
 
 Component which provides the calculated width and height to it's default scoped slot. Thit would allow you do update child components based on the actual size of the element, rather than the size of the screen.
 
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VResize/VResize.vue)
+
 ## Installation
 
 Globally:

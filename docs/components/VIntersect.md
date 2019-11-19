@@ -2,6 +2,8 @@
 
 Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
 
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VIntersect/VIntersect.vue)
+
 ## Installation
 
 Globally:

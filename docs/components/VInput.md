@@ -2,6 +2,8 @@
 
 Input component that automatically includes labels, validation, and aria descriptions for any errors.
 
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VInput/VInput.vue)
+
 ## Installation
 
 Globally:
@@ -92,7 +94,11 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
 
 ```vue live
 <template>
-  <VInput type="radio" label="radio" :options="['option 1', 'option 2', 'option 3', 'option 4']" />
+  <VInput
+    type="radio"
+    label="radio"
+    :options="['option 1', 'option 2', 'option 3', 'option 4']"
+  />
 </template>
 ```
 

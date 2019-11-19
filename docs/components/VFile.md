@@ -2,6 +2,8 @@
 
 File selector that behaves like a native file input. However, it can be extended to behave like a drag and drop file selector.
 
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VFile/VFile.vue)
+
 ## Installation
 
 Globally:
@@ -37,7 +39,8 @@ export default {
   <div class="styled">
     <VFile v-model="files" label="Files" />
     <p v-if="files.length">
-      You've selected the file "{{ files[0].name }}" ({{ files[0].type }}). It was last modified
+      You've selected the file "{{ files[0].name }}" ({{ files[0].type }}). It
+      was last modified
       {{ files[0].lastModifiedDate }}
     </p>
   </div>
@@ -152,7 +155,9 @@ Note that the default dropzone content has an `aria-hidden="true"` attribute to 
   <VFile label="Select a file">
     <template #default="{ files, droppable}">
       <p v-if="droppable" aria-hidden="true">Go ahead, let go.</p>
-      <p v-else-if="files.length" aria-hidden="true">You selected {{ files[0].name }}.</p>
+      <p v-else-if="files.length" aria-hidden="true">
+        You selected {{ files[0].name }}.
+      </p>
       <p v-else aria-hidden="true">Drop some sweet files here.</p>
     </template>
   </VFile>

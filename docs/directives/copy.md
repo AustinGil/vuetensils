@@ -2,6 +2,8 @@
 
 Vue directive to add a click-to-copy
 
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/directives/copy.js)
+
 ## Installation
 
 Global install:
