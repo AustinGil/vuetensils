@@ -123,14 +123,15 @@ export default {
       this.$emit("change", false)
     },
     toggle() {
-      const event = this.showing ? "hide" : "show"
-      this.$emit(event, !this.showing)
+      const { showing } = this
+      const event = showing ? "hide" : "show"
+      this.$emit(event, !showing)
       /**
        * Fired whenever the modal opens or closes.
        * @event change
        * @type { boolean }
        */
-      this.$emit("change", !this.showing)
+      this.$emit("change", !showing)
     },
     onClick(event) {
       if (event.target.classList.contains("vts-modal") && this.dismissible) {

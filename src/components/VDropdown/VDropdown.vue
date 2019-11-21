@@ -81,9 +81,10 @@ export default {
   },
 
   mounted() {
-    document.addEventListener("click", this.onClickout)
+    const { onClickout } = this
+    document.addEventListener("click", onClickout)
     this.$once("hook:beforeDestroy", () => {
-      document.removeEventListener("click", this.onClickout)
+      document.removeEventListener("click", onClickout)
     })
   },
 }
