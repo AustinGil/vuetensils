@@ -1,3 +1,25 @@
+<template>
+  <div :class="['vts-img', classes.root]" :style="style">
+    <div
+      v-if="hasDimensions"
+      :class="['vts-img__placeholder', classes.placeholder]"
+      :style="{ background }"
+    >
+      <img
+        :src="placeholder || dataUrl"
+        :alt="$attrs.alt || ''"
+        v-bind="$attrs"
+      />
+    </div>
+    <img
+      :src="dataUrl"
+      :class="['vts-img__img', classes.img]"
+      :alt="$attrs.alt || ''"
+      v-bind="$attrs"
+    />
+  </div>
+</template>
+
 <script>
 const NAME = "vts-img"
 
@@ -19,22 +41,6 @@ export default {
       required: true,
     },
     /**
-     * Same as the HTML attribute
-     */
-    srcset: String,
-    /**
-     * Same as the HTML attribute
-     */
-    sizes: String,
-    /**
-     * Same as the HTML attribute
-     */
-    width: [String, Number],
-    /**
-     * Same as the HTML attribute
-     */
-    height: [String, Number],
-    /**
      * URL of the blurred placeholder image to use if you need one (ideally a very small image).
      */
     placeholder: String,
@@ -46,6 +52,30 @@ export default {
     classes: {
       type: Object,
       default: () => ({}),
+    },
+  },
+
+  computed: {
+    style() {
+      const width = this.$attrs.width
+      return {
+        maxWidth: width && `${width}px`,
+      }
+    },
+    hasDimensions() {
+      const { width, height } = this.$attrs
+      return !!width && !!height
+    },
+
+    dataUrl() {
+      if (!this.hasDimensions) return ""
+      const { width, height } = this.$attrs
+      const w = 100
+      const canvas = document.createElement("canvas")
+      canvas.width = w
+      canvas.height = (height / width) * w
+
+      return canvas.toDataURL()
     },
   },
 
@@ -88,78 +118,78 @@ export default {
     })
   },
 
-  render(h, ctx) {
-    // if (this.$parent.$isServer) {
-    //   return h(false)
-    // }
+  // render(h, ctx) {
+  //   // if (this.$parent.$isServer) {
+  //   //   return h(false)
+  //   // }
 
-    const { width, height, $attrs, classes } = this
-    let dataUrl = false
-    const hasDimensions = width && height
-    let placeholder = h(false)
+  //   const { width, height, $attrs, classes } = this
+  //   let dataUrl = false
+  //   const hasDimensions = width && height
+  //   let placeholder = h(false)
 
-    if (hasDimensions) {
-      const w = 100
-      const canvas = document.createElement("canvas")
-      canvas.width = w
-      canvas.height = (height / width) * w
+  //   if (hasDimensions) {
+  //     const w = 100
+  //     const canvas = document.createElement("canvas")
+  //     canvas.width = w
+  //     canvas.height = (height / width) * w
 
-      dataUrl = canvas.toDataURL()
+  //     dataUrl = canvas.toDataURL()
 
-      placeholder = h(
-        "div",
-        {
-          class: [`${NAME}__placeholder`, classes.placeholder],
-          style: {
-            background: this.background || false,
-          },
-        },
-        [
-          h("img", {
-            attrs: {
-              src: this.placeholder || dataUrl,
-              width,
-              height,
-              alt: $attrs.alt || "",
-            },
-          }),
-        ]
-      )
-    }
+  //     placeholder = h(
+  //       "div",
+  //       {
+  //         class: [`${NAME}__placeholder`, classes.placeholder],
+  //         style: {
+  //           background: this.background || false,
+  //         },
+  //       },
+  //       [
+  //         h("img", {
+  //           attrs: {
+  //             src: this.placeholder || dataUrl,
+  //             width,
+  //             height,
+  //             alt: $attrs.alt || "",
+  //           },
+  //         }),
+  //       ]
+  //     )
+  //   }
 
-    const img = h("img", {
-      class: [`${NAME}__img`, classes.img],
-      attrs: {
-        ...$attrs,
-        src: dataUrl,
-        width: width || false,
-        height: height || false,
-      },
-    })
+  //   const img = h("img", {
+  //     class: [`${NAME}__img`, classes.img],
+  //     attrs: {
+  //       ...$attrs,
+  //       src: dataUrl,
+  //       width: width || false,
+  //       height: height || false,
+  //     },
+  //   })
 
-    // TODO: Add this when SSR support is enabled
-    // const noscript = h("noscript", [
-    //   h("img", {
-    //     attrs: {
-    //       src: this.src || ''
-    //     }
-    //   })
-    // ])
-    return h(
-      "div",
-      {
-        class: [
-          NAME,
-          { [`${NAME}--has-dimensions`]: hasDimensions },
-          classes.root,
-        ],
-        style: {
-          maxWidth: width + "px",
-        },
-      },
-      [placeholder, img]
-    )
-  },
+  //   // TODO: Add this when SSR support is enabled
+  //   // const noscript = h("noscript", [
+  //   //   h("img", {
+  //   //     attrs: {
+  //   //       src: this.src || ''
+  //   //     }
+  //   //   })
+  //   // ])
+  //   return h(
+  //     "div",
+  //     {
+  //       class: [
+  //         NAME,
+  //         { [`${NAME}--has-dimensions`]: hasDimensions },
+  //         classes.root,
+  //       ],
+  //       style: {
+  //         maxWidth: width + "px",
+  //       },
+  //     },
+  //     [placeholder, img]
+  //   )
+  // },
 }
 </script>
 
