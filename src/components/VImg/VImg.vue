@@ -62,6 +62,7 @@ export default {
         maxWidth: width && `${width}px`,
       }
     },
+
     hasDimensions() {
       const { width, height } = this.$attrs
       return !!width && !!height
@@ -81,7 +82,7 @@ export default {
 
   mounted() {
     let timeOut
-    const { src, srcset, alt } = this
+    const { src } = this
 
     const observer = new IntersectionObserver(entries => {
       const entry = entries[0]
@@ -103,8 +104,6 @@ export default {
         // Element is in viewport
         wrapper.classList.add(`${NAME}--loading`)
         img.src = src
-        if (!!srcset) img.srcset = srcset
-        if (!!alt) img.alt = alt
         observer.disconnect()
       }
     })
@@ -117,79 +116,6 @@ export default {
       }
     })
   },
-
-  // render(h, ctx) {
-  //   // if (this.$parent.$isServer) {
-  //   //   return h(false)
-  //   // }
-
-  //   const { width, height, $attrs, classes } = this
-  //   let dataUrl = false
-  //   const hasDimensions = width && height
-  //   let placeholder = h(false)
-
-  //   if (hasDimensions) {
-  //     const w = 100
-  //     const canvas = document.createElement("canvas")
-  //     canvas.width = w
-  //     canvas.height = (height / width) * w
-
-  //     dataUrl = canvas.toDataURL()
-
-  //     placeholder = h(
-  //       "div",
-  //       {
-  //         class: [`${NAME}__placeholder`, classes.placeholder],
-  //         style: {
-  //           background: this.background || false,
-  //         },
-  //       },
-  //       [
-  //         h("img", {
-  //           attrs: {
-  //             src: this.placeholder || dataUrl,
-  //             width,
-  //             height,
-  //             alt: $attrs.alt || "",
-  //           },
-  //         }),
-  //       ]
-  //     )
-  //   }
-
-  //   const img = h("img", {
-  //     class: [`${NAME}__img`, classes.img],
-  //     attrs: {
-  //       ...$attrs,
-  //       src: dataUrl,
-  //       width: width || false,
-  //       height: height || false,
-  //     },
-  //   })
-
-  //   // TODO: Add this when SSR support is enabled
-  //   // const noscript = h("noscript", [
-  //   //   h("img", {
-  //   //     attrs: {
-  //   //       src: this.src || ''
-  //   //     }
-  //   //   })
-  //   // ])
-  //   return h(
-  //     "div",
-  //     {
-  //       class: [
-  //         NAME,
-  //         { [`${NAME}--has-dimensions`]: hasDimensions },
-  //         classes.root,
-  //       ],
-  //       style: {
-  //         maxWidth: width + "px",
-  //       },
-  //     },
-  //     [placeholder, img]
-  //   )
-  // },
 }
 </script>
 
