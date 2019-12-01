@@ -1,15 +1,11 @@
 <template>
-  <div :class="['vts-img', classes.root]" :style="style">
+  <div :class="['vts-img', classes.root]">
     <div
-      v-if="hasDimensions"
+      v-if="dataUrl"
       :class="['vts-img__placeholder', classes.placeholder]"
       :style="{ background }"
     >
-      <img
-        :src="placeholder || dataUrl"
-        :alt="$attrs.alt || ''"
-        v-bind="$attrs"
-      />
+      <img :src="placeholder || dataUrl" alt="" v-bind="$attrs" />
     </div>
     <img
       :src="dataUrl"
@@ -41,6 +37,10 @@ export default {
       required: true,
     },
     /**
+     * Same as the HTML attribute
+     */
+    srcset: String,
+    /**
      * URL of the blurred placeholder image to use if you need one (ideally a very small image).
      */
     placeholder: String,
@@ -56,21 +56,10 @@ export default {
   },
 
   computed: {
-    style() {
-      const width = this.$attrs.width
-      return {
-        maxWidth: width && `${width}px`,
-      }
-    },
-
-    hasDimensions() {
-      const { width, height } = this.$attrs
-      return !!width && !!height
-    },
-
     dataUrl() {
-      if (!this.hasDimensions) return ""
       const { width, height } = this.$attrs
+      if (!width || !height) return ""
+
       const w = 100
       const canvas = document.createElement("canvas")
       canvas.width = w
@@ -82,33 +71,36 @@ export default {
 
   mounted() {
     let timeOut
-    const { src } = this
+    const { src, srcset, $el } = this
 
-    const observer = new IntersectionObserver(entries => {
-      const entry = entries[0]
-      const wrapper = entry.target
-      const img = entry.target.querySelector(".vts-img__img")
-      const placeholder = entry.target.querySelector(".vts-img__placeholder")
+    const observer = new IntersectionObserver(([entry]) => {
+      const img = $el.querySelector(`.${NAME}__img`)
+      const placeholder = $el.querySelector(`.${NAME}__placeholder`)
 
-      img.onload = function() {
-        delete img.onload
-        wrapper.classList.remove(`${NAME}--loading`)
-        wrapper.classList.add(`${NAME}--loaded`)
+      function onLoad() {
+        img.removeEventListener("load", onLoad)
+        $el.classList.remove(`${NAME}--loading`)
+        $el.classList.add(`${NAME}--loaded`)
         if (placeholder) {
           timeOut = setTimeout(() => {
             placeholder.remove()
           }, 300)
         }
       }
+      img.addEventListener("load", onLoad)
+
       if (entry.isIntersecting) {
         // Element is in viewport
-        wrapper.classList.add(`${NAME}--loading`)
+        $el.classList.add(`${NAME}--loading`)
+        if (!!srcset) {
+          img.srcset = srcset
+        }
         img.src = src
         observer.disconnect()
       }
     })
+    observer.observe($el)
 
-    observer.observe(this.$el)
     this.$once("hook:beforeDestroy", () => {
       observer.disconnect()
       if (timeOut) {
@@ -123,28 +115,25 @@ export default {
 .vts-img {
   display: inline-block;
   position: relative;
-  width: 100%;
 }
 
 .vts-img img {
   vertical-align: top;
 }
 
-.vts-img__img {
-  position: relative;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
 .vts-img__placeholder {
   position: absolute;
-  top: 0;
   overflow: hidden;
 }
 
 .vts-img__placeholder img {
   transform: scale(1.05);
   filter: blur(10px);
+}
+
+.vts-img__img {
+  opacity: 0;
+  transition: opacity 300ms ease;
 }
 
 .vts-img--loaded .vts-img__img {
