@@ -13,25 +13,30 @@ const config = {
   input: "src/entry.js",
   output: {
     name: "Vuetensils",
-    exports: "named"
+    exports: "named",
+    // format: 'esm', // This is what tells rollup to use ES6 modules
+    // dir: 'dist'
   },
+  external: ["vue"],
   plugins: [
     replace({
-      "process.env.NODE_ENV": JSON.stringify("production")
+      "process.env.NODE_ENV": JSON.stringify("production"),
     }),
     vue({
       css: true,
       compileTemplate: true,
       template: {
-        isProduction: true
-      }
+        isProduction: true,
+      },
     }),
     commonjs(),
     buble({
-      objectAssign: "Object.assign"
+      objectAssign: "Object.assign",
     }),
-    filesize()
-  ]
+    filesize(),
+  ],
+  // Prevents bundling, but doesn't rename files
+  // preserveModules: true
 }
 
 // Only minify browser (iife) version
