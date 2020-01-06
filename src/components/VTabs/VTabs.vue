@@ -8,16 +8,16 @@
     >
       <button
         v-for="(tab, index) in tablist"
+        :id="`${id}-tab-${index}`"
         :key="tab"
         ref="tab"
-        @keydown="onKeydown"
-        @click="activeIndex = index"
         :aria-selected="index === activeIndex"
         :tabindex="index === activeIndex ? false : -1"
-        :id="`${id}-tab-${index}`"
         :aria-controls="`${id}-panel-${index}`"
         :class="[`vts-tabs__tab vts-tabs__tab--${index}`, classes.tab]"
         role="tab"
+        @keydown="onKeydown"
+        @click="activeIndex = index"
       >
         {{ tab }}
       </button>
@@ -25,8 +25,8 @@
 
     <div
       v-for="(tab, index) in tablist"
-      :key="tab"
       :id="`${id}-panel-${index}`"
+      :key="tab"
       :aria-labelledby="`${id}-tab-${index}`"
       :hidden="index !== activeIndex"
       :class="[`vts-tabs__panel vts-tabs__panel--${index}`, classes.panel]"
@@ -153,11 +153,11 @@ export default {
       const nextIndex = activeIndex + directions[keyCode]
 
       if (nextIndex < 0) {
-        activeIndex = tabLength - 1
+        this.activeIndex = tabLength - 1
       } else if (nextIndex >= tabLength) {
-        activeIndex = 0
+        this.activeIndex = 0
       } else {
-        activeIndex = nextIndex
+        this.activeIndex = nextIndex
       }
     },
 
