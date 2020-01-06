@@ -69,7 +69,7 @@ export default {
            * @event resolve
            * @type { unknown }
            */
-          this.$emit("resolve", this.results)
+          this.$emit("resolve", results)
         })
         .catch(error => {
           this.error = error

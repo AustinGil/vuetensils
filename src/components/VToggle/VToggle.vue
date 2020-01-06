@@ -65,7 +65,8 @@ export default {
 
   computed: {
     id() {
-      if (this.$attrs.id) return this.$attrs.id
+      const { id } = this.$attrs
+      if (id) return id
 
       return (
         "vts-toggle-" +

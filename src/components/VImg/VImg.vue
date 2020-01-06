@@ -1,3 +1,21 @@
+<template>
+  <div :class="['vts-img', classes.root]">
+    <div
+      v-if="dataUrl"
+      :class="['vts-img__placeholder', classes.placeholder]"
+      :style="{ background }"
+    >
+      <img :src="placeholder || dataUrl" alt="" v-bind="$attrs" />
+    </div>
+    <img
+      :src="dataUrl"
+      :class="['vts-img__img', classes.img]"
+      :alt="$attrs.alt || ''"
+      v-bind="$attrs"
+    />
+  </div>
+</template>
+
 <script>
 const NAME = "vts-img"
 
@@ -23,18 +41,6 @@ export default {
      */
     srcset: String,
     /**
-     * Same as the HTML attribute
-     */
-    sizes: String,
-    /**
-     * Same as the HTML attribute
-     */
-    width: [String, Number],
-    /**
-     * Same as the HTML attribute
-     */
-    height: [String, Number],
-    /**
      * URL of the blurred placeholder image to use if you need one (ideally a very small image).
      */
     placeholder: String,
@@ -49,116 +55,58 @@ export default {
     },
   },
 
+  computed: {
+    dataUrl() {
+      const { width, height } = this.$attrs
+      if (!width || !height) return ""
+
+      const w = 100
+      const canvas = document.createElement("canvas")
+      canvas.width = w
+      canvas.height = (height / width) * w
+
+      return canvas.toDataURL()
+    },
+  },
+
   mounted() {
     let timeOut
-    const { src, srcset, alt } = this
+    const { src, srcset, $el } = this
 
-    const observer = new IntersectionObserver(entries => {
-      const entry = entries[0]
-      const wrapper = entry.target
-      const img = entry.target.querySelector(".vts-img__img")
-      const placeholder = entry.target.querySelector(".vts-img__placeholder")
+    const observer = new IntersectionObserver(([entry]) => {
+      const img = $el.querySelector(`.${NAME}__img`)
+      const placeholder = $el.querySelector(`.${NAME}__placeholder`)
 
-      img.onload = function() {
-        delete img.onload
-        wrapper.classList.remove(`${NAME}--loading`)
-        wrapper.classList.add(`${NAME}--loaded`)
+      function onLoad() {
+        img.removeEventListener("load", onLoad)
+        $el.classList.remove(`${NAME}--loading`)
+        $el.classList.add(`${NAME}--loaded`)
         if (placeholder) {
           timeOut = setTimeout(() => {
             placeholder.remove()
           }, 300)
         }
       }
+      img.addEventListener("load", onLoad)
+
       if (entry.isIntersecting) {
         // Element is in viewport
-        wrapper.classList.add(`${NAME}--loading`)
+        $el.classList.add(`${NAME}--loading`)
+        if (!!srcset) {
+          img.srcset = srcset
+        }
         img.src = src
-        if (!!srcset) img.srcset = srcset
-        if (!!alt) img.alt = alt
         observer.disconnect()
       }
     })
+    observer.observe($el)
 
-    observer.observe(this.$el)
     this.$once("hook:beforeDestroy", () => {
       observer.disconnect()
       if (timeOut) {
         clearTimeout(timeOut)
       }
     })
-  },
-
-  render(h, ctx) {
-    // if (this.$parent.$isServer) {
-    //   return h(false)
-    // }
-
-    const { width, height, $attrs, classes } = this
-    let dataUrl = false
-    const hasDimensions = width && height
-    let placeholder = h(false)
-
-    if (hasDimensions) {
-      const w = 100
-      const canvas = document.createElement("canvas")
-      canvas.width = w
-      canvas.height = (height / width) * w
-
-      dataUrl = canvas.toDataURL()
-
-      placeholder = h(
-        "div",
-        {
-          class: [`${NAME}__placeholder`, classes.placeholder],
-          style: {
-            background: this.background || false,
-          },
-        },
-        [
-          h("img", {
-            attrs: {
-              src: this.placeholder || dataUrl,
-              width,
-              height,
-              alt: $attrs.alt || "",
-            },
-          }),
-        ]
-      )
-    }
-
-    const img = h("img", {
-      class: [`${NAME}__img`, classes.img],
-      attrs: {
-        ...$attrs,
-        src: dataUrl,
-        width: width || false,
-        height: height || false,
-      },
-    })
-
-    // TODO: Add this when SSR support is enabled
-    // const noscript = h("noscript", [
-    //   h("img", {
-    //     attrs: {
-    //       src: this.src || ''
-    //     }
-    //   })
-    // ])
-    return h(
-      "div",
-      {
-        class: [
-          NAME,
-          { [`${NAME}--has-dimensions`]: hasDimensions },
-          classes.root,
-        ],
-        style: {
-          maxWidth: width + "px",
-        },
-      },
-      [placeholder, img]
-    )
   },
 }
 </script>
@@ -167,28 +115,25 @@ export default {
 .vts-img {
   display: inline-block;
   position: relative;
-  width: 100%;
 }
 
 .vts-img img {
   vertical-align: top;
 }
 
-.vts-img__img {
-  position: relative;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
 .vts-img__placeholder {
   position: absolute;
-  top: 0;
   overflow: hidden;
 }
 
 .vts-img__placeholder img {
   transform: scale(1.05);
   filter: blur(10px);
+}
+
+.vts-img__img {
+  opacity: 0;
+  transition: opacity 300ms ease;
 }
 
 .vts-img--loaded .vts-img__img {

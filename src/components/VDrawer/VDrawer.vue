@@ -106,13 +106,14 @@ export default {
     },
 
     toggle() {
-      const event = this.showing ? "close" : "open"
-      this.$emit(event, !this.showing)
+      const { showing } = this
+      const event = showing ? "close" : "open"
+      this.$emit(event, !showing)
       /**
        * @event update
        * @type { boolean }
        */
-      this.$emit("update", !this.showing)
+      this.$emit("update", !showing)
     },
 
     onKeydown(event) {
@@ -152,7 +153,7 @@ export default {
 
   watch: {
     showing: {
-      handler: function(next, prev) {
+      handler(next, prev) {
         if (next && next != prev) {
           this.noScroll && document.body.style.setProperty("overflow", "hidden")
           this.$nextTick(() => {

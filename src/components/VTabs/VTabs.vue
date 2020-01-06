@@ -82,7 +82,8 @@ export default {
     },
 
     id() {
-      if (this.$attrs.id) return this.$attrs.id
+      const { id } = this.$attrs
+      if (id) return id
       return Array(6)
         .fill()
         .map(() => Math.floor(36 * Math.random()).toString(36))
@@ -146,13 +147,17 @@ export default {
 
       /* istanbul ignore next */
       if (!directions[keyCode]) return
-      const nextIndex = this.activeIndex + directions[keyCode]
+
+      const activeIndex = this.activeIndex
+      const tabLength = this.$refs.tab.length
+      const nextIndex = activeIndex + directions[keyCode]
+
       if (nextIndex < 0) {
-        this.activeIndex = this.$refs.tab.length - 1
-      } else if (nextIndex >= this.$refs.tab.length) {
-        this.activeIndex = 0
+        activeIndex = tabLength - 1
+      } else if (nextIndex >= tabLength) {
+        activeIndex = 0
       } else {
-        this.activeIndex = nextIndex
+        activeIndex = nextIndex
       }
     },
 

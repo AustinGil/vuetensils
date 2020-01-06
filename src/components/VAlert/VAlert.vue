@@ -23,8 +23,6 @@
 </template>
 
 <script>
-const NAME = "vts-alert"
-
 /**
  * A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
  */
@@ -81,11 +79,11 @@ export default {
 
   watch: {
     visible: {
-      handler(next) {
-        if (!!next) {
+      handler(visible) {
+        if (!!visible) {
           this.dismissed = false
         }
-        if (typeof this.visible === "number") {
+        if (typeof visible === "number") {
           this.clearTimer() // Clear timers in case this.visible watcher adds multiples
           this.countdown()
         }
@@ -112,7 +110,8 @@ export default {
     },
 
     countdown() {
-      if (this.visible <= 0) return
+      const { visible } = this
+      if (visible <= 0) return
 
       this.timerId = setTimeout(() => {
         /**
@@ -120,13 +119,14 @@ export default {
          * @event update
          * @type { boolean/number }
          */
-        this.$emit("update", this.visible - 1)
+        this.$emit("update", visible - 1)
       }, 1000)
     },
 
     clearTimer() {
-      if (this.timerId) {
-        clearInterval(this.timerId)
+      const { timerId } = this
+      if (timerId) {
+        clearInterval(timerId)
         this.timerId = null
       }
     },
