@@ -3,7 +3,7 @@ export default {
         var options;
         var onEnter;
         var onChange;
-        var onExit;
+        var onLeave;
         var threshold = 0;
         var rootMargin = '0px';
         var root = null;
@@ -14,8 +14,8 @@ export default {
                 rootMargin,
                 threshold
             }
-            if(binding.modifiers.exit){
-                onExit = binding.value
+            if(binding.modifiers.leave){
+                onLeave = binding.value
             }
             else if(binding.modifiers.change)
                 onChange = binding.value
@@ -24,7 +24,7 @@ export default {
             }
         }else{
             // overwriting defaults by passing an object
-            ({ root, rootMargin, threshold, onEnter, onChange, onExit } = binding.value);
+            ({ root, rootMargin, threshold, onEnter, onChange, onLeave } = binding.value);
             options = {
                 root: root ? document.querySelector(root) : null,
                 rootMargin: rootMargin ? rootMargin : '0px',
@@ -38,11 +38,11 @@ export default {
          * and then unobserve.
          * I don't actually know if unobserving is a good thing but I would do it
          * @param {Function} onEnter function to be invoked on enter
-         * @param {Function} onExit function to be invoked on exit
+         * @param {Function} onLeave function to be invoked on exit
          * @param {Function} onChange function to be invoked on change ( both cases )
          * @return decorated function
          */
-        function dec(onEnter, onExit, onChange){
+        function dec(onEnter, onLeave, onChange){
             function wrapper(entries, observer){
                 for(let entry of entries){
                     if(onChange instanceof Function)
@@ -51,15 +51,15 @@ export default {
                         if(onEnter instanceof Function)
                             onEnter();
                     }else{
-                        if(onExit instanceof Function)
-                            onExit();
+                        if(onLeave instanceof Function)
+                            onLeave();
                     }
                 }
             }
             return wrapper;
         }
 
-        let observer = new IntersectionObserver(dec(onEnter, onExit, onChange), options);
+        let observer = new IntersectionObserver(dec(onEnter, onLeave, onChange), options);
         observer.observe(el);
     }
 }

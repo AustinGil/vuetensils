@@ -39,7 +39,7 @@ export default {
 ### You do this by passing an object
 ```vue
 <template>
-    <div class="some-div-down-below" v-intersect="{threshold: 0.3, onEnter: seen, onExit: hidden}">
+    <div class="some-div-down-below" v-intersect="{threshold: 0.3, onEnter: seen, onLeave: hidden}">
         <img src="someUrl" :class="img_class"/>
     </div>
 </template>
@@ -86,7 +86,7 @@ export default {
 
 ### Available properties
 - onEnter: The callback to be invoked if element is intersecting with viewport.
-- onExit: The callback to be invoked if element is not intersecting with viewport.
+- onLeave: The callback to be invoked if element is not intersecting with viewport.
 - onChange: The callback to be invoked if intersection state changes.
 
 - threshold: A number between 0 and 1. for example if it is 0.5 the function will be invoked when half of the element is visible in the root element.
@@ -97,5 +97,5 @@ export default {
 
 ### Available modifiers
 - enter: will take the passed function and assign it to onEnter (Default).
-- exit: will take the passed function and assign it to onExit.
+- leave: will take the passed function and assign it to onLeave.
 - change: will take the passed function and assign it to onChange.
