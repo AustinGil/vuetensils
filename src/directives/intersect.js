@@ -38,7 +38,7 @@ export default {
          * and then unobserve.
          * I don't actually know if unobserving is a good thing but I would do it
          * @param {Function} onEnter function to be invoked on enter
-         * @param {Function} onLeave function to be invoked on exit
+         * @param {Function} onLeave function to be invoked on leave
          * @param {Function} onChange function to be invoked on change ( both cases )
          * @return decorated function
          */
@@ -47,7 +47,7 @@ export default {
                 for(let entry of entries){
                     if(onChange instanceof Function)
                         onChange();
-                    if(entry.intersectionRatio > threshold){
+                    if(entry.isIntersecting){
                         if(onEnter instanceof Function)
                             onEnter();
                     }else{
