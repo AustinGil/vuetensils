@@ -28,11 +28,11 @@
           :type="$attrs.type"
           :name="option.name"
           :value="option.value"
-          @input="$emit('update', option.value)"
-          @blur="onBlur"
-          v-on="$listeners"
           :aria-describedby="invalid.anyInvalid && `${id}__description`"
           class="vts-input__input"
+          @input="$emit('update', option.value)"
+          @blur="dirty = true"
+          v-on="$listeners"
         />
         <span :class="['vts-input__text', classes.text]">
           {{ option.label }}
@@ -47,29 +47,44 @@
       >
         {{ label }}
       </span>
-      <component
-        ref="input"
-        :is="tag"
-        :value.prop="value"
+
+      <select
+        v-if="$attrs.type === 'select'"
         :id="`${id}__input`"
+        ref="input"
         v-bind="$attrs"
-        @input="onInput"
-        @blur="onBlur"
-        v-on="$listeners"
         :aria-describedby="invalid.anyInvalid && `${id}__description`"
         :class="['vts-input__input', classes.input]"
+        @input="onInput"
+        @blur="dirty = true"
+        v-on="$listeners"
       >
-        <template v-if="tag === 'textarea'">
-          {{ value }}
-        </template>
         <option
           v-for="(option, i) in computedOptions"
           :key="i"
           v-bind="option"
-          :selected="option.value == value"
+          :selected="value.includes(option.value)"
         >
           {{ option.label }}
         </option>
+      </select>
+
+      <component
+        :is="tag"
+        v-else
+        :id="`${id}__input`"
+        ref="input"
+        :value.prop="value"
+        v-bind="$attrs"
+        :aria-describedby="invalid.anyInvalid && `${id}__description`"
+        :class="['vts-input__input', classes.input]"
+        @input="onInput"
+        @blur="dirty = true"
+        v-on="$listeners"
+      >
+        <template v-if="tag === 'textarea'">
+          {{ value }}
+        </template>
       </component>
       <span
         v-if="$attrs.type === 'checkbox'"
@@ -110,13 +125,14 @@ export default {
      */
     label: {
       type: String,
+      default: "",
     },
 
     /**
      * The input value. Works for all inputs except type `radio`. See `options` prop.
      */
     value: {
-      type: [String, Number, Boolean],
+      type: [String, Number, Boolean, Array],
       default: "",
     },
 
@@ -167,6 +183,11 @@ export default {
         return item
       })
     },
+
+    isMultiple() {
+      const { multiple } = this.$attrs
+      return multiple != null && multiple != "false"
+    },
   },
 
   watch: {
@@ -181,17 +202,29 @@ export default {
 
   methods: {
     onInput({ target }) {
-      const value =
-        this.$attrs.type === "checkbox" ? target.checked : target.value
+      const { type } = this.$attrs
+      const isMultiple = this.isMultiple
+
+      let value
+
+      if (type === "checkbox") {
+        value = target.checked
+      } else if (type === "select" && isMultiple) {
+        value = []
+        for (let option of target.options) {
+          if (option.selected) {
+            value.push(option.value)
+          }
+        }
+      } else {
+        value = target.value
+      }
+
       /**
        * @event update
        * @type { any }
        */
       this.$emit("update", value)
-    },
-
-    onBlur() {
-      this.dirty = true
     },
 
     validate() {

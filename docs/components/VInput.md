@@ -112,6 +112,29 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
 </template>
 ```
 
+```vue live
+<template>
+  <form @submit.prevent class="styled">
+    <VInput
+      label="select (multiple)"
+      v-model="selected"
+      type="select"
+      :options="['option 1', 'option 2', 'option 3', 'option 4']"
+      multiple
+    />
+    <pre>{{ selected }}</pre>
+  </form>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    selected: ["option 2"],
+  }),
+}
+</script>
+```
+
 ## Description
 
 If you want to add a description to your input, the best practice is to include an `aria-describedby` attribute in combination with an ID on the description element. Fortunately, with this component you can simply use the description slot.
