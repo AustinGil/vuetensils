@@ -78,6 +78,7 @@
         v-bind="$attrs"
         :aria-describedby="invalid.anyInvalid && `${id}__description`"
         :class="['vts-input__input', classes.input]"
+        :checked="$attrs.type === 'checkbox' && value === true"
         @input="onInput"
         @blur="dirty = true"
         v-on="$listeners"
