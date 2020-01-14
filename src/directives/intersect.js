@@ -1,65 +1,36 @@
 export default {
     inserted: (el, binding) => {
-        var options;
-        var onEnter;
-        var onChange;
-        var onLeave;
-        var threshold = 0;
-        var rootMargin = '0px';
-        var root = null;
-        // user can pass a callback and it should work
-        // setting all defaults to zero
+        const options = {
+            ...binding.value
+        };
+	options.root = options.root && document.querySelector(options.root);
+	var onLoadCall = true;
+        const listeners = {
+            onEnter: binding.value.onEnter,
+            onLeave: binding.value.onLeave,
+            onChange: binding.value.onChange
+        }
+        
         if(binding.value instanceof Function){
-            options = {
-                rootMargin,
-                threshold
-            }
-            if(binding.modifiers.leave){
-                onLeave = binding.value
-            }
-            else if(binding.modifiers.change)
-                onChange = binding.value
-            else{
-                onEnter = binding.value
-            }
-        }else{
-            // overwriting defaults by passing an object
-            ({ root, rootMargin, threshold, onEnter, onChange, onLeave } = binding.value);
-            options = {
-                root: root ? document.querySelector(root) : null,
-                rootMargin: rootMargin ? rootMargin : '0px',
-                threshold: threshold ? threshold : 0
-            }
+            const { enter, leave, change } = binding.modifiers
+            listeners.onEnter = enter && binding.value;
+            listeners.onChange = change && binding.value;
+            listeners.onLeave = leave && binding.value;
         }
 
-        /**
-         * This function decorates the callback function to
-         * check for intersection and if found it would invoke the callback
-         * and then unobserve.
-         * I don't actually know if unobserving is a good thing but I would do it
-         * @param {Function} onEnter function to be invoked on enter
-         * @param {Function} onLeave function to be invoked on leave
-         * @param {Function} onChange function to be invoked on change ( both cases )
-         * @return decorated function
-         */
-        function dec(onEnter, onLeave, onChange){
-            function wrapper(entries, observer){
-                for(let entry of entries){
-                    if(onChange instanceof Function)
-                        onChange();
-                    if(entry.isIntersecting){
-                        if(onEnter instanceof Function)
-                            onEnter();
-                    }else{
-                        if(onLeave instanceof Function)
-                            onLeave();
-                    }
+        const observer = new IntersectionObserver((entries) => {
+	    if(!onLoadCall){
+                const { isIntersecting } = entries[0];
+                if(isIntersecting){
+                    listeners.onEnter && listeners.onEnter(el);
+                }else{
+                    listeners.onLeave && listeners.onLeave(el);
                 }
-            }
-            return wrapper;
-        }
-
-        let observer = new IntersectionObserver(dec(onEnter, onLeave, onChange), options);
+                listeners.onChange && listeners.onChange(el, isIntersecting);
+	    }else{
+	        onLoadCall = false;
+	    }
+        }, options);
         observer.observe(el);
     }
 }
