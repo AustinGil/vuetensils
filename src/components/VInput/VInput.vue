@@ -212,11 +212,12 @@ export default {
         value = target.checked
       } else if (type === "select" && isMultiple) {
         value = []
-        for (let option of target.options) {
+        target.options.forEach(option => {
+          // for of not supported
           if (option.selected) {
             value.push(option.value)
           }
-        }
+        })
       } else {
         value = target.value
       }
