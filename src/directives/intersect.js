@@ -1,36 +1,54 @@
+function unbind(el) {
+  if (!el._vobserver) return
+  el._vobserver.unobserve(el)
+  delete el._vobserver
+}
+
 export default {
-  inserted: (el, binding) => {
+  inserted: (el, { value, modifiers }) => {
     const options = {
-      ...binding.value,
+      ...value,
     }
-    options.root = options.root && document.querySelector(options.root)
-    var onLoadCall = true
-    const listeners = {
-      onEnter: binding.value.onEnter,
-      onLeave: binding.value.onLeave,
-      onChange: binding.value.onChange,
+    const { enter, leave, once } = modifiers
+    let initiated = false // prevent firing the handlers until after first run
+
+    if (options.root) {
+      options.root =
+        typeof options.root === "string"
+          ? document.querySelector(options.root)
+          : options.root
     }
 
-    if (binding.value instanceof Function) {
-      const { enter, leave, change } = binding.modifiers
-      listeners.onEnter = enter && binding.value
-      listeners.onChange = change && binding.value
-      listeners.onLeave = leave && binding.value
+    const listeners = { ...value }
+
+    // Support passing direct function
+    if (value instanceof Function) {
+      if (enter) listeners.onEnter = value
+      if (leave) listeners.onLeave = value
+      if (!enter && !leave) listeners.onChange = value
     }
 
     const observer = new IntersectionObserver(entries => {
-      if (!onLoadCall) {
-        const { isIntersecting } = entries[0]
-        if (isIntersecting) {
-          listeners.onEnter && listeners.onEnter(el)
-        } else {
-          listeners.onLeave && listeners.onLeave(el)
-        }
-        listeners.onChange && listeners.onChange(el, isIntersecting)
+      if (!initiated) {
+        initiated = true
+        return
+      }
+      const { isIntersecting } = entries[0]
+
+      if (isIntersecting) {
+        listeners.onEnter && listeners.onEnter(el)
       } else {
-        onLoadCall = false
+        listeners.onLeave && listeners.onLeave(el)
+      }
+      listeners.onChange && listeners.onChange(el, isIntersecting)
+
+      if (once) {
+        unbind(el)
       }
     }, options)
     observer.observe(el)
+    el._vobserver = observer
   },
+
+  unbind,
 }

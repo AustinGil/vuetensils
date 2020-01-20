@@ -14,6 +14,7 @@ import {
   autofocus,
   clickout,
   copy,
+  intersect,
 } from "../../src/entry"
 
 export default ({ Vue, options, router, siteData }) => {
@@ -35,6 +36,7 @@ export default ({ Vue, options, router, siteData }) => {
   Vue.directive("autofocus", autofocus)
   Vue.directive("clickout", clickout)
   Vue.directive("copy", copy)
+  Vue.directive("intersect", intersect)
 }
 
 import "./public/static/styles.css"

@@ -1,4 +1,4 @@
-# Scroll Directive
+# intersect
 
 ## Installation
 
@@ -14,26 +14,20 @@ Vue.directive("intersect", intersect)
 
 ## Example
 
-```vue
+```vue live
 <template>
-  <div class="some-div-down-below" v-intersect="seen">
-    <img src="someUrl" :class="img_class" />
+  <div>
+    <div style="border: 1px solid; width: 100%; height: 70vh;"></div>
+    <div
+      v-intersect.once="$log"
+      style="border: 1px solid; width: 100%; height: 70vh;"
+    ></div>
+    <div
+      v-intersect.once="e => $log(e)"
+      style="border: 1px solid; width: 100%; height: 70vh;"
+    ></div>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      img_class: "hidden",
-    }
-  },
-  methods: {
-    seen() {
-      this.img_class = "shown"
-    },
-  },
-}
-</script>
 ```
 
 ---

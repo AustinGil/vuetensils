@@ -32,7 +32,10 @@ module.exports = {
     logo: "/static/logo.png",
     repo: "stegosource/vuetensils",
     lastUpdated: "Last Updated",
-    nav: [{ text: "Home", link: "/" }, { text: "Docs", link: "/introduction" }],
+    nav: [
+      { text: "Home", link: "/" },
+      { text: "Docs", link: "/introduction" },
+    ],
     sidebar: [
       "/Introduction",
       {
@@ -60,6 +63,7 @@ module.exports = {
           "/directives/autofocus",
           "/directives/clickout",
           "/directives/copy",
+          "/directives/intersect",
         ],
       },
     ],
