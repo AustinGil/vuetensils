@@ -81,10 +81,26 @@ Pass in the image dimensions to avoid the page jumping when the image loads
 ```vue live
 <template>
   <VImg
-    :src="`https://images.unsplash.com/photo-1546094324-7fd2718befe3?w=1080`"
+    src="https://images.unsplash.com/photo-1546094324-7fd2718befe3?w=1080"
     width="1080"
     height="864"
     placeholder="https://images.unsplash.com/photo-1546094324-7fd2718befe3?w=30"
+  />
+</template>
+```
+
+## Custom Transition Duration
+
+If you don't like the default transition duration (300ms), you can pass a custom duration in miliseconds.
+
+```vue live
+<template>
+  <VImg
+    src="https://source.unsplash.com/random/900x551"
+    width="900"
+    height="551"
+    background="#ddd"
+    transitionDuration="1000"
   />
 </template>
 ```
@@ -101,12 +117,12 @@ Don't forget all the other best practices such as `srcset` attribute and `alt` t
     height="600"
     placeholder="https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=30"
     srcset="https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=320 320w,
-      https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=480 480w,
-      https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=800 800w"
+        https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=480 480w,
+        https://images.unsplash.com/photo-1455656678494-4d1b5f3e7ad4?w=800 800w"
     sizes="(max-width: 320px) 280px,
-      (max-width: 480px) 440px,
-      (max-width: 800px) 760px,
-      1080px"
+        (max-width: 480px) 440px,
+        (max-width: 800px) 760px,
+        1080px"
     alt="Beautiful forest"
   />
 </template>
