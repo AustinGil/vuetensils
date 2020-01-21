@@ -2,12 +2,14 @@
   <div :class="['vts-img', classes.root]">
     <div
       v-if="dataUrl"
+      ref="placeholder"
       :class="['vts-img__placeholder', classes.placeholder]"
       :style="{ background }"
     >
       <img :src="placeholder || dataUrl" alt="" v-bind="$attrs" />
     </div>
     <img
+      ref="img"
       :src="dataUrl"
       :class="['vts-img__img', classes.img]"
       :alt="$attrs.alt || ''"
@@ -102,41 +104,53 @@ export default {
 
   methods: {
     init() {
-      const { src, srcset, $el } = this
+      if (!"IntersectionObserver" in window) {
+        this.loadImg()
+        return
+      }
 
-      const observer = new IntersectionObserver(([entry]) => {
-        const img = $el.querySelector(`.${NAME}__img`)
-        const placeholder = $el.querySelector(`.${NAME}__placeholder`)
-
-        img.addEventListener("load", function onLoad() {
-          $el.classList.remove(`${NAME}--loading`)
-          $el.classList.add(`${NAME}--loaded`)
-
-          if (placeholder) {
-            img.addEventListener("transitionend", function onTransitionEnd() {
-              placeholder.remove()
-              img.removeEventListener("transitionend", onTransitionEnd)
-            })
-          }
-
-          img.removeEventListener("load", onLoad)
-        })
-
-        if (entry.isIntersecting) {
-          // Element is in viewport
-          $el.classList.add(`${NAME}--loading`)
-          if (!!srcset) {
-            img.srcset = srcset
-          }
-          img.src = src
-          observer.disconnect()
-        }
-      })
-      observer.observe($el)
+      this.observer = new IntersectionObserver(this.handler)
+      this.observer.observe(this.$el)
 
       this.$once("hook:beforeDestroy", () => {
-        observer.disconnect()
+        this.observer.disconnect()
       })
+    },
+
+    handler([entry]) {
+      const { src, $el } = this
+      const { img, placeholder } = this.$refs
+
+      img.addEventListener("load", function onLoad() {
+        $el.classList.remove(`${NAME}--loading`)
+        $el.classList.add(`${NAME}--loaded`)
+
+        if (placeholder) {
+          img.addEventListener("transitionend", function onTransitionEnd() {
+            placeholder.remove()
+            img.removeEventListener("transitionend", onTransitionEnd)
+          })
+        }
+
+        img.removeEventListener("load", onLoad)
+      })
+
+      if (entry.isIntersecting) {
+        // Element is in viewport
+        $el.classList.add(`${NAME}--loading`)
+        this.loadImg()
+        img.src = src
+        this.observer.disconnect()
+      }
+    },
+
+    loadImg() {
+      const { src, srcset } = this
+      const { img } = this.$refs
+      if (!!srcset) {
+        img.srcset = srcset
+      }
+      img.src = src
     },
   },
 }
