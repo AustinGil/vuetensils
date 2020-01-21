@@ -66,7 +66,7 @@ export default {
 
     transitionDuration: {
       type: [Number, String],
-      default: 300,
+      default: 3000,
     },
 
     classes: {
@@ -104,7 +104,12 @@ export default {
 
   methods: {
     init() {
-      if (!"IntersectionObserver" in window) {
+      const supported =
+        "IntersectionObserver" in window &&
+        "IntersectionObserverEntry" in window &&
+        "intersectionRatio" in window.IntersectionObserverEntry.prototype &&
+        "isIntersecting" in window.IntersectionObserverEntry.prototype
+      if (!supported) {
         this.loadImg()
         return
       }
@@ -121,25 +126,10 @@ export default {
       const { src, $el } = this
       const { img, placeholder } = this.$refs
 
-      img.addEventListener("load", function onLoad() {
-        $el.classList.remove(`${NAME}--loading`)
-        $el.classList.add(`${NAME}--loaded`)
-
-        if (placeholder) {
-          img.addEventListener("transitionend", function onTransitionEnd() {
-            placeholder.remove()
-            img.removeEventListener("transitionend", onTransitionEnd)
-          })
-        }
-
-        img.removeEventListener("load", onLoad)
-      })
-
       if (entry.isIntersecting) {
         // Element is in viewport
         $el.classList.add(`${NAME}--loading`)
         this.loadImg()
-        img.src = src
         this.observer.disconnect()
       }
     },
@@ -147,10 +137,30 @@ export default {
     loadImg() {
       const { src, srcset } = this
       const { img } = this.$refs
+
+      img.addEventListener("load", this.onLoad)
+
       if (!!srcset) {
         img.srcset = srcset
       }
       img.src = src
+    },
+
+    onLoad() {
+      const { src, $el } = this
+      const { img, placeholder } = this.$refs
+
+      $el.classList.remove(`${NAME}--loading`)
+      $el.classList.add(`${NAME}--loaded`)
+
+      if (placeholder) {
+        img.addEventListener("transitionend", function onTransitionEnd() {
+          placeholder.remove()
+          img.removeEventListener("transitionend", onTransitionEnd)
+        })
+      }
+
+      img.removeEventListener("load", this.onLoad)
     },
   },
 }
