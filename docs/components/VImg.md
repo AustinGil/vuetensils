@@ -2,7 +2,7 @@
 
 Drop in replacement for the HTML `<img>` tag which supports lazy-loading. Improves load times by waiting for the image to scroll into view before actually downloading it.
 
-Note: This component uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) which is not supported by Internet Explorer.
+`<script src='https://cdn.polyfill.io/v2/polyfill.js?features=IntersectionObserver'></script>`
 
 [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VImg/VImg.vue)
 
@@ -42,6 +42,10 @@ export default {
 }
 </script>
 ```
+
+For IE 11 support, you may want to add the following polyfill:
+
+`<script src='https://cdn.polyfill.io/v2/polyfill.js?features=IntersectionObserver'></script>`
 
 ## Default use
 

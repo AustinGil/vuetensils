@@ -10,7 +10,9 @@ import { intersect } from "vuetensils"
 Vue.directive("intersect", intersect)
 ```
 
----
+For IE 11 support, you may want to add the following polyfill:
+
+`<script src='https://cdn.polyfill.io/v2/polyfill.js?features=IntersectionObserver'></script>`
 
 ## Example
 

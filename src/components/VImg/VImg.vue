@@ -104,16 +104,6 @@ export default {
 
   methods: {
     init() {
-      const supported =
-        "IntersectionObserver" in window &&
-        "IntersectionObserverEntry" in window &&
-        "intersectionRatio" in window.IntersectionObserverEntry.prototype &&
-        "isIntersecting" in window.IntersectionObserverEntry.prototype
-      if (!supported) {
-        this.loadImg()
-        return
-      }
-
       this.observer = new IntersectionObserver(this.handler)
       this.observer.observe(this.$el)
 
