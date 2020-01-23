@@ -28,14 +28,22 @@ export default {
     }
 
     const observer = new IntersectionObserver(([entry]) => {
-      const { isIntersecting } = entry
-
-      if (isIntersecting) {
-        listeners.onEnter && listeners.onEnter(entry, el)
-      } else {
-        listeners.onExit && listeners.onExit(entry, el)
+      // Firefox doesn't properly handle the isIntersecting prop
+      const isThresholdArray = Array.isArray(options.threshold)
+      const clone = {}
+      for (let key in entry) {
+        clone[key] = entry[key]
       }
-      listeners.onChange && listeners.onChange(entry, el)
+      clone.isIntersecting = isThresholdArray
+        ? options.threshold.includes(entry.intersectionRatio)
+        : entry.intersectionRatio === options.threshold
+
+      if (clone.isIntersecting) {
+        listeners.onEnter && listeners.onEnter(clone, el)
+      } else {
+        listeners.onExit && listeners.onExit(clone, el)
+      }
+      listeners.onChange && listeners.onChange(clone, el)
 
       if (once) {
         unbind(el)

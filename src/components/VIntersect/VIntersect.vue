@@ -18,14 +18,14 @@ export default {
      */
     root: {
       type: String,
-      default: null,
+      default: undefined,
     },
     /**
      * The IntersectionObserver rootMargin value.
      */
     rootMargin: {
       type: String,
-      default: "",
+      default: undefined,
     },
 
     options: {
