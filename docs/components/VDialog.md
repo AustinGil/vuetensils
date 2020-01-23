@@ -1,8 +1,8 @@
-# VModal
+# VDialog
 
-A modal/dialogue component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the modal until it is closed. It supports being closed by clicking outside the modal content or pressing the ESC key.
+A dialog component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the dialog until it is closed. It supports being closed by clicking outside the dialog content or pressing the ESC key.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VModal/VModal.vue)
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDialog/VDialog.vue)
 
 ## Installation
 
@@ -11,9 +11,9 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VModal } from "vuetensils"
+import { VDialog } from "vuetensils"
 
-Vue.component("VModal", VModal)
+Vue.component("VDialog", VDialog)
 ```
 
 Locally:
@@ -21,11 +21,11 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VModal } from "vuetensils"
+import { VDialog } from "vuetensils"
 
 export default {
   components: {
-    VModal,
+    VDialog,
   },
   // ...
 }
@@ -37,21 +37,21 @@ export default {
 ```vue live
 <template>
   <div class="styled">
-    <VModal v-model="modal" bg-transition="fade">
-      This is the modal content.
+    <VDialog v-model="dialog" bg-transition="fade">
+      This is the dialog content.
       <br />
       It traps the user focus.
       <br />
-      <button @click="modal = false" aria-label="close">&times;</button>
-    </VModal>
-    <button @click="modal = !modal">Show the modal</button>
+      <button @click="dialog = false" aria-label="close">&times;</button>
+    </VDialog>
+    <button @click="dialog = !dialog">Show the dialog</button>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    modal: false,
+    dialog: false,
   }),
 }
 </script>
@@ -80,11 +80,11 @@ export default {
   transform: translateY(10px);
 }
 
-.vts-modal {
+.vts-dialog {
   background: rgba(0, 0, 0, 0.7);
 }
 
-.vts-modal__content {
+.vts-dialog__content {
   position: relative;
   border-radius: 7px;
   padding: 20px;
@@ -92,12 +92,12 @@ export default {
   transition: transform 0.3s;
 }
 
-.fade-enter .vts-modal__content,
-.fade-leave-active .vts-modal__content {
+.fade-enter .vts-dialog__content,
+.fade-leave-active .vts-dialog__content {
   transform: translateY(20px);
 }
 
-.vts-modal__content button {
+.vts-dialog__content button {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -107,22 +107,22 @@ export default {
 }
 ```
 
-## Basic modal
+## Basic dialog
 
 ```vue live
 <template>
   <div>
-    <VModal v-model="modal">
-      This is the modal content.
-    </VModal>
-    <button @click="modal = !modal">Show the modal</button>
+    <VDialog v-model="dialog">
+      This is the dialog content.
+    </VDialog>
+    <button @click="dialog = !dialog">Show the dialog</button>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    modal: false,
+    dialog: false,
   }),
 }
 </script>
@@ -133,19 +133,19 @@ export default {
 ```vue live
 <template>
   <div>
-    <VModal v-model="modal">
-      This is the modal content.
+    <VDialog v-model="dialog">
+      This is the dialog content.
       <br />
-      <button @click="modal = false">Close</button>
-    </VModal>
-    <button @click="modal = !modal">Show the modal</button>
+      <button @click="dialog = false">Close</button>
+    </VDialog>
+    <button @click="dialog = !dialog">Show the dialog</button>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    modal: false,
+    dialog: false,
   }),
 }
 </script>
@@ -156,19 +156,19 @@ export default {
 ```vue live
 <template>
   <div>
-    <VModal v-model="modal" noScroll>
-      This is the modal content.
+    <VDialog v-model="dialog" noScroll>
+      This is the dialog content.
       <br />
-      <button @click="modal = false">Close</button>
-    </VModal>
-    <button @click="modal = !modal">Show the modal</button>
+      <button @click="dialog = false">Close</button>
+    </VDialog>
+    <button @click="dialog = !dialog">Show the dialog</button>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    modal: false,
+    dialog: false,
   }),
 }
 </script>
@@ -179,21 +179,21 @@ export default {
 ```vue live
 <template>
   <div>
-    <VModal v-model="modal" transition="slide-up" bg-transition="fade">
-      This is the modal content.
+    <VDialog v-model="dialog" transition="slide-up" bg-transition="fade">
+      This is the dialog content.
       <br />
       It traps the user focus.
       <br />
-      <button @click="modal = false">Close</button>
-    </VModal>
-    <button @click="modal = !modal">Show the modal</button>
+      <button @click="dialog = false">Close</button>
+    </VDialog>
+    <button @click="dialog = !dialog">Show the dialog</button>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    modal: false,
+    dialog: false,
   }),
 }
 </script>

@@ -7,7 +7,7 @@ import {
   VImg,
   VInput,
   VIntersect,
-  VModal,
+  VDialog,
   VResize,
   VTabs,
   VToggle,
@@ -28,7 +28,7 @@ export default ({ Vue, options, router, siteData }) => {
   Vue.component("VImg", VImg)
   Vue.component("VInput", VInput)
   Vue.component("VIntersect", VIntersect)
-  Vue.component("VModal", VModal)
+  Vue.component("VDialog", VDialog)
   Vue.component("VResize", VResize)
   Vue.component("VTabs", VTabs)
   Vue.component("VToggle", VToggle)
