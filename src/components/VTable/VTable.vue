@@ -1,25 +1,22 @@
 <template>
   <div>
-    <div className="lists-container">
+    <!-- <div className="lists-container">
       <h2 v-if="caption">
         {{ caption }}
       </h2>
-      <div
-        v-for="(item, index) in cItems"
-        :key="item.id"
-      >
+      <div v-for="item in cItems" :key="item.id">
         <h3>{{ "todo header" }}</h3>
         <dl>
-          <!-- {this.props.headers.map((header, i) =>
+          {this.props.headers.map((header, i) =>
               i > 0 &&
               <React.Fragment key={i}>
                 <dt>{header}</dt>
                 <dd>{row[i]}</dd>
               </React.Fragment>
-            )} -->
+            )}
         </dl>
       </div>
-    </div>
+    </div> -->
 
     <div
       ref="container"
@@ -29,10 +26,7 @@
       aria-labelledby="caption"
     >
       <table>
-        <caption
-          v-if="caption"
-          id="caption"
-        >
+        <caption v-if="caption" id="caption">
           {{ caption }}
         </caption>
         <thead v-if="headers.length">
@@ -45,28 +39,31 @@
                 sortBy !== header.key
                   ? null
                   : sortOrder === 'ASC'
-                    ? 'ascending'
-                    : 'descending'
+                  ? 'ascending'
+                  : 'descending'
               "
             >
               {{ header.text || header.key }}
 
               <button
+                v-if="header.sortable"
                 :aria-label="
-                  `sort by ${header.text || keader.key} in ${
+                  `sort by ${header.text || header.key} in ${
                     !sortOrder
                       ? 'ascending'
                       : sortOrder === 'ASC'
-                        ? 'descending'
-                        : 'default'
+                      ? 'descending'
+                      : 'default'
                   } order`
                 "
                 @click="header.sortable && onSort(header.key)"
               >
-                <template v-if="sortOrder === 'ASC'">
+                <template v-if="header.key === sortBy && sortOrder === 'ASC'">
                   &uarr;
                 </template>
-                <template v-else-if="sortOrder === 'DESC'">
+                <template
+                  v-else-if="header.key === sortBy && sortOrder === 'DESC'"
+                >
                   &darr;
                 </template>
                 <template v-else>
@@ -78,10 +75,7 @@
         </thead>
         <tbody>
           <slot v-bind="{ items: cItems, ...$data, perPage }">
-            <tr
-              v-for="(item, index) in cItems"
-              :key="item.id"
-            >
+            <tr v-for="(item, index) in cItems" :key="item.id">
               <slot
                 v-for="(value, key) in item.data"
                 :name="items[index].id ? `row.${items[index].id}` : null"
@@ -105,10 +99,7 @@
         </tfoot> -->
       </table>
 
-      <slot
-        name="pagination"
-        v-bind="{ currentPage, lastPage, goToPage }"
-      >
+      <slot name="pagination" v-bind="{ currentPage, lastPage, goToPage }">
         <div v-if="lastPage > 1">
           <button
             :disabled="currentPage === 1"
@@ -118,10 +109,7 @@
             Prev
           </button>
           <ul>
-            <li
-              v-for="pageNum in lastPage"
-              :key="pageNum"
-            >
+            <li v-for="pageNum in lastPage" :key="pageNum">
               <button
                 :disabled="pageNum === currentPage"
                 :aria-label="`go to page ${pageNum}`"
@@ -215,8 +203,19 @@ export default {
 
       if (sortBy && sortOrder) {
         const multiplier = sortOrder === "ASC" ? 1 : -1
+        const isNum = Number.isFinite(cItems[0].data[sortBy])
+
         cItems = cItems.sort((a, b) => {
-          return (a.data[sortBy] - b.data[sortBy]) * multiplier
+          const aVal = a.data[sortBy]
+          const bVal = b.data[sortBy]
+
+          if (isNum) {
+            return (aVal - bVal) * multiplier
+          }
+
+          if (aVal < bVal) return -1 * multiplier
+          if (aVal > bVal) return 1 * multiplier
+          return 0
         })
       }
 

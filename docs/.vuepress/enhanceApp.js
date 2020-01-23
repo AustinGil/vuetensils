@@ -10,6 +10,7 @@ import {
   VDialog,
   VResize,
   VTabs,
+  VTable,
   VToggle,
   autofocus,
   clickout,
@@ -31,6 +32,7 @@ export default ({ Vue, options, router, siteData }) => {
   Vue.component("VDialog", VDialog)
   Vue.component("VResize", VResize)
   Vue.component("VTabs", VTabs)
+  Vue.component("VTable", VTable)
   Vue.component("VToggle", VToggle)
 
   Vue.directive("autofocus", autofocus)

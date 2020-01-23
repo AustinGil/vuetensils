@@ -53,6 +53,7 @@ module.exports = {
           "/components/VIntersect",
           "/components/VResize",
           "/components/VTabs",
+          "/components/VTable",
           "/components/VToggle",
         ],
       },
