@@ -2,7 +2,7 @@
   <transition :name="bgTransition">
     <div
       v-if="showing"
-      :class="['vts-modal', classes.root]"
+      :class="['vts-dialog', classes.root]"
       @click="onClick"
       @keydown="onKeydown"
     >
@@ -11,11 +11,11 @@
           :is="tag"
           ref="content"
           :style="{ width: width, maxWidth: maxWidth }"
-          :class="['vts-modal__content', classes.content]"
+          :class="['vts-dialog__content', classes.content]"
           tabindex="-1"
           role="dialog"
         >
-          <!-- @slot Content that exists within the modal. -->
+          <!-- @slot Content that exists within the dialog. -->
           <slot />
         </component>
       </transition>
@@ -28,7 +28,7 @@ import KEYCODES from "../../data/keycodes"
 import FOCUSABLE from "../../data/focusable"
 
 /**
- * A modal/dialogue component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the modal until it is closed. It supports being closed by clicking outside the modal content or pressing the ESC key.
+ * A dialog component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the dialog until it is closed. It supports being closed by clicking outside the dialog content or pressing the ESC key.
  */
 export default {
   model: {
@@ -42,36 +42,36 @@ export default {
      */
     showing: Boolean,
     /**
-     * HTML component for the modal content.
+     * HTML component for the dialog content.
      */
     tag: {
       type: String,
       default: "div",
     },
     /**
-     * Flag to enable/prevent the modal from being closed.
+     * Flag to enable/prevent the dialog from being closed.
      */
     dismissible: {
       type: Boolean,
       default: true,
     },
     /**
-     * CSS width to set the modal to.
+     * CSS width to set the dialog to.
      */
     width: String,
     /**
-     * CSS max-width to set the modal to.
+     * CSS max-width to set the dialog to.
      */
     maxWidth: String,
     /**
-     * Prevents the page from being scrolled while the modal is open.
+     * Prevents the page from being scrolled while the dialog is open.
      */
     noScroll: {
       type: Boolean,
       default: false,
     },
     /**
-     * Transition name to apply to the modal.
+     * Transition name to apply to the dialog.
      */
     transition: String,
     /**
@@ -103,16 +103,10 @@ export default {
     },
   },
 
-  mounted() {
-    console.warn(
-      "Vuetensil's VModal is deprecated. Please use VDialog instead."
-    )
-  },
-
   methods: {
     show() {
       /**
-       * Fired when the modal opens.
+       * Fired when the dialog opens.
        * @event show
        * @type { boolean }
        */
@@ -121,7 +115,7 @@ export default {
     },
     hide() {
       /**
-       * Fired when the modal closes.
+       * Fired when the dialog closes.
        * @event hide
        * @type { boolean }
        */
@@ -133,14 +127,14 @@ export default {
       const event = showing ? "hide" : "show"
       this.$emit(event, !showing)
       /**
-       * Fired whenever the modal opens or closes.
+       * Fired whenever the dialog opens or closes.
        * @event change
        * @type { boolean }
        */
       this.$emit("change", !showing)
     },
     onClick(event) {
-      if (event.target.classList.contains("vts-modal") && this.dismissible) {
+      if (event.target.classList.contains("vts-dialog") && this.dismissible) {
         this.hide()
       }
     },
@@ -183,7 +177,7 @@ export default {
 </script>
 
 <style>
-.vts-modal {
+.vts-dialog {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -196,11 +190,11 @@ export default {
   background: rgba(0, 0, 0, 0.2);
 }
 
-.vts-modal [tabindex="-1"]:focus {
+.vts-dialog [tabindex="-1"]:focus {
   outline: 0;
 }
 
-.vts-modal__content {
+.vts-dialog__content {
   overflow: auto;
   max-width: 70vw;
   max-height: 80vh;

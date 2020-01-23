@@ -17,7 +17,7 @@ Links:
 
 Vuetensil's components are designed to be starting points for some of the most common UI features. They bring all the functionality you would expect from a UI library, but only the bare minimum styles to avoid adding any extra bloat. You can work on the branding, and you don't have to worry about the accessibility.
 
-Import just the features you need (like a WCAG-friendly modal that traps focus and prevents scrolling), and apply your custom design. No overhead from unused styles!
+Import just the features you need (like a WCAG-friendly dialog that traps focus and prevents scrolling), and apply your custom design. No overhead from unused styles!
 
 ## Getting Started
 

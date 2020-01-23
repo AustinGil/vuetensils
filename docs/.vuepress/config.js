@@ -32,7 +32,10 @@ module.exports = {
     logo: "/static/logo.png",
     repo: "stegosource/vuetensils",
     lastUpdated: "Last Updated",
-    nav: [{ text: "Home", link: "/" }, { text: "Docs", link: "/introduction" }],
+    nav: [
+      { text: "Home", link: "/" },
+      { text: "Docs", link: "/introduction" },
+    ],
     sidebar: [
       "/Introduction",
       {
@@ -41,15 +44,16 @@ module.exports = {
         children: [
           "/components/VAlert",
           "/components/VAsync",
+          "/components/VDialog",
           "/components/VDrawer",
           "/components/VDropdown",
           "/components/VFile",
           "/components/VImg",
           "/components/VInput",
           "/components/VIntersect",
-          "/components/VModal",
           "/components/VResize",
           "/components/VTabs",
+          "/components/VTable",
           "/components/VToggle",
         ],
       },
@@ -60,6 +64,7 @@ module.exports = {
           "/directives/autofocus",
           "/directives/clickout",
           "/directives/copy",
+          "/directives/intersect",
         ],
       },
     ],

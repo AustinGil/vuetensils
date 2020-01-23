@@ -150,11 +150,11 @@ body .live-preview pre {
   padding: 5px;
 }
 
-.styled .vts-modal {
+.styled .vts-dialog {
   background: rgba(0, 0, 0, 0.7);
 }
 
-.styled .vts-modal__content {
+.styled .vts-dialog__content {
   position: relative;
   border-radius: 7px;
   padding: 20px;
@@ -162,12 +162,12 @@ body .live-preview pre {
   transition: transform 0.3s;
 }
 
-.fade-enter .vts-modal__content,
-.fade-leave-active .vts-modal__content {
+.fade-enter .vts-dialog__content,
+.fade-leave-active .vts-dialog__content {
   transform: translateY(20px);
 }
 
-.styled .vts-modal__content button {
+.styled .vts-dialog__content button {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -230,3 +230,12 @@ body .live-preview pre {
   border: 1px solid #ccc;
   padding: 5px;
 } */
+
+.intersect-example {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50vh;
+  border: 1px solid;
+}

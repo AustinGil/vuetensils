@@ -2,16 +2,22 @@
   <div :class="['vts-img', classes.root]">
     <div
       v-if="dataUrl"
+      ref="placeholder"
       :class="['vts-img__placeholder', classes.placeholder]"
       :style="{ background }"
     >
       <img :src="placeholder || dataUrl" alt="" v-bind="$attrs" />
     </div>
     <img
+      ref="img"
       :src="dataUrl"
       :class="['vts-img__img', classes.img]"
       :alt="$attrs.alt || ''"
+      :style="{
+        transitionDuration: `${transitionDuration}ms`,
+      }"
       v-bind="$attrs"
+      v-on="$listeners"
     />
   </div>
 </template>
@@ -39,15 +45,29 @@ export default {
     /**
      * Same as the HTML attribute
      */
-    srcset: String,
+    srcset: {
+      type: String,
+      default: "",
+    },
     /**
      * URL of the blurred placeholder image to use if you need one (ideally a very small image).
      */
-    placeholder: String,
+    placeholder: {
+      type: String,
+      default: "",
+    },
     /**
      * CSS background styles for the placeholder in case you just want colors.
      */
-    background: String,
+    background: {
+      type: String,
+      default: "",
+    },
+
+    transitionDuration: {
+      type: [Number, String],
+      default: 3000,
+    },
 
     classes: {
       type: Object,
@@ -69,44 +89,69 @@ export default {
     },
   },
 
+  watch: {
+    src: {
+      handler: "init",
+    },
+    srcset: {
+      handler: "init",
+    },
+  },
+
   mounted() {
-    let timeOut
-    const { src, srcset, $el } = this
+    this.init()
+  },
 
-    const observer = new IntersectionObserver(([entry]) => {
-      const img = $el.querySelector(`.${NAME}__img`)
-      const placeholder = $el.querySelector(`.${NAME}__placeholder`)
+  methods: {
+    init() {
+      this.observer = new IntersectionObserver(this.handler)
+      this.observer.observe(this.$el)
 
-      function onLoad() {
-        img.removeEventListener("load", onLoad)
-        $el.classList.remove(`${NAME}--loading`)
-        $el.classList.add(`${NAME}--loaded`)
-        if (placeholder) {
-          timeOut = setTimeout(() => {
-            placeholder.remove()
-          }, 300)
-        }
-      }
-      img.addEventListener("load", onLoad)
+      this.$once("hook:beforeDestroy", () => {
+        this.observer.disconnect()
+      })
+    },
+
+    handler([entry]) {
+      const { src, $el } = this
+      const { img, placeholder } = this.$refs
 
       if (entry.isIntersecting) {
         // Element is in viewport
         $el.classList.add(`${NAME}--loading`)
-        if (!!srcset) {
-          img.srcset = srcset
-        }
-        img.src = src
-        observer.disconnect()
+        this.loadImg()
+        this.observer.disconnect()
       }
-    })
-    observer.observe($el)
+    },
 
-    this.$once("hook:beforeDestroy", () => {
-      observer.disconnect()
-      if (timeOut) {
-        clearTimeout(timeOut)
+    loadImg() {
+      const { src, srcset } = this
+      const { img } = this.$refs
+
+      img.addEventListener("load", this.onLoad)
+
+      if (!!srcset) {
+        img.srcset = srcset
       }
-    })
+      img.src = src
+    },
+
+    onLoad() {
+      const { src, $el } = this
+      const { img, placeholder } = this.$refs
+
+      $el.classList.remove(`${NAME}--loading`)
+      $el.classList.add(`${NAME}--loaded`)
+
+      if (placeholder) {
+        img.addEventListener("transitionend", function onTransitionEnd() {
+          placeholder.remove()
+          img.removeEventListener("transitionend", onTransitionEnd)
+        })
+      }
+
+      img.removeEventListener("load", this.onLoad)
+    },
   },
 }
 </script>
@@ -133,7 +178,8 @@ export default {
 
 .vts-img__img {
   opacity: 0;
-  transition: opacity 300ms ease;
+  transition-property: opacity;
+  transition-timing-function: ease;
 }
 
 .vts-img--loaded .vts-img__img {

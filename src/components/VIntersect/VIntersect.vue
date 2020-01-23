@@ -1,15 +1,6 @@
-<template>
-  <component
-    :is="tag"
-    class="vts-intersection"
-  >
-    <!-- @slot Content to be tracked with IntersectionObserver -->
-    <slot />
-  </component>
-</template>
-
-
 <script>
+import { safeSlot } from "../../utils"
+
 /**
  * Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
  */
@@ -19,60 +10,92 @@ export default {
      * The IntersectionObserver threshold value.
      */
     threshold: {
-      type: Array,
-      default: () => [0, 0.2]
+      type: [Number, Array],
+      default: () => null,
     },
     /**
      * The IntersectionObserver root value.
      */
-    root: String,
+    root: {
+      type: String,
+      default: null,
+    },
     /**
      * The IntersectionObserver rootMargin value.
      */
-    rootMargin: String,
-    /**
-     * The HTML tag used to wrap this component
-     */
-    tag: {
+    rootMargin: {
       type: String,
-      default: "div"
-    }
+      default: "",
+    },
+
+    options: {
+      type: Object,
+      default: () => ({}),
+    },
   },
+
+  data: () => ({
+    entry: {},
+  }),
+
   mounted() {
-    this.observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting) {
-          /**
-           * Fired when the observed element enters the screen.
-           * @event enter
-           * @type { IntersectionObserverEntry }
-           */
-          this.$emit("enter", [entries[0]])
-        } else {
-          /**
-           * Fired when the observed element exits the screen.
-           * @event exit
-           * @type { IntersectionObserverEntry }
-           */
-          this.$emit("exit", [entries[0]])
-        }
-        /**
-         * Fired when the observed element enters or exits the screen.
-         * @event change
-         * @type { IntersectionObserverEntry }
-         */
-        this.$emit("change", [entries[0]])
-      },
-      {
-        threshold: this.threshold,
-        root: this.root,
-        rootMargin: this.rootMargin
-      }
-    )
+    const { root, threshold, rootMargin, options, handler } = this
+    const observerOptions = {
+      ...options,
+      root,
+      threshold,
+      rootMargin,
+    }
+
+    this.observer = new IntersectionObserver(handler, observerOptions)
     this.observer.observe(this.$el)
+
     this.$once("hook:beforeDestroy", () => {
       this.observer.disconnect()
     })
-  }
+  },
+
+  methods: {
+    handler([entry]) {
+      this.entry = entry
+      // console.log(entry)
+      if (entry.isIntersecting) {
+        /**
+         * Fired when the observed element enters the screen.
+         * @event enter
+         * @type { IntersectionObserverEntry }
+         */
+        this.$emit("enter", entry)
+      } else {
+        /**
+         * Fired when the observed element exits the screen.
+         * @event exit
+         * @type { IntersectionObserverEntry }
+         */
+        this.$emit("exit", entry)
+      }
+      /**
+       * Fired when the observed element enters or exits the screen.
+       * @event change
+       * @type { IntersectionObserverEntry }
+       */
+      this.$emit("change", entry)
+    },
+  },
+
+  render(h) {
+    // @slot Content to be tracked with IntersectionObserver
+    const { entry } = this
+
+    /** @slot Slot content providing isIntersecting */
+    const defaultSlot = this.$slots.default
+    const scopedSlot = this.$scopedSlots.default
+
+    if (defaultSlot) {
+      return safeSlot(h, defaultSlot)
+    }
+
+    return safeSlot(h, scopedSlot(entry))
+  },
 }
 </script>
