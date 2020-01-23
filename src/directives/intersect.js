@@ -9,8 +9,7 @@ export default {
     const options = {
       ...value,
     }
-    const { enter, leave, once } = modifiers
-    let initiated = false // prevent firing the handlers until after first run
+    const { enter, exit, once } = modifiers
 
     if (options.root) {
       options.root =
@@ -24,23 +23,19 @@ export default {
     // Support passing direct function
     if (value instanceof Function) {
       if (enter) listeners.onEnter = value
-      if (leave) listeners.onLeave = value
-      if (!enter && !leave) listeners.onChange = value
+      if (exit) listeners.onExit = value
+      if (!enter && !exit) listeners.onChange = value
     }
 
-    const observer = new IntersectionObserver(entries => {
-      if (!initiated) {
-        initiated = true
-        return
-      }
-      const { isIntersecting } = entries[0]
+    const observer = new IntersectionObserver(([entry]) => {
+      const { isIntersecting } = entry
 
       if (isIntersecting) {
-        listeners.onEnter && listeners.onEnter(el)
+        listeners.onEnter && listeners.onEnter(entry, el)
       } else {
-        listeners.onLeave && listeners.onLeave(el)
+        listeners.onExit && listeners.onExit(entry, el)
       }
-      listeners.onChange && listeners.onChange(el, isIntersecting)
+      listeners.onChange && listeners.onChange(entry, el)
 
       if (once) {
         unbind(el)
