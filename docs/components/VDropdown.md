@@ -37,7 +37,7 @@ export default {
 ```vue live
 <template>
   <VDropdown text="Show me what you got!" transition="slide-up" class="styled">
-    Here is some custom dropdwon content.
+    Here is some custom dropdown content.
   </VDropdown>
 </template>
 ```

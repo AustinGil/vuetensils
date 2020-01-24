@@ -8,7 +8,7 @@
     class="styled"
     position="top"
   >
-    Here is some custom dropdwon content.
+    Here is some custom dropdown content.
   </VDropdown>
 </template>
 
