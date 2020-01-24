@@ -1,6 +1,8 @@
 # VTable
 
-WIP
+Takes a list of objects and a list of table headers and created an HTML table with sorting and pagination built in.
+
+This component is still in active development. Give a go, and please consider logging issues or feature requests on GitHub.
 
 ## Installation
 
