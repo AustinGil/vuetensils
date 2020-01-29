@@ -11,7 +11,7 @@
           :is="tag"
           ref="content"
           :style="{ width: width, maxWidth: maxWidth }"
-          :class="classes.root ? classes.content : 'vts-dialog__content'"
+          :class="classes.content ? classes.content : 'vts-dialog__content'"
           tabindex="-1"
           role="dialog"
         >
