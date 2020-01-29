@@ -2,7 +2,7 @@
   <transition :name="bgTransition">
     <div
       v-if="showing"
-      :class="['vts-dialog', classes.root]"
+      :class="classes.root ? classes.root : 'vts-dialog'"
       @click="onClick"
       @keydown="onKeydown"
     >
@@ -11,7 +11,7 @@
           :is="tag"
           ref="content"
           :style="{ width: width, maxWidth: maxWidth }"
-          :class="['vts-dialog__content', classes.content]"
+          :class="classes.root ? classes.content : 'vts-dialog__content'"
           tabindex="-1"
           role="dialog"
         >
