@@ -16,6 +16,14 @@ body .live-preview pre {
   background: initial;
 }
 
+.bg-white {
+  background-color: #fff;
+}
+
+.bg-black-alpha {
+  background: rgba(0, 0, 0, 0.2);
+}
+
 .styled {
   font-family: sans-serif;
 }
@@ -114,10 +122,11 @@ body .live-preview pre {
   border-radius: 5px 5px 0 0;
 }
 
-.styled .vts-dropdown__content {
+.dropdown-content {
   border: 1px solid darkcyan;
   border-radius: 0 0 5px 5px;
   padding: 10px;
+  background-color: #fff;
 }
 
 .styled .vts-file__dropzone {
@@ -150,24 +159,25 @@ body .live-preview pre {
   padding: 5px;
 }
 
-.styled .vts-dialog {
+.my-dialog {
   background: rgba(0, 0, 0, 0.7);
 }
 
-.styled .vts-dialog__content {
+.my-dialog-content {
   position: relative;
   border-radius: 7px;
   padding: 20px;
   font-family: sans-serif;
+  background: #fff;
   transition: transform 0.3s;
 }
 
-.fade-enter .vts-dialog__content,
-.fade-leave-active .vts-dialog__content {
+.fade-enter .my-dialog-content,
+.fade-leave-active .my-dialog-content {
   transform: translateY(20px);
 }
 
-.styled .vts-dialog__content button {
+.my-dialog-content button {
   position: absolute;
   top: 5px;
   right: 5px;
