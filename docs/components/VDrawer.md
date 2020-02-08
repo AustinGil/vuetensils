@@ -88,12 +88,58 @@ export default {
 }
 ```
 
-## Unstyled Examples
+## Styling
+
+NOTE: Dialog background colors have been removed.
+
+To add background colors to the content, you chave 3 options:
+
+1. Use the provided `.vts-drawer__content` class to add a background color:
+   ```css
+   .vts-drawer__content {
+     background: #fff;
+   }
+   ```
+2. Use the `classes` prop object to provide a custom class:
+   ```vue
+   <VDrawer :classes="{ content: 'bg-white' }">
+    ...
+   </VDrawer>
+   ```
+3. Use the slot content to provide a custom class:
+   ```
+   <VDrawer>
+     <div class="sidebar">...</div>
+   </VDrawer>
+   ```
+   ```css
+   .sidebar {
+     height: 100%;
+     background: #fff;
+   }
+   ```
+
+## Examples
+
+The following styles have been added to **this site** to make the dialogs easier to see:
+
+```css
+.bg-white {
+  background-color: #fff;
+}
+
+.bg-black-alpha {
+  background: rgba(0, 0, 0, 0.2);
+}
+```
 
 ```vue live
 <template>
   <div>
-    <VDrawer v-model="showDrawer">
+    <VDrawer
+      v-model="showDrawer"
+      :classes="{ root: 'bg-black-alpha', content: 'bg-white' }"
+    >
       My drawer content
     </VDrawer>
 
@@ -115,7 +161,11 @@ export default {
 ```vue live
 <template>
   <div>
-    <VDrawer v-model="showDrawer" right>
+    <VDrawer
+      v-model="showDrawer"
+      right
+      :classes="{ root: 'bg-black-alpha', content: 'bg-white' }"
+    >
       My drawer content
     </VDrawer>
 
@@ -137,7 +187,11 @@ export default {
 ```vue live
 <template>
   <div>
-    <VDrawer v-model="showDrawer" noScroll>
+    <VDrawer
+      v-model="showDrawer"
+      noScroll
+      :classes="{ root: 'bg-black-alpha', content: 'bg-white' }"
+    >
       My drawer content
     </VDrawer>
 
@@ -159,7 +213,12 @@ export default {
 ```vue live
 <template>
   <div>
-    <VDrawer v-model="showDrawer" transition="slide-right" bg-transition="fade">
+    <VDrawer
+      v-model="showDrawer"
+      transition="slide-right"
+      bg-transition="fade"
+      :classes="{ root: 'bg-black-alpha', content: 'bg-white' }"
+    >
       My drawer content
     </VDrawer>
 

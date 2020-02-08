@@ -3,9 +3,9 @@
     <component
       :is="tag"
       v-if="showing"
+      :class="['vts-drawer', classes.root]"
       @click="onBgClick"
       @keydown="onKeydown"
-      :class="['vts-drawer', classes.root]"
     >
       <transition :name="transition" appear>
         <div
@@ -56,11 +56,17 @@ export default {
     /**
      * CSS width value.
      */
-    width: String,
+    width: {
+      type: String,
+      default: "",
+    },
     /**
      * CSS max-width value.
      */
-    maxWidth: String,
+    maxWidth: {
+      type: String,
+      default: "",
+    },
     /**
      * Disable page scrolling when drawer is open.
      */
@@ -68,15 +74,38 @@ export default {
     /**
      * Vue transition name.
      */
-    transition: String,
+    transition: {
+      type: String,
+      default: "",
+    },
     /**
      * Vue transition name for the background.
      */
-    bgTransition: String,
+    bgTransition: {
+      type: String,
+      default: "",
+    },
 
     classes: {
       type: Object,
       default: () => ({}),
+    },
+  },
+
+  watch: {
+    showing: {
+      handler(next, prev) {
+        if (typeof window === "undefined") return
+
+        if (next && next != prev) {
+          this.noScroll && document.body.style.setProperty("overflow", "hidden")
+          this.$nextTick(() => {
+            this.$refs.content.focus()
+          })
+        } else {
+          this.noScroll && document.body.style.removeProperty("overflow")
+        }
+      },
     },
   },
 
@@ -150,21 +179,6 @@ export default {
       }
     },
   },
-
-  watch: {
-    showing: {
-      handler(next, prev) {
-        if (next && next != prev) {
-          this.noScroll && document.body.style.setProperty("overflow", "hidden")
-          this.$nextTick(() => {
-            this.$refs.content.focus()
-          })
-        } else {
-          this.noScroll && document.body.style.removeProperty("overflow")
-        }
-      },
-    },
-  },
 }
 </script>
 
@@ -176,19 +190,16 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-.vts-drawer [tabindex="-1"]:focus {
-  outline: 0;
 }
 
 .vts-drawer__content {
   overflow: auto;
-  width: 100%;
   max-width: 300px;
   height: 100%;
-  background: #fff;
+}
+
+.vts-drawer__content:focus {
+  outline: 0;
 }
 
 .vts-drawer__content--right {

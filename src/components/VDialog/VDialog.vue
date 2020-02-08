@@ -58,11 +58,17 @@ export default {
     /**
      * CSS width to set the dialog to.
      */
-    width: String,
+    width: {
+      type: String,
+      default: "",
+    },
     /**
      * CSS max-width to set the dialog to.
      */
-    maxWidth: String,
+    maxWidth: {
+      type: String,
+      default: "",
+    },
     /**
      * Prevents the page from being scrolled while the dialog is open.
      */
@@ -73,11 +79,17 @@ export default {
     /**
      * Transition name to apply to the dialog.
      */
-    transition: String,
+    transition: {
+      type: String,
+      default: "",
+    },
     /**
      * Transition name to apply to the background.
      */
-    bgTransition: String,
+    bgTransition: {
+      type: String,
+      default: "",
+    },
 
     classes: {
       type: Object,
@@ -88,16 +100,15 @@ export default {
   watch: {
     showing: {
       handler(next, prev) {
-        if (typeof window !== "undefined") {
-          if (next && next != prev) {
-            this.noScroll &&
-              document.body.style.setProperty("overflow", "hidden")
-            this.$nextTick(() => {
-              this.$refs.content.focus()
-            })
-          } else {
-            this.noScroll && document.body.style.removeProperty("overflow")
-          }
+        if (typeof window === "undefined") return
+
+        if (next && next != prev) {
+          this.noScroll && document.body.style.setProperty("overflow", "hidden")
+          this.$nextTick(() => {
+            this.$refs.content.focus()
+          })
+        } else {
+          this.noScroll && document.body.style.removeProperty("overflow")
         }
       },
     },
@@ -187,17 +198,9 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.2);
 }
 
-.vts-dialog [tabindex="-1"]:focus {
+.vts-dialog__content:focus {
   outline: 0;
-}
-
-.vts-dialog__content {
-  overflow: auto;
-  max-width: 70vw;
-  max-height: 80vh;
-  background: #fff;
 }
 </style>
