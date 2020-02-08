@@ -432,11 +432,17 @@
       /**
        * CSS width to set the dialog to.
        */
-      width: String,
+      width: {
+        type: String,
+        default: "",
+      },
       /**
        * CSS max-width to set the dialog to.
        */
-      maxWidth: String,
+      maxWidth: {
+        type: String,
+        default: "",
+      },
       /**
        * Prevents the page from being scrolled while the dialog is open.
        */
@@ -447,11 +453,17 @@
       /**
        * Transition name to apply to the dialog.
        */
-      transition: String,
+      transition: {
+        type: String,
+        default: "",
+      },
       /**
        * Transition name to apply to the background.
        */
-      bgTransition: String,
+      bgTransition: {
+        type: String,
+        default: "",
+      },
 
       classes: {
         type: Object,
@@ -464,16 +476,15 @@
         handler: function handler(next, prev) {
           var this$1 = this;
 
-          if (typeof window !== "undefined") {
-            if (next && next != prev) {
-              this.noScroll &&
-                document.body.style.setProperty("overflow", "hidden");
-              this.$nextTick(function () {
-                this$1.$refs.content.focus();
-              });
-            } else {
-              this.noScroll && document.body.style.removeProperty("overflow");
-            }
+          if (typeof window === "undefined") { return }
+
+          if (next && next != prev) {
+            this.noScroll && document.body.style.setProperty("overflow", "hidden");
+            this.$nextTick(function () {
+              this$1.$refs.content.focus();
+            });
+          } else {
+            this.noScroll && document.body.style.removeProperty("overflow");
           }
         },
       },
@@ -562,7 +573,7 @@
     /* style */
     var __vue_inject_styles__$2 = function (inject) {
       if (!inject) { return }
-      inject("data-v-6cef1b66_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.2)}.vts-dialog [tabindex=\"-1\"]:focus{outline:0}.vts-dialog__content{overflow:auto;max-width:70vw;max-height:80vh;background:#fff}", map: undefined, media: undefined });
+      inject("data-v-c744e71a_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -619,11 +630,17 @@
       /**
        * CSS width value.
        */
-      width: String,
+      width: {
+        type: String,
+        default: "",
+      },
       /**
        * CSS max-width value.
        */
-      maxWidth: String,
+      maxWidth: {
+        type: String,
+        default: "",
+      },
       /**
        * Disable page scrolling when drawer is open.
        */
@@ -631,15 +648,40 @@
       /**
        * Vue transition name.
        */
-      transition: String,
+      transition: {
+        type: String,
+        default: "",
+      },
       /**
        * Vue transition name for the background.
        */
-      bgTransition: String,
+      bgTransition: {
+        type: String,
+        default: "",
+      },
 
       classes: {
         type: Object,
         default: function () { return ({}); },
+      },
+    },
+
+    watch: {
+      showing: {
+        handler: function handler(next, prev) {
+          var this$1 = this;
+
+          if (typeof window === "undefined") { return }
+
+          if (next && next != prev) {
+            this.noScroll && document.body.style.setProperty("overflow", "hidden");
+            this.$nextTick(function () {
+              this$1.$refs.content.focus();
+            });
+          } else {
+            this.noScroll && document.body.style.removeProperty("overflow");
+          }
+        },
       },
     },
 
@@ -714,23 +756,6 @@
         }
       },
     },
-
-    watch: {
-      showing: {
-        handler: function handler(next, prev) {
-          var this$1 = this;
-
-          if (next && next != prev) {
-            this.noScroll && document.body.style.setProperty("overflow", "hidden");
-            this.$nextTick(function () {
-              this$1.$refs.content.focus();
-            });
-          } else {
-            this.noScroll && document.body.style.removeProperty("overflow");
-          }
-        },
-      },
-    },
   };
 
   /* script */
@@ -746,7 +771,7 @@
     /* style */
     var __vue_inject_styles__$3 = function (inject) {
       if (!inject) { return }
-      inject("data-v-01dbf309_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background-color:rgba(0,0,0,.2)}.vts-drawer [tabindex=\"-1\"]:focus{outline:0}.vts-drawer__content{overflow:auto;width:100%;max-width:300px;height:100%;background:#fff}.vts-drawer__content--right{margin-left:auto}", map: undefined, media: undefined });
+      inject("data-v-2bfba34e_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-drawer__content{overflow:auto;max-width:300px;height:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-left:auto}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -804,6 +829,8 @@
   //
   //
   //
+  //
+  //
 
   /**
    * Adds a button that can show/hide dropdown content when it is hovered over, or clicked. When it is clicked, the content will persist until the user clicks out or focuses out. Includes relevant ARIA attributes for the hidden content.
@@ -813,7 +840,10 @@
       /**
        * The toggle button text.
        */
-      text: String,
+      text: {
+        type: String,
+        default: "",
+      },
       /**
        * Where the content should be placed in relation to the button.
        *
@@ -829,7 +859,10 @@
       /**
        * The transition name.
        */
-      transition: String,
+      transition: {
+        type: String,
+        default: "",
+      },
 
       classes: {
         type: Object,
@@ -841,6 +874,15 @@
       isHovered: false,
       isFocused: false,
     }); },
+
+    mounted: function mounted() {
+      var ref = this;
+      var onClickout = ref.onClickout;
+      document.addEventListener("click", onClickout);
+      this.$once("hook:beforeDestroy", function () {
+        document.removeEventListener("click", onClickout);
+      });
+    },
 
     methods: {
       onClickout: function onClickout(e) {
@@ -855,28 +897,19 @@
         }
       },
     },
-
-    mounted: function mounted() {
-      var ref = this;
-      var onClickout = ref.onClickout;
-      document.addEventListener("click", onClickout);
-      this.$once("hook:beforeDestroy", function () {
-        document.removeEventListener("click", onClickout);
-      });
-    },
   };
 
   /* script */
   var __vue_script__$4 = script$4;
 
   /* template */
-  var __vue_render__$3 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:['vts-dropdown', _vm.classes.root],on:{"mouseenter":function($event){_vm.isHovered = true;},"mouseleave":function($event){_vm.isHovered = false;},"focusout":_vm.onFocusout}},[_c('button',{class:['vts-dropdown__trigger', _vm.classes.trigger],attrs:{"aria-expanded":!!_vm.isHovered || !!_vm.isFocused,"aria-haspopup":"true"},on:{"click":function($event){_vm.isFocused = !_vm.isFocused;}}},[_vm._t("trigger",[_vm._v(_vm._s(_vm.text))])],2),_vm._v(" "),_c('transition',{attrs:{"name":_vm.transition}},[(!!_vm.isHovered || !!_vm.isFocused)?_c('div',{staticClass:"vts-dropdown__content",class:[("vts-dropdown__content--" + _vm.position), _vm.classes.content]},[_vm._t("default")],2):_vm._e()])],1)};
+  var __vue_render__$3 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:['vts-dropdown', _vm.classes.root],on:{"mouseenter":function($event){_vm.isHovered = true;},"mouseleave":function($event){_vm.isHovered = false;},"focusout":_vm.onFocusout}},[_c('button',{class:['vts-dropdown__trigger', _vm.classes.trigger],attrs:{"aria-expanded":!!_vm.isHovered || !!_vm.isFocused,"aria-haspopup":"true"},on:{"click":function($event){_vm.isFocused = !_vm.isFocused;}}},[_vm._t("trigger",[_vm._v("\n      "+_vm._s(_vm.text)+"\n    ")])],2),_vm._v(" "),_c('transition',{attrs:{"name":_vm.transition}},[(!!_vm.isHovered || !!_vm.isFocused)?_c('div',{staticClass:"vts-dropdown__content",class:[("vts-dropdown__content--" + _vm.position), _vm.classes.content]},[_vm._t("default")],2):_vm._e()])],1)};
   var __vue_staticRenderFns__$3 = [];
 
     /* style */
     var __vue_inject_styles__$4 = function (inject) {
       if (!inject) { return }
-      inject("data-v-6487e2d7_0", { source: ".vts-dropdown{display:inline-block;position:relative}.vts-dropdown__content{position:absolute;z-index:5;min-width:100%;border:1px solid rgba(0,0,0,.2);background-color:#fff}.vts-dropdown__content--top{top:0;transform:translateY(-100%)}", map: undefined, media: undefined });
+      inject("data-v-1e03e90e_0", { source: ".vts-dropdown{display:inline-block;position:relative}.vts-dropdown__content{position:absolute;z-index:5;min-width:100%}.vts-dropdown__content--top{top:0;transform:translateY(-100%)}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -1487,14 +1520,14 @@
        */
       root: {
         type: String,
-        default: null,
+        default: undefined,
       },
       /**
        * The IntersectionObserver rootMargin value.
        */
       rootMargin: {
         type: String,
-        default: "",
+        default: undefined,
       },
 
       options: {
@@ -2592,14 +2625,22 @@
       var observer = new IntersectionObserver(function (ref) {
         var entry = ref[0];
 
-        var isIntersecting = entry.isIntersecting;
-
-        if (isIntersecting) {
-          listeners.onEnter && listeners.onEnter(entry, el);
-        } else {
-          listeners.onExit && listeners.onExit(entry, el);
+        // Firefox doesn't properly handle the isIntersecting prop
+        var isThresholdArray = Array.isArray(options.threshold);
+        var clone = {};
+        for (var key in entry) {
+          clone[key] = entry[key];
         }
-        listeners.onChange && listeners.onChange(entry, el);
+        clone.isIntersecting = isThresholdArray
+          ? options.threshold.includes(entry.intersectionRatio)
+          : entry.intersectionRatio === options.threshold;
+
+        if (clone.isIntersecting) {
+          listeners.onEnter && listeners.onEnter(clone, el);
+        } else {
+          listeners.onExit && listeners.onExit(clone, el);
+        }
+        listeners.onChange && listeners.onChange(clone, el);
 
         if (once) {
           unbind(el);
