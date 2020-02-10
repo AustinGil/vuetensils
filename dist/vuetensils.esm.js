@@ -1,5 +1,3 @@
-import { normalizeComponent, createInjector } from 'vue-runtime-helpers';
-
 //
 //
 //
@@ -143,6 +141,81 @@ var script = {
   },
 };
 
+function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+    if (typeof shadowMode !== 'boolean') {
+        createInjectorSSR = createInjector;
+        createInjector = shadowMode;
+        shadowMode = false;
+    }
+    // Vue.extend constructor export interop.
+    var options = typeof script === 'function' ? script.options : script;
+    // render functions
+    if (template && template.render) {
+        options.render = template.render;
+        options.staticRenderFns = template.staticRenderFns;
+        options._compiled = true;
+        // functional template
+        if (isFunctionalTemplate) {
+            options.functional = true;
+        }
+    }
+    // scopedId
+    if (scopeId) {
+        options._scopeId = scopeId;
+    }
+    var hook;
+    if (moduleIdentifier) {
+        // server build
+        hook = function (context) {
+            // 2.3 injection
+            context =
+                context || // cached call
+                    (this.$vnode && this.$vnode.ssrContext) || // stateful
+                    (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
+            // 2.2 with runInNewContext: true
+            if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+                context = __VUE_SSR_CONTEXT__;
+            }
+            // inject component styles
+            if (style) {
+                style.call(this, createInjectorSSR(context));
+            }
+            // register component module identifier for async chunk inference
+            if (context && context._registeredComponents) {
+                context._registeredComponents.add(moduleIdentifier);
+            }
+        };
+        // used by ssr in case component is cached and beforeCreate
+        // never gets called
+        options._ssrRegister = hook;
+    }
+    else if (style) {
+        hook = shadowMode
+            ? function (context) {
+                style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+            }
+            : function (context) {
+                style.call(this, createInjector(context));
+            };
+    }
+    if (hook) {
+        if (options.functional) {
+            // register for functional component in vue file
+            var originalRender = options.render;
+            options.render = function renderWithStyleInjection(h, context) {
+                hook.call(context);
+                return originalRender(h, context);
+            };
+        }
+        else {
+            // inject component registration as beforeCreate hook
+            var existing = options.beforeCreate;
+            options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+        }
+    }
+    return script;
+}
+
 /* script */
 var __vue_script__ = script;
 
@@ -166,7 +239,7 @@ var __vue_staticRenderFns__ = [];
   
 
   
-  var VAlert = normalizeComponent(
+  var __vue_component__ = normalizeComponent(
     { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
     __vue_inject_styles__,
     __vue_script__,
@@ -357,7 +430,7 @@ var __vue_script__$1 = script$1;
   
 
   
-  var VAsync = normalizeComponent(
+  var __vue_component__$1 = normalizeComponent(
     {},
     __vue_inject_styles__$1,
     __vue_script__$1,
@@ -559,6 +632,59 @@ var script$2 = {
   },
 };
 
+var isOldIE = typeof navigator !== 'undefined' &&
+    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+function createInjector(context) {
+    return function (id, style) { return addStyle(id, style); };
+}
+var HEAD;
+var styles = {};
+function addStyle(id, css) {
+    var group = isOldIE ? css.media || 'default' : id;
+    var style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
+    if (!style.ids.has(id)) {
+        style.ids.add(id);
+        var code = css.source;
+        if (css.map) {
+            // https://developer.chrome.com/devtools/docs/javascript-debugging
+            // this makes source maps inside style tags work properly in Chrome
+            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
+            // http://stackoverflow.com/a/26603875
+            code +=
+                '\n/*# sourceMappingURL=data:application/json;base64,' +
+                    btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
+                    ' */';
+        }
+        if (!style.element) {
+            style.element = document.createElement('style');
+            style.element.type = 'text/css';
+            if (css.media)
+                { style.element.setAttribute('media', css.media); }
+            if (HEAD === undefined) {
+                HEAD = document.head || document.getElementsByTagName('head')[0];
+            }
+            HEAD.appendChild(style.element);
+        }
+        if ('styleSheet' in style.element) {
+            style.styles.push(code);
+            style.element.styleSheet.cssText = style.styles
+                .filter(Boolean)
+                .join('\n');
+        }
+        else {
+            var index = style.ids.size - 1;
+            var textNode = document.createTextNode(code);
+            var nodes = style.element.childNodes;
+            if (nodes[index])
+                { style.element.removeChild(nodes[index]); }
+            if (nodes.length)
+                { style.element.insertBefore(textNode, nodes[index]); }
+            else
+                { style.element.appendChild(textNode); }
+        }
+    }
+}
+
 /* script */
 var __vue_script__$2 = script$2;
 
@@ -584,7 +710,7 @@ var __vue_staticRenderFns__$1 = [];
   
 
   
-  var VDialog = normalizeComponent(
+  var __vue_component__$2 = normalizeComponent(
     { render: __vue_render__$1, staticRenderFns: __vue_staticRenderFns__$1 },
     __vue_inject_styles__$2,
     __vue_script__$2,
@@ -782,7 +908,7 @@ var __vue_staticRenderFns__$2 = [];
   
 
   
-  var VDrawer = normalizeComponent(
+  var __vue_component__$3 = normalizeComponent(
     { render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 },
     __vue_inject_styles__$3,
     __vue_script__$3,
@@ -920,7 +1046,7 @@ var __vue_staticRenderFns__$3 = [];
   
 
   
-  var VDropdown = normalizeComponent(
+  var __vue_component__$4 = normalizeComponent(
     { render: __vue_render__$3, staticRenderFns: __vue_staticRenderFns__$3 },
     __vue_inject_styles__$4,
     __vue_script__$4,
@@ -1082,7 +1208,7 @@ var __vue_staticRenderFns__$4 = [];
   
 
   
-  var VFile = normalizeComponent(
+  var __vue_component__$5 = normalizeComponent(
     { render: __vue_render__$4, staticRenderFns: __vue_staticRenderFns__$4 },
     __vue_inject_styles__$5,
     __vue_script__$5,
@@ -1296,7 +1422,7 @@ var __vue_staticRenderFns__$5 = [];
   
 
   
-  var VImg = normalizeComponent(
+  var __vue_component__$6 = normalizeComponent(
     { render: __vue_render__$5, staticRenderFns: __vue_staticRenderFns__$5 },
     __vue_inject_styles__$6,
     __vue_script__$6,
@@ -1486,7 +1612,7 @@ var __vue_staticRenderFns__$6 = [];
   
 
   
-  var VInput = normalizeComponent(
+  var __vue_component__$7 = normalizeComponent(
     { render: __vue_render__$6, staticRenderFns: __vue_staticRenderFns__$6 },
     __vue_inject_styles__$7,
     __vue_script__$7,
@@ -1626,7 +1752,7 @@ var __vue_script__$8 = script$8;
   
 
   
-  var VIntersect = normalizeComponent(
+  var __vue_component__$8 = normalizeComponent(
     {},
     __vue_inject_styles__$8,
     __vue_script__$8,
@@ -1823,7 +1949,7 @@ var __vue_staticRenderFns__$7 = [];
   
 
   
-  var VModal = normalizeComponent(
+  var __vue_component__$9 = normalizeComponent(
     { render: __vue_render__$7, staticRenderFns: __vue_staticRenderFns__$7 },
     __vue_inject_styles__$9,
     __vue_script__$9,
@@ -1897,7 +2023,7 @@ var __vue_staticRenderFns__$8 = [];
   
 
   
-  var VResize = normalizeComponent(
+  var __vue_component__$a = normalizeComponent(
     { render: __vue_render__$8, staticRenderFns: __vue_staticRenderFns__$8 },
     __vue_inject_styles__$a,
     __vue_script__$a,
@@ -2059,7 +2185,7 @@ var __vue_staticRenderFns__$9 = [];
   
 
   
-  var VTabs = normalizeComponent(
+  var __vue_component__$b = normalizeComponent(
     { render: __vue_render__$9, staticRenderFns: __vue_staticRenderFns__$9 },
     __vue_inject_styles__$b,
     __vue_script__$b,
@@ -2384,7 +2510,7 @@ var __vue_staticRenderFns__$a = [];
   
 
   
-  var VTable = normalizeComponent(
+  var __vue_component__$c = normalizeComponent(
     { render: __vue_render__$a, staticRenderFns: __vue_staticRenderFns__$a },
     __vue_inject_styles__$c,
     __vue_script__$c,
@@ -2522,7 +2648,7 @@ var __vue_staticRenderFns__$b = [];
   
 
   
-  var VToggle = normalizeComponent(
+  var __vue_component__$d = normalizeComponent(
     { render: __vue_render__$b, staticRenderFns: __vue_staticRenderFns__$b },
     __vue_inject_styles__$d,
     __vue_script__$d,
@@ -2649,4 +2775,4 @@ var intersect = {
   unbind: unbind,
 };
 
-export { VAlert, VAsync, VDialog, VDrawer, VDropdown, VFile, VImg, VInput, VIntersect, VModal, VResize, VTable, VTabs, VToggle, autofocus, clickout, copy, intersect };
+export { __vue_component__ as VAlert, __vue_component__$1 as VAsync, __vue_component__$2 as VDialog, __vue_component__$3 as VDrawer, __vue_component__$4 as VDropdown, __vue_component__$5 as VFile, __vue_component__$6 as VImg, __vue_component__$7 as VInput, __vue_component__$8 as VIntersect, __vue_component__$9 as VModal, __vue_component__$a as VResize, __vue_component__$c as VTable, __vue_component__$b as VTabs, __vue_component__$d as VToggle, autofocus, clickout, copy, intersect };
