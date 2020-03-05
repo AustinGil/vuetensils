@@ -6,7 +6,12 @@
       :class="['vts-img__placeholder', classes.placeholder]"
       :style="{ background }"
     >
-      <img :src="placeholder || dataUrl" v-bind="$attrs" alt="" />
+      <img
+        :src="placeholder || dataUrl"
+        v-bind="$attrs"
+        :class="classes.img"
+        alt=""
+      />
     </div>
     <img
       ref="img"
@@ -178,7 +183,6 @@ export default {
 }
 
 .vts-img__placeholder img {
-  width: 100%;
   transform: scale(1.05);
   filter: blur(10px);
 }
