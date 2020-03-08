@@ -16,6 +16,7 @@ import {
   clickout,
   copy,
   intersect,
+  tooltip,
 } from "../../src/entry"
 
 export default ({ Vue, options, router, siteData }) => {
@@ -39,6 +40,7 @@ export default ({ Vue, options, router, siteData }) => {
   Vue.directive("clickout", clickout)
   Vue.directive("copy", copy)
   Vue.directive("intersect", intersect)
+  Vue.directive("tooltip", tooltip)
 }
 
 import "./public/static/styles.css"

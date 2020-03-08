@@ -65,6 +65,7 @@ module.exports = {
           "/directives/clickout",
           "/directives/copy",
           "/directives/intersect",
+          "/directives/tooltip",
         ],
       },
     ],
