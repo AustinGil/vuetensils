@@ -23,7 +23,6 @@ const config = {
     replace({
       "process.env.NODE_ENV": JSON.stringify("production"),
     }),
-    commonjs(),
     vue({
       css: true,
       compileTemplate: true,
@@ -31,6 +30,7 @@ const config = {
         isProduction: true,
       },
     }),
+    commonjs(),
     buble({
       objectAssign: "Object.assign",
     }),
