@@ -64,7 +64,6 @@ export default {
       return promise
         .then(results => {
           this.results = results
-          this.pending = false
           /**
            * Fired after promise has resolved with the resolved value.
            * @event resolve
@@ -74,7 +73,6 @@ export default {
         })
         .catch(error => {
           this.error = error
-          this.pending = false
           /**
            * Fired after promise has rejected with the rejected error.
            * @event reject
@@ -82,14 +80,15 @@ export default {
            */
           this.$emit("reject", error)
         })
-      // .finally(() => {
-      //   /**
-      //    * Fired after promise has fulfilled, regardless of success or failure.
-      //    * @event finally
-      //    * @type { undefined }
-      //    */
-      //   this.$emit("finally")
-      // })
+        .finally(() => {
+          this.pending = false
+          /**
+           * Fired after promise has fulfilled, regardless of success or failure.
+           * @event finally
+           * @type { undefined }
+           */
+          this.$emit("finally")
+        })
     },
   },
 
