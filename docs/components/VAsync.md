@@ -45,19 +45,11 @@ This component is great for handling any asynchronous tasks that involve promise
 </template>
 
 <script>
+const url = "https://jsonplaceholder.typicode.com/posts/1"
+
 export default {
   data: () => ({
-    httpRequest: new Promise(res => {
-      const data = {
-        userId: 1,
-        id: 1,
-        title:
-          "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-        body:
-          "quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architecto",
-      }
-      setTimeout(() => res(data), 1500)
-    }),
+    httpRequest: fetch(url).then(res => res.json()),
   }),
 }
 </script>
