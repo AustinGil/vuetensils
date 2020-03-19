@@ -1,8 +1,8 @@
 // rollup.config.js
 import vue from "rollup-plugin-vue"
 import buble from "rollup-plugin-buble"
-import commonjs from "rollup-plugin-commonjs"
-// import commonjs from "@rollup/plugin-commonjs"
+// import commonjs from "rollup-plugin-commonjs"
+import commonjs from "@rollup/plugin-commonjs"
 import replace from "rollup-plugin-replace"
 // import uglify from "rollup-plugin-uglify-es"
 // import minimist from "minimist"
@@ -23,6 +23,7 @@ const config = {
     replace({
       "process.env.NODE_ENV": JSON.stringify("production"),
     }),
+    commonjs(),
     vue({
       css: true,
       compileTemplate: true,
@@ -30,7 +31,6 @@ const config = {
         isProduction: true,
       },
     }),
-    commonjs(),
     buble({
       objectAssign: "Object.assign",
     }),
