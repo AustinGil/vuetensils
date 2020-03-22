@@ -36,18 +36,24 @@ export default {
 
 ```vue live
 <template>
-  <div class="styled">
-    <VDialog v-model="dialog" bg-transition="fade" class="my-dialog">
-      <div class="my-dialog-content">
-        This is the dialog content.
-        <br />
-        It traps the user focus.
-        <br />
-        <button @click="dialog = false" aria-label="close">&times;</button>
-      </div>
-    </VDialog>
-    <button @click="dialog = !dialog">Show the dialog</button>
-  </div>
+  <VDialog
+    v-model="dialog"
+    @chane="$log"
+    bg-transition="fade"
+    class="my-dialog"
+  >
+    <template #toggle="{ on, attrs }">
+      <button v-on="on" v-bind="attrs">Show the dialog</button>
+    </template>
+
+    This is the dialog content.
+    <br />
+    It traps the user focus.
+    <br />
+    <button @click="dialog = false" aria-label="close" class="my-dialog__close">
+      &times;
+    </button>
+  </VDialog>
 </template>
 
 <script>
@@ -82,11 +88,11 @@ export default {
   transform: translateY(10px);
 }
 
-.my-dialog {
+.my-dialog .vts-dialog {
   background: rgba(0, 0, 0, 0.7);
 }
 
-.my-dialog-content {
+.my-dialog .vts-dialog__content {
   position: relative;
   border-radius: 7px;
   padding: 20px;
@@ -95,12 +101,12 @@ export default {
   transition: transform 0.3s;
 }
 
-.fade-enter .my-dialog-content,
-.fade-leave-active .my-dialog-content {
+.my-dialog .fade-enter .vts-dialog__content,
+.my-dialog .fade-leave-active .vts-dialog__content {
   transform: translateY(20px);
 }
 
-.my-dialog-content button {
+.my-dialog__close {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -119,12 +125,34 @@ Dialog background colors have been removed. The following styles have been added
   background-color: #fff;
 }
 
-.bg-black-alpha {
+.bg-black-alpha .vts-modal {
   background: rgba(0, 0, 0, 0.2);
 }
 ```
 
 ## Basic dialog
+
+```vue live
+<template>
+  <VDialog class="bg-black-alpha">
+    <template #toggle="{ on, attrs }">
+      <button v-on="on" v-bind="attrs">Show the dialog</button>
+    </template>
+
+    <div class="bg-white">This is the dialog content.</div>
+  </VDialog>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    dialog: false,
+  }),
+}
+</script>
+```
+
+## Using v-model
 
 ```vue live
 <template>

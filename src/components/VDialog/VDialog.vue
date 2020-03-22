@@ -1,36 +1,14 @@
-<template>
-  <transition :name="bgTransition">
-    <div
-      v-if="showing"
-      :class="['vts-dialog', classes.root]"
-      @click="onClick"
-      @keydown="onKeydown"
-    >
-      <transition :name="transition" appear>
-        <component
-          :is="tag"
-          ref="content"
-          :style="{ width: width, maxWidth: maxWidth }"
-          :class="['vts-dialog__content', classes.content]"
-          tabindex="-1"
-          role="dialog"
-        >
-          <!-- @slot Content that exists within the dialog. -->
-          <slot />
-        </component>
-      </transition>
-    </div>
-  </transition>
-</template>
-
 <script>
 import KEYCODES from "../../data/keycodes"
 import FOCUSABLE from "../../data/focusable"
 
+const NAME = "vts-dialog"
 /**
  * A dialog component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the dialog until it is closed. It supports being closed by clicking outside the dialog content or pressing the ESC key.
  */
 export default {
+  inheritAttrs: false,
+
   model: {
     prop: "showing",
     event: "change",
@@ -97,62 +75,66 @@ export default {
     },
   },
 
+  data() {
+    return {
+      localShow: this.showing,
+      activeElement: null,
+    }
+  },
+
   watch: {
-    showing: {
+    showing(next) {
+      this.localShow = next
+    },
+    localShow: {
       handler(next, prev) {
         if (typeof window === "undefined") return
 
         if (next && next != prev) {
-          this.noScroll && document.body.style.setProperty("overflow", "hidden")
-          this.$nextTick(() => {
-            this.$refs.content.focus()
-          })
+          this.activeElement = document.activeElement
+          this.onOpen()
         } else {
-          this.noScroll && document.body.style.removeProperty("overflow")
+          this.onClose()
+
+          const { activeElement } = this
+          if (activeElement && activeElement.focus) {
+            this.$nextTick(() => {
+              activeElement.focus()
+            })
+          }
         }
+
+        this.$emit("change", next)
       },
     },
   },
 
+  destroyed() {
+    this.onClose()
+  },
+
   methods: {
-    show() {
-      /**
-       * Fired when the dialog opens.
-       * @event show
-       * @type { boolean }
-       */
-      this.$emit("show")
-      this.$emit("change", true)
+    onOpen() {
+      const { onClick, onKeydown, noScroll, activeElement } = this
+      window.addEventListener("click", onClick)
+      window.addEventListener("keydown", onKeydown)
+      noScroll && document.body.style.setProperty("overflow", "hidden")
+      this.$nextTick(() => this.$refs.content.focus())
     },
-    hide() {
-      /**
-       * Fired when the dialog closes.
-       * @event hide
-       * @type { boolean }
-       */
-      this.$emit("hide")
-      this.$emit("change", false)
-    },
-    toggle() {
-      const { showing } = this
-      const event = showing ? "hide" : "show"
-      this.$emit(event, !showing)
-      /**
-       * Fired whenever the dialog opens or closes.
-       * @event change
-       * @type { boolean }
-       */
-      this.$emit("change", !showing)
+    onClose() {
+      const { onClick, onKeydown, noScroll, activeElement } = this
+      window.removeEventListener("click", onClick)
+      window.removeEventListener("keydown", onKeydown)
+      noScroll && document.body.style.removeProperty("overflow")
     },
     onClick(event) {
       if (event.target.classList.contains("vts-dialog") && this.dismissible) {
-        this.hide()
+        this.localShow = false
       }
     },
-
     onKeydown(event) {
       if (event.keyCode === KEYCODES.ESC) {
-        this.hide()
+        this.localShow = false
       }
       if (event.keyCode === KEYCODES.TAB) {
         const content = this.$refs.content
@@ -183,6 +165,78 @@ export default {
         }
       }
     },
+  },
+
+  render(h) {
+    const { localShow, $scopedSlots, classes } = this
+
+    if (!localShow && !$scopedSlots.toggle) {
+      return h(false)
+    }
+
+    const children = []
+
+    if ($scopedSlots.toggle) {
+      children.push(
+        $scopedSlots.toggle({
+          on: {
+            click: () => (this.localShow = true),
+          },
+          attrs: {
+            type: "button",
+            role: "button",
+            "aria-haspopup": true,
+            "aria-expanded": "" + localShow,
+          },
+        })
+      )
+    }
+
+    if (localShow) {
+      let content = h(
+        this.tag,
+        {
+          ref: "content",
+          class: [`${NAME}__content`, classes.content],
+          style: {
+            width: this.width,
+            maxWidth: this.maxWidth,
+          },
+          attrs: {
+            tabindex: "-1",
+            role: "dialog",
+          },
+        },
+        [this.$slots.default]
+      )
+      content = h(
+        "transition",
+        {
+          props: { name: this.transition },
+        },
+        [content]
+      )
+
+      const modal = h(
+        "div",
+        {
+          class: [NAME, classes.root, this.$attrs.class],
+        },
+        [content]
+      )
+
+      children.push(
+        h(
+          "transition",
+          {
+            props: { name: this.bgTransition, appear: true },
+          },
+          [modal]
+        )
+      )
+    }
+
+    return h("span", children)
   },
 }
 </script>
