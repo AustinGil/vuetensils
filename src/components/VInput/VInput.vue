@@ -52,6 +52,7 @@
         v-if="$attrs.type === 'select'"
         :id="`${id}__input`"
         ref="input"
+        :name="name"
         v-bind="$attrs"
         :aria-describedby="invalid.anyInvalid && `${id}__description`"
         :class="['vts-input__input', classes.input]"
@@ -74,6 +75,7 @@
         v-else
         :id="`${id}__input`"
         ref="input"
+        :name="name"
         :value.prop="value"
         v-bind="$attrs"
         :aria-describedby="invalid.anyInvalid && `${id}__description`"
@@ -159,7 +161,7 @@ export default {
 
   computed: {
     tag() {
-      const type = this.$attrs.type || "text"
+      const { type } = this.$attrs
       if (type === "textarea") {
         return "textarea"
       }
@@ -167,10 +169,6 @@ export default {
         return "select"
       }
       return "input"
-    },
-
-    id() {
-      return this.$attrs.id || "vts-" + randomString(6)
     },
 
     computedOptions() {
@@ -195,6 +193,12 @@ export default {
     value: {
       handler: "validate",
     },
+  },
+
+  created() {
+    const { id, name } = this.$attrs
+    this.id = id ? id : `vts-${randomString(4)}`
+    this.name = name ? name : this.id
   },
 
   mounted() {
