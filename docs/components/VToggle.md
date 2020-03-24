@@ -36,11 +36,7 @@ export default {
 
 ```vue live
 <template>
-  <VToggle label="test" class="styled">
-    <template v-slot:label>
-      Click here to open the toggle
-    </template>
-
+  <VToggle open label="Click here to open the toggle" class="styled">
     <div class="toggle-content">
       <p>Here is the content. Sweet!</p>
     </div>
@@ -70,8 +66,21 @@ export default {
 
 ```vue live
 <template>
-  <VToggle label="test">
-    <template v-slot:label>
+  <VToggle label="Toggle label">
+    content here
+  </VToggle>
+</template>
+```
+
+## Label Slot
+
+Sometimes just a text string won't do. For example, you may want to add icons or something.
+
+```vue live
+<template>
+  <VToggle>
+    <template #label>
+      <span aria-hidden>🔽</span>
       Title
     </template>
 
@@ -79,6 +88,29 @@ export default {
   </VToggle>
 </template>
 ```
+
+## Scoped Slots
+
+You can access the `open` status through the scoped slots.
+
+```vue live
+<template>
+  <VToggle>
+    <template #label="{ isOpen }">
+      <span aria-hidden>{{ isOpen ? "🔼" : "🔽" }}</span>
+      Title
+    </template>
+
+    <template #default="{isOpen}">isOpen: {{ isOpen }}</template>
+  </VToggle>
+</template>
+```
+
+## Events
+
+- update: fires on any change and provides the `open` status
+- open: fires on open.
+- close: fires on close.
 
 ## Custom Classes
 
