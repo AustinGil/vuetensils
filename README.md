@@ -119,6 +119,8 @@ export default {
 - finish Datatable
 - Better SSR support
 - `functional` components
+- VForm. POST method by default. Validity API for all inputs and state.
+- Add type export for intellisense
 
 <!-- TODO: Babel transpiler -->
 <!-- TODO: Toast/notification -->
