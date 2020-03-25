@@ -4,7 +4,7 @@
       'vts-input',
       `vts-input--${$attrs.type || 'text'}`,
       {
-        'vts-input--invalid': invalid.anyInvalid,
+        'vts-input--invalid': dirty && anyInvalid,
         'vts-input--required': $attrs.hasOwnProperty('required'),
       },
       classes.root,
@@ -28,7 +28,7 @@
           :type="$attrs.type"
           :name="option.name"
           :value="option.value"
-          :aria-describedby="invalid.anyInvalid && `${id}__description`"
+          :aria-describedby="(dirty && anyInvalid) && `${id}__description`"
           class="vts-input__input"
           @input="$emit('update', option.value)"
           @blur="dirty = true"
@@ -54,7 +54,7 @@
         ref="input"
         :name="name"
         v-bind="$attrs"
-        :aria-describedby="invalid.anyInvalid && `${id}__description`"
+        :aria-describedby="(dirty && anyInvalid) && `${id}__description`"
         :class="['vts-input__input', classes.input]"
         @input="onInput"
         @blur="dirty = true"
@@ -78,7 +78,7 @@
         :name="name"
         :value.prop="value"
         v-bind="$attrs"
-        :aria-describedby="invalid.anyInvalid && `${id}__description`"
+        :aria-describedby="(dirty && anyInvalid) && `${id}__description`"
         :class="['vts-input__input', classes.input]"
         :checked="$attrs.type === 'checkbox' && value === true"
         @input="onInput"
