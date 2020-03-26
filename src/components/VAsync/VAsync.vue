@@ -109,14 +109,14 @@ export default {
     }
 
     if (!pending && error) {
-      if (!rejectedSlot) return
-
-      return safeSlot(h, rejectedSlot(error))
+      if (rejectedSlot) {
+        return safeSlot(h, rejectedSlot(error))
+      }
     }
 
     const results = data === undefined ? defaultData : data
 
-    if (!pending && resolvedSlot) {
+    if (!pending && !error && resolvedSlot) {
       return safeSlot(h, resolvedSlot(results))
     }
 
