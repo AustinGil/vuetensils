@@ -72,6 +72,12 @@ export default {
           this.$emit("resolve", results)
         })
         .catch(error => {
+          if (error instanceof Error) {
+            error = {
+              name: error.name,
+              message: error.message,
+            }
+          }
           this.error = error
           /**
            * Fired after promise has rejected with the rejected error.
