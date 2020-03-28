@@ -103,20 +103,25 @@ export default {
 }
 ```
 
+### Changelog
+
+- VToggle: support open by default. Better label handling. Better ID handling. Added events.
+- VDialog: Added toggle scoped slot. Simplifies implementation and improves a11y 🎊
+
+### Roadmap
+
+- Better range input
+- lazyload directive
+- Tooltip
+- Schema/semantic ratings
+- a11y datetime picker
+- schema/semantic Breadcrumbs
+- finish Datatable
+- Better SSR support
+- `functional` components
+
 <!-- TODO: Babel transpiler -->
-<!-- TODO: Datatable -->
 <!-- TODO: Toast/notification -->
-<!-- TODO: Better range input -->
-<!-- TODO: Breadcrumbs -->
-<!-- TODO: Calendar -->
-<!-- TODO: datetime input -->
-<!-- TODO: rating -->
-<!-- TODO: Tooltip -->
-<!-- TODO: intersection observer directive -->
-<!-- TODO: lazyload directive -->
-<!-- TODO: container query directive -->
 <!-- TODO: Toggles: https://codepen.io/heydon/pen/QqzRvQ/ -->
 <!-- TODO: https://rollup-plugin-vue.vuejs.org/examples.html#minimal -->
-<!-- TODO: SSR -->
-<!-- TODO: functional -->
 <!-- TODO: https://medium.com/faun/automate-your-npm-publish-with-github-actions-dfe8059645dd -->

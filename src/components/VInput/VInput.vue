@@ -4,7 +4,7 @@
       'vts-input',
       `vts-input--${$attrs.type || 'text'}`,
       {
-        'vts-input--invalid': invalid.anyInvalid,
+        'vts-input--invalid': dirty && anyInvalid,
         'vts-input--required': $attrs.hasOwnProperty('required'),
       },
       classes.root,
@@ -28,7 +28,7 @@
           :type="$attrs.type"
           :name="option.name"
           :value="option.value"
-          :aria-describedby="invalid.anyInvalid && `${id}__description`"
+          :aria-describedby="(dirty && anyInvalid) && `${id}__description`"
           class="vts-input__input"
           @input="$emit('update', option.value)"
           @blur="dirty = true"
@@ -52,8 +52,9 @@
         v-if="$attrs.type === 'select'"
         :id="`${id}__input`"
         ref="input"
+        :name="name"
         v-bind="$attrs"
-        :aria-describedby="invalid.anyInvalid && `${id}__description`"
+        :aria-describedby="(dirty && anyInvalid) && `${id}__description`"
         :class="['vts-input__input', classes.input]"
         @input="onInput"
         @blur="dirty = true"
@@ -74,9 +75,10 @@
         v-else
         :id="`${id}__input`"
         ref="input"
+        :name="name"
         :value.prop="value"
         v-bind="$attrs"
-        :aria-describedby="invalid.anyInvalid && `${id}__description`"
+        :aria-describedby="(dirty && anyInvalid) && `${id}__description`"
         :class="['vts-input__input', classes.input]"
         :checked="$attrs.type === 'checkbox' && value === true"
         @input="onInput"
@@ -159,7 +161,7 @@ export default {
 
   computed: {
     tag() {
-      const type = this.$attrs.type || "text"
+      const { type } = this.$attrs
       if (type === "textarea") {
         return "textarea"
       }
@@ -167,10 +169,6 @@ export default {
         return "select"
       }
       return "input"
-    },
-
-    id() {
-      return this.$attrs.id || "vts-" + randomString(6)
     },
 
     computedOptions() {
@@ -195,6 +193,12 @@ export default {
     value: {
       handler: "validate",
     },
+  },
+
+  created() {
+    const { id, name } = this.$attrs
+    this.id = id ? id : `vts-${randomString(4)}`
+    this.name = name ? name : this.id
   },
 
   mounted() {

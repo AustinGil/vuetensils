@@ -1,10 +1,12 @@
 <template functional>
   <div>
-    <div class="live-preview">
-      <slot name="preview" />
-    </div>
+    <ClientOnly>
+      <div class="live-preview">
+        <slot name="preview" />
+      </div>
 
-    <slot name="editor" />
+      <slot name="editor" />
+    </ClientOnly>
   </div>
 </template>
 

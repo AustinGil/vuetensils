@@ -58,9 +58,9 @@ export default {
 .vts-input__input {
   display: block;
   width: 100%;
-  padding: 5px;
   border: 1px solid #ccc;
   border-radius: 3px;
+  padding: 5px;
 }
 ```
 

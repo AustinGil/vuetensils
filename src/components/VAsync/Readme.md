@@ -15,8 +15,8 @@ const url = "https://jsonplaceholder.typicode.com/posts/1"
 
 export default {
   data: () => ({
-    httpRequest: fetch(url).then(res => res.json())
-  })
+    httpRequest: fetch(url).then(res => res.json()),
+  }),
 }
 </script>
 ```
@@ -39,8 +39,8 @@ export default {
 <script>
 export default {
   data: () => ({
-    sleep: new Promise(res => setTimeout(res, 3000))
-  })
+    sleep: new Promise(res => setTimeout(res, 3000)),
+  }),
 }
 </script>
 ```
@@ -67,8 +67,8 @@ export default {
       setTimeout(() => {
         rej(new Error("something went wrong"))
       }, 2000)
-    )
-  })
+    ),
+  }),
 }
 </script>
 ```
@@ -95,8 +95,8 @@ export default {
       setTimeout(() => {
         res("Woop! We're done")
       }, 2000)
-    )
-  })
+    ),
+  }),
 }
 </script>
 ```
@@ -122,7 +122,7 @@ export default {
 <script>
 export default {
   data: () => ({
-    waitForIt: null
+    waitForIt: null,
   }),
 
   methods: {
@@ -132,8 +132,8 @@ export default {
           res("Ok, we're done now.")
         }, 500)
       })
-    }
-  }
+    },
+  },
 }
 </script>
 ```
@@ -166,8 +166,8 @@ export default {
         }, 500)
       })
       this.$refs.async.awaitOn(promise)
-    }
-  }
+    },
+  },
 }
 </script>
 ```

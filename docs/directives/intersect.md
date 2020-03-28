@@ -83,7 +83,7 @@ Only fires when the handler once. Can be chaned to .enter or .exit.
 </template>
 ```
 
-## Multiple Hanlders
+## Multiple Handlers
 
 You can attach a handler for the onEnter, onExit, and onChange events
 
@@ -159,4 +159,4 @@ export default {
 
 - change: will take the passed function and assign it to onChange (Default).
 - enter: will take the passed function and assign it to onEnter.
-- leave: will take the passed function and assign it to onExit.
+- exit: will take the passed function and assign it to onExit.

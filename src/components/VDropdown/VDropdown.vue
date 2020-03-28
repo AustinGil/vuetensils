@@ -6,13 +6,15 @@
     @focusout="onFocusout"
   >
     <button
-      @click="isFocused = !isFocused"
       :aria-expanded="!!isHovered || !!isFocused"
       aria-haspopup="true"
       :class="['vts-dropdown__trigger', classes.trigger]"
+      @click="isFocused = !isFocused"
     >
       <!-- @slot The content within the trigger button -->
-      <slot name="trigger">{{ text }}</slot>
+      <slot name="trigger">
+        {{ text }}
+      </slot>
     </button>
 
     <transition :name="transition">
@@ -37,7 +39,10 @@ export default {
     /**
      * The toggle button text.
      */
-    text: String,
+    text: {
+      type: String,
+      default: "",
+    },
     /**
      * Where the content should be placed in relation to the button.
      *
@@ -53,7 +58,10 @@ export default {
     /**
      * The transition name.
      */
-    transition: String,
+    transition: {
+      type: String,
+      default: "",
+    },
 
     classes: {
       type: Object,
@@ -65,6 +73,14 @@ export default {
     isHovered: false,
     isFocused: false,
   }),
+
+  mounted() {
+    const { onClickout } = this
+    document.addEventListener("click", onClickout)
+    this.$once("hook:beforeDestroy", () => {
+      document.removeEventListener("click", onClickout)
+    })
+  },
 
   methods: {
     onClickout(e) {
@@ -79,14 +95,6 @@ export default {
       }
     },
   },
-
-  mounted() {
-    const { onClickout } = this
-    document.addEventListener("click", onClickout)
-    this.$once("hook:beforeDestroy", () => {
-      document.removeEventListener("click", onClickout)
-    })
-  },
 }
 </script>
 
@@ -100,8 +108,6 @@ export default {
   position: absolute;
   z-index: 5;
   min-width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  background-color: #fff;
 }
 
 .vts-dropdown__content--top {

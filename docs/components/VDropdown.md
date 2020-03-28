@@ -37,7 +37,7 @@ export default {
 ```vue live
 <template>
   <VDropdown text="Show me what you got!" transition="slide-up" class="styled">
-    Here is some custom dropdown content.
+    <div class="dropdown-content">Here is some custom dropdown content.</div>
   </VDropdown>
 </template>
 ```
@@ -57,10 +57,11 @@ export default {
   border-radius: 5px 5px 0 0;
 }
 
-.vts-dropdown__content {
+.dropdown-content {
   border: 1px solid darkcyan;
   border-radius: 0 0 5px 5px;
   padding: 10px;
+  background-color: #fff;
 }
 
 .slide-up-enter-active,
@@ -76,20 +77,32 @@ export default {
 }
 ```
 
+## NOTE:
+
+Dialog background colors have been removed. The following styles have been added to this site to make the dialogs easier to see:
+
+```css
+.bg-white {
+  background-color: #fff;
+}
+```
+
 ## Unstyled Examples
 
 ```vue live
 <template>
   <VDropdown text="Show me what you got!">
-    <p>This will close on click-out or focus-out.</p>
-    <p>Try keyboard navigation.</p>
-    <nav>
-      <ul>
-        <li><a href="#">link</a></li>
-        <li><a href="#">link</a></li>
-        <li><a href="#">link</a></li>
-      </ul>
-    </nav>
+    <div class="bg-white">
+      <p>This will close on click-out or focus-out.</p>
+      <p>Try keyboard navigation.</p>
+      <nav>
+        <ul>
+          <li><a href="#">link</a></li>
+          <li><a href="#">link</a></li>
+          <li><a href="#">link</a></li>
+        </ul>
+      </nav>
+    </div>
   </VDropdown>
 </template>
 ```
@@ -99,7 +112,9 @@ export default {
 ```vue live
 <template>
   <VDropdown text="Show me what you got!" position="top">
-    <p>Here is the dropdown content.</p>
+    <div class="bg-white">
+      Here is the dropdown content.
+    </div>
   </VDropdown>
 </template>
 ```
@@ -109,7 +124,9 @@ export default {
 ```vue live
 <template>
   <VDropdown text="Show me what you got!" transition="slide-up">
-    <p>Here is the dropdown content.</p>
+    <div class="bg-white">
+      Here is the dropdown content.
+    </div>
   </VDropdown>
 </template>
 ```

@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { randomString } from "../../utils"
 import keycodes from "../../data/keycodes"
 
 const NAME = "vts-tabs"
@@ -80,15 +81,11 @@ export default {
     tablist() {
       return Object.keys(this.$slots)
     },
+  },
 
-    id() {
-      const { id } = this.$attrs
-      if (id) return id
-      return Array(6)
-        .fill()
-        .map(() => Math.floor(36 * Math.random()).toString(36))
-        .join("")
-    },
+  created() {
+    const { id } = this.$attrs
+    this.id = id ? id : `vts-${randomString(4)}`
   },
 
   methods: {

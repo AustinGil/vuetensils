@@ -5,12 +5,15 @@
       ref="label"
       :disabled="disabled"
       :aria-controls="`${id}-content`"
-      :aria-expanded="isOpen"
-      @click="isOpen = !isOpen"
+      :aria-expanded="String(isOpen)"
       :class="['vts-toggle__label', classes.label]"
+      @click="isOpen = !isOpen"
+      v-on="$listeners"
     >
       <!-- @slot The content that goes inside the button -->
-      <slot name="label" />
+      {{ label }}
+
+      <slot name="label" v-bind="{ isOpen }" />
     </button>
 
     <transition
@@ -21,32 +24,40 @@
       @leave="collapse"
     >
       <div
+        v-show="isOpen && !disabled"
         :id="`${id}-content`"
         :aria-labelledby="`${id}-label`"
         :aria-hidden="!isOpen"
-        v-show="isOpen && !disabled"
         role="region"
         :class="['vts-toggle__content', classes.content]"
       >
         <!-- @slot The content that goes inside the toggleable region -->
-        <slot />
+        <slot v-bind="{ isOpen }" />
       </div>
     </transition>
   </div>
 </template>
 
 <script>
+import { randomString } from "../../utils"
 /**
  * Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
  */
 export default {
+  model: {
+    prop: "open",
+    event: "update",
+  },
+
   props: {
-    /**
-     * The content inside the toggle button
-     */
+    open: {
+      type: Boolean,
+      default: false,
+    },
+
     label: {
       type: String,
-      required: true,
+      default: "",
     },
 
     disabled: Boolean,
@@ -59,23 +70,24 @@ export default {
 
   data() {
     return {
-      isOpen: !!this.isOpen,
+      isOpen: this.open,
     }
   },
 
-  computed: {
-    id() {
-      const { id } = this.$attrs
-      if (id) return id
-
-      return (
-        "vts-toggle-" +
-        Array(6)
-          .fill()
-          .map(() => Math.floor(36 * Math.random()).toString(36))
-          .join("")
-      )
+  watch: {
+    open(next) {
+      this.isOpen = next
     },
+    isOpen(isOpen) {
+      if (typeof window === "undefined") return
+      this.$emit("update", isOpen)
+      this.$emit(isOpen ? "open" : "close")
+    },
+  },
+
+  created() {
+    const { id } = this.$attrs
+    this.id = id ? id : `vts-${randomString(4)}`
   },
 
   methods: {
