@@ -17,3 +17,9 @@ features:
   # - title: Easy to learn
 footer: MIT Licensed | Copyright © 2018-present </> with ❤️️ by Stegosource
 ---
+
+<h3 class="text-center">
+  <a href="https://3bb5fb5a.sibforms.com/serve/MUIEAAOwgrWtf43Lfv80ES_hibAhazPDEy4w9IxRIda1b8g1GNnmHYkDfvIKG-Ox35EtWkJfMyCMBTQ3nG2msGhc3WnHa7XKfkgBzYdL3ASbIEckbn47QtJDIvpOskWQuRIXYI-7dVuM5F25yKdcJch7VN8aAbrpEn8_PMXWpqENTJ6r9bOZgHj6vnAQwHDsdwXDOZIonAP3x3vx" class="nav-link action-button">
+  Sign up for the newsletter to get the latest updates.
+  </a>
+</h3>

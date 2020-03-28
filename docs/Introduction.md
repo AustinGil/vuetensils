@@ -4,14 +4,15 @@ A "naked" component library for Vue.js focused on being:
 
 - Accessible
 - Semantic
-- Lightweight
+- Light weight
 - Extensible
 
 Links:
 
 - [Docs](https://vuetensils.stegosource.com/)
-- [GitHub](https://github.com/Stegosource/vuetensils)
 - [NPM](https://www.npmjs.com/package/vuetensils)
+- [GitHub](https://github.com/Stegosource/vuetensils)
+- [Updates](https://3bb5fb5a.sibforms.com/serve/MUIEAAOwgrWtf43Lfv80ES_hibAhazPDEy4w9IxRIda1b8g1GNnmHYkDfvIKG-Ox35EtWkJfMyCMBTQ3nG2msGhc3WnHa7XKfkgBzYdL3ASbIEckbn47QtJDIvpOskWQuRIXYI-7dVuM5F25yKdcJch7VN8aAbrpEn8_PMXWpqENTJ6r9bOZgHj6vnAQwHDsdwXDOZIonAP3x3vx)
 
 ## Naked Components
 
@@ -103,20 +104,29 @@ If I want my projects to follow best practices for semantic markup and accessibi
 - ✅ My components will be accessible and semantic.
 - ✅ The bundle size will stay as small as possible.
 
+### Changelog
+
+- VForm: Added VForm component
+- VAsync: Bug fix for error on default state
+- VInput: Bug fix for invalid status
+- VToggle: support open by default. Better label handling. Better ID handling. Added events.
+- VDialog: Added toggle scoped slot. Simplifies implementation and improves a11y 🎊
+
+### Roadmap
+
+- Better a11y range input
+- lazyload directive
+- Tooltip
+- Schema/semantic ratings
+- a11y datetime picker
+- schema/semantic Breadcrumbs
+- finish Datatable
+- Better SSR support
+- `functional` components
+- Add type export for intellisense
+
 <!-- TODO: Babel transpiler -->
-<!-- TODO: Datatable -->
 <!-- TODO: Toast/notification -->
-<!-- TODO: Better range input -->
-<!-- TODO: Breadcrumbs -->
-<!-- TODO: Calendar -->
-<!-- TODO: datetime input -->
-<!-- TODO: rating -->
-<!-- TODO: Tooltip -->
-<!-- TODO: intersection observer directive -->
-<!-- TODO: lazyload directive -->
-<!-- TODO: container query directive -->
 <!-- TODO: Toggles: https://codepen.io/heydon/pen/QqzRvQ/ -->
 <!-- TODO: https://rollup-plugin-vue.vuejs.org/examples.html#minimal -->
-<!-- TODO: SSR -->
-<!-- TODO: functional -->
 <!-- TODO: https://medium.com/faun/automate-your-npm-publish-with-github-actions-dfe8059645dd -->

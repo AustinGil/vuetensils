@@ -16,6 +16,10 @@ body .live-preview pre {
   background: initial;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .bg-white {
   background-color: #fff;
 }
