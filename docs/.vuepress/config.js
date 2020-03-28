@@ -1,23 +1,15 @@
-// const fs = require("fs")
+const fs = require("fs")
 const path = require("path")
 // const vueDocs = require("vue-docgen-api")
 
-// var dirpath = "./docs"
-
-// generate sidenav order by update time
-// var sb = fs
-//   .readdirSync(dirpath)
-//   .filter(f => {
-//     return f.match(/\.(md)$/i) && f !== "README.md"
-//   })
-//   .map(f => {
-//     return {
-//       path: "/" + f,
-//       mtime: fs.statSync(dirpath + "/" + f).mtime,
-//     }
-//   })
-//   .sort((a, b) => a.mtime - b.mtime)
-//   .map(f => f.path)
+const components = fs
+  .readdirSync("./docs/components")
+  .filter(f => {
+    return f.match(/\.(md)$/i) && f !== "README.md"
+  })
+  .map(f => {
+    return `/components/${f.slice(0, -3)}`
+  })
 
 // var componentInfo = vueDocs.parse(
 //   path.join(__dirname, "../../src/components/VAlert/VAlert.vue")
@@ -41,21 +33,7 @@ module.exports = {
       {
         title: "Components",
         collapsable: false,
-        children: [
-          "/components/VAlert",
-          "/components/VAsync",
-          "/components/VDialog",
-          "/components/VDrawer",
-          "/components/VDropdown",
-          "/components/VFile",
-          "/components/VImg",
-          "/components/VInput",
-          "/components/VIntersect",
-          "/components/VResize",
-          "/components/VTabs",
-          "/components/VTable",
-          "/components/VToggle",
-        ],
+        children: components,
       },
       {
         title: "Directives",

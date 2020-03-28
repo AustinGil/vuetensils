@@ -105,12 +105,15 @@ export default {
 
 ### Changelog
 
+- VForm: Added VForm component
+- VAsync: Bug fix for error on default state
+- VInput: Bug fix for invalid status
 - VToggle: support open by default. Better label handling. Better ID handling. Added events.
 - VDialog: Added toggle scoped slot. Simplifies implementation and improves a11y 🎊
 
 ### Roadmap
 
-- Better range input
+- Better a11y range input
 - lazyload directive
 - Tooltip
 - Schema/semantic ratings
@@ -119,7 +122,6 @@ export default {
 - finish Datatable
 - Better SSR support
 - `functional` components
-- VForm. POST method by default. Validity API for all inputs and state.
 - Add type export for intellisense
 
 <!-- TODO: Babel transpiler -->

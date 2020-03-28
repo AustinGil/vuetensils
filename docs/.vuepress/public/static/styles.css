@@ -129,6 +129,30 @@ body .live-preview pre {
   background-color: #fff;
 }
 
+.styled.vts-form input {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.styled.vts-form input,
+.styled.vts-form button {
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+.styled.vts-form input {
+  border: 1px solid darkgray;
+}
+
+.styled.vts-form button {
+  border: 0;
+}
+
+.styled.vts-form:not(.vts-form--invalid) button {
+  color: #fff;
+  background: seagreen;
+}
+
 .styled .vts-file__dropzone {
   display: flex;
   justify-content: center;
