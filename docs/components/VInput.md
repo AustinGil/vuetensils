@@ -70,25 +70,25 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
 
 ```vue live
 <template>
-  <VInput label="text:" />
+  <VInput label="text:" name="text" />
 </template>
 ```
 
 ```vue live
 <template>
-  <VInput label="email:" type="email" />
+  <VInput label="email:" name="email" type="email" />
 </template>
 ```
 
 ```vue live
 <template>
-  <VInput label="textarea:" type="textarea" />
+  <VInput label="textarea:" name="textarea" type="textarea" />
 </template>
 ```
 
 ```vue live
 <template>
-  <VInput label="checkbox" type="checkbox" />
+  <VInput label="checkbox" name="checkbox" type="checkbox" />
 </template>
 ```
 
@@ -97,6 +97,7 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
   <VInput
     type="radio"
     label="radio"
+    name="radio"
     :options="['option 1', 'option 2', 'option 3', 'option 4']"
   />
 </template>
@@ -106,6 +107,7 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
 <template>
   <VInput
     label="select"
+    name="select"
     type="select"
     :options="['option 1', 'option 2', 'option 3', 'option 4']"
   />
@@ -117,6 +119,7 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
   <form @submit.prevent class="styled">
     <VInput
       label="select (multiple)"
+      name="select-multi"
       v-model="selected"
       type="select"
       :options="['option 1', 'option 2', 'option 3', 'option 4']"
@@ -141,7 +144,7 @@ If you want to add a description to your input, the best practice is to include 
 
 ```vue live
 <template>
-  <VInput label="Features:">
+  <VInput label="Features:" name="features">
     <template v-slot:description>
       Are there any other features you would like to see?
     </template>
@@ -157,41 +160,37 @@ Note that client-side validation is never a substitute for server-side validatio
 
 ```vue live
 <template>
-  <VInput
-    v-model="value"
-    label="test"
-    required
-    min="1"
-    max="2"
-    minlength="2"
-    maxlength="20"
-    pattern="[0-9]{4}"
-  >
-    <template v-slot:description="state">
-      <ul v-if="state.dirty && state.anyInvalid">
-        <template v-for="(isInvalid, key) in state.invalid">
-          <li v-if="key === 'required' && isInvalid" :key="key">
-            This field is required
-          </li>
-          <li v-if="key === 'minLength' && isInvalid" :key="key">
-            Must be at least 2 characters
-          </li>
-          <li v-if="key === 'pattern' && isInvalid" :key="key">
-            Must be a 4 digit number
-          </li>
+  <VForm>
+    <template #default="form">
+      <pre>{{ form }}</pre>
+
+      <VInput
+        v-model="input"
+        label="Username"
+        name="username"
+        required
+        minlength="6"
+        class="mb-3"
+      >
+        <template #description="input">
+          <pre>{{ input }}</pre>
         </template>
-      </ul>
-      <br />
-      <p>Validation state:</p>
-      <pre>{{ state }}</pre>
+      </VInput>
+
+      <label>
+        Second
+        <input name="second" required minlength="6" />
+      </label>
+
+      <VInput value="start?" name="third" label="yo" required />
     </template>
-  </VInput>
+  </VForm>
 </template>
 
 <script>
 export default {
   data: () => ({
-    value: "",
+    input: "init",
   }),
 }
 </script>
