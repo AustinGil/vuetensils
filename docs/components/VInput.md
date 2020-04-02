@@ -44,7 +44,7 @@ export default {
 ```vue live
 <template>
   <form @submit.prevent class="styled">
-    <VInput v-model="name" label="Your Name:" />
+    <VInput v-model="name" label="Your Name" />
   </form>
 </template>
 

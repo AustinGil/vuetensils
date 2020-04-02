@@ -45,11 +45,11 @@ export default {
   },
 
   mounted() {
-    const els = this.$el.querySelectorAll("input, textarea, select")
+    const els = Array.from(this.$el.querySelectorAll("input, textarea, select"))
 
     const inputs = {}
 
-    for (const input of els) {
+    els.forEach(input => {
       const name = input.name || randomString(6)
       inputs[name] = {
         invalid: !input.validity.valid,
@@ -59,7 +59,7 @@ export default {
       this.$once("hook:beforeDestroy", () => {
         input.removeEventListener("blur", this.onBlur)
       })
-    }
+    })
     this.inputs = inputs
   },
 
@@ -73,9 +73,12 @@ export default {
     },
 
     clear() {
-      for (const input of this.$el.querySelectorAll("input, textarea")) {
+      const els = Array.from(
+        this.$el.querySelectorAll("input, textarea, select")
+      )
+      els.forEach(input => {
         input.value = ""
-      }
+      })
     },
   },
 }

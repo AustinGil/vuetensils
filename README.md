@@ -127,6 +127,7 @@ If I want my projects to follow best practices for semantic markup and accessibi
 - Add VLink component
   <!-- https://github.com/chrisvfritz/vue-enterprise-boilerplate/blob/master/src/components/_base-link.vue -->
 
+<!-- v-focusabe? https://blog.vuestorefront.io/how-storefront-ui-solves-website-accessibility-issues/ -->
 <!-- https://github.com/conventional-changelog/standard-version -->
 <!-- TODO: Babel transpiler -->
 <!-- TODO: Toast/notification -->
