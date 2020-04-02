@@ -350,6 +350,12 @@
             this$1.$emit("resolve", results);
           })
           .catch(function (error) {
+            if (error instanceof Error) {
+              error = {
+                name: error.name,
+                message: error.message,
+              };
+            }
             this$1.error = error;
             /**
              * Fired after promise has rejected with the rejected error.
@@ -391,14 +397,14 @@
       }
 
       if (!pending && error) {
-        if (!rejectedSlot) { return }
-
-        return safeSlot(h, rejectedSlot(error))
+        if (rejectedSlot) {
+          return safeSlot(h, rejectedSlot(error))
+        }
       }
 
       var results = data === undefined ? defaultData : data;
 
-      if (!pending && resolvedSlot) {
+      if (!pending && !error && resolvedSlot) {
         return safeSlot(h, resolvedSlot(results))
       }
 
@@ -1538,6 +1544,7 @@
     inheritAttrs: false,
 
     model: {
+      prop: "val",
       event: "update",
     },
 
@@ -1547,13 +1554,13 @@
        */
       label: {
         type: String,
-        default: "",
+        required: true,
       },
 
       /**
        * The input value. Works for all inputs except type `radio`. See `options` prop.
        */
-      value: {
+      val: {
         type: [String, Number, Boolean, Array],
         default: "",
       },
@@ -1572,15 +1579,20 @@
       },
     },
 
-    data: function () { return ({
-      dirty: false,
-      anyInvalid: false,
-      invalid: {},
-    }); },
+    data: function data() {
+      return {
+        localValue: this.val, // Required for weird bug when nested in VForm
+        valid: true,
+        anyInvalid: false,
+        dirty: false,
+        invalid: {},
+      }
+    },
 
     computed: {
       tag: function tag() {
-        var type = this.$attrs.type || "text";
+        var ref = this.$attrs;
+        var type = ref.type;
         if (type === "textarea") {
           return "textarea"
         }
@@ -1588,10 +1600,6 @@
           return "select"
         }
         return "input"
-      },
-
-      id: function id() {
-        return this.$attrs.id || "vts-" + randomString(6)
       },
 
       computedOptions: function computedOptions() {
@@ -1613,12 +1621,25 @@
         var multiple = ref.multiple;
         return multiple != null && multiple != "false"
       },
+
+      error: function error() {
+        return !this.valid && this.dirty
+      },
     },
 
     watch: {
-      value: {
+      localValue: {
         handler: "validate",
       },
+    },
+
+    created: function created() {
+      // Might cause an issue with SSR
+      var ref = this.$attrs;
+      var id = ref.id;
+      var name = ref.name;
+      this.id = id ? id : ("vts-" + (randomString(4)));
+      this.name = name ? name : this.id;
     },
 
     mounted: function mounted() {
@@ -1662,14 +1683,17 @@
 
         var validity = input.validity;
 
-        this.anyInvalid = !validity.valid;
+        // https://logaretm.com/blog/2019-05-03-html-aided-vuejs-form-validation/
+
+        this.anyInvalid = !validity.valid; // TODO: deprecate
+        this.valid = validity.valid;
         this.invalid = {
+          type: validity.typeMismatch,
           required: validity.valueMissing,
-          minLength: validity.tooShort,
-          maxLength: validity.tooLong,
+          minlength: validity.tooShort,
+          maxlength: validity.tooLong,
           min: validity.rangeOverflow,
           max: validity.rangeUnderflow,
-          type: validity.typeMismatch,
           pattern: validity.patternMismatch,
         };
       },
@@ -1684,10 +1708,12 @@
       'vts-input',
       ("vts-input--" + (_vm.$attrs.type || 'text')),
       {
-        'vts-input--invalid': _vm.invalid.anyInvalid,
         'vts-input--required': _vm.$attrs.hasOwnProperty('required'),
+        'vts-input--invalid': !_vm.valid,
+        'vts-input--dirty': _vm.dirty,
+        'vts-input--error': _vm.error,
       },
-      _vm.classes.root ]},[(_vm.$attrs.type === 'radio')?_c('fieldset',{class:['vts-input__fieldset', _vm.classes.fieldset]},[(_vm.label)?_c('legend',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e(),_vm._v(" "),_vm._l((_vm.computedOptions),function(option){return _c('label',{key:option.value,class:['vts-input__label', _vm.classes.label]},[_c('input',_vm._g({ref:"input",refInFor:true,staticClass:"vts-input__input",attrs:{"type":_vm.$attrs.type,"name":option.name,"aria-describedby":_vm.invalid.anyInvalid && (_vm.id + "__description")},domProps:{"checked":_vm.value === option.value,"value":option.value},on:{"input":function($event){return _vm.$emit('update', option.value)},"blur":function($event){_vm.dirty = true;}}},_vm.$listeners)),_vm._v(" "),_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])])})],2):_c('label',{class:['vts-input__label', _vm.classes.label]},[(_vm.$attrs.type !== 'checkbox')?_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e(),_vm._v(" "),(_vm.$attrs.type === 'select')?_c('select',_vm._g(_vm._b({ref:"input",class:['vts-input__input', _vm.classes.input],attrs:{"id":(_vm.id + "__input"),"aria-describedby":_vm.invalid.anyInvalid && (_vm.id + "__description")},on:{"input":_vm.onInput,"blur":function($event){_vm.dirty = true;}}},'select',_vm.$attrs,false),_vm.$listeners),_vm._l((_vm.computedOptions),function(option,i){return _c('option',_vm._b({key:i,domProps:{"selected":_vm.value.includes(option.value)}},'option',option,false),[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])}),0):_c(_vm.tag,_vm._g(_vm._b({ref:"input",tag:"component",class:['vts-input__input', _vm.classes.input],attrs:{"id":(_vm.id + "__input"),"aria-describedby":_vm.invalid.anyInvalid && (_vm.id + "__description"),"checked":_vm.$attrs.type === 'checkbox' && _vm.value === true},domProps:{"value":_vm.value},on:{"input":_vm.onInput,"blur":function($event){_vm.dirty = true;}}},'component',_vm.$attrs,false),_vm.$listeners),[(_vm.tag === 'textarea')?[_vm._v("\n        "+_vm._s(_vm.value)+"\n      ")]:_vm._e()],2),_vm._v(" "),(_vm.$attrs.type === 'checkbox')?_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e()],1),_vm._v(" "),(_vm.$scopedSlots.description)?_c('div',{class:['vts-input__description', _vm.classes.description],attrs:{"id":(_vm.id + "__description"),"role":"alert"}},[_vm._t("description",null,null,{ dirty: _vm.dirty, anyInvalid: _vm.anyInvalid, invalid: _vm.invalid })],2):_vm._e()])};
+      _vm.classes.root ]},[(_vm.$attrs.type === 'radio')?_c('fieldset',{class:['vts-input__fieldset', _vm.classes.fieldset]},[(_vm.label)?_c('legend',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e(),_vm._v(" "),_vm._l((_vm.computedOptions),function(option){return _c('label',{key:option.value,class:['vts-input__label', _vm.classes.label]},[_c('input',_vm._g({ref:"input",refInFor:true,staticClass:"vts-input__input",attrs:{"type":_vm.$attrs.type,"name":option.name,"aria-invalid":!_vm.valid,"aria-describedby":_vm.error && (_vm.id + "__description")},domProps:{"checked":_vm.localValue === option.value,"value":option.value},on:{"input":function($event){return _vm.$emit('update', option.value)},"blur":function($event){_vm.dirty = true;}}},_vm.$listeners)),_vm._v(" "),_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])])})],2):_c('label',{class:['vts-input__label', _vm.classes.label]},[(_vm.$attrs.type !== 'checkbox')?_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e(),_vm._v(" "),(_vm.$attrs.type === 'select')?_c('select',_vm._g(_vm._b({ref:"input",class:['vts-input__input', _vm.classes.input],attrs:{"id":(_vm.id + "__input"),"name":_vm.name,"aria-invalid":!_vm.valid,"aria-describedby":_vm.error && (_vm.id + "__description")},on:{"input":_vm.onInput,"blur":function($event){_vm.dirty = true;}}},'select',_vm.$attrs,false),_vm.$listeners),_vm._l((_vm.computedOptions),function(option,i){return _c('option',_vm._b({key:i,domProps:{"selected":_vm.localValue.includes(option.value)}},'option',option,false),[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])}),0):_c(_vm.tag,_vm._g(_vm._b({ref:"input",tag:"component",class:['vts-input__input', _vm.classes.input],attrs:{"id":(_vm.id + "__input"),"value":_vm.localValue,"aria-invalid":!_vm.valid,"aria-describedby":_vm.error && (_vm.id + "__description"),"checked":_vm.$attrs.type === 'checkbox' && _vm.localValue === true},on:{"input":_vm.onInput,"blur":function($event){_vm.dirty = true;}}},'component',_vm.$attrs,false),_vm.$listeners),[(_vm.tag === 'textarea')?[_vm._v("\n        "+_vm._s(_vm.localValue)+"\n      ")]:_vm._e()],2),_vm._v(" "),(_vm.$attrs.type === 'checkbox')?_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e()],1),_vm._v(" "),(_vm.$scopedSlots.description)?_c('div',{class:['vts-input__description', _vm.classes.description],attrs:{"id":(_vm.id + "__description"),"role":"alert"}},[_vm._t("description",null,null,{ valid: _vm.valid, dirty: _vm.dirty, error: _vm.error, invalid: _vm.invalid, anyInvalid: _vm.anyInvalid })],2):_vm._e()])};
   var __vue_staticRenderFns__$5 = [];
 
     /* style */
@@ -2169,16 +2195,12 @@
       tablist: function tablist() {
         return Object.keys(this.$slots)
       },
+    },
 
-      id: function id() {
-        var ref = this.$attrs;
-        var id = ref.id;
-        if (id) { return id }
-        return Array(6)
-          .fill()
-          .map(function () { return Math.floor(36 * Math.random()).toString(36); })
-          .join("")
-      },
+    created: function created() {
+      var ref = this.$attrs;
+      var id = ref.id;
+      this.id = id ? id : ("vts-" + (randomString(4)));
     },
 
     methods: {
@@ -2583,13 +2605,13 @@
                       ? 'ascending'
                       : _vm.sortOrder === 'ASC'
                       ? 'descending'
-                      : 'default') + " order")},on:{"click":function($event){header.sortable && _vm.onSort(header.key);}}},[(header.key === _vm.sortBy && _vm.sortOrder === 'ASC')?[_vm._v("\n                ↑\n              ")]:(header.key === _vm.sortBy && _vm.sortOrder === 'DESC')?[_vm._v("\n                ↓\n              ")]:[_vm._v("\n                ↕\n              ")]],2):_vm._e()])}),0)]):_vm._e(),_vm._v(" "),_c('tbody',[_vm._t("default",_vm._l((_vm.cItems),function(item,index){return _c('tr',{key:item.id},[_vm._l((item.data),function(value,key){return _vm._t(_vm.items[index].id ? ("row." + (_vm.items[index].id)) : null,[_c('td',{key:key},[_vm._t(("column." + key),[_vm._v("\n                  "+_vm._s(value)+"\n                ")],null,{ cell: value, item: item, column: key, row: index + 1 })],2)],null,{ item: item, column: key, row: index + 1 })})],2)}),null,Object.assign({}, {items: _vm.cItems}, _vm.$data, {perPage: _vm.perPage}))],2)]),_vm._v(" "),_vm._t("pagination",[(_vm.lastPage > 1)?_c('div',[_c('button',{attrs:{"disabled":_vm.currentPage === 1,"aria-label":"go to previous page"},on:{"click":function($event){return _vm.goToPage(_vm.currentPage - 1)}}},[_vm._v("\n          Prev\n        ")]),_vm._v(" "),_c('ul',_vm._l((_vm.lastPage),function(pageNum){return _c('li',{key:pageNum},[_c('button',{attrs:{"disabled":pageNum === _vm.currentPage,"aria-label":("go to page " + pageNum)},on:{"click":function($event){return _vm.goToPage(pageNum)}}},[_vm._v("\n              "+_vm._s(pageNum)+"\n            ")])])}),0),_vm._v(" "),_c('button',{attrs:{"disabled":_vm.currentPage === _vm.lastPage,"aria-label":"go to next page"},on:{"click":function($event){return _vm.goToPage(_vm.currentPage + 1)}}},[_vm._v("\n          Next\n        ")])]):_vm._e()],null,{ currentPage: _vm.currentPage, lastPage: _vm.lastPage, goToPage: _vm.goToPage })],2)])};
+                      : 'default') + " order")},on:{"click":function($event){header.sortable && _vm.onSort(header.key);}}},[(header.key === _vm.sortBy && _vm.sortOrder === 'ASC')?[_vm._v("\n                ↑\n              ")]:(header.key === _vm.sortBy && _vm.sortOrder === 'DESC')?[_vm._v("\n                ↓\n              ")]:[_vm._v("\n                ↕\n              ")]],2):_vm._e()])}),0)]):_vm._e(),_vm._v(" "),_c('tbody',[_vm._t("default",_vm._l((_vm.cItems),function(item,index){return _c('tr',{key:item.id,on:{"click":function($event){return _vm.$emit('click:row', item)}}},[_vm._l((item.data),function(value,key){return _vm._t(_vm.items[index].id ? ("row." + (_vm.items[index].id)) : null,[_c('td',{key:key},[_vm._t(("column." + key),[_vm._v("\n                  "+_vm._s(value)+"\n                ")],null,{ cell: value, item: item, column: key, row: index + 1 })],2)],null,{ item: item, column: key, row: index + 1 })})],2)}),null,Object.assign({}, {items: _vm.cItems}, _vm.$data, {perPage: _vm.perPage}))],2)]),_vm._v(" "),_vm._t("pagination",[(_vm.lastPage > 1)?_c('div',[_c('button',{attrs:{"disabled":_vm.currentPage === 1,"aria-label":"go to previous page"},on:{"click":function($event){return _vm.goToPage(_vm.currentPage - 1)}}},[_vm._v("\n          Prev\n        ")]),_vm._v(" "),_c('ul',_vm._l((_vm.lastPage),function(pageNum){return _c('li',{key:pageNum},[_c('button',{attrs:{"disabled":pageNum === _vm.currentPage,"aria-label":("go to page " + pageNum)},on:{"click":function($event){return _vm.goToPage(pageNum)}}},[_vm._v("\n              "+_vm._s(pageNum)+"\n            ")])])}),0),_vm._v(" "),_c('button',{attrs:{"disabled":_vm.currentPage === _vm.lastPage,"aria-label":"go to next page"},on:{"click":function($event){return _vm.goToPage(_vm.currentPage + 1)}}},[_vm._v("\n          Next\n        ")])]):_vm._e()],null,{ currentPage: _vm.currentPage, lastPage: _vm.lastPage, goToPage: _vm.goToPage })],2)])};
   var __vue_staticRenderFns__$9 = [];
 
     /* style */
     var __vue_inject_styles__$c = function (inject) {
       if (!inject) { return }
-      inject("data-v-c71e460a_0", { source: ".table-container{overflow-x:auto}@media (min-width:400px){.table-container{display:block}.lists-container{display:none}}", map: undefined, media: undefined });
+      inject("data-v-295aec9a_0", { source: ".table-container{overflow-x:auto}@media (min-width:400px){.table-container{display:block}.lists-container{display:none}}", map: undefined, media: undefined });
 
     };
     /* scoped */
