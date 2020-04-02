@@ -124,7 +124,10 @@ If I want my projects to follow best practices for semantic markup and accessibi
 - Better SSR support
 - `functional` components
 - Add type export for intellisense
+- Add VLink component
+  <!-- https://github.com/chrisvfritz/vue-enterprise-boilerplate/blob/master/src/components/_base-link.vue -->
 
+<!-- https://github.com/conventional-changelog/standard-version -->
 <!-- TODO: Babel transpiler -->
 <!-- TODO: Toast/notification -->
 <!-- TODO: Toggles: https://codepen.io/heydon/pen/QqzRvQ/ -->

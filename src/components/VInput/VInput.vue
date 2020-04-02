@@ -5,7 +5,7 @@
       `vts-input--${$attrs.type || 'text'}`,
       {
         'vts-input--required': $attrs.hasOwnProperty('required'),
-        'vts-input--invalid': invalid,
+        'vts-input--invalid': !valid,
         'vts-input--dirty': dirty,
         'vts-input--error': error,
       },
@@ -31,7 +31,7 @@
           :type="$attrs.type"
           :name="option.name"
           :value="option.value"
-          :aria-invalid="invalid"
+          :aria-invalid="!valid"
           :aria-describedby="error && `${id}__description`"
           class="vts-input__input"
           @input="$emit('update', option.value)"
@@ -57,7 +57,7 @@
         :id="`${id}__input`"
         ref="input"
         :name="name"
-        :aria-invalid="invalid"
+        :aria-invalid="!valid"
         :aria-describedby="error && `${id}__description`"
         :class="['vts-input__input', classes.input]"
         v-bind="$attrs"
@@ -82,7 +82,7 @@
         ref="input"
         :value="localValue"
         v-bind="$attrs"
-        :aria-invalid="invalid"
+        :aria-invalid="!valid"
         :aria-describedby="error && `${id}__description`"
         :class="['vts-input__input', classes.input]"
         :checked="$attrs.type === 'checkbox' && localValue === true"
@@ -109,7 +109,10 @@
       role="alert"
     >
       <!-- @slot Scoped slot for the input description. Provides the validation state. -->
-      <slot name="description" v-bind="{ invalid, dirty, error, fail }" />
+      <slot
+        name="description"
+        v-bind="{ valid, dirty, error, invalid, anyInvalid }"
+      />
     </div>
   </div>
 </template>
@@ -162,9 +165,10 @@ export default {
   data() {
     return {
       localValue: this.val, // Required for weird bug when nested in VForm
+      valid: true,
+      anyInvalid: false,
       dirty: false,
-      invalid: false,
-      fail: {},
+      invalid: {},
     }
   },
 
@@ -198,7 +202,7 @@ export default {
     },
 
     error() {
-      return this.invalid && this.dirty
+      return !this.valid && this.dirty
     },
   },
 
@@ -253,8 +257,11 @@ export default {
 
       const { validity } = input
 
-      this.invalid = !validity.valid
-      this.fail = {
+      // https://logaretm.com/blog/2019-05-03-html-aided-vuejs-form-validation/
+
+      this.anyInvalid = !validity.valid // TODO: deprecate
+      this.valid = validity.valid
+      this.invalid = {
         type: validity.typeMismatch,
         required: validity.valueMissing,
         minlength: validity.tooShort,

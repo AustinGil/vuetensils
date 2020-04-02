@@ -60,7 +60,7 @@ export default {
         <input name="password" type="password" required minlength="6" />
       </label>
 
-      <button type="submit" :disabled="form.invalid">Submit</button>
+      <button type="submit" :disabled="!form.valid">Submit</button>
     </template>
   </VForm>
 </template>
@@ -96,9 +96,9 @@ export default {
 
 The form provides the following status:
 
-- `invalid`: Returns `true` if any contained input is invalid based on its [HTML5 validation attributes](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation).
+- `valid`: Returns `false` if any contained input is invalid based on its [HTML5 validation attributes](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation).
 - `dirty`: Returns `true` if any contained input has triggered its `blur` event.
-- `error`: Returns `true` if the form is `invalid` and `dirty`.
+- `error`: Returns `true` if the form is not `valid` and is `dirty`.
 
 ```vue live
 <template>
@@ -109,7 +109,7 @@ The form provides the following status:
         <input name="name" required />
       </label>
 
-      <button type="submit" :disabled="form.invalid">Submit</button>
+      <button type="submit" :disabled="!form.valid">Submit</button>
 
       <pre>{{ form }}</pre>
     </template>
@@ -150,7 +150,7 @@ Fortunately, VForm provides a `clear()` method.
 ## Classes
 
 - `vts-form`: The root form class.
-- `vts-form--invalid`: Added to the form whenever the status `invalid` is `true`.
+- `vts-form--invalid`: Added to the form whenever the status `valid` is `false`.
 - `vts-form--dirty`: Added to the form whenever the status `dirty` is `true`.
 - `vts-form--error`: Added to the form whenever the status `error` is `true`.
 

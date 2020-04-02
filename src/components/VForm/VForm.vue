@@ -5,7 +5,7 @@
     :class="[
       'vts-form',
       {
-        'vts-form--invalid': invalid,
+        'vts-form--invalid': !valid,
         'vts-form--dirty': dirty,
         'vts-form--error': error,
       },
@@ -13,7 +13,7 @@
     @[event]="onEvent"
     v-on="$listeners"
   >
-    <slot v-bind="{ invalid, dirty, error, clear }" />
+    <slot v-bind="{ valid, dirty, error, clear }" />
   </form>
 </template>
 
@@ -35,12 +35,12 @@ export default {
       return this.lazy ? "change" : "input"
     },
 
-    invalid() {
-      return !!Object.values(this.inputs).find(input => input.invalid)
+    valid() {
+      return !Object.values(this.inputs).find(input => input.invalid)
     },
 
     error() {
-      return this.invalid && this.dirty
+      return !this.valid && this.dirty
     },
   },
 
