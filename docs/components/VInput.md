@@ -1,8 +1,15 @@
 # VInput
 
-Input component that automatically includes labels, validation, and aria descriptions for any errors.
+Input component that simplifies accessibility and validation.
 
 [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VInput/VInput.vue)
+
+**Features:**
+
+- Enforces including labels.
+- Build in validation using [HTML5 form validation API](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation).
+- Automatic [aria-invalid](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute) attribute.
+- Automatic [aria-describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute) attribute.
 
 ## Installation
 
@@ -136,6 +143,32 @@ export default {
   }),
 }
 </script>
+```
+
+## Hidden Label
+
+Sometimes you may want to hide your label and only show the input. Excluding the label causes an accessibility issue, but you can [visually hide the label text with CSS](https://a11yproject.com/posts/how-to-hide-content/). Note that you will need to add the styles to your project.
+
+```vue live
+<template>
+  <VInput
+    label="Input Label"
+    name="features"
+    :classes="{ text: 'visually-hidden' }"
+  />
+</template>
+
+<style>
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+</style>
 ```
 
 ## Description
