@@ -12,7 +12,6 @@
       classes.root,
     ]"
   >
-    <!-- {{ val }}, {{ localValue }} -->
     <fieldset
       v-if="$attrs.type === 'radio'"
       :class="['vts-input__fieldset', classes.fieldset]"
@@ -127,7 +126,6 @@ export default {
   inheritAttrs: false,
 
   model: {
-    prop: "val",
     event: "update",
   },
 
@@ -143,7 +141,7 @@ export default {
     /**
      * The input value. Works for all inputs except type `radio`. See `options` prop.
      */
-    val: {
+    value: {
       type: [String, Number, Boolean, Array],
       default: "",
     },
@@ -164,7 +162,7 @@ export default {
 
   data() {
     return {
-      localValue: this.val, // Required for weird bug when nested in VForm
+      localValue: this.value, // Required for weird bug when nested in VForm
       valid: true,
       anyInvalid: false,
       dirty: false,
