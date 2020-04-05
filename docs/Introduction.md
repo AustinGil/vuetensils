@@ -124,7 +124,14 @@ If I want my projects to follow best practices for semantic markup and accessibi
 - Better SSR support
 - `functional` components
 - Add type export for intellisense
+- Add VLink component
+  <!-- https://github.com/chrisvfritz/vue-enterprise-boilerplate/blob/master/src/components/_base-link.vue -->
+- Add active class option to VTabs
+- VToggle support a toggle slot with v-bind and v-on
+- VToggle support for accordion
 
+<!-- v-focusabe? https://blog.vuestorefront.io/how-storefront-ui-solves-website-accessibility-issues/ -->
+<!-- https://github.com/conventional-changelog/standard-version -->
 <!-- TODO: Babel transpiler -->
 <!-- TODO: Toast/notification -->
 <!-- TODO: Toggles: https://codepen.io/heydon/pen/QqzRvQ/ -->
