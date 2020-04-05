@@ -37,21 +37,15 @@ export default {
 ```vue live
 <template>
   <div class="styled">
-    <VDrawer v-model="showDrawer" transition="slide-right" bg-transition="fade">
+    <VDrawer transition="slide-right" bg-transition="fade">
+      <template #toggle="{ bind, on }">
+        <button v-bind="bind" v-on="on">Toggle Drawer</button>
+      </template>
+
       My drawer content
     </VDrawer>
-
-    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
   </div>
 </template>
-
-<script>
-export default {
-  data: () => ({
-    showDrawer: false,
-  }),
-}
-</script>
 ```
 
 ```css
@@ -135,22 +129,36 @@ The following styles have been added to **this site** to make the dialogs easier
 
 ```vue live
 <template>
+  <VDrawer :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }">
+    <template #toggle="{ bind, on }">
+      <button v-bind="bind" v-on="on">Toggle Drawer</button>
+    </template>
+
+    My drawer content
+  </VDrawer>
+</template>
+```
+
+## Using v-model
+
+```vue live
+<template>
   <div>
     <VDrawer
-      v-model="showDrawer"
-      :classes="{ root: 'bg-black-alpha', content: 'bg-white' }"
+      v-model="drawer"
+      :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }"
     >
       My drawer content
     </VDrawer>
 
-    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
+    <button @click="drawer = !drawer">Show the drawer</button>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    showDrawer: false,
+    drawer: false,
   }),
 }
 </script>
@@ -160,79 +168,46 @@ export default {
 
 ```vue live
 <template>
-  <div>
-    <VDrawer
-      v-model="showDrawer"
-      right
-      :classes="{ root: 'bg-black-alpha', content: 'bg-white' }"
-    >
-      My drawer content
-    </VDrawer>
+  <VDrawer right :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }">
+    <template #toggle="{ bind, on }">
+      <button v-bind="bind" v-on="on">Toggle Drawer</button>
+    </template>
 
-    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
-  </div>
+    My drawer content
+  </VDrawer>
 </template>
-
-<script>
-export default {
-  data: () => ({
-    showDrawer: false,
-  }),
-}
-</script>
 ```
 
 ## Prevent page scroll
 
 ```vue live
 <template>
-  <div>
-    <VDrawer
-      v-model="showDrawer"
-      noScroll
-      :classes="{ root: 'bg-black-alpha', content: 'bg-white' }"
-    >
-      My drawer content
-    </VDrawer>
+  <VDrawer noScroll :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }">
+    <template #toggle="{ bind, on }">
+      <button v-bind="bind" v-on="on">Toggle Drawer</button>
+    </template>
 
-    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
-  </div>
+    My drawer content
+  </VDrawer>
 </template>
-
-<script>
-export default {
-  data: () => ({
-    showDrawer: false,
-  }),
-}
-</script>
 ```
 
 ## Add transitions
 
 ```vue live
 <template>
-  <div>
-    <VDrawer
-      v-model="showDrawer"
-      transition="slide-right"
-      bg-transition="fade"
-      :classes="{ root: 'bg-black-alpha', content: 'bg-white' }"
-    >
-      My drawer content
-    </VDrawer>
+  <VDrawer
+    transition="slide-right"
+    bg-transition="fade"
+    :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }"
+  >
+    <template #toggle="{ bind, on }">
+      <button v-bind="bind" v-on="on">Toggle Drawer</button>
+    </template>
 
-    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
-  </div>
+    My drawer content
+  </VDrawer>
 </template>
-
-<script>
-export default {
-  data: () => ({
-    showDrawer: false,
-  }),
-}
-</script>
 ```
 
 ```css
@@ -263,5 +238,5 @@ export default {
 This component can accept a `classes` prop to cusomize the output HTML classes:
 
 ```
-:classes="{ root: 'root-class', content: 'content-class' }"
+:classes="{ bg: 'bg-class', content: 'content-class' }"
 ```

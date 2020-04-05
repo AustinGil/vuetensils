@@ -11,7 +11,7 @@ export default {
 
   model: {
     prop: "showing",
-    event: "change",
+    event: "update",
   },
 
   props: {
@@ -104,7 +104,7 @@ export default {
           }
         }
 
-        this.$emit("change", next)
+        this.$emit("update", next)
       },
     },
   },
@@ -182,7 +182,14 @@ export default {
           on: {
             click: () => (this.localShow = true),
           },
+          bind: {
+            type: "button",
+            role: "button",
+            "aria-haspopup": true,
+            "aria-expanded": "" + localShow,
+          },
           attrs: {
+            // TODO: deprecated
             type: "button",
             role: "button",
             "aria-haspopup": true,
@@ -220,7 +227,7 @@ export default {
       const modal = h(
         "div",
         {
-          class: [NAME, classes.root, this.$attrs.class],
+          class: [NAME, classes.root, classes.bg, this.$attrs.class],
         },
         [content]
       )
