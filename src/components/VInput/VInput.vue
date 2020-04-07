@@ -22,6 +22,7 @@
       <label
         v-for="option in computedOptions"
         :key="option.value"
+        :for="`${id}__input`"
         :class="['vts-input__label', classes.label]"
       >
         <input
@@ -43,7 +44,11 @@
       </label>
     </fieldset>
 
-    <label v-else :class="['vts-input__label', classes.label]">
+    <label
+      v-else
+      :for="`${id}__input`"
+      :class="['vts-input__label', classes.label]"
+    >
       <span
         v-if="$attrs.type !== 'checkbox'"
         :class="['vts-input__text', classes.text]"
