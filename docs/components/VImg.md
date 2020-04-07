@@ -2,8 +2,6 @@
 
 Drop in replacement for the HTML `<img>` tag which supports lazy-loading. Improves load times by waiting for the image to scroll into view before actually downloading it.
 
-`<script src='https://cdn.polyfill.io/v2/polyfill.js?features=IntersectionObserver'></script>`
-
 [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VImg/VImg.vue)
 
 Note that this site has the following global CSS which is applied to examples:

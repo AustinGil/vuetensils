@@ -12,7 +12,6 @@
       classes.root,
     ]"
   >
-    <!-- {{ val }}, {{ localValue }} -->
     <fieldset
       v-if="$attrs.type === 'radio'"
       :class="['vts-input__fieldset', classes.fieldset]"
@@ -23,6 +22,7 @@
       <label
         v-for="option in computedOptions"
         :key="option.value"
+        :for="`${id}__input`"
         :class="['vts-input__label', classes.label]"
       >
         <input
@@ -35,7 +35,7 @@
           :aria-describedby="error && `${id}__description`"
           class="vts-input__input"
           @input="$emit('update', option.value)"
-          @blur="dirty = true"
+          @blur.once="dirty = true"
           v-on="$listeners"
         />
         <span :class="['vts-input__text', classes.text]">
@@ -44,7 +44,11 @@
       </label>
     </fieldset>
 
-    <label v-else :class="['vts-input__label', classes.label]">
+    <label
+      v-else
+      :for="`${id}__input`"
+      :class="['vts-input__label', classes.label]"
+    >
       <span
         v-if="$attrs.type !== 'checkbox'"
         :class="['vts-input__text', classes.text]"
@@ -62,7 +66,7 @@
         :class="['vts-input__input', classes.input]"
         v-bind="$attrs"
         @input="onInput"
-        @blur="dirty = true"
+        @blur.once="dirty = true"
         v-on="$listeners"
       >
         <option
@@ -87,7 +91,7 @@
         :class="['vts-input__input', classes.input]"
         :checked="$attrs.type === 'checkbox' && localValue === true"
         @input="onInput"
-        @blur="dirty = true"
+        @blur.once.once="dirty = true"
         v-on="$listeners"
       >
         <template v-if="tag === 'textarea'">
@@ -127,7 +131,6 @@ export default {
   inheritAttrs: false,
 
   model: {
-    prop: "val",
     event: "update",
   },
 
@@ -143,7 +146,7 @@ export default {
     /**
      * The input value. Works for all inputs except type `radio`. See `options` prop.
      */
-    val: {
+    value: {
       type: [String, Number, Boolean, Array],
       default: "",
     },
@@ -164,9 +167,9 @@ export default {
 
   data() {
     return {
-      localValue: this.val, // Required for weird bug when nested in VForm
+      localValue: this.value, // Required for weird bug when nested in VForm
       valid: true,
-      anyInvalid: false,
+      anyInvalid: false, // TODO: deprecate
       dirty: false,
       invalid: {},
     }

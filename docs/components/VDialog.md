@@ -134,9 +134,9 @@ Dialog background colors have been removed. The following styles have been added
 
 ```vue live
 <template>
-  <VDialog class="bg-black-alpha">
-    <template #toggle="{ on, attrs }">
-      <button v-on="on" v-bind="attrs">Show the dialog</button>
+  <VDialog class="test" :classes="{ bg: 'bg-black-alpha' }">
+    <template #toggle="{ bind, on }">
+      <button v-bind="bind" v-on="on">Show the dialog</button>
     </template>
 
     <div class="bg-white">This is the dialog content.</div>
@@ -157,7 +157,7 @@ export default {
 ```vue live
 <template>
   <div>
-    <VDialog v-model="dialog" class="bg-black-alpha">
+    <VDialog v-model="dialog" :classes="{ bg: 'bg-black-alpha' }">
       <div class="bg-white">This is the dialog content.</div>
     </VDialog>
     <button @click="dialog = !dialog">Show the dialog</button>
@@ -178,7 +178,7 @@ export default {
 ```vue live
 <template>
   <div>
-    <VDialog v-model="dialog" class="bg-black-alpha">
+    <VDialog v-model="dialog" :classes="{ bg: 'bg-black-alpha' }">
       <div class="bg-white">
         This is the dialog content.
         <br />
@@ -202,25 +202,14 @@ export default {
 
 ```vue live
 <template>
-  <div>
-    <VDialog v-model="dialog" noScroll class="bg-black-alpha">
-      <div class="bg-white">
-        This is the dialog content.
-        <br />
-        <button @click="dialog = false">Close</button>
-      </div>
-    </VDialog>
-    <button @click="dialog = !dialog">Show the dialog</button>
-  </div>
-</template>
+  <VDialog noScroll :classes="{ bg: 'bg-black-alpha' }">
+    <template #toggle="{ bind, on }">
+      <button v-bind="bind" v-on="on">Show the dialog</button>
+    </template>
 
-<script>
-export default {
-  data: () => ({
-    dialog: false,
-  }),
-}
-</script>
+    <div class="bg-white">This is the dialog content.</div>
+  </VDialog>
+</template>
 ```
 
 ## With transitions
@@ -232,7 +221,7 @@ export default {
       v-model="dialog"
       transition="slide-up"
       bg-transition="fade"
-      class="bg-black-alpha"
+      :classes="{ bg: 'bg-black-alpha' }"
     >
       <div class="bg-white">
         This is the dialog content.

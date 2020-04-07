@@ -1,30 +1,3 @@
-<template>
-  <transition :name="bgTransition" appear>
-    <component
-      :is="tag"
-      v-if="showing"
-      :class="['vts-drawer', classes.root]"
-      @click="onBgClick"
-      @keydown="onKeydown"
-    >
-      <transition :name="transition" appear>
-        <div
-          ref="content"
-          :class="[
-            'vts-drawer__content',
-            { 'vts-drawer__content--right': !!right },
-            classes.content,
-          ]"
-          :style="{ width: width, maxWidth: maxWidth }"
-          tabindex="-1"
-        >
-          <slot />
-        </div>
-      </transition>
-    </component>
-  </transition>
-</template>
-
 <script>
 import KEYCODES from "../../data/keycodes"
 import FOCUSABLE from "../../data/focusable"
@@ -92,62 +65,66 @@ export default {
     },
   },
 
+  data() {
+    return {
+      localShow: this.showing,
+      activeElement: null,
+    }
+  },
+
   watch: {
-    showing: {
+    showing(next) {
+      this.localShow = next
+    },
+    localShow: {
       handler(next, prev) {
         if (typeof window === "undefined") return
 
         if (next && next != prev) {
-          this.noScroll && document.body.style.setProperty("overflow", "hidden")
-          this.$nextTick(() => {
-            this.$refs.content.focus()
-          })
+          this.activeElement = document.activeElement
+          this.onOpen()
         } else {
-          this.noScroll && document.body.style.removeProperty("overflow")
+          this.onClose()
+
+          const { activeElement } = this
+          if (activeElement && activeElement.focus) {
+            this.$nextTick(() => {
+              activeElement.focus()
+            })
+          }
         }
+
+        this.$emit("update", next)
       },
     },
   },
 
+  destroyed() {
+    this.onClose()
+  },
+
   methods: {
-    onBgClick(e) {
-      if (event.target.classList.contains(`${NAME}`)) {
-        this.hide()
+    onOpen() {
+      const { onClick, onKeydown, noScroll, activeElement } = this
+      window.addEventListener("click", onClick)
+      window.addEventListener("keydown", onKeydown)
+      noScroll && document.body.style.setProperty("overflow", "hidden")
+      this.$nextTick(() => this.$refs.content.focus())
+    },
+    onClose() {
+      const { onClick, onKeydown, noScroll, activeElement } = this
+      window.removeEventListener("click", onClick)
+      window.removeEventListener("keydown", onKeydown)
+      noScroll && document.body.style.removeProperty("overflow")
+    },
+    onClick(event) {
+      if (event.target.classList.contains(NAME)) {
+        this.localShow = false
       }
     },
-
-    show() {
-      /**
-       * @event open
-       * @type { undefined }
-       */
-      this.$emit("open")
-      this.$emit("update", true)
-    },
-
-    hide() {
-      /**
-       * @event close
-       * @type { undefined }
-       */
-      this.$emit("close")
-      this.$emit("update", false)
-    },
-
-    toggle() {
-      const { showing } = this
-      const event = showing ? "close" : "open"
-      this.$emit(event, !showing)
-      /**
-       * @event update
-       * @type { boolean }
-       */
-      this.$emit("update", !showing)
-    },
-
     onKeydown(event) {
       if (event.keyCode === KEYCODES.ESC) {
-        this.hide()
+        this.localShow = false
       }
       if (event.keyCode === KEYCODES.TAB) {
         const content = this.$refs.content
@@ -178,6 +155,82 @@ export default {
         }
       }
     },
+  },
+
+  render(h) {
+    const { localShow, $scopedSlots, classes } = this
+
+    if (!localShow && !$scopedSlots.toggle) {
+      return h(false)
+    }
+
+    const children = []
+
+    if ($scopedSlots.toggle) {
+      children.push(
+        $scopedSlots.toggle({
+          on: {
+            click: () => (this.localShow = true),
+          },
+          attrs: {
+            type: "button",
+            role: "button",
+            "aria-haspopup": true,
+            "aria-expanded": "" + localShow,
+          },
+        })
+      )
+    }
+
+    if (localShow) {
+      let content = h(
+        this.tag,
+        {
+          ref: "content",
+          class: [
+            `${NAME}__content`,
+            { "vts-drawer__content--right": !!this.right },
+            classes.content,
+          ],
+          style: {
+            width: this.width,
+            maxWidth: this.maxWidth,
+          },
+          attrs: {
+            tabindex: "-1",
+            // role: "dialog", // TODO: ?
+          },
+        },
+        [this.$slots.default]
+      )
+      content = h(
+        "transition",
+        {
+          props: { name: this.transition, appear: true },
+        },
+        [content]
+      )
+
+      const component = h(
+        "div",
+        {
+          class: [NAME, classes.root, classes.bg, this.$attrs.class],
+        },
+        [content]
+      )
+
+      children.push(
+        h(
+          "transition",
+          {
+            props: { name: this.bgTransition, appear: true },
+          },
+          [component]
+        )
+      )
+    }
+
+    return h("span", children)
   },
 }
 </script>

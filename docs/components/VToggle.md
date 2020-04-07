@@ -36,7 +36,7 @@ export default {
 
 ```vue live
 <template>
-  <VToggle open label="Click here to open the toggle" class="styled">
+  <VToggle label="Click here to open the toggle" class="styled">
     <div class="toggle-content">
       <p>Here is the content. Sweet!</p>
     </div>
