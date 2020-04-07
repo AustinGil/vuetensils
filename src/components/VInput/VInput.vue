@@ -35,7 +35,7 @@
           :aria-describedby="error && `${id}__description`"
           class="vts-input__input"
           @input="$emit('update', option.value)"
-          @blur="dirty = true"
+          @blur.once="dirty = true"
           v-on="$listeners"
         />
         <span :class="['vts-input__text', classes.text]">
@@ -66,7 +66,7 @@
         :class="['vts-input__input', classes.input]"
         v-bind="$attrs"
         @input="onInput"
-        @blur="dirty = true"
+        @blur.once="dirty = true"
         v-on="$listeners"
       >
         <option
@@ -91,7 +91,7 @@
         :class="['vts-input__input', classes.input]"
         :checked="$attrs.type === 'checkbox' && localValue === true"
         @input="onInput"
-        @blur="dirty = true"
+        @blur.once.once="dirty = true"
         v-on="$listeners"
       >
         <template v-if="tag === 'textarea'">
@@ -169,7 +169,7 @@ export default {
     return {
       localValue: this.value, // Required for weird bug when nested in VForm
       valid: true,
-      anyInvalid: false,
+      anyInvalid: false, // TODO: deprecate
       dirty: false,
       invalid: {},
     }

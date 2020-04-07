@@ -106,6 +106,8 @@ If I want my projects to follow best practices for semantic markup and accessibi
 
 ### Changelog
 
+- VInput: Made input label explicit for better a11y. Fixed inital value bug.
+- VDrawer: Added toggle scoped slot. Simplifies implementation and improves a11y 🎊
 - VForm: Added VForm component
 - VAsync: Bug fix for error on default state
 - VInput: Bug fix for invalid status
@@ -129,6 +131,7 @@ If I want my projects to follow best practices for semantic markup and accessibi
 - Add active class option to VTabs
 - VToggle support a toggle slot with v-bind and v-on
 - VToggle support for accordion
+- VInput default scoped slot with bindings and listeners for label, input, and description.
 
 <!-- v-focusabe? https://blog.vuestorefront.io/how-storefront-ui-solves-website-accessibility-issues/ -->
 <!-- https://github.com/conventional-changelog/standard-version -->
