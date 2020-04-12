@@ -82,7 +82,7 @@ export default {
         },
       }
 
-      input.addEventListener("blur", this.onBlur)
+      input.addEventListener("blur", this.onBlur, { once: true })
       this.$once("hook:beforeDestroy", () => {
         input.removeEventListener("blur", this.onBlur)
       })
@@ -114,7 +114,6 @@ export default {
     onBlur({ target }) {
       this.dirty = true
       this.localInputs[target.name].dirty = true
-      target.removeEventListener("blur", this.onBlur)
     },
 
     clear() {

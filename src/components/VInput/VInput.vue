@@ -65,7 +65,7 @@
         :aria-describedby="error && `${id}__description`"
         :class="['vts-input__input', classes.input]"
         v-bind="$attrs"
-        @input="onInput"
+        @change="onInput"
         @blur.once="dirty = true"
         v-on="$listeners"
       >
@@ -252,6 +252,7 @@ export default {
        * @type { any }
        */
       this.$emit("update", value)
+      this.validate()
     },
 
     validate() {

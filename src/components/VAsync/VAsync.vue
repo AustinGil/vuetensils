@@ -27,6 +27,7 @@ export default {
       pending: false,
       results: this.default,
       error: null,
+      done: false,
     }
   },
 
@@ -63,7 +64,7 @@ export default {
 
       return promise
         .then(results => {
-          this.results = results
+          this.results = typeof results === "undefined" ? this.default : results
           /**
            * Fired after promise has resolved with the resolved value.
            * @event resolve
@@ -88,6 +89,7 @@ export default {
         })
         .finally(() => {
           this.pending = false
+          this.done = true
           /**
            * Fired after promise has fulfilled, regardless of success or failure.
            * @event finally
@@ -99,7 +101,7 @@ export default {
   },
 
   render(h) {
-    const { pending, error, results: data, default: defaultData } = this
+    const { pending, error, results, done } = this
 
     /** @slot Rendered while the promise is in a pending state */
     const pendingSlot = this.$scopedSlots.pending
@@ -114,15 +116,11 @@ export default {
       return safeSlot(h, pendingSlot())
     }
 
-    if (!pending && error) {
-      if (rejectedSlot) {
-        return safeSlot(h, rejectedSlot(error))
-      }
+    if (done && error && rejectedSlot) {
+      return safeSlot(h, rejectedSlot(error))
     }
 
-    const results = data === undefined ? defaultData : data
-
-    if (!pending && !error && resolvedSlot) {
+    if (done && !error && resolvedSlot) {
       return safeSlot(h, resolvedSlot(results))
     }
 
