@@ -1,44 +1,21 @@
-import {
-  VAlert,
-  VAsync,
-  VDrawer,
-  VDropdown,
-  VFile,
-  VImg,
-  VInput,
-  VIntersect,
-  VDialog,
-  VResize,
-  VTabs,
-  VTable,
-  VToggle,
-  autofocus,
-  clickout,
-  copy,
-  intersect,
-} from "../../src/entry"
+import * as components from "../../src/components"
+import * as directives from "../../src/directives"
+import * as filters from "../../src/filters"
 
 export default ({ Vue, options, router, siteData }) => {
   Vue.prototype.$log = console.log
 
-  Vue.component("VAlert", VAlert)
-  Vue.component("VAsync", VAsync)
-  Vue.component("VDrawer", VDrawer)
-  Vue.component("VDropdown", VDropdown)
-  Vue.component("VFile", VFile)
-  Vue.component("VImg", VImg)
-  Vue.component("VInput", VInput)
-  Vue.component("VIntersect", VIntersect)
-  Vue.component("VDialog", VDialog)
-  Vue.component("VResize", VResize)
-  Vue.component("VTabs", VTabs)
-  Vue.component("VTable", VTable)
-  Vue.component("VToggle", VToggle)
+  for (const key in components) {
+    Vue.component(key, components[key])
+  }
 
-  Vue.directive("autofocus", autofocus)
-  Vue.directive("clickout", clickout)
-  Vue.directive("copy", copy)
-  Vue.directive("intersect", intersect)
+  for (const key in directives) {
+    Vue.directive(key, directives[key])
+  }
+
+  for (const key in filters) {
+    Vue.filter(key, filters[key])
+  }
 }
 
 import "./public/static/styles.css"

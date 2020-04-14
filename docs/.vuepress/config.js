@@ -60,6 +60,18 @@ module.exports = {
           "/directives/intersect",
         ],
       },
+      {
+        title: "Filters",
+        collapsable: false,
+        children: [
+          "/filters/capitalize",
+          "/filters/currency",
+          "/filters/number",
+          "/filters/placeholder",
+          "/filters/plural",
+          "/filters/truncate",
+        ],
+      },
     ],
   },
   plugins: [

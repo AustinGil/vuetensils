@@ -66,7 +66,7 @@ export default {
 
     transitionDuration: {
       type: [Number, String],
-      default: 3000,
+      default: 300,
     },
 
     classes: {
