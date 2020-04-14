@@ -44,24 +44,39 @@ export default {
 ```vue live
 <template>
   <form @submit.prevent class="styled">
-    <VInput v-model="name" label="Your Name" />
+    <VInput label="Name" name="name" required minlength="2">
+      <template #description="input">
+        <template v-if="input.error">
+          <small v-if="input.invalid.required">This field is required.</small>
+          <small v-if="input.invalid.minlength">
+            Must be more than 2 characters
+          </small>
+        </template>
+      </template>
+    </VInput>
+
+    <VInput label="Email" name="email" type="email" required>
+      <template #description="input">
+        <template v-if="input.error">
+          <small v-if="input.invalid.required">This field is required.</small>
+          <small v-if="input.invalid.type">
+            Must be an email
+          </small>
+        </template>
+      </template>
+    </VInput>
   </form>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    name: "",
-  }),
+<style>
+.vts-input {
+  margin-bottom: 1rem;
 }
-</script>
-```
-
-```css
-.vts-input__text {
-  font-size: 14px;
+.vts-input--required .vts-input__text:after {
+  content: "*";
+  speak: none;
+  color: red;
 }
-
 .vts-input__input {
   display: block;
   width: 100%;
@@ -69,6 +84,13 @@ export default {
   border-radius: 3px;
   padding: 5px;
 }
+.vts-input--error .vts-input__input {
+  border-color: red;
+}
+.vts-input__description small {
+  color: red;
+}
+</style>
 ```
 
 ## Input Types
