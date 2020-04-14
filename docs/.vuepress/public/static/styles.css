@@ -189,12 +189,30 @@ body .live-preview pre {
   font-size: 14px;
 }
 
+.styled .vts-input {
+  margin-bottom: 1rem;
+}
+
+.styled .vts-input--required .vts-input__text:after {
+  content: "*";
+  speak: none;
+  color: red;
+}
+
 .styled .vts-input__input {
   display: block;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 3px;
   padding: 5px;
+}
+
+.styled .vts-input--error .vts-input__input {
+  border-color: red;
+}
+
+.styled .vts-input__description small {
+  color: red;
 }
 
 .my-dialog {
