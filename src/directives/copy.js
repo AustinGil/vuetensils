@@ -24,10 +24,14 @@ function copyToClipboard(content) {
 export default {
   bind(el, binding, vnode) {
     binding.handler = () => copyToClipboard(binding.value)
-
     el.addEventListener("click", binding.handler)
   },
   unbind(el, binding) {
     el.removeEventListener("click", binding.handler)
+  },
+  update(el, binding) {
+    el.removeEventListener("click", binding.handler)
+    binding.handler = () => copyToClipboard(binding.value)
+    el.addEventListener("click", binding.handler)
   },
 }
