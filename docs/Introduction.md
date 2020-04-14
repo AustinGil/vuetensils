@@ -133,6 +133,8 @@ If I want my projects to follow best practices for semantic markup and accessibi
 - VToggle support for accordion
 - VInput default scoped slot with bindings and listeners for label, input, and description.
 
+<!-- Calculator? https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output -->
+<!-- VirtualList? https://codepen.io/Stegosource/pen/NWGGKZp?editors=1010 -->
 <!-- v-focusabe? https://blog.vuestorefront.io/how-storefront-ui-solves-website-accessibility-issues/ -->
 <!-- https://github.com/conventional-changelog/standard-version -->
 <!-- TODO: Babel transpiler -->

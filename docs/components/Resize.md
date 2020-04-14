@@ -1,4 +1,4 @@
-# VResize
+# Resize
 
 Component which provides the calculated width and height to its default scoped slot. This would allow you do update child components based on the actual size of the element, rather than the size of the screen.
 

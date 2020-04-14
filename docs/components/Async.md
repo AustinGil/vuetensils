@@ -1,4 +1,4 @@
-# VAsync
+# Async
 
 A renderless component for awaiting promises to resolve; great for making HTTP requests. Supports showing pending, resolved, or rejected promises.
 

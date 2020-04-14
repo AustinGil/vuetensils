@@ -1,4 +1,4 @@
-# VInput
+# Input
 
 Input component that simplifies accessibility and validation.
 
@@ -185,7 +185,7 @@ If you want to add a description to your input, the best practice is to include 
 </template>
 ```
 
-## Validation
+## alidation
 
 This component supports [HTML5 input validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation). The input's `invalid` status is provided to the description slot.
 

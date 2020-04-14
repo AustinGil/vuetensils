@@ -1,4 +1,4 @@
-# VTabs
+# Tabs
 
 Show and hide content based on which tabs are selected.
 

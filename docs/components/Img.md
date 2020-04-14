@@ -1,4 +1,4 @@
-# VImg
+# Img
 
 Drop in replacement for the HTML `<img>` tag which supports lazy-loading. Improves load times by waiting for the image to scroll into view before actually downloading it.
 

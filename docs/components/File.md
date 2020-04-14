@@ -1,4 +1,4 @@
-# VFile
+# File
 
 File selector that behaves like a native file input. However, it can be extended to behave like a drag and drop file selector.
 

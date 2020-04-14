@@ -1,4 +1,4 @@
-# VForm
+# Form
 
 Form wrapper that provides better security practices and automatic input validation based on [HTML5 form validation API](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation).
 

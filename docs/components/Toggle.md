@@ -1,4 +1,4 @@
-# VToggle
+# Toggle
 
 Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
 
