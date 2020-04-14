@@ -112,6 +112,7 @@
       :class="['vts-input__description', classes.description]"
       role="alert"
     >
+      <!-- TODO: Test aria live region updates -->
       <!-- @slot Scoped slot for the input description. Provides the validation state. -->
       <slot
         name="description"
@@ -210,6 +211,9 @@ export default {
   },
 
   watch: {
+    value(next) {
+      this.localValue = next
+    },
     localValue: {
       handler: "validate",
     },
