@@ -1,5 +1,36 @@
 # truncate
 
+Truncates a string based on provided length.
+
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters.js)
+
+## Installation
+
+Global install:
+
+```js
+import Vue from "vue"
+import { truncate } from "vuetensils"
+
+Vue.directive("truncate", truncate)
+```
+
+Local install:
+
+```html
+<script>
+  import { truncate } from "vuetensils"
+
+  export default {
+    directives: {
+      truncate,
+    },
+  }
+</script>
+```
+
+## Example
+
 ```vue live
 <template>
   <div>

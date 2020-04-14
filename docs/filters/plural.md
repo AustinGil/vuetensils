@@ -1,5 +1,36 @@
 # plural
 
+Provides options for pluralizing a string based on input count.
+
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters.js)
+
+## Installation
+
+Global install:
+
+```js
+import Vue from "vue"
+import { plural } from "vuetensils"
+
+Vue.directive("plural", plural)
+```
+
+Local install:
+
+```html
+<script>
+  import { plural } from "vuetensils"
+
+  export default {
+    directives: {
+      plural,
+    },
+  }
+</script>
+```
+
+## Example
+
 ```vue live
 <template>
   <div>

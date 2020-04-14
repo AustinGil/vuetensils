@@ -1014,7 +1014,14 @@
             on: {
               click: function () { return (this$1.localShow = true); },
             },
+            bind: {
+              type: "button",
+              role: "button",
+              "aria-haspopup": true,
+              "aria-expanded": "" + localShow,
+            },
             attrs: {
+              // TODO: deprecated
               type: "button",
               role: "button",
               "aria-haspopup": true,
@@ -1083,7 +1090,7 @@
     /* style */
     var __vue_inject_styles__$3 = function (inject) {
       if (!inject) { return }
-      inject("data-v-f23d207e_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-drawer__content{overflow:auto;max-width:300px;height:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-left:auto}", map: undefined, media: undefined });
+      inject("data-v-69cfb386_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-drawer__content{overflow:auto;max-width:300px;height:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-left:auto}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -1634,7 +1641,7 @@
 
       transitionDuration: {
         type: [Number, String],
-        default: 3000,
+        default: 300,
       },
 
       classes: {
@@ -1752,7 +1759,7 @@
     /* style */
     var __vue_inject_styles__$7 = function (inject) {
       if (!inject) { return }
-      inject("data-v-06cd1f9f_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
+      inject("data-v-25ca27d1_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -3107,6 +3114,86 @@
     unbind: unbind,
   };
 
+  // @ts-check
+  /**
+   * @param {string} str
+   * @return {string}
+   */
+  var capitalize = function (str) { return str[0].toUpperCase() + str.slice(1); };
+
+  /**
+   * @param {number} str
+   * @param {string} currency
+   * @param {string} [locale = navigator.language]
+   * @return {string}
+   */
+  function currency(str, currency, locale) {
+    if ( locale === void 0 ) locale = navigator.language;
+
+    // Alternative: (73.57).toLocaleString('de-DE',{style:'currency',currency:'EUR'});
+    return new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency: currency,
+    }).format(str)
+  }
+
+  /**
+   * @param {number} str
+   * @param {string} [locale = navigator.language]
+   * @return {string}
+   */
+  function number(str, locale) {
+    if ( locale === void 0 ) locale = navigator.language;
+
+    return new Intl.NumberFormat(locale).format(str)
+  }
+
+  /**
+   * @param {string} str
+   * @param {string} placeholder
+   * @return {string}
+   */
+  var placeholder = function (str, placeholder) { return str || placeholder; };
+
+  /**
+   * @param {string} str
+   * @param {string} plural
+   * @param {number} qty
+   * @return {string}
+   */
+  function plural(str, plural, qty) {
+    return qty === 0 || qty > 1 ? plural : str
+  }
+
+  /**
+   * @param {string} str
+   * @param {number} [length = 100]
+   * @param {string} [append = '...']
+   * @return {string}
+   */
+  function truncate(str, length, append) {
+    if ( length === void 0 ) length = 100;
+    if ( append === void 0 ) append = "...";
+
+    // TODO: dont split last word
+    if (str.length > length) {
+      return str.substring(0, length - append.length) + append
+    } else {
+      return str
+    }
+  }
+
+  /**
+   * TODO:
+   * (https://www.npmjs.com/package/vue2-filters)
+   * truncate
+   * scientific notation
+   * filterBy
+   * find
+   * sortBy
+   * mask?
+   */
+
   exports.VAlert = __vue_component__;
   exports.VAsync = __vue_component__$1;
   exports.VDialog = __vue_component__$2;
@@ -3123,9 +3210,15 @@
   exports.VTabs = __vue_component__$c;
   exports.VToggle = __vue_component__$e;
   exports.autofocus = autofocus;
+  exports.capitalize = capitalize;
   exports.clickout = clickout;
   exports.copy = copy;
+  exports.currency = currency;
   exports.intersect = intersect;
+  exports.number = number;
+  exports.placeholder = placeholder;
+  exports.plural = plural;
+  exports.truncate = truncate;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

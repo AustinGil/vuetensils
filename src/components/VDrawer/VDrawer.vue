@@ -172,7 +172,14 @@ export default {
           on: {
             click: () => (this.localShow = true),
           },
+          bind: {
+            type: "button",
+            role: "button",
+            "aria-haspopup": true,
+            "aria-expanded": "" + localShow,
+          },
           attrs: {
+            // TODO: deprecated
             type: "button",
             role: "button",
             "aria-haspopup": true,

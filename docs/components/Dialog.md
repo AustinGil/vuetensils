@@ -42,8 +42,8 @@ export default {
     bg-transition="fade"
     class="my-dialog"
   >
-    <template #toggle="{ on, attrs }">
-      <button v-on="on" v-bind="attrs">Show the dialog</button>
+    <template #toggle="{ bind, on }">
+      <button v-bind="bind" v-on="on">Show the dialog</button>
     </template>
 
     This is the dialog content.
