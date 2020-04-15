@@ -10,7 +10,7 @@ Global install:
 
 ```js
 import Vue from "vue"
-import { currency } from "vuetensils"
+import { currency } from "vuetensils/src/filters"
 
 Vue.filter("currency", currency)
 ```
@@ -19,7 +19,7 @@ Local install:
 
 ```html
 <script>
-  import { currency } from "vuetensils"
+  import { currency } from "vuetensils/src/filters"
 
   export default {
     filters: {

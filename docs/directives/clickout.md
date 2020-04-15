@@ -10,7 +10,7 @@ Global install:
 
 ```js
 import Vue from "vue"
-import { clickout } from "vuetensils"
+import { clickout } from "vuetensils/src/directives"
 
 Vue.directive("clickout", clickout)
 ```
@@ -19,7 +19,7 @@ Local install:
 
 ```html
 <script>
-  import { clickout } from "vuetensils"
+  import { clickout } from "vuetensils/src/directives"
 
   export default {
     directives: {

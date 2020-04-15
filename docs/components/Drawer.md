@@ -11,7 +11,7 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VDrawer } from "vuetensils"
+import { VDrawer } from "vuetensils/src/components"
 
 Vue.component("VDrawer", VDrawer)
 ```
@@ -21,7 +21,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VDrawer } from "vuetensils"
+import { VDrawer } from "vuetensils/src/components"
 
 export default {
   components: {

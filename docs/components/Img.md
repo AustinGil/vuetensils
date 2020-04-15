@@ -20,7 +20,7 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VImg } from "vuetensils"
+import { VImg } from "vuetensils/src/components"
 
 Vue.component("VImg", VImg)
 ```
@@ -30,7 +30,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VImg } from "vuetensils"
+import { VImg } from "vuetensils/src/components"
 
 export default {
   components: {

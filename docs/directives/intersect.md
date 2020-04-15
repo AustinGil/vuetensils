@@ -8,12 +8,27 @@ Check your JavaScript console and scroll around to see what's going on.
 
 ## Installation
 
+Global install:
+
 ```js
-// main.js
 import Vue from "vue"
-import { intersect } from "vuetensils"
+import { intersect } from "vuetensils/src/directives"
 
 Vue.directive("intersect", intersect)
+```
+
+Local install:
+
+```html
+<script>
+  import { intersect } from "vuetensils/src/directives"
+
+  export default {
+    directives: {
+      intersect,
+    },
+  }
+</script>
 ```
 
 For IE 11 support, you may want to add the following polyfill:

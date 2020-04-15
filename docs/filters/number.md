@@ -10,7 +10,7 @@ Global install:
 
 ```js
 import Vue from "vue"
-import { number } from "vuetensils"
+import { number } from "vuetensils/src/filters"
 
 Vue.filter("number", number)
 ```
@@ -19,7 +19,7 @@ Local install:
 
 ```html
 <script>
-  import { number } from "vuetensils"
+  import { number } from "vuetensils/src/filters"
 
   export default {
     filters: {

@@ -11,7 +11,7 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VAsync } from "vuetensils"
+import { VAsync } from "vuetensils/src/components"
 
 Vue.component("VAsync", VAsync)
 ```
@@ -21,7 +21,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VAsync } from "vuetensils"
+import { VAsync } from "vuetensils/src/components"
 
 export default {
   components: {

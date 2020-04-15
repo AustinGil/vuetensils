@@ -10,7 +10,7 @@ Global install:
 
 ```js
 import Vue from "vue"
-import { capitalize } from "vuetensils"
+import { capitalize } from "vuetensils/src/filters"
 
 Vue.filter("capitalize", capitalize)
 ```
@@ -19,7 +19,7 @@ Local install:
 
 ```html
 <script>
-  import { capitalize } from "vuetensils"
+  import { capitalize } from "vuetensils/src/filters"
 
   export default {
     filters: {

@@ -15,7 +15,7 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VTabs } from "vuetensils"
+import { VTabs } from "vuetensils/src/components"
 
 Vue.component("VTabs", VTabs)
 ```
@@ -25,7 +25,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VTabs } from "vuetensils"
+import { VTabs } from "vuetensils/src/components"
 
 export default {
   components: {

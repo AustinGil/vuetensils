@@ -11,7 +11,7 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VDropdown } from "vuetensils"
+import { VDropdown } from "vuetensils/src/components"
 
 Vue.component("VDropdown", VDropdown)
 ```
@@ -21,7 +21,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VDropdown } from "vuetensils"
+import { VDropdown } from "vuetensils/src/components"
 
 export default {
   components: {

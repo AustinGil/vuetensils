@@ -11,7 +11,7 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VDialog } from "vuetensils"
+import { VDialog } from "vuetensils/src/components"
 
 Vue.component("VDialog", VDialog)
 ```
@@ -21,7 +21,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VDialog } from "vuetensils"
+import { VDialog } from "vuetensils/src/components"
 
 export default {
   components: {
