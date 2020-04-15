@@ -12,7 +12,7 @@ Global install:
 import Vue from "vue"
 import { plural } from "vuetensils"
 
-Vue.directive("plural", plural)
+Vue.filter("plural", plural)
 ```
 
 Local install:
@@ -22,7 +22,7 @@ Local install:
   import { plural } from "vuetensils"
 
   export default {
-    directives: {
+    filters: {
       plural,
     },
   }

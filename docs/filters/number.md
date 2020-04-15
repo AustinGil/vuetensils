@@ -12,7 +12,7 @@ Global install:
 import Vue from "vue"
 import { number } from "vuetensils"
 
-Vue.directive("number", number)
+Vue.filter("number", number)
 ```
 
 Local install:
@@ -22,7 +22,7 @@ Local install:
   import { number } from "vuetensils"
 
   export default {
-    directives: {
+    filters: {
       number,
     },
   }

@@ -12,7 +12,7 @@ Global install:
 import Vue from "vue"
 import { currency } from "vuetensils"
 
-Vue.directive("currency", currency)
+Vue.filter("currency", currency)
 ```
 
 Local install:
@@ -22,7 +22,7 @@ Local install:
   import { currency } from "vuetensils"
 
   export default {
-    directives: {
+    filters: {
       currency,
     },
   }

@@ -40,7 +40,7 @@ export default {
 
 ```vue live
 <template>
-  <VForm class="styled" @submit.prevent>
+  <VForm class="styled" @submit.prevent="onSubmit">
     <template #default="form">
       <label>
         Name:
@@ -64,6 +64,18 @@ export default {
     </template>
   </VForm>
 </template>
+
+<script>
+export default {
+  methods: {
+    onSubmit({ target }) {
+      const form = new FormData(target)
+      const data = Object.fromEntries(form)
+      console.log(data)
+    },
+  },
+}
+</script>
 
 <style>
 .vts-form input {

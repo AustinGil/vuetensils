@@ -12,7 +12,7 @@ Global install:
 import Vue from "vue"
 import { truncate } from "vuetensils"
 
-Vue.directive("truncate", truncate)
+Vue.filter("truncate", truncate)
 ```
 
 Local install:
@@ -22,7 +22,7 @@ Local install:
   import { truncate } from "vuetensils"
 
   export default {
-    directives: {
+    filters: {
       truncate,
     },
   }

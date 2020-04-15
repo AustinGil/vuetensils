@@ -12,7 +12,7 @@ Global install:
 import Vue from "vue"
 import { capitalize } from "vuetensils"
 
-Vue.directive("capitalize", capitalize)
+Vue.filter("capitalize", capitalize)
 ```
 
 Local install:
@@ -22,7 +22,7 @@ Local install:
   import { capitalize } from "vuetensils"
 
   export default {
-    directives: {
+    filters: {
       capitalize,
     },
   }

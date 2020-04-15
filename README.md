@@ -132,6 +132,7 @@ If I want my projects to follow best practices for semantic markup and accessibi
 - VToggle support a toggle slot with v-bind and v-on
 - VToggle support for accordion
 - VInput default scoped slot with bindings and listeners for label, input, and description.
+- VTry component for error boundaries
 
 <!-- Calculator? https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output -->
 <!-- VirtualList? https://codepen.io/Stegosource/pen/NWGGKZp?editors=1010 -->

@@ -12,7 +12,7 @@ Global install:
 import Vue from "vue"
 import { placeholder } from "vuetensils"
 
-Vue.directive("placeholder", placeholder)
+Vue.filter("placeholder", placeholder)
 ```
 
 Local install:
@@ -22,7 +22,7 @@ Local install:
   import { placeholder } from "vuetensils"
 
   export default {
-    directives: {
+    filters: {
       placeholder,
     },
   }
