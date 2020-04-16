@@ -20,12 +20,13 @@
         {{ label }}
       </legend>
       <label
-        v-for="option in computedOptions"
+        v-for="(option, index) in computedOptions"
         :key="option.value"
-        :for="`${id}__input`"
+        :for="`${id}__input-${index}`"
         :class="['vts-input__label', classes.label]"
       >
         <input
+          :id="`${id}__input-${index}`"
           ref="input"
           :checked="localValue === option.value"
           :type="$attrs.type"
