@@ -34,6 +34,7 @@ module.exports = {
         title: "Components",
         collapsable: false,
         children: [
+          "/components/Action",
           "/components/Alert",
           "/components/Async",
           "/components/Dialog",
