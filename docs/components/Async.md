@@ -2,6 +2,11 @@
 
 A renderless component for awaiting promises to resolve; great for making HTTP requests. Supports showing pending, resolved, or rejected promises.
 
+Features:
+
+- Provides abstraction for `pending`, `error`, and `results` logic for Promises.
+- Scoped slots for `pending`, `rejected`, and `resolved` states.
+
 [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VAsync/VAsync.vue)
 
 ## Installation

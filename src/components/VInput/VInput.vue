@@ -16,7 +16,7 @@
       v-if="$attrs.type === 'radio'"
       :class="['vts-input__fieldset', classes.fieldset]"
     >
-      <legend v-if="label" :class="['vts-input__text', classes.text]">
+      <legend v-if="label" :class="['vts-input__legend', classes.text]">
         {{ label }}
       </legend>
       <label
@@ -34,7 +34,8 @@
           :value="option.value"
           :aria-invalid="!valid"
           :aria-describedby="error && `${id}__description`"
-          class="vts-input__input"
+          :class="['vts-input__input', classes.input]"
+          v-bind="$attrs"
           @input="$emit('update', option.value)"
           @blur.once="dirty = true"
           v-on="$listeners"
@@ -262,6 +263,7 @@ export default {
 
     validate() {
       const input = this.$refs.input
+      console.log(input)
       if (Array.isArray(input)) return
 
       const { validity } = input

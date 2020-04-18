@@ -1,5 +1,5 @@
 <template>
-  <div :class="['vts-img', classes.root]">
+  <picture :class="['vts-img', classes.root]">
     <div
       v-if="dataUrl"
       ref="placeholder"
@@ -19,7 +19,7 @@
       v-bind="$attrs"
       v-on="$listeners"
     />
-  </div>
+  </picture>
 </template>
 
 <script>

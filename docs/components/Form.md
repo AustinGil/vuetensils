@@ -2,9 +2,14 @@
 
 Form wrapper that provides better security practices and automatic input validation based on [HTML5 form validation API](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation).
 
-**Important**: Every input should have a [`name`](https://www.w3schools.com/TAGS/att_input_name.asp). This is important for HTML forms, in general, but also helps VForm keep track. If none is provided, it will still work though.
+Features:
 
-This component is under active development. Consider copy/pasting from the source to avoid any breaking changes.
+- Automatic tracking of input validation.
+- Works with any `<input>` element. Not just Vuetensil's [VInput](https://vuetensils.stegosource.com/components/input.html). Even works with 3rd party libraries as long as the `<input>` element is used in the DOM.
+- Provides classes to style invalid, dirty, or error states.
+- Provides method for clearing every input.
+
+**Important**: Every input should have a [`name`](https://www.w3schools.com/TAGS/att_input_name.asp). This is important for HTML forms, in general, but also helps VForm keep track. If none is provided, it will still work though.
 
 [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VForm/VForm.vue)
 
