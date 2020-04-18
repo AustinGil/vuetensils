@@ -67,11 +67,12 @@ module.exports = {
           "/filters/capitalize",
           "/filters/currency",
           "/filters/number",
-          "/filters/placeholder",
+          // "/filters/placeholder",
           "/filters/plural",
           "/filters/truncate",
         ],
       },
+      "/Cookbook",
     ],
   },
   plugins: [

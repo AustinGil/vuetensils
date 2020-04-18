@@ -40,3 +40,8 @@ Local install:
   </div>
 </template>
 ```
+
+<!-- pluralize(text, num, plural) {
+  plural = plural || text + 's'
+  return `${num} ${num === 1 ? text : plural}`;
+} -->

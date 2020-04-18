@@ -185,15 +185,24 @@ body .live-preview pre {
   background: greenyellow;
 }
 
-.styled .vts-input__text {
-  font-size: 14px;
-}
-
 .styled .vts-input {
   margin-bottom: 1rem;
 }
 
-.styled .vts-input--required .vts-input__text:after {
+.styled fieldset,
+.styled legend {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.styled .vts-input:not(.vts-input--radio) .vts-input__text,
+.styled .vts-input__legend {
+  font-size: 14px;
+}
+
+.styled .vts-input--required:not(.vts-input--radio) .vts-input__text:after,
+.styled .vts-input--required .vts-input__legend:after {
   content: "*";
   speak: none;
   color: red;
@@ -308,4 +317,41 @@ body .live-preview pre {
   width: 100%;
   height: 50vh;
   border: 1px solid;
+}
+
+.cookbook fieldset,
+.cookbook legend {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.cookbook .vts-input__input[type="checkbox"],
+.cookbook .vts-input__input[type="radio"] {
+  display: initial;
+  width: unset;
+}
+
+.cookbook .vts-input--checkbox .vts-input__text:before,
+.cookbook .vts-input--radio .vts-input__text:before {
+  content: "";
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  border: 1px solid;
+}
+
+.cookbook .vts-input--radio .vts-input__text:before {
+  border-radius: 50%;
+}
+
+.cookbook input:checked ~ .vts-input__text:before {
+  background-color: darkcyan;
+}
+
+.cookbook input:focus ~ .vts-input__text:before {
+  outline-width: 1px;
+  outline-style: auto;
+  outline-color: Highlight;
+  outline-color: -webkit-focus-ring-color;
 }
