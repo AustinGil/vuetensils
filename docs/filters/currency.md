@@ -41,7 +41,7 @@ Local install:
 
 ## Custom Locale
 
-You can specify the locale formatting by passing the filter your target [ISO Language Code](https://www.w3schools.com/tags/ref_language_codes.asp).
+You can specify the locale formatting by passing the filter your target [ISO Language Code](http://www.lingoes.net/en/translator/langcode.htm).
 
 ```vue live
 <template>
@@ -53,7 +53,7 @@ You can specify the locale formatting by passing the filter your target [ISO Lan
 
 ## Custom Default Formatting
 
-You can specify your own default currency and/or locale formatting by extending the filter and providing your target [currency](https://en.wikipedia.org/wiki/ISO_4217) and [ISO Language Code](https://www.w3schools.com/tags/ref_language_codes.asp).
+You can specify your own default currency and/or locale formatting by extending the filter and providing your target [currency](https://en.wikipedia.org/wiki/ISO_4217) and [ISO Language Code](http://www.lingoes.net/en/translator/langcode.htm).
 
 ```js
 import Vue from "vue"

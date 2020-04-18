@@ -2,6 +2,14 @@
 
 A dialog component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the dialog until it is closed. It supports being closed by clicking outside the dialog content or pressing the ESC key.
 
+Features:
+
+- Manages `tabindex`, and `role` attributes for dialog accessibility.
+- Manages `aria-haspopup` and `aria-expanded` attributes for toggle button accessibility.
+- Maintains focus states to remain within the dialog for keyboard users.
+- Adds event listener to close dialog on the `esc` key.
+- Supports preventing page scroll while open.
+
 [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDialog/VDialog.vue)
 
 ## Installation

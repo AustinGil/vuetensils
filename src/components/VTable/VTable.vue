@@ -75,7 +75,11 @@
         </thead>
         <tbody>
           <slot v-bind="{ items: cItems, ...$data, perPage }">
-            <tr v-for="(item, index) in cItems" :key="item.id" @click="$emit('click:row', item.original)">
+            <tr
+              v-for="(item, index) in cItems"
+              :key="item.id"
+              @click="$emit('click:row', item.original)"
+            >
               <slot
                 v-for="(value, key) in item.data"
                 :name="items[index].id ? `row.${items[index].id}` : null"

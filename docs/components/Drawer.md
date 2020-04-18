@@ -2,6 +2,14 @@
 
 A convenient sidebar that can be toggled on or off. When opened, it traps the user's focus so that keyboard navigation will remain within the sidebar until it is closed. It also supports being closed by pressing the ESC key.
 
+Features:
+
+- Manages `tabindex` attributes for drawer accessibility.
+- Manages `aria-haspopup` and `aria-expanded` attributes for toggle button accessibility.
+- Maintains focus states to remain within the drawer for keyboard users.
+- Adds event listener to close drawer on the `esc` key.
+- Supports preventing page scroll while open.
+
 [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDrawer/VDrawer.vue)
 
 ## Installation
@@ -84,7 +92,7 @@ export default {
 
 ## Styling
 
-NOTE: Dialog background colors have been removed.
+NOTE: drawer background colors have been removed.
 
 To add background colors to the content, you chave 3 options:
 
@@ -115,7 +123,7 @@ To add background colors to the content, you chave 3 options:
 
 ## Examples
 
-The following styles have been added to **this site** to make the dialogs easier to see:
+The following styles have been added to **this site** to make the drawers easier to see:
 
 ```css
 .bg-white {
