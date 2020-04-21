@@ -17,7 +17,7 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VFile } from "vuetensils"
+import { VFile } from "vuetensils/src/components"
 
 Vue.component("VFile", VFile)
 ```
@@ -27,7 +27,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VFile } from "vuetensils"
+import { VFile } from "vuetensils/src/components"
 
 export default {
   components: {

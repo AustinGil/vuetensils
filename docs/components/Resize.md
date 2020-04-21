@@ -11,7 +11,7 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VResize } from "vuetensils"
+import { VResize } from "vuetensils/src/components"
 
 Vue.component("VResize", VResize)
 ```
@@ -21,7 +21,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VResize } from "vuetensils"
+import { VResize } from "vuetensils/src/components"
 
 export default {
   components: {

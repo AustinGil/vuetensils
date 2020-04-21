@@ -10,7 +10,7 @@ Global install:
 
 ```js
 import Vue from "vue"
-import { copy } from "vuetensils"
+import { copy } from "vuetensils/src/directives"
 
 Vue.directive("copy", copy)
 ```
@@ -19,7 +19,7 @@ Local install:
 
 ```html
 <script>
-  import { copy } from "vuetensils"
+  import { copy } from "vuetensils/src/directives"
 
   export default {
     directives: {

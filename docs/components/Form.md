@@ -20,7 +20,7 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VForm } from "vuetensils"
+import { VForm } from "vuetensils/src/components"
 
 Vue.component("VForm", VForm)
 ```
@@ -30,7 +30,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VForm } from "vuetensils"
+import { VForm } from "vuetensils/src/components"
 
 export default {
   components: {

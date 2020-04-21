@@ -18,7 +18,7 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VInput } from "vuetensils"
+import { VInput } from "vuetensils/src/components"
 
 Vue.component("VInput", VInput)
 ```
@@ -28,7 +28,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VInput } from "vuetensils"
+import { VInput } from "vuetensils/src/components"
 
 export default {
   components: {

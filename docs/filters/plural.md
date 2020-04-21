@@ -2,7 +2,7 @@
 
 Provides options for pluralizing a string based on input count.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters.js)
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters/index.js)
 
 ## Installation
 
@@ -10,7 +10,7 @@ Global install:
 
 ```js
 import Vue from "vue"
-import { plural } from "vuetensils"
+import { plural } from "vuetensils/src/filters"
 
 Vue.filter("plural", plural)
 ```
@@ -19,7 +19,7 @@ Local install:
 
 ```html
 <script>
-  import { plural } from "vuetensils"
+  import { plural } from "vuetensils/src/filters"
 
   export default {
     filters: {

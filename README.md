@@ -134,6 +134,7 @@ If I want my projects to follow best practices for semantic markup and accessibi
 - VInput default scoped slot with bindings and listeners for label, input, and description.
 - VTry component for error boundaries
 
+<!-- TODO: change exports to raw source -->
 <!-- Calculator? https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output -->
 <!-- VirtualList? https://codepen.io/Stegosource/pen/NWGGKZp?editors=1010 -->
 <!-- v-focusabe? https://blog.vuestorefront.io/how-storefront-ui-solves-website-accessibility-issues/ -->
