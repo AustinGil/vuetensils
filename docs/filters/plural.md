@@ -2,7 +2,7 @@
 
 Provides options for pluralizing a string based on input count.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters.js)
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters/index.js)
 
 ## Installation
 

@@ -2,7 +2,7 @@
 
 Provides fallback content in the case of empty strings.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters.js)
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters/index.js)
 
 ## Installation
 

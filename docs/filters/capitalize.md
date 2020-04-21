@@ -2,7 +2,7 @@
 
 Capitalizes the first letter of a string.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters.js)
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters/index.js)
 
 ## Installation
 

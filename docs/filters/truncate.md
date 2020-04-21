@@ -2,7 +2,7 @@
 
 Truncates a string based on provided length.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters.js)
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters/index.js)
 
 ## Installation
 
