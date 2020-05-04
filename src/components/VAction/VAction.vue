@@ -1,32 +1,29 @@
-<template functional>
-  <component
-    :is="$options.tag(props, data)"
-    v-bind="data.attrs"
-    :to="props.to || false"
-    class="vts-action"
-    v-on="listeners"
-  >
-    <slot />
-  </component>
-</template>
-
 <script>
-export default {
-  props: {
-    to: {
-      type: [String, Object],
-      default: "",
-    },
-  },
+function getTag({ to }, { attrs }) {
+  if (to) {
+    return "RouterLink"
+  }
+  if (attrs && attrs.href) {
+    return "a"
+  }
+  return "button"
+}
 
-  tag({ to }, { attrs }) {
-    if (to) {
-      return "RouterLink"
+export default {
+  functional: true,
+  render(h, { data, listeners, props, children }) {
+    const tag = getTag(props, data)
+    const options = {
+      data,
+      props,
+      class: ["vts-action"],
+      on: listeners,
     }
-    if (attrs && attrs.href) {
-      return "a"
+    if (tag === "RouterLink") {
+      options.nativeOn = listeners
     }
-    return "button"
+
+    return h(tag, options, children)
   },
 }
 </script>
