@@ -11,6 +11,7 @@
     "/src",
     "/dist"
   ],
+  "typings": "types",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Stegosource/vuetensils.git"
@@ -19,6 +20,7 @@
     "dev": "npm run docs:dev",
     "test": "echo TODO",
     "lint": "eslint --fix src",
+    "ts": "tsc",
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuetensils.umd.js",
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuetensils.esm.js",
@@ -53,6 +55,7 @@
     "rollup-plugin-vue": "^5.1.6",
     "stylelint": "^13.2.1",
     "stylelint-config-sass-guidelines": "^7.0.0",
+    "typescript": "^3.8.3",
     "vue-docgen-api": "^4.14.0",
     "vuepress": "^1.4.0",
     "vuepress-plugin-docgen": "^1.2.9",

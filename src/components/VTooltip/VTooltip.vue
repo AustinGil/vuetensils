@@ -1,4 +1,5 @@
 <script>
+// TODO: checkout http://pauljadam.com/demos/tooltip.html
 // @ts-check
 import { randomString } from "../../utils"
 
