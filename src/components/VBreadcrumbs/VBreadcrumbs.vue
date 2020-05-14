@@ -6,14 +6,14 @@
       class="vts-breadcrumbs__list"
     >
       <li
-        v-for="(item, index) in breadcrumbs"
+        v-for="(item, index) in routeBreadcrumbs"
         :key="index"
         itemprop="itemListElement"
         itemscope
         itemtype="http://schema.org/ListItem"
         class="vts-breadcrumbs__item"
       >
-        <span v-if="index === breadcrumbs.length - 1" class="active">
+        <span v-if="index === routeBreadcrumbs.length - 1" class="active">
           {{ item.text }}
         </span>
         <router-link
@@ -38,17 +38,23 @@ export default {
   },
 
   computed: {
-    breadcrumbs() {
+    routeBreadcrumbs() {
+      if (this.breadcrumbs.length) {
+        return this.breadcrumbs;
+      }
       if (this.$route.fullPath === "/dashboard") {
         return [{ text: "Home" }]
       }
 
       const routes = this.$route.matched.reduce((routes, route) => {
         // Make sure same path child routes (path: "") do not show up twice in breadcrumbs.
-        if (route.parent && route.path === route.parent.path) {
-          return routes
-        }
-        if (route.parent && route.path === `${route.parent.path}/`) {
+        if (
+          route.parent &&
+          (
+            route.path === route.parent.path ||
+            route.path === route.parent.path + '/'
+          )
+        ) {
           return routes
         }
 
