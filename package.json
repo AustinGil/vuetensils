@@ -30,6 +30,9 @@
     "commit": "git add . && git commit",
     "deploy": "release-it"
   },
+  "ManifestComments": [
+    "Pinned jest to 24.9.0. 25.1.0+ is broken on Windows. Waiting for issue #9459 to be resolved."
+  ],
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.9.6",
