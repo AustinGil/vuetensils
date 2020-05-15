@@ -16,7 +16,7 @@
     "url": "git+https://github.com/Stegosource/vuetensils.git"
   },
   "scripts": {
-    "validate": "npm run build && npm run docs:build && npm t && npm run lint && explorer . & npm run dev",
+    "validate": "npm run build && npm run docs:build && npm t && npm run lint && git add -A && explorer . & npm run dev",
     "dev": "npm run docs:dev",
     "test": "npm run test:unit",
     "test:unit": "jest --config jest.config.js --coverage --runInBand",
@@ -45,7 +45,7 @@
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "commitizen": "^4.1.2",
-    "cz-conventional-changelog": "^3.1.0",
+    "cz-conventional-changelog": "^3.2.0",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.2.2",
     "husky": "^4.2.3",
