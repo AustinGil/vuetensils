@@ -55,7 +55,7 @@
     "jest": "24.9.0",
     "jest-serializer-vue-tjw": "^3.14.0",
     "minimist": "^1.2.5",
-    "release-it": "^13.1.1",
+    "release-it": "^13.6.0",
     "rollup": "^2.1.0",
     "rollup-plugin-buble": "^0.19.8",
     "rollup-plugin-filesize": "^6.2.1",
