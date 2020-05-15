@@ -82,7 +82,7 @@
     "rollup-plugin-filesize": "^6.2.1",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-uglify-es": "0.0.1",
-    "rollup-plugin-vue": "^5.1.6",
+    "rollup-plugin-vue": "^5.1.7",
     "stylelint": "^13.3.3",
     "stylelint-config-sass-guidelines": "^7.0.0",
     "vue-docgen-api": "^4.23.1",
