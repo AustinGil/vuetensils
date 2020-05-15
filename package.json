@@ -79,7 +79,7 @@
     "release-it": "^13.6.0",
     "rollup": "^2.10.2",
     "rollup-plugin-buble": "^0.19.8",
-    "rollup-plugin-filesize": "^6.2.1",
+    "rollup-plugin-filesize": "^9.0.0",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-uglify-es": "0.0.1",
     "rollup-plugin-vue": "^5.1.7",
