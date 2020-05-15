@@ -48,7 +48,7 @@
     "cz-conventional-changelog": "^3.2.0",
     "eslint": "^7.0.0",
     "eslint-plugin-vue": "^6.2.2",
-    "husky": "^4.2.3",
+    "husky": "^4.2.5",
     "jest": "24.9.0",
     "jest-serializer-vue-tjw": "^3.14.0",
     "minimist": "^1.2.5",
