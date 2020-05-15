@@ -31,7 +31,28 @@
     "deploy": "release-it"
   },
   "ManifestComments": [
-    "Pinned jest to 24.9.0. 25.1.0+ is broken on Windows. Waiting for issue #9459 to be resolved."
+    "Pinned jest to 24.9.0. 25.1.0+ is broken on Windows. Waiting for issue #9459 to be resolved.",
+    "Pinned vuepress-plugin-live to 1.4.2 because 1.5.3 broke the following examples in the docs:",
+    [
+      "http://localhost:8081/components/Async.html#call-promise-using-refs",
+      "http://localhost:8081/components/Dialog.html#prevent-scrolling",
+      "http://localhost:8081/components/Drawer.html#styled-examples",
+      "http://localhost:8081/components/Drawer.html#examples",
+      "http://localhost:8081/components/Drawer.html#using-v-model",
+      "http://localhost:8081/components/Drawer.html#right-aligned",
+      "http://localhost:8081/components/Drawer.html#prevent-page-scroll",
+      "http://localhost:8081/components/Drawer.html#add-transitions",
+      "http://localhost:8081/components/File.html#custom-dropzone-content",
+      "http://localhost:8081/components/Form.html#styled-example",
+      "http://localhost:8081/components/Form.html#form-status",
+      "http://localhost:8081/components/Form.html#clearing-inputs",
+      "http://localhost:8081/components/Input.html#styled-example",
+      "http://localhost:8081/components/Intersect.html#using-a-scoped-slot",
+      "http://localhost:8081/components/Resize.html#styled-example",
+      "http://localhost:8081/components/Toggle.html#scoped-slots",
+      "http://localhost:8081/directives/clickout.html#usage",
+      "http://localhost:8081/directives/intersect.html#default-behavior"
+    ]
   ],
   "dependencies": {},
   "devDependencies": {
@@ -69,7 +90,7 @@
     "vue-router": "^3.1.6",
     "vuepress": "^1.5.0",
     "vuepress-plugin-docgen": "^1.2.9",
-    "vuepress-plugin-live": "^1.4.2"
+    "vuepress-plugin-live": "1.4.2"
   },
   "husky": {
     "hooks": {
