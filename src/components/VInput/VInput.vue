@@ -263,7 +263,6 @@ export default {
 
     validate() {
       const input = this.$refs.input
-      console.log(input)
       if (Array.isArray(input)) return
 
       const { validity } = input
