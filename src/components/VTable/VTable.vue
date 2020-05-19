@@ -1,4 +1,24 @@
 <template>
+  <!--
+    <div className="lists-container">
+      <h2 v-if="caption">
+        {{ caption }}
+      </h2>
+      <div v-for="item in cItems" :key="item.id">
+        <h3>{{ "todo header" }}</h3>
+        <dl>
+          {this.props.headers.map((header, i) =>
+              i > 0 &&
+              <React.Fragment key={i}>
+                <dt>{header}</dt>
+                <dd>{row[i]}</dd>
+              </React.Fragment>
+            )}
+        </dl>
+      </div>
+    </div>
+  -->
+
   <div
     ref="container"
     class="table-container"
