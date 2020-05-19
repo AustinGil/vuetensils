@@ -41,7 +41,7 @@ export default {
      */
     text: {
       type: String,
-      default: "",
+      default: ""
     },
     /**
      * Where the content should be placed in relation to the button.
@@ -60,12 +60,12 @@ export default {
      */
     transition: {
       type: String,
-      default: "",
+      default: ""
     },
 
     classes: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
   },
 

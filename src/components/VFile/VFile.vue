@@ -1,5 +1,6 @@
 <template>
   <label
+    :for="id || label"
     :class="[
       'vts-file',
       {
@@ -10,21 +11,28 @@
     ]"
   >
     <input
+      :id="id || label"
       ref="input"
       v-bind="$attrs"
       type="file"
       :class="['vts-file__input', classes.input]"
       @change="onChange"
       v-on="$listeners"
-    />
+    >
 
     <span :class="['vts-file__text', classes.text]">
       <slot name="label">{{ label }}</slot>
     </span>
 
-    <div class="vts-file__dropzone" @dragenter.prevent="droppable = true">
+    <div
+      class="vts-file__dropzone"
+      @dragenter.prevent="droppable = true"
+    >
       <slot v-bind="{ files: localFiles, droppable }">
-        <span v-if="localFiles.length" aria-hidden="true">
+        <span
+          v-if="localFiles.length"
+          aria-hidden="true"
+        >
           {{
             localFiles.length > 1
               ? `${localFiles.length} files selected`
@@ -32,7 +40,10 @@
           }}
         </span>
 
-        <span v-else aria-hidden="true">
+        <span
+          v-else
+          aria-hidden="true"
+        >
           Choose files or drop here
         </span>
       </slot>
@@ -59,19 +70,23 @@ export default {
   },
 
   props: {
+    id: {
+      type: String,
+      default: undefined
+    },
     label: {
       type: String,
-      required: true,
+      required: true
     },
 
     files: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
 
     classes: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
   },
 
@@ -84,7 +99,7 @@ export default {
     files(files) {
       this.localFiles = files
     },
-    localFiles(files) {
+    localFiles() {
       this.droppable = false
     },
   },

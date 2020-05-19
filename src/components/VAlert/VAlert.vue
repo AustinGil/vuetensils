@@ -1,8 +1,8 @@
 <template>
   <transition :name="transition">
     <component
-      v-if="!dismissed && !!visible"
       :is="tag"
+      v-if="!dismissed && !!visible"
       role="alert"
       :class="['vts-alert', classes.root]"
     >
@@ -11,12 +11,14 @@
 
       <button
         v-if="dismissible"
-        @click="dismiss"
         :aria-label="dismissLabel"
         :class="['vts-alert__dismiss', classes.dismiss]"
+        @click="dismiss"
       >
         <!-- @slot The dismiss button content -->
-        <slot name="dismiss">&times;</slot>
+        <slot name="dismiss">
+          &times;
+        </slot>
       </button>
     </component>
   </transition>
@@ -64,7 +66,10 @@ export default {
     /**
      * The transition name if you want to add one.
      */
-    transition: String,
+    transition: {
+      type: String,
+      default: undefined
+    },
 
     classes: {
       type: Object,
@@ -80,7 +85,7 @@ export default {
   watch: {
     visible: {
       handler(visible) {
-        if (!!visible) {
+        if (visible) {
           this.dismissed = false
         }
         if (typeof visible === "number") {
@@ -90,6 +95,10 @@ export default {
       },
       immediate: true,
     },
+  },
+
+  beforeDestroy() {
+    this.clearTimer()
   },
 
   methods: {
@@ -130,10 +139,6 @@ export default {
         this.timerId = null
       }
     },
-  },
-
-  beforeDestroy() {
-    this.clearTimer()
   },
 }
 </script>

@@ -16,7 +16,10 @@
       v-if="$attrs.type === 'radio'"
       :class="['vts-input__fieldset', classes.fieldset]"
     >
-      <legend v-if="label" :class="['vts-input__legend', classes.text]">
+      <legend
+        v-if="label"
+        :class="['vts-input__legend', classes.text]"
+      >
         {{ label }}
       </legend>
       <label
@@ -39,7 +42,7 @@
           @input="$emit('update', option.value)"
           @blur.once="dirty = true"
           v-on="$listeners"
-        />
+        >
         <span :class="['vts-input__text', classes.text]">
           {{ option.label }}
         </span>
