@@ -227,8 +227,8 @@ export default {
   created() {
     // Might cause an issue with SSR
     const { id, name } = this.$attrs
-    this.id = id ? id : `vts-${randomString(4)}`
-    this.name = name ? name : this.id
+    this.id = id || 'vts-' + randomString(4)
+    this.name = name || this.id
   },
 
   mounted() {

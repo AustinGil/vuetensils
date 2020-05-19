@@ -1,6 +1,6 @@
 <template>
   <label
-    :for="id || label"
+    :for="id"
     :class="[
       'vts-file',
       {
@@ -11,7 +11,7 @@
     ]"
   >
     <input
-      :id="id || label"
+      :id="id"
       ref="input"
       v-bind="$attrs"
       type="file"
@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import { randomString } from "../../utils"
+
 export default {
   model: {
     prop: "files",
@@ -70,10 +72,6 @@ export default {
   },
 
   props: {
-    id: {
-      type: String,
-      default: undefined
-    },
     label: {
       type: String,
       required: true
@@ -102,6 +100,10 @@ export default {
     localFiles() {
       this.droppable = false
     },
+  },
+
+  created() {
+    this.id = this.$attrs.id || 'vts-' + randomString(4)
   },
 
   methods: {
