@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "npm run docs:dev",
     "test": "npm run test:unit",
-    "test:unit": "jest --config jest.config.js --coverage --runInBand",
+    "test:unit": "jest --config jest.config.js --coverage",
     "lint": "eslint --config=.eslintrc.js tests/**/*.js src/**/*.js src/**/*.vue",
     "fix": "eslint --fix --config=.eslintrc.js tests/**/*.js src/**/*.js src/**/*.vue",
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
