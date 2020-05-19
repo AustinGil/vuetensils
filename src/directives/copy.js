@@ -22,7 +22,7 @@ function copyToClipboard(content) {
 }
 
 export default {
-  bind(el, binding /*, vnode */) {
+  bind(el, binding) {
     binding.handler = () => copyToClipboard(binding.value)
     el.addEventListener("click", binding.handler)
   },
