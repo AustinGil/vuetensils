@@ -3,13 +3,17 @@
     :class="['vts-dropdown', classes.root]"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
+    @focus="isFocused = true"
+    @blur="isFocused = false"
     @focusout="onFocusout"
   >
     <button
       :aria-expanded="!!isHovered || !!isFocused"
       aria-haspopup="true"
       :class="['vts-dropdown__trigger', classes.trigger]"
-      @click="isFocused = !isFocused"
+      @click="toggleIsFocused"
+      @keyup.enter="toggleIsFocused"
+      @keyup.space="toggleIsFocused"
     >
       <!-- @slot The content within the trigger button -->
       <slot name="trigger">
@@ -83,6 +87,10 @@ export default {
   },
 
   methods: {
+    toggleIsFocused() {
+      this.isFocused = !this.isFocused;
+    },
+
     onClickout(e) {
       if (!this.$el.contains(e.target)) {
         this.isFocused = false

@@ -70,7 +70,7 @@
         :aria-describedby="error && `${id}__description`"
         :class="['vts-input__input', classes.input]"
         v-bind="$attrs"
-        @change="onInput"
+        @blur="onInput"
         @blur.once="dirty = true"
         v-on="$listeners"
       >

@@ -7,7 +7,9 @@
       :aria-controls="`${id}-content`"
       :aria-expanded="String(isOpen)"
       :class="['vts-toggle__label', classes.label]"
-      @click="isOpen = !isOpen"
+      @click="toggleIsOpen"
+      @keyup.enter="toggleIsOpen"
+      @keyup.space="toggleIsOpen"
       v-on="$listeners"
     >
       <!-- @slot The content that goes inside the button -->
@@ -94,6 +96,9 @@ export default {
   },
 
   methods: {
+    toggleIsOpen() {
+      this.isOpen = !this.isOpen;
+    },
     collapse(el) {
       el.style.height = 0
     },

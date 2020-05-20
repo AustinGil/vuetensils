@@ -45,7 +45,9 @@
             <button
               v-if="header.sortable"
               :aria-label="ariaLabel(header)"
-              @click="header.sortable && onSort(header.key)"
+              @click="headerSort(header)"
+              @keyup.enter="headerSort(header)"
+              @keyup.space="headerSort(header)"
             >
               <template v-if="header.key === sortBy && sortOrder === 'ASC'">
                 &uarr;
@@ -67,7 +69,8 @@
           <tr
             v-for="(item, index) in cItems"
             :key="item.id"
-            @click="$emit('click:row', item.original)"
+            @click="emitRowClick(item)"
+            @keyup="emitRowClick(item)"
           >
             <slot
               v-for="(value, key) in item.data"
@@ -100,7 +103,9 @@
         <button
           :disabled="currentPage === 1"
           aria-label="go to previous page"
-          @click="goToPage(currentPage - 1)"
+          @click="goToPreviousPage(currentPage)"
+          @keyup.enter="goToPreviousPage(currentPage)"
+          @keyup.space="goToPreviousPage(currentPage)"
         >
           Prev
         </button>
@@ -113,6 +118,8 @@
               :disabled="pageNum === currentPage"
               :aria-label="`go to page ${pageNum}`"
               @click="goToPage(pageNum)"
+              @keyup.enter="goToPage(pageNum)"
+              @keyup.space="goToPage(pageNum)"
             >
               {{ pageNum }}
             </button>
@@ -121,7 +128,9 @@
         <button
           :disabled="currentPage === lastPage"
           aria-label="go to next page"
-          @click="goToPage(currentPage + 1)"
+          @click="goToNextPage(currentPage)"
+          @keyup.enter="goToNextPage(currentPage)"
+          @keyup.space="goToNextPage(currentPage)"
         >
           Next
         </button>
@@ -237,6 +246,11 @@ export default {
   },
 
   methods: {
+    headerSort(header) {
+      if (header.sortable) {
+        this.onSort(header.key)
+      }
+    },
     onSort(key) {
       const { sortBy, sortOrder } = this
       this.currentPage = 1
@@ -262,6 +276,16 @@ export default {
     goToPage(page) {
       const { lastPage } = this
       this.currentPage = Math.min(Math.max(1, page), lastPage)
+    },
+    goToPreviousPage(page) {
+      this.goToPage(page - 1);
+    },
+    goToNextPage(page) {
+      this.goToPage(page + 1);
+    },
+
+    emitRowClick(item) {
+      this.$emit('click:row', item.original);
     },
 
     ariaSort(header) {

@@ -14,6 +14,8 @@
         :aria-label="dismissLabel"
         :class="['vts-alert__dismiss', classes.dismiss]"
         @click="dismiss"
+        @keyup.enter="dismiss"
+        @keyup.space="dismiss"
       >
         <!-- @slot The dismiss button content -->
         <slot name="dismiss">
