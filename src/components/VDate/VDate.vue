@@ -8,7 +8,7 @@
           type="text"
           placeholder="mm/dd/yyyy"
           aria-autocomplete="none"
-        />
+        >
       </label>
       <button class="icon" aria-label="Choose Date">
         calendar btn

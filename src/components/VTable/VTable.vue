@@ -27,10 +27,7 @@
     aria-labelledby="caption"
   >
     <table>
-      <caption
-        v-if="caption"
-        id="caption"
-      >
+      <caption v-if="caption" id="caption">
         {{ caption }}
       </caption>
       <thead v-if="headers.length">
@@ -97,10 +94,7 @@
       </tfoot> -->
     </table>
 
-    <slot
-      name="pagination"
-      v-bind="{ currentPage, lastPage, goToPage }"
-    >
+    <slot name="pagination" v-bind="{ currentPage, lastPage, goToPage }">
       <div v-if="lastPage > 1">
         <button
           :disabled="currentPage === 1"
@@ -113,10 +107,7 @@
           Prev
         </button>
         <ul>
-          <li
-            v-for="pageNum in lastPage"
-            :key="pageNum"
-          >
+          <li v-for="pageNum in lastPage" :key="pageNum">
             <button
               :disabled="pageNum === currentPage"
               :aria-label="`go to page ${pageNum}`"

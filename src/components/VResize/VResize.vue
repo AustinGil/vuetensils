@@ -1,8 +1,5 @@
 <template>
-  <component
-    :is="tag"
-    class="vts-resize"
-  >
+  <component :is="tag" class="vts-resize">
     <slot v-bind="{ width, height }" />
   </component>
 </template>

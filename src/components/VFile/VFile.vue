@@ -24,20 +24,15 @@
       <slot name="label">{{ label }}</slot>
     </span>
 
-    <div
-      class="vts-file__dropzone"
-      @dragenter.prevent="droppable = true"
-    >
+    <div class="vts-file__dropzone" @dragenter.prevent="droppable = true">
       <slot v-bind="{ files: localFiles, droppable }">
-        <span
-          v-if="localFiles.length"
-          aria-hidden="true"
-        >
-          {{
-            localFiles.length > 1
-              ? `${localFiles.length} files selected`
-              : localFiles[0].name
-          }}
+        <span v-if="localFiles.length" aria-hidden="true">
+          <template v-if="localFiles.length > 1">
+            {{ localFiles.length }} files selected
+          </template>
+          <template v-else>
+            {{ localFiles[0].name }}
+          </template>
         </span>
 
         <span

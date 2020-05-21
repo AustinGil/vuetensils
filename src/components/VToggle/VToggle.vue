@@ -16,10 +16,7 @@
       <!-- @slot The content that goes inside the button -->
       {{ label }}
 
-      <slot
-        name="label"
-        v-bind="{ isOpen }"
-      />
+      <slot name="label" v-bind="{ isOpen }" />
     </button>
 
     <transition

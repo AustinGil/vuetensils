@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="tablist.length"
-    :class="['vts-tabs', classes.root]"
-  >
+  <div v-if="tablist.length" :class="['vts-tabs', classes.root]">
     <div
       role="tablist"
       :aria-label="label"
