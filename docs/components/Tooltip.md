@@ -80,10 +80,10 @@ Try tabbing through these elements
 
 ```vue live
 <template>
-  <VTooltip tag="h1">
+  <VTooltip tag="div">
     <template #tooltip>heyo :)</template>
 
-    I have a tooltip!
+    <h1>I have a tooltip!</h1>
   </VTooltip>
 </template>
 ```
