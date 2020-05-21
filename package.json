@@ -90,6 +90,7 @@
     "stylelint": "^13.3.3",
     "stylelint-config-sass-guidelines": "^7.0.0",
     "typescript": "^3.8.3",
+    "vue-clickaway": "^2.2.2",
     "vue-docgen-api": "^4.23.1",
     "vue-jest": "^3.0.5",
     "vue-router": "^3.1.6",
