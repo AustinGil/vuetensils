@@ -7,12 +7,17 @@ export default {
   props: {
     tag: {
       type: String,
-      default: "div",
+      default: "span",
     },
 
-    position: {
+    id: {
       type: String,
-      default: "top",
+      default: () => `vts-${randomString(4)}`,
+    },
+
+    focus: {
+      type: Boolean,
+      default: false,
     },
 
     classes: {
@@ -25,13 +30,8 @@ export default {
     show: false,
   }),
 
-  created() {
-    const { id } = this.$attrs
-    this.id = id ? id : `vts-${randomString(4)}`
-  },
-
   render(h) {
-    const { show, id, classes } = this
+    const { tag, show, id, focus, classes } = this
 
     const defaultSlot = this.$scopedSlots.default()
     const tooltip = this.$scopedSlots.tooltip()
@@ -55,17 +55,22 @@ export default {
       tooltip
     )
 
+    const on = {
+      focus: () => (this.show = true),
+      blur: () => (this.show = false), // TODO: this should not run if the next target is inside the tooltip
+    }
+    // add hover events unless focus only
+    if (!focus) {
+      on.mouseenter = () => (this.show = true)
+      on.mouseleave = () => (this.show = false)
+    }
+
     const parent = h(
-      this.tag,
+      tag,
       {
         class: ["vts-tooltip", classes.toggle],
-        on: {
-          mouseenter: () => (this.show = true),
-          mouseleave: () => (this.show = false),
-          focus: () => (this.show = true),
-          blur: () => (this.show = false),
-        },
-        attrs: { tabindex: 0, "aria-describedby": `${id}__content` },
+        on,
+        attrs: { id, tabindex: 0, "aria-describedby": `${id}__content` },
       },
       [defaultSlot, content]
     )

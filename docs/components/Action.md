@@ -2,7 +2,7 @@
 
 WIP: Implementation is pretty set, but looking for help with naming. Alternative is `VBtn`
 
-A functional component for logically rendering the appropriate actionable elements: `<RouterLink>`, `<a>`, or `<button>`. This helps
+A functional component for logically rendering the appropriate actionable elements: `<RouterLink>`, `<a>`, or `<button>`. At first glance, this may not be a particularly helpful component, but it really simplifies list rendering.
 
 Features:
 
@@ -79,9 +79,7 @@ export default {
 </template>
 ```
 
-## Use Case
-
-At first glance, this may not be a particularly helpful component, but it does make list rendering quite nice when you want to combine router links, anchor links, and/or buttons:
+## List Example
 
 ```vue live
 <template>
