@@ -144,3 +144,4 @@ If I want my projects to follow best practices for semantic markup and accessibi
 <!-- TODO: Toggles: https://codepen.io/heydon/pen/QqzRvQ/ -->
 <!-- TODO: https://rollup-plugin-vue.vuejs.org/examples.html#minimal -->
 <!-- TODO: https://medium.com/faun/automate-your-npm-publish-with-github-actions-dfe8059645dd -->
+<!-- TODO: Docgen: https://github.com/vue-styleguidist/vue-styleguidist/tree/dev/examples/docgen/ -->

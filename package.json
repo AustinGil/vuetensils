@@ -1,6 +1,6 @@
 {
   "name": "vuetensils",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "A tasty toolset for Vue.js",
   "author": "Austin Gil <austin@stegosource.com>",
   "license": "MIT",
@@ -11,6 +11,7 @@
     "/src",
     "/dist"
   ],
+  "typings": "types",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Stegosource/vuetensils.git"
@@ -18,8 +19,10 @@
   "scripts": {
     "dev": "npm run docs:dev",
     "test": "npm run test:unit",
-    "test:unit": "jest --config jest.config.js --coverage --runInBand",
-    "lint": "eslint --fix src",
+    "test:unit": "jest --config jest.config.js --coverage",
+    "lint": "eslint --config=.eslintrc.js tests/**/*.js src/**/*.js src/**/*.vue",
+    "fix": "eslint --fix --config=.eslintrc.js tests/**/*.js src/**/*.js src/**/*.vue",
+    "ts": "tsc",
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuetensils.umd.js",
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuetensils.esm.js",
@@ -70,7 +73,9 @@
     "commitizen": "^4.1.2",
     "cz-conventional-changelog": "^3.2.0",
     "eslint": "^7.0.0",
+    "eslint-plugin-jest": "^23.13.1",
     "eslint-plugin-vue": "^6.2.2",
+    "eslint-plugin-vue-a11y": "^0.0.31",
     "husky": "^4.2.5",
     "jest": "24.9.0",
     "jest-serializer-vue-tjw": "^3.14.0",
@@ -84,6 +89,7 @@
     "rollup-plugin-vue": "^5.1.7",
     "stylelint": "^13.3.3",
     "stylelint-config-sass-guidelines": "^7.0.0",
+    "typescript": "^3.8.3",
     "vue-docgen-api": "^4.23.1",
     "vue-jest": "^3.0.5",
     "vue-router": "^3.1.6",

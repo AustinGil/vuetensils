@@ -12,57 +12,12 @@
       classes.root,
     ]"
   >
-    <fieldset
-      v-if="$attrs.type === 'radio'"
-      :class="['vts-input__fieldset', classes.fieldset]"
-    >
-      <legend
-        v-if="label"
-        :class="['vts-input__legend', classes.text]"
-      >
-        {{ label }}
-      </legend>
-      <label
-        v-for="(option, index) in computedOptions"
-        :key="option.value"
-        :for="`${id}__input-${index}`"
-        :class="['vts-input__label', classes.label]"
-      >
-        <input
-          :id="`${id}__input-${index}`"
-          ref="input"
-          :checked="localValue === option.value"
-          :type="$attrs.type"
-          :name="option.name"
-          :value="option.value"
-          :aria-invalid="!valid"
-          :aria-describedby="error && `${id}__description`"
-          :class="['vts-input__input', classes.input]"
-          v-bind="$attrs"
-          @input="$emit('update', option.value)"
-          @blur.once="dirty = true"
-          v-on="$listeners"
-        >
-        <span :class="['vts-input__text', classes.text]">
-          {{ option.label }}
-        </span>
-      </label>
-    </fieldset>
-
-    <label
-      v-else
-      :for="`${id}__input`"
-      :class="['vts-input__label', classes.label]"
-    >
-      <span
-        v-if="$attrs.type !== 'checkbox'"
-        :class="['vts-input__text', classes.text]"
-      >
+    <label :for="`${id}__input`" :class="['vts-input__label', classes.label]">
+      <span :class="['vts-input__text', classes.text]">
         {{ label }}
       </span>
 
       <select
-        v-if="$attrs.type === 'select'"
         :id="`${id}__input`"
         ref="input"
         :name="name"
@@ -83,32 +38,6 @@
           {{ option.label }}
         </option>
       </select>
-
-      <component
-        :is="tag"
-        v-else
-        :id="`${id}__input`"
-        ref="input"
-        :value="localValue"
-        v-bind="$attrs"
-        :aria-invalid="!valid"
-        :aria-describedby="error && `${id}__description`"
-        :class="['vts-input__input', classes.input]"
-        :checked="$attrs.type === 'checkbox' && localValue === true"
-        @input="onInput"
-        @blur.once.once="dirty = true"
-        v-on="$listeners"
-      >
-        <template v-if="tag === 'textarea'">
-          {{ localValue }}
-        </template>
-      </component>
-      <span
-        v-if="$attrs.type === 'checkbox'"
-        :class="['vts-input__text', classes.text]"
-      >
-        {{ label }}
-      </span>
     </label>
 
     <div
@@ -128,6 +57,15 @@
 </template>
 
 <script>
+/** test
+ * https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html
+ * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role
+ * https://reacttraining.com/reach-ui/listbox/
+ * https://w3c.github.io/aria-practices/examples/listbox/listbox-rearrangeable.html
+ * https://www.digitala11y.com/listbox-role/
+ * https://github.com/primefaces/primevue/blob/master/src/components/autocomplete/AutoComplete.vue
+ */
+
 import { randomString } from "../../utils"
 
 /**
@@ -227,8 +165,8 @@ export default {
   created() {
     // Might cause an issue with SSR
     const { id, name } = this.$attrs
-    this.id = id || 'vts-' + randomString(4)
-    this.name = name || this.id
+    this.id = id ? id : `vts-${randomString(4)}`
+    this.name = name ? name : this.id
   },
 
   mounted() {

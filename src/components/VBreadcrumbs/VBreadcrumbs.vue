@@ -1,5 +1,8 @@
 <template>
-  <nav role="navigation" class="vts-breadcrumbs">
+  <nav
+    role="navigation"
+    class="vts-breadcrumbs"
+  >
     <ol
       itemscope
       itemtype="http://schema.org/BreadcrumbList"
@@ -13,7 +16,10 @@
         itemtype="http://schema.org/ListItem"
         class="vts-breadcrumbs__item"
       >
-        <span v-if="index === routeBreadcrumbs.length - 1" class="active">
+        <span
+          v-if="index === routeBreadcrumbs.length - 1"
+          class="active"
+        >
           {{ item.text }}
         </span>
         <router-link

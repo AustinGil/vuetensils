@@ -1,14 +1,30 @@
 module.exports = {
   root: true,
-  env: {
-    node: true,
+  parserOptions: {
+    "parser": "babel-eslint",
+    "ecmaVersion": 8,
+    "sourceType": "module"
   },
-  extends: ["plugin:vue/recommended" /*,"@vue/airbnb", "@vue/prettier"*/],
+  env: {
+    "browser": true,
+    "node": true
+  },
+  globals: {
+    "jsdom": true,
+    "Promise": true
+  },
+  plugins: [
+    "jest",
+    "vue"
+  ],
+  extends: [
+    "eslint:recommended",
+    "plugin:vue/recommended",
+    "plugin:jest/recommended",
+    "plugin:vue-a11y/recommended"
+  ],
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
-  },
-  parserOptions: {
-    parser: "babel-eslint",
-  },
-}
+    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off"
+  }
+};

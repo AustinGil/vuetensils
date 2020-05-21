@@ -1,36 +1,56 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
 jobs:
-  build:
-    docker:
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: node:12
-
+  install:
     working_directory: ~/repo
-
+    docker:
+      # https://circleci.com/docs/2.0/circleci-images/
+      - image: node:12
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run: npm install
-
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install dependencies
+          command: npm ci
       - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-      # run tests!
-      # - run: npm run test:unit
-      # TODO: Add Cypress tests to CI https://docs.cypress.io/guides/guides/continuous-integration.html
-      # Deploy
-      # - run: curl -X POST -d '{}' https://api.netlify.com/build_hooks/5b7201a4b13fb17e96d0a35b
+  lint:
+    docker:
+      - image: node:12
+    steps:
+      - checkout
+      - run:
+          name: Lint
+          command: npm run lint
+      - store_artifacts:
+          path: lint-results.txt
+          prefix: lints
+  test:
+    docker:
+      - image: node:12
+    steps:
+      - checkout
+      - run:
+          name: Test
+          command: npm run test:unit
+      - store_artifacts:
+          path: test-results.txt
+          prefix: tests
+
+workflows:
+  version: 2
+  install_lint_test:
+    jobs:
+      - install
+      - lint:
+          requires:
+            - install
+      - test:
+          requires:
+            - install
+
+# TODO: Add Cypress tests to CI https://docs.cypress.io/guides/guides/continuous-integration.html
+# Deploy
+# - run: curl -X POST -d '{}' https://api.netlify.com/build_hooks/5b7201a4b13fb17e96d0a35b

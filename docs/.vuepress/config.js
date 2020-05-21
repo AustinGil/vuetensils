@@ -34,8 +34,10 @@ module.exports = {
         title: "Components",
         collapsable: false,
         children: [
+          "/components/Action",
           "/components/Alert",
           "/components/Async",
+          // "/components/Date",
           "/components/Dialog",
           "/components/Drawer",
           "/components/Dropdown",
@@ -48,6 +50,7 @@ module.exports = {
           "/components/Tabs",
           "/components/Table",
           "/components/Toggle",
+          "/components/Tooltip",
         ],
       },
       {

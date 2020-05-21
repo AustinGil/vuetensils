@@ -6,7 +6,10 @@
       @click="onClick"
       @keydown="onKeydown"
     >
-      <transition :name="transition" appear>
+      <transition
+        :name="transition"
+        appear
+      >
         <component
           :is="tag"
           ref="content"
@@ -58,11 +61,17 @@ export default {
     /**
      * CSS width to set the modal to.
      */
-    width: String,
+    width: {
+      type: String,
+      default: undefined
+    },
     /**
      * CSS max-width to set the modal to.
      */
-    maxWidth: String,
+    maxWidth: {
+      type: String,
+      default: undefined
+    },
     /**
      * Prevents the page from being scrolled while the modal is open.
      */
@@ -73,11 +82,17 @@ export default {
     /**
      * Transition name to apply to the modal.
      */
-    transition: String,
+    transition: {
+      type: String,
+      default: undefined
+    },
     /**
      * Transition name to apply to the background.
      */
-    bgTransition: String,
+    bgTransition: {
+      type: String,
+      default: undefined
+    },
 
     classes: {
       type: Object,

@@ -1,5 +1,6 @@
 <template>
   <div :class="['vts-toggle', { 'vts-toggle--open': isOpen }, classes.root]">
+    <!-- eslint-disable vue-a11y/click-events-have-key-events -->
     <button
       :id="`${id}-label`"
       ref="label"
@@ -10,10 +11,14 @@
       @click="isOpen = !isOpen"
       v-on="$listeners"
     >
+      <!-- eslint-enable vue-a11y/click-events-have-key-events -->
       <!-- @slot The content that goes inside the button -->
       {{ label }}
 
-      <slot name="label" v-bind="{ isOpen }" />
+      <slot
+        name="label"
+        v-bind="{ isOpen }"
+      />
     </button>
 
     <transition
