@@ -42,13 +42,13 @@
           >
             {{ header.text || header.key }}
 
+            <!-- eslint-disable vue-a11y/click-events-have-key-events -->
             <button
               v-if="header.sortable"
               :aria-label="ariaLabel(header)"
-              @click="headerSort(header)"
-              @keyup.enter="headerSort(header)"
-              @keyup.space="headerSort(header)"
+              @click="onSort(header.key)"
             >
+              <!-- eslint-enable vue-a11y/click-events-have-key-events -->
               <template v-if="header.key === sortBy && sortOrder === 'ASC'">
                 &uarr;
               </template>
@@ -101,13 +101,13 @@
       v-bind="{ currentPage, lastPage, goToPage }"
     >
       <div v-if="lastPage > 1">
+        <!-- eslint-disable vue-a11y/click-events-have-key-events -->
         <button
           :disabled="currentPage === 1"
           aria-label="go to previous page"
-          @click="goToPreviousPage(currentPage)"
-          @keyup.enter="goToPreviousPage(currentPage)"
-          @keyup.space="goToPreviousPage(currentPage)"
+          @click="goToPage(currentPage - 1)"
         >
+          <!-- eslint-enable vue-a11y/click-events-have-key-events -->
           Prev
         </button>
         <ul>
@@ -115,24 +115,24 @@
             v-for="pageNum in lastPage"
             :key="pageNum"
           >
+            <!-- eslint-disable vue-a11y/click-events-have-key-events -->
             <button
               :disabled="pageNum === currentPage"
               :aria-label="`go to page ${pageNum}`"
               @click="goToPage(pageNum)"
-              @keyup.enter="goToPage(pageNum)"
-              @keyup.space="goToPage(pageNum)"
             >
+              <!-- eslint-enable vue-a11y/click-events-have-key-events -->
               {{ pageNum }}
             </button>
           </li>
         </ul>
+        <!-- eslint-disable vue-a11y/click-events-have-key-events -->
         <button
           :disabled="currentPage === lastPage"
           aria-label="go to next page"
-          @click="goToNextPage(currentPage)"
-          @keyup.enter="goToNextPage(currentPage)"
-          @keyup.space="goToNextPage(currentPage)"
+          @click="goToPage(currentPage + 1)"
         >
+          <!-- eslint-enable vue-a11y/click-events-have-key-events -->
           Next
         </button>
       </div>
@@ -247,11 +247,6 @@ export default {
   },
 
   methods: {
-    headerSort(header) {
-      if (header.sortable) {
-        this.onSort(header.key)
-      }
-    },
     onSort(key) {
       const { sortBy, sortOrder } = this
       this.currentPage = 1
@@ -277,12 +272,6 @@ export default {
     goToPage(page) {
       const { lastPage } = this
       this.currentPage = Math.min(Math.max(1, page), lastPage)
-    },
-    goToPreviousPage(page) {
-      this.goToPage(page - 1);
-    },
-    goToNextPage(page) {
-      this.goToPage(page + 1);
     },
 
     emitRowClick(item) {

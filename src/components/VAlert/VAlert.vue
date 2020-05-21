@@ -9,14 +9,14 @@
       <!-- @slot The default slot content that is shown to the user -->
       <slot />
 
+      <!-- eslint-disable vue-a11y/click-events-have-key-events -->
       <button
         v-if="dismissible"
         :aria-label="dismissLabel"
         :class="['vts-alert__dismiss', classes.dismiss]"
         @click="dismiss"
-        @keyup.enter="dismiss"
-        @keyup.space="dismiss"
       >
+        <!-- eslint-enable vue-a11y/click-events-have-key-events -->
         <!-- @slot The dismiss button content -->
         <slot name="dismiss">
           &times;
