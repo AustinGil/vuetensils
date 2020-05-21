@@ -1,6 +1,5 @@
 <template>
   <div :class="['vts-toggle', { 'vts-toggle--open': isOpen }, classes.root]">
-    <!-- eslint-disable vue-a11y/click-events-have-key-events -->
     <button
       :id="`${id}-label`"
       ref="label"
@@ -8,10 +7,12 @@
       :aria-controls="`${id}-content`"
       :aria-expanded="String(isOpen)"
       :class="['vts-toggle__label', classes.label]"
-      @click="isOpen = !isOpen"
+      @click="toggleIsOpen"
+      @keydown.prevent.enter=""
+      @keyup.prevent.enter="toggleIsOpen"
+      @keyup.prevent.space="toggleIsOpen"
       v-on="$listeners"
     >
-      <!-- eslint-enable vue-a11y/click-events-have-key-events -->
       <!-- @slot The content that goes inside the button -->
       {{ label }}
 
@@ -96,6 +97,9 @@ export default {
   },
 
   methods: {
+    toggleIsOpen() {
+      this.isOpen = !this.isOpen;
+    },
     collapse(el) {
       el.style.height = 0
     },
