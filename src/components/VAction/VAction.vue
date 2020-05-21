@@ -1,4 +1,9 @@
 <script>
+/**
+ * @param {{ to: string }} props
+ * @param {{ attrs: { href: string } }} data
+ * @return { string }
+ */
 function getTag({ to }, { attrs }) {
   if (to) {
     return "RouterLink"
@@ -14,7 +19,7 @@ export default {
   render(h, { data, listeners, props, children }) {
     const tag = getTag(props, data)
     const options = {
-      data,
+      ...data,
       props,
       class: ["vts-action"],
       on: listeners,

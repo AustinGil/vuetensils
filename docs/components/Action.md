@@ -1,5 +1,7 @@
 # Action
 
+WIP: Implementation is pretty set, but looking for help with naming. Alternative is `VBtn`
+
 A functional component for logically rendering the appropriate actionable elements: `<RouterLink>`, `<a>`, or `<button>`. This helps
 
 Features:
@@ -75,4 +77,47 @@ export default {
     Vuetensils
   </VAction>
 </template>
+```
+
+## Use Case
+
+At first glance, this may not be a particularly helpful component, but it does make list rendering quite nice when you want to combine router links, anchor links, and/or buttons:
+
+```vue live
+<template>
+  <ul>
+    <li v-for="item in items">
+      <VAction v-bind="item.bind" v-on="item.on" >
+        {{ item.text }}
+      </VAction>
+    </li>
+  </ul>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    items: [
+      {
+        text: 'Home (router-link)',
+        bind: {
+          to: '/'
+        }
+      },
+      {
+        text: 'Second (anchor link)',
+        bind: {
+          href: '/components/Action.html'
+        }
+      },
+      {
+        text: 'Third (button)',
+        on: {
+          click: () => console.log('click')
+        }
+      }
+    ]
+  })
+}
+</script>
 ```
