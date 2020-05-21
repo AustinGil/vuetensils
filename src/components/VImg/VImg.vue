@@ -6,7 +6,11 @@
       :class="['vts-img__placeholder', classes.placeholder]"
       :style="{ background }"
     >
-      <img :src="placeholder || dataUrl" alt="" v-bind="$attrs" />
+      <img
+        :src="placeholder || dataUrl"
+        alt=""
+        v-bind="$attrs"
+      >
     </div>
     <img
       ref="img"
@@ -18,7 +22,7 @@
       }"
       v-bind="$attrs"
       v-on="$listeners"
-    />
+    >
   </picture>
 </template>
 
@@ -113,8 +117,7 @@ export default {
     },
 
     handler([entry]) {
-      const { src, $el } = this
-      const { img, placeholder } = this.$refs
+      const { $el } = this
 
       if (entry.isIntersecting) {
         // Element is in viewport
@@ -130,14 +133,14 @@ export default {
 
       img.addEventListener("load", this.onLoad)
 
-      if (!!srcset) {
+      if (srcset) {
         img.srcset = srcset
       }
       img.src = src
     },
 
     onLoad() {
-      const { src, $el } = this
+      const { $el } = this
       const { img, placeholder } = this.$refs
 
       $el.classList.remove(`${NAME}--loading`)

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <!-- <div className="lists-container">
+  <!--
+    <div className="lists-container">
       <h2 v-if="caption">
         {{ caption }}
       </h2>
@@ -16,123 +16,127 @@
             )}
         </dl>
       </div>
-    </div> -->
-
-    <div
-      ref="container"
-      class="table-container"
-      tabindex="0"
-      role="group"
-      aria-labelledby="caption"
-    >
-      <table>
-        <caption v-if="caption" id="caption">
-          {{ caption }}
-        </caption>
-        <thead v-if="headers.length">
-          <tr>
-            <th
-              v-for="(header, key) in cHeaders"
-              :key="key"
-              role="columnheader"
-              :aria-sort="
-                sortBy !== header.key
-                  ? null
-                  : sortOrder === 'ASC'
-                  ? 'ascending'
-                  : 'descending'
-              "
-            >
-              {{ header.text || header.key }}
-
-              <button
-                v-if="header.sortable"
-                :aria-label="
-                  `sort by ${header.text || header.key} in ${
-                    !sortOrder
-                      ? 'ascending'
-                      : sortOrder === 'ASC'
-                      ? 'descending'
-                      : 'default'
-                  } order`
-                "
-                @click="header.sortable && onSort(header.key)"
-              >
-                <template v-if="header.key === sortBy && sortOrder === 'ASC'">
-                  &uarr;
-                </template>
-                <template
-                  v-else-if="header.key === sortBy && sortOrder === 'DESC'"
-                >
-                  &darr;
-                </template>
-                <template v-else>
-                  ↕
-                </template>
-              </button>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <slot v-bind="{ items: cItems, ...$data, perPage }">
-            <tr
-              v-for="(item, index) in cItems"
-              :key="item.id"
-              @click="$emit('click:row', item.original)"
-            >
-              <slot
-                v-for="(value, key) in item.data"
-                :name="items[index].id ? `row.${items[index].id}` : null"
-                v-bind="{ item, column: key, row: index + 1 }"
-              >
-                <td :key="key">
-                  <slot
-                    :name="`column.${key}`"
-                    v-bind="{ cell: value, item, column: key, row: index + 1 }"
-                  >
-                    {{ value }}
-                  </slot>
-                </td>
-              </slot>
-            </tr>
-          </slot>
-        </tbody>
-
-        <!-- <tfoot v-if="$slots.tfoot">
-          <slot name="tfoot" />
-        </tfoot> -->
-      </table>
-
-      <slot name="pagination" v-bind="{ currentPage, lastPage, goToPage }">
-        <div v-if="lastPage > 1">
-          <button
-            :disabled="currentPage === 1"
-            aria-label="go to previous page"
-            @click="goToPage(currentPage - 1)"
-          >
-            Prev
-          </button>
-          <ul>
-            <li v-for="pageNum in lastPage" :key="pageNum">
-              <button
-                :disabled="pageNum === currentPage"
-                :aria-label="`go to page ${pageNum}`"
-                @click="goToPage(pageNum)"
-              >
-                {{ pageNum }}
-              </button>
-            </li>
-          </ul>
-          <button
-            :disabled="currentPage === lastPage"
-            aria-label="go to next page"
-            @click="goToPage(currentPage + 1)"
-          >
-            Next
-          </button>
-        </div>
-      </slot>
     </div>
+  -->
+
+  <div
+    ref="container"
+    class="table-container"
+    tabindex="0"
+    role="group"
+    aria-labelledby="caption"
+  >
+    <table>
+      <caption
+        v-if="caption"
+        id="caption"
+      >
+        {{ caption }}
+      </caption>
+      <thead v-if="headers.length">
+        <tr>
+          <th
+            v-for="(header, key) in cHeaders"
+            :key="key"
+            :aria-sort="ariaSort(header)"
+          >
+            {{ header.text || header.key }}
+
+            <!-- eslint-disable vue-a11y/click-events-have-key-events -->
+            <button
+              v-if="header.sortable"
+              :aria-label="ariaLabel(header)"
+              @click="onSort(header.key)"
+            >
+              <!-- eslint-enable vue-a11y/click-events-have-key-events -->
+              <template v-if="header.key === sortBy && sortOrder === 'ASC'">
+                &uarr;
+              </template>
+              <template
+                v-else-if="header.key === sortBy && sortOrder === 'DESC'"
+              >
+                &darr;
+              </template>
+              <template v-else>
+                ↕
+              </template>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <slot v-bind="{ items: cItems, ...$data, perPage }">
+          <tr
+            v-for="(item, index) in cItems"
+            :key="item.id"
+            tabindex="0"
+            @click="emitRowClick(item)"
+            @keyup="emitRowClick(item)"
+          >
+            <slot
+              v-for="(value, key) in item.data"
+              :name="items[index].id ? `row.${items[index].id}` : null"
+              v-bind="{ item, column: key, row: index + 1 }"
+            >
+              <td :key="key">
+                <slot
+                  :name="`column.${key}`"
+                  v-bind="{ cell: value, item, column: key, row: index + 1 }"
+                >
+                  {{ value }}
+                </slot>
+              </td>
+            </slot>
+          </tr>
+        </slot>
+      </tbody>
+
+      <!-- <tfoot v-if="$slots.tfoot">
+        <slot name="tfoot" />
+      </tfoot> -->
+    </table>
+
+    <slot
+      name="pagination"
+      v-bind="{ currentPage, lastPage, goToPage }"
+    >
+      <div v-if="lastPage > 1">
+        <!-- eslint-disable vue-a11y/click-events-have-key-events -->
+        <button
+          :disabled="currentPage === 1"
+          aria-label="go to previous page"
+          @click="goToPage(currentPage - 1)"
+        >
+          <!-- eslint-enable vue-a11y/click-events-have-key-events -->
+          Prev
+        </button>
+        <ul>
+          <li
+            v-for="pageNum in lastPage"
+            :key="pageNum"
+          >
+            <!-- eslint-disable vue-a11y/click-events-have-key-events -->
+            <button
+              :disabled="pageNum === currentPage"
+              :aria-label="`go to page ${pageNum}`"
+              @click="goToPage(pageNum)"
+            >
+              <!-- eslint-enable vue-a11y/click-events-have-key-events -->
+              {{ pageNum }}
+            </button>
+          </li>
+        </ul>
+        <!-- eslint-disable vue-a11y/click-events-have-key-events -->
+        <button
+          :disabled="currentPage === lastPage"
+          aria-label="go to next page"
+          @click="goToPage(currentPage + 1)"
+        >
+          <!-- eslint-enable vue-a11y/click-events-have-key-events -->
+          Next
+        </button>
+      </div>
+    </slot>
   </div>
 </template>
 
@@ -269,6 +273,39 @@ export default {
       const { lastPage } = this
       this.currentPage = Math.min(Math.max(1, page), lastPage)
     },
+
+    emitRowClick(item) {
+      this.$emit('click:row', item.original);
+    },
+
+    ariaSort(header) {
+      let order = 'descending';
+
+      if (this.sortBy !== header.key) {
+        order = null;
+      } else if (this.sortOrder === 'ASC') {
+        order = 'ascending';
+      }
+
+      return order;
+    },
+    ariaLabel(header) {
+      let order = 'default';
+
+      if (!this.sortOrder) {
+        order = 'ascending';
+      } else if (this.sortOrder === 'ASC') {
+        order = 'descending';
+      }
+
+      return [
+        'sort by',
+        (header.text || header.key),
+        'in',
+        order,
+        'order'
+      ].join(' ');
+    }
   },
 }
 </script>

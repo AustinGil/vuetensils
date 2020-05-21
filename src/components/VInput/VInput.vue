@@ -16,7 +16,10 @@
       v-if="$attrs.type === 'radio'"
       :class="['vts-input__fieldset', classes.fieldset]"
     >
-      <legend v-if="label" :class="['vts-input__legend', classes.text]">
+      <legend
+        v-if="label"
+        :class="['vts-input__legend', classes.text]"
+      >
         {{ label }}
       </legend>
       <label
@@ -39,7 +42,7 @@
           @input="$emit('update', option.value)"
           @blur.once="dirty = true"
           v-on="$listeners"
-        />
+        >
         <span :class="['vts-input__text', classes.text]">
           {{ option.label }}
         </span>
@@ -67,7 +70,7 @@
         :aria-describedby="error && `${id}__description`"
         :class="['vts-input__input', classes.input]"
         v-bind="$attrs"
-        @change="onInput"
+        @blur="onInput"
         @blur.once="dirty = true"
         v-on="$listeners"
       >
@@ -224,8 +227,8 @@ export default {
   created() {
     // Might cause an issue with SSR
     const { id, name } = this.$attrs
-    this.id = id ? id : `vts-${randomString(4)}`
-    this.name = name ? name : this.id
+    this.id = id || 'vts-' + randomString(4)
+    this.name = name || this.id
   },
 
   mounted() {
