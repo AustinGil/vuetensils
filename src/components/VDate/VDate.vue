@@ -3,13 +3,13 @@
     <div class="date">
       <label for="id-textbox-1">
         Date
+        <input
+          id="id-textbox-1"
+          type="text"
+          placeholder="mm/dd/yyyy"
+          aria-autocomplete="none"
+        />
       </label>
-      <input
-        id="id-textbox-1"
-        type="text"
-        placeholder="mm/dd/yyyy"
-        aria-autocomplete="none"
-      />
       <button class="icon" aria-label="Choose Date">
         calendar btn
       </button>

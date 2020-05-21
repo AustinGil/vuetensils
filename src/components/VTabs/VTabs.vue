@@ -1,5 +1,8 @@
 <template>
-  <div v-if="tablist.length" :class="['vts-tabs', classes.root]">
+  <div
+    v-if="tablist.length"
+    :class="['vts-tabs', classes.root]"
+  >
     <div
       role="tablist"
       :aria-label="label"
@@ -42,7 +45,7 @@
 import { randomString } from "../../utils"
 import keycodes from "../../data/keycodes"
 
-const NAME = "vts-tabs"
+// const NAME = "vts-tabs"
 
 /**
  * Show and hide content based on which tabs are selected.
@@ -58,7 +61,10 @@ export default {
     /**
      * Support for aria-label attribute
      */
-    label: String,
+    label: {
+      type: String,
+      default: undefined
+    },
     /**
      * Support for aria-orientation attribute
      */

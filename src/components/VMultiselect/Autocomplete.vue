@@ -24,7 +24,8 @@
       v-show="isOpen"
       class="mt-1 absolute pin-x bg-grey-darkest p-2 rounded shadow z-50"
     >
-      <input
+      <!-- TODO: -->
+      <!-- <input
         ref="search"
         :value="search"
         type="text"
@@ -40,7 +41,7 @@
         @keydown.enter.prevent="commitSelection"
         @keydown.esc="cancel"
         @keydown.tab.prevent
-      />
+      /> -->
       <ul
         v-show="options.length > 0"
         ref="options"
@@ -54,6 +55,7 @@
           class="px-3 py-2 text-white cursor-pointer rounded"
           :class="[i === highlightedIndex ? 'bg-blue' : 'hover:bg-grey-darker']"
           @click="select(i)"
+          @keydown.enter="$log('TODO')"
         >
           {{ option }}
         </li>

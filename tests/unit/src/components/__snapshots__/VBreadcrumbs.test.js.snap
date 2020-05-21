@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VBreadcrumbs Created Renders 1 crumb 1`] = `
+<nav role="navigation" class="vts-breadcrumbs">
+  <ol itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList" class="vts-breadcrumbs__list">
+    <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem" class="vts-breadcrumbs__item">
+      <span class="active">
+        First
+      </span>
+    </li>
+  </ol>
+</nav>
+`;
+
+exports[`VBreadcrumbs Created Renders 1 empty crumb 1`] = `
+<nav role="navigation" class="vts-breadcrumbs">
+  <ol itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList" class="vts-breadcrumbs__list">
+    <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem" class="vts-breadcrumbs__item">
+      <span class="active">
+
+      </span>
+    </li>
+  </ol>
+</nav>
+`;
+
+exports[`VBreadcrumbs Created Renders 3 crumbs 1`] = `
+<nav role="navigation" class="vts-breadcrumbs">
+  <ol itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList" class="vts-breadcrumbs__list">
+    <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem" class="vts-breadcrumbs__item">
+      <a id="breadcumb-first">
+        First
+      </a>
+    </li>
+    <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem" class="vts-breadcrumbs__item">
+      <a id="breadcumb-second">
+        Second
+      </a>
+    </li>
+    <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem" class="vts-breadcrumbs__item">
+      <span class="active">
+        Third
+      </span>
+    </li>
+  </ol>
+</nav>
+`;
+
+exports[`VBreadcrumbs Created Renders correctly without props 1`] = `
+<nav role="navigation" class="vts-breadcrumbs">
+  <ol itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList" class="vts-breadcrumbs__list"></ol>
+</nav>
+`;
+
+exports[`VBreadcrumbs Crumbs from routes Dashboard defaults to home text 1`] = `
+<li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem" class="vts-breadcrumbs__item">
+  <span class="active">
+    Home
+  </span>
+</li>
+`;
+
+exports[`VBreadcrumbs Crumbs from routes Get text From meta title 1`] = `
+<nav role="navigation" class="vts-breadcrumbs">
+  <ol itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList" class="vts-breadcrumbs__list">
+    <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem" class="vts-breadcrumbs__item">
+      <span class="active">
+        Title
+      </span>
+    </li>
+  </ol>
+</nav>
+`;
+
+exports[`VBreadcrumbs Crumbs from routes Get text From name 1`] = `
+<nav role="navigation" class="vts-breadcrumbs">
+  <ol itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList" class="vts-breadcrumbs__list">
+    <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem" class="vts-breadcrumbs__item">
+      <span class="active">
+        Name
+      </span>
+    </li>
+  </ol>
+</nav>
+`;
+
+exports[`VBreadcrumbs Crumbs from routes Get text From path 1`] = `
+<nav role="navigation" class="vts-breadcrumbs">
+  <ol itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList" class="vts-breadcrumbs__list">
+    <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem" class="vts-breadcrumbs__item">
+      <span class="active">
+        records/
+      </span>
+    </li>
+  </ol>
+</nav>
+`;
+
+exports[`VBreadcrumbs Crumbs from routes Prevent duplicate child routes (with trailing slash) 1`] = `
+<nav role="navigation" class="vts-breadcrumbs">
+  <ol itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList" class="vts-breadcrumbs__list"></ol>
+</nav>
+`;
+
+exports[`VBreadcrumbs Crumbs from routes Prevent duplicate child routes 1`] = `
+<nav role="navigation" class="vts-breadcrumbs">
+  <ol itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList" class="vts-breadcrumbs__list"></ol>
+</nav>
+`;

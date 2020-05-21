@@ -115,14 +115,14 @@ export default {
 
   methods: {
     onOpen() {
-      const { onClick, onKeydown, noScroll, activeElement } = this
+      const { onClick, onKeydown, noScroll } = this
       window.addEventListener("click", onClick)
       window.addEventListener("keydown", onKeydown)
       noScroll && document.body.style.setProperty("overflow", "hidden")
       this.$nextTick(() => this.$refs.content.focus())
     },
     onClose() {
-      const { onClick, onKeydown, noScroll, activeElement } = this
+      const { onClick, onKeydown, noScroll } = this
       window.removeEventListener("click", onClick)
       window.removeEventListener("keydown", onKeydown)
       noScroll && document.body.style.removeProperty("overflow")

@@ -12,7 +12,7 @@ export default {
     // info: null,
   }),
 
-  errorCaptured(error, vm, info) {
+  errorCaptured(error /* vm, info */) {
     this.error = error
     // this.vm = vm
     // this.info = info
@@ -20,7 +20,7 @@ export default {
     return !this.stopPropagation
   },
 
-  render(h) {
+  render(/* h */) {
     const { error, $scopedSlots } = this
 
     if (error && $scopedSlots.catch) {
