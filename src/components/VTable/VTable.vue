@@ -69,6 +69,7 @@
           <tr
             v-for="(item, index) in cItems"
             :key="item.id"
+            tabindex="0"
             @click="emitRowClick(item)"
             @keyup="emitRowClick(item)"
           >
