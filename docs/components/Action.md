@@ -7,7 +7,6 @@ A functional component for logically rendering the appropriate actionable elemen
 Features:
 
 - Renders a [`<RouterLink>`](https://router.vuejs.org/api/#router-link) when provided a `to` prop.
-
 - Renders an `<a>` link when provided a `href` prop.
 - Renders a `<button>` by default.
 
@@ -20,7 +19,7 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VAction } from "vuetensils"
+import { VAction } from "vuetensils/src/components"
 
 Vue.component("VAction", VAction)
 ```
@@ -30,7 +29,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VAction } from "vuetensils"
+import { VAction } from "vuetensils/src/components"
 
 export default {
   components: {
