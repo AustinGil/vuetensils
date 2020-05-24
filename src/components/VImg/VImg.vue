@@ -6,11 +6,7 @@
       :class="['vts-img__placeholder', classes.placeholder]"
       :style="{ background }"
     >
-      <img
-        :src="placeholder || dataUrl"
-        alt=""
-        v-bind="$attrs"
-      >
+      <img :src="placeholder || dataUrl" alt="" v-bind="$attrs" />
     </div>
     <img
       ref="img"
@@ -22,7 +18,7 @@
       }"
       v-bind="$attrs"
       v-on="$listeners"
-    >
+    />
   </picture>
 </template>
 
@@ -35,6 +31,7 @@ const NAME = "vts-img"
  Note: This component uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) which is not supported by Internet Explorer.
  */
 export default {
+  name: "VImg",
   inheritAttrs: false,
   // functional: true, // TODO
 

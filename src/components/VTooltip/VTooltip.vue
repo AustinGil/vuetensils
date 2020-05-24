@@ -4,6 +4,7 @@
 import { randomString } from "../../utils"
 
 export default {
+  name: "VTooltip",
   props: {
     tag: {
       type: String,

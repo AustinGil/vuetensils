@@ -15,10 +15,7 @@
       <!-- @slot The content that goes inside the button -->
       {{ label }}
 
-      <slot
-        name="label"
-        v-bind="{ isOpen }"
-      />
+      <slot name="label" v-bind="{ isOpen }" />
     </button>
 
     <transition
@@ -49,6 +46,7 @@ import { randomString } from "../../utils"
  * Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
  */
 export default {
+  name: "VToggle",
   model: {
     prop: "open",
     event: "update",

@@ -27,10 +27,7 @@
     aria-labelledby="caption"
   >
     <table>
-      <caption
-        v-if="caption"
-        id="caption"
-      >
+      <caption v-if="caption" id="caption">
         {{ caption }}
       </caption>
       <thead v-if="headers.length">
@@ -96,10 +93,7 @@
       </tfoot> -->
     </table>
 
-    <slot
-      name="pagination"
-      v-bind="{ currentPage, lastPage, goToPage }"
-    >
+    <slot name="pagination" v-bind="{ currentPage, lastPage, goToPage }">
       <div v-if="lastPage > 1">
         <!-- eslint-disable vue-a11y/click-events-have-key-events -->
         <button
@@ -111,10 +105,7 @@
           Prev
         </button>
         <ul>
-          <li
-            v-for="pageNum in lastPage"
-            :key="pageNum"
-          >
+          <li v-for="pageNum in lastPage" :key="pageNum">
             <!-- eslint-disable vue-a11y/click-events-have-key-events -->
             <button
               :disabled="pageNum === currentPage"
@@ -142,6 +133,7 @@
 
 <script>
 export default {
+  name: "VTable",
   props: {
     headers: {
       type: Array,
@@ -275,37 +267,33 @@ export default {
     },
 
     emitRowClick(item) {
-      this.$emit('click:row', item.original);
+      this.$emit("click:row", item.original)
     },
 
     ariaSort(header) {
-      let order = 'descending';
+      let order = "descending"
 
       if (this.sortBy !== header.key) {
-        order = null;
-      } else if (this.sortOrder === 'ASC') {
-        order = 'ascending';
+        order = null
+      } else if (this.sortOrder === "ASC") {
+        order = "ascending"
       }
 
-      return order;
+      return order
     },
     ariaLabel(header) {
-      let order = 'default';
+      let order = "default"
 
       if (!this.sortOrder) {
-        order = 'ascending';
-      } else if (this.sortOrder === 'ASC') {
-        order = 'descending';
+        order = "ascending"
+      } else if (this.sortOrder === "ASC") {
+        order = "descending"
       }
 
-      return [
-        'sort by',
-        (header.text || header.key),
-        'in',
-        order,
-        'order'
-      ].join(' ');
-    }
+      return ["sort by", header.text || header.key, "in", order, "order"].join(
+        " "
+      )
+    },
   },
 }
 </script>

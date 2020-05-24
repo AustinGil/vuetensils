@@ -15,6 +15,7 @@ function getTag({ to }, { attrs }) {
 }
 
 export default {
+  name: "VAction",
   functional: true,
   render(h, { data, listeners, props, children }) {
     const tag = getTag(props, data)

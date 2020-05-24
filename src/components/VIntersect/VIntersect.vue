@@ -5,6 +5,7 @@ import { safeSlot } from "../../utils"
  * Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
  */
 export default {
+  name: "VIntersect",
   props: {
     /**
      * The IntersectionObserver threshold value.

@@ -5,6 +5,7 @@ import { safeSlot } from "../../utils"
  * A renderless component for awaiting promises to resolve; great for making HTTP requests. Supports showing pending, resolved, or rejected promises.
  */
 export default {
+  name: "VAsync",
   props: {
     /**
      * A promise or function that returns a promise.

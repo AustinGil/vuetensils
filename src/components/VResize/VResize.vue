@@ -1,14 +1,12 @@
 <template>
-  <component
-    :is="tag"
-    class="vts-resize"
-  >
+  <component :is="tag" class="vts-resize">
     <slot v-bind="{ width, height }" />
   </component>
 </template>
 
 <script>
 export default {
+  name: "VResize",
   props: {
     tag: {
       type: String,

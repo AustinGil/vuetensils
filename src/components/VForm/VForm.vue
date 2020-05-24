@@ -21,6 +21,7 @@
 import { randomString } from "../../utils"
 
 export default {
+  name: "VForm",
   props: {
     lazy: Boolean,
   },
