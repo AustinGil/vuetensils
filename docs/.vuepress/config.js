@@ -47,6 +47,7 @@ module.exports = {
           "/components/Input",
           "/components/Intersect",
           "/components/Resize",
+          "/components/Skip",
           "/components/Tabs",
           "/components/Table",
           "/components/Toggle",
