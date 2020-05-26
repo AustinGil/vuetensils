@@ -1,5 +1,5 @@
 <template>
-  <div id="myDatepicker" class="datepicker">
+  <div id="myDatepicker" class="datepicker" @keydown="onKeydown">
     <div class="date">
       <label for="id-textbox-1">
         Date
@@ -10,7 +10,7 @@
           aria-autocomplete="none"
         />
       </label>
-      <button class="icon" aria-label="Choose Date">
+      <button aria-label="Choose Date">
         calendar btn
       </button>
     </div>
@@ -22,20 +22,28 @@
       aria-labelledby="id-dialog-label"
     >
       <div class="header">
-        <button class="prevYear" aria-label="previous year">
-          <span class="fas fa-angle-double-left fa-lg" />
+        <button ref="prevYear" class="prevYear" aria-label="previous year">
+          <slot name="prevYear">
+            &#8606;
+          </slot>
         </button>
         <button class="prevMonth" aria-label="previous month">
-          <span class="fas fa-angle-left fa-lg" />
+          <slot name="prevMonth">
+            &#8592;
+          </slot>
         </button>
-        <h2 id="id-dialog-label" class="monthYear" aria-live="polite">
-          Month Year
-        </h2>
+        <h4 id="id-dialog-label" class="monthYear" aria-live="polite">
+          {{ monthYear }}
+        </h4>
         <button class="nextMonth" aria-label="next month">
-          <span class="fas fa-angle-right fa-lg" />
+          <slot name="nextMonth">
+            &#8594;
+          </slot>
         </button>
         <button class="nextYear" aria-label="next year">
-          <span class="fas fa-angle-double-right fa-lg" />
+          <slot name="nextYear">
+            &#8608;
+          </slot>
         </button>
       </div>
       <!-- eslint-disable-next-line vuejs-accessibility/no-redundant-roles -->
@@ -47,263 +55,50 @@
       >
         <thead>
           <tr>
-            <th scope="col" abbr="Sunday">
-              Su
-            </th>
-            <th scope="col" abbr="Monday">
-              Mo
-            </th>
-            <th scope="col" abbr="Tuesday">
-              Tu
-            </th>
-            <th scope="col" abbr="Wednesday">
-              We
-            </th>
-            <th scope="col" abbr="Thursday">
-              Th
-            </th>
-            <th scope="col" abbr="Friday">
-              Fr
-            </th>
-            <th scope="col" abbr="Saturday">
-              Sa
+            <th
+              v-for="(val, key) in daysOfWeek"
+              :key="key"
+              :abbr="val"
+              scope="col"
+            >
+              {{ key }}
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                25
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                26
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                27
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                28
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                29
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                30
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                1
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                2
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                3
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                4
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                5
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                6
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                7
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                8
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                9
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                10
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                11
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                12
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                13
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="0">
-                14
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                15
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                16
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                17
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                18
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                19
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                20
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                21
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                22
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                23
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                24
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                25
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                26
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                27
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                28
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                29
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                30
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                31
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                1
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                2
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                3
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                4
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                5
+          <tr v-for="i in 6" :key="i">
+            <td
+              v-for="j in 7"
+              :key="j"
+              :class="[
+                'vts-date__cell',
+                { 'vts-date__cell--active': i === 3 && j === 4 },
+              ]"
+            >
+              <button
+                :class="[
+                  'vts-date__day',
+                  { 'vts-date__day--active': i === 3 && j === 4 },
+                ]"
+                :tabindex="i === 3 && j === 4 ? '0' : '-1'"
+                :aria-selected="i === 3 && j === 4"
+                :disabled="i !== 3 || j !== 4"
+              >
+                {{ days[7 * (i - 1) + (j - 1)] }}
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-      <div class="dialogButtonGroup">
-        <button class="dialogButton" value="cancel">
+      <div class="">
+        <button class="" value="cancel" @click="onCancel">
           Cancel
         </button>
-        <button class="dialogButton" value="ok">
+        <button class="" value="ok" @click="onOk">
           OK
         </button>
       </div>
-      <div class="message" aria-live="polite">
+      <div class="" aria-live="polite">
         Test
       </div>
     </div>
@@ -311,77 +106,219 @@
 </template>
 
 <script>
+import keycodes from "../../data/keycodes.js"
+
+/**
+ * @typedef { object } Date
+ * @property {function} getFullYear
+ */
+
 export default {
   // https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/datepicker-dialog.html
-};
+  props: {
+    monthLabels: {
+      type: Array,
+      default: () => [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
+    },
+    dayLabels: {
+      type: Array,
+      default: () => [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
+    },
+  },
+
+  data: () => ({
+    // dayList: [],
+    daysOfWeek: Object.freeze({
+      Su: "Sunday",
+      Mo: "Monday",
+      Tu: "Tuesday",
+      We: "Wednesday",
+      Th: "Thursday",
+      Fr: "Friday",
+      Sa: "Saturday",
+    }),
+    focusDay: new Date(),
+    selectedDay: new Date(0, 0, 1),
+    hideLastRow: false,
+  }),
+
+  computed: {
+    monthYear() {
+      const { monthLabels, focusDay } = this
+      return `${monthLabels[focusDay.getMonth()]} ${focusDay.getFullYear()}`
+    },
+    days() {
+      /**
+       * @type {object}
+       * @property {string} focusDay
+       */
+      const { focusDay } = this
+      const firstDayOfMonth = new Date(
+        focusDay.getFullYear(),
+        focusDay.getMonth(),
+        1
+      )
+      const dayOfWeek = firstDayOfMonth.getDay()
+      firstDayOfMonth.setDate(firstDayOfMonth.getDate() - dayOfWeek)
+
+      const daysInMonth = new Date(
+        focusDay.getFullYear(),
+        focusDay.getMonth() + 1,
+        0
+      ).getDate()
+
+      const d = new Date(firstDayOfMonth)
+      const days = []
+
+      // 42 = most rows (6) * weekdays (7)
+      for (let i = 0, l = 42; i < l; i++) {
+        days.push(new Date(d))
+        d.setDate(d.getDate() + 1)
+      }
+
+      if (dayOfWeek + daysInMonth < 36) {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.hideLastRow = true
+      } else {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.showLastRow = false
+      }
+      return days
+    },
+  },
+
+  methods: {
+    hide() {
+      console.log("hide")
+    },
+
+    onKeydown(event) {
+      let flag = false
+
+      switch (event.keyCode) {
+        case keycodes.ESC:
+          this.hide()
+          break
+
+        case keycodes.TAB:
+          // TODO: focus trap
+          // this.datepicker.cancelButtonNode.focus()
+          if (event.shiftKey) {
+            // this.datepicker.nextYearNode.focus()
+          }
+          // this.datepicker.setMessage("")
+          // flag = true
+          break
+
+        case keycodes.ENTER:
+        case keycodes.SPACE:
+          // this.datepicker.setTextboxDate(this.day)
+          // this.datepicker.hide()
+          flag = true
+          break
+
+        case keycodes.RIGHT:
+          // this.datepicker.moveFocusToNextDay()
+          flag = true
+          break
+
+        case keycodes.LEFT:
+          // this.datepicker.moveFocusToPreviousDay()
+          flag = true
+          break
+
+        case keycodes.DOWN:
+          // this.datepicker.moveFocusToNextWeek()
+          flag = true
+          break
+
+        case keycodes.UP:
+          // this.datepicker.moveFocusToPreviousWeek()
+          flag = true
+          break
+
+        case keycodes.PAGEUP:
+          if (event.shiftKey) {
+            this.datepicker.moveToPreviousYear()
+          } else {
+            // this.datepicker.moveToPreviousMonth()
+          }
+          flag = true
+          break
+
+        case keycodes.PAGEDOWN:
+          if (event.shiftKey) {
+            // this.datepicker.moveToNextYear()
+          } else {
+            // this.datepicker.moveToNextMonth()
+          }
+          flag = true
+          break
+
+        case keycodes.HOME:
+          // this.datepicker.moveFocusToFirstDayOfWeek()
+          flag = true
+          break
+
+        case keycodes.END:
+          // this.datepicker.moveFocusToLastDayOfWeek()
+          flag = true
+          break
+      }
+
+      if (flag) {
+        event.stopPropagation()
+        event.preventDefault()
+      }
+    },
+
+    onCancel() {
+      console.log("cancel")
+    },
+
+    onOk() {
+      console.log("ok", this.selectedDay)
+    },
+  },
+}
 </script>
 
 <style>
 .datepicker {
-  margin-top: 1em;
   position: relative;
-}
-
-.datepicker button.icon {
-  padding: 4px;
-  margin: 0;
-  border: transparent 2px solid;
-  border-radius: 5px;
-  text-align: left;
-  background-color: white;
-  position: relative;
-  left: -4px;
-  top: 3px;
-}
-
-.datepicker button.icon:focus {
-  outline: none;
-  border-color: hsl(216, 80%, 55%);
-}
-
-.datepicker span.arrow {
-  margin: 0;
-  padding: 0;
-  display: none;
-  background: transparent;
-}
-
-.datepicker input {
-  margin: 0;
-  width: 20%;
 }
 
 .datepicker .datepickerDialog {
-  position: absolute;
+  /* position: absolute;
   width: 45%;
   clear: both;
-  display: none;
-  border: 3px solid hsl(216, 80%, 55%);
-  margin-top: 1em;
-  border-radius: 5px;
-  padding: 0;
-  background-color: #fff;
+  display: none; */
 }
 
 .datepicker .header {
-  cursor: default;
-  background-color: hsl(216, 80%, 55%);
-  padding: 7px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: white;
   display: flex;
   justify-content: space-around;
-}
-
-.datepicker .header h2 {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  font-size: 1em;
-  color: white;
-  text-transform: none;
-  font-weight: bold;
 }
 
 .datepicker .header button {
@@ -389,141 +326,8 @@ export default {
   background: transparent;
 }
 
-.datepicker .datepickerDialog button::-moz-focus-inner {
-  border: 0;
-}
-
-.datepicker .prevYear,
-.datepicker .prevMonth,
-.datepicker .nextMonth,
-.datepicker .nextYear {
-  padding: 4px;
-  width: 24px;
-  height: 24px;
-  color: white;
-}
-
-.datepicker .prevYear:focus,
-.datepicker .prevMonth:focus,
-.datepicker .nextMonth:focus,
-.datepicker .nextYear:focus {
-  padding: 2px;
-  border: 2px solid white;
-  border-radius: 4px;
-  outline: 0;
-}
-
-.datepicker .dialogButtonGroup {
-  text-align: right;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  margin-right: 1em;
-}
-
-.datepicker .dialogButton {
-  padding: 5px;
-  margin-left: 1em;
-  width: 5em;
-  background-color: hsl(216, 80%, 92%);
-  font-size: 0.85em;
-  color: black;
-  outline: none;
-  border: 1px solid hsl(216, 80%, 92%);
-  border-radius: 5px;
-}
-
-.datepicker .dialogButton:focus {
-  padding: 4px;
-  border: 2px solid black;
-}
-
-.datepicker .fa-calendar-alt {
-  color: hsl(216, 89%, 72%);
-}
-
-.datepicker .monthYear {
-  display: inline-block;
-  width: 12em;
-  text-align: center;
-}
-
-.datepicker table.dates {
-  width: 100%;
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 1em;
-}
-
-.datepicker table.dates th,
-.datepicker table.dates td {
-  text-align: center;
-}
-
-.datepicker .dateRow {
-  border: 1px solid black;
-}
-
-.datepicker .dateCell {
-  outline: 0;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  height: 40px;
-  width: 40px;
-}
-
-.datepicker .dateButton {
-  padding: 0;
-  margin: 0;
-  line-height: inherit;
+.vts-date__day {
   height: 100%;
   width: 100%;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  font-size: 15px;
-  background: #eee;
-}
-
-.datepicker .dateButton:focus,
-.datepicker .dateButton:hover {
-  padding: 0;
-  background-color: hsl(216, 80%, 92%);
-}
-
-.datepicker .dateButton:focus {
-  border-width: 2px;
-  border-color: rgb(100, 100, 100);
-  outline: 0;
-}
-
-.datepicker .dateButton[aria-selected] {
-  border-color: rgb(100, 100, 100);
-}
-
-.datepicker .dateButton[tabindex="0"] {
-  background-color: hsl(216, 80%, 92%);
-}
-
-.datepicker .disabled {
-  color: #afafaf;
-}
-
-.datepicker .disabled:hover {
-  color: black;
-}
-
-.datepicker .dateButton:disabled {
-  color: #777;
-  background-color: #fff;
-  border: none;
-  cursor: not-allowed;
-}
-
-.datepicker .message {
-  padding-top: 0.25em;
-  padding-left: 1em;
-  height: 1.75em;
-  background: hsl(216, 80%, 55%);
-  color: white;
 }
 </style>

@@ -37,7 +37,7 @@ module.exports = {
           "/components/Action",
           "/components/Alert",
           "/components/Async",
-          // "/components/Date",
+          "/components/Date",
           "/components/Dialog",
           "/components/Drawer",
           "/components/Dropdown",
