@@ -38,6 +38,7 @@
           <span class="fas fa-angle-double-right fa-lg" />
         </button>
       </div>
+      <!-- eslint-disable-next-line vuejs-accessibility/no-redundant-roles -->
       <table
         id="myDatepickerGrid"
         class="dates"

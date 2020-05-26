@@ -12,7 +12,10 @@
       classes.root,
     ]"
   >
-    <label :for="`${id}__input`" :class="['vts-input__label', classes.label]">
+    <label
+      :for="`${id}__input`"
+      :class="['vts-input__label', classes.label]"
+    >
       <span :class="['vts-input__text', classes.text]">
         {{ label }}
       </span>

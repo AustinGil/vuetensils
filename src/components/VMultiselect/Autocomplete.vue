@@ -18,7 +18,10 @@
       @keydown.space.prevent="open"
     >
       <span v-if="value !== null">{{ value }}</span>
-      <span v-else class="text-grey-dark">Select a band...</span>
+      <span
+        v-else
+        class="text-grey-dark"
+      >Select a band...</span>
     </div>
     <div
       v-show="isOpen"
@@ -60,7 +63,10 @@
           {{ option }}
         </li>
       </ul>
-      <div v-show="options.length === 0" class="px-3 py-2 text-grey">
+      <div
+        v-show="options.length === 0"
+        class="px-3 py-2 text-grey"
+      >
         No results found for "{{ search }}"
       </div>
     </div>
@@ -68,10 +74,10 @@
 </template>
 
 <script>
-import { mixin as clickaway } from "vue-clickaway"
+// import { mixin as clickaway } from "vue-clickaway"
 
 export default {
-  mixins: [clickaway],
+  // mixins: [clickaway],
   props: ["value", "search", "options"],
 
   data() {
