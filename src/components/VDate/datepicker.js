@@ -55,9 +55,7 @@ var DatePicker = function(inputNode, buttonNode, dialogNode) {
   this.nextYearNode = this.dialogNode.querySelector(".nextYear")
 
   this.okButtonNode = this.dialogNode.querySelector("button[value=\"ok\"]")
-  this.cancelButtonNode = this.dialogNode.querySelector(
-    "button[value=\"cancel\"]"
-  )
+  this.cancelButtonNode = this.dialogNode.querySelector("button[value=\"cancel\"]")
 
   this.tbodyNode = this.dialogNode.querySelector("table.dates tbody")
 
@@ -92,60 +90,22 @@ DatePicker.prototype.init = function() {
   this.okButtonNode.addEventListener("click", this.handleOkButton.bind(this))
   this.okButtonNode.addEventListener("keydown", this.handleOkButton.bind(this))
 
-  this.cancelButtonNode.addEventListener(
-    "click",
-    this.handleCancelButton.bind(this)
-  )
-  this.cancelButtonNode.addEventListener(
-    "keydown",
-    this.handleCancelButton.bind(this)
-  )
+  this.cancelButtonNode.addEventListener("click", this.handleCancelButton.bind(this))
+  this.cancelButtonNode.addEventListener("keydown", this.handleCancelButton.bind(this))
 
-  this.prevMonthNode.addEventListener(
-    "click",
-    this.handlePreviousMonthButton.bind(this)
-  )
-  this.nextMonthNode.addEventListener(
-    "click",
-    this.handleNextMonthButton.bind(this)
-  )
-  this.prevYearNode.addEventListener(
-    "click",
-    this.handlePreviousYearButton.bind(this)
-  )
-  this.nextYearNode.addEventListener(
-    "click",
-    this.handleNextYearButton.bind(this)
-  )
+  this.prevMonthNode.addEventListener("click", this.handlePreviousMonthButton.bind(this))
+  this.nextMonthNode.addEventListener("click", this.handleNextMonthButton.bind(this))
+  this.prevYearNode.addEventListener("click", this.handlePreviousYearButton.bind(this))
+  this.nextYearNode.addEventListener("click", this.handleNextYearButton.bind(this))
 
-  this.prevMonthNode.addEventListener(
-    "keydown",
-    this.handlePreviousMonthButton.bind(this)
-  )
-  this.nextMonthNode.addEventListener(
-    "keydown",
-    this.handleNextMonthButton.bind(this)
-  )
-  this.prevYearNode.addEventListener(
-    "keydown",
-    this.handlePreviousYearButton.bind(this)
-  )
+  this.prevMonthNode.addEventListener("keydown", this.handlePreviousMonthButton.bind(this))
+  this.nextMonthNode.addEventListener("keydown", this.handleNextMonthButton.bind(this))
+  this.prevYearNode.addEventListener("keydown", this.handlePreviousYearButton.bind(this))
 
-  this.nextYearNode.addEventListener(
-    "keydown",
-    this.handleNextYearButton.bind(this)
-  )
+  this.nextYearNode.addEventListener("keydown", this.handleNextYearButton.bind(this))
 
-  document.body.addEventListener(
-    "mousedown",
-    this.handleBackgroundMouseDown.bind(this),
-    true
-  )
-  document.body.addEventListener(
-    "mouseup",
-    this.handleBackgroundMouseUp.bind(this),
-    true
-  )
+  document.body.addEventListener("mousedown", this.handleBackgroundMouseDown.bind(this), true)
+  document.body.addEventListener("mouseup", this.handleBackgroundMouseUp.bind(this), true)
 
   // Create Grid of Dates
 
