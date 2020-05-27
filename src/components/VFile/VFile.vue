@@ -66,6 +66,7 @@
 import { randomString } from "../../utils"
 
 export default {
+  name: "VFile",
   model: {
     prop: "files",
     event: "update",

@@ -33,7 +33,7 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VAlert } from "vuetensils"
+import { VAlert } from "vuetensils/src/components"
 
 Vue.component("VAlert", VAlert)
 ```
@@ -43,7 +43,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VAlert } from "vuetensils"
+import { VAlert } from "vuetensils/src/components"
 
 export default {
   components: {

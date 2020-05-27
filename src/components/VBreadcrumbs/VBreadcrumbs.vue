@@ -36,6 +36,7 @@
 
 <script>
 export default {
+  name: "VBreadcrumbs",
   props: {
     breadcrumbs: {
       type: Array,
@@ -46,7 +47,7 @@ export default {
   computed: {
     routeBreadcrumbs() {
       if (this.breadcrumbs.length) {
-        return this.breadcrumbs;
+        return this.breadcrumbs
       }
       if (this.$route.fullPath === "/dashboard") {
         return [{ text: "Home" }]
@@ -56,10 +57,8 @@ export default {
         // Make sure same path child routes (path: "") do not show up twice in breadcrumbs.
         if (
           route.parent &&
-          (
-            route.path === route.parent.path ||
-            route.path === route.parent.path + '/'
-          )
+          (route.path === route.parent.path ||
+            route.path === route.parent.path + "/")
         ) {
           return routes
         }
