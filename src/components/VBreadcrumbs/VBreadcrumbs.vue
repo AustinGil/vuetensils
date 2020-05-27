@@ -1,13 +1,6 @@
 <template>
-  <nav
-    role="navigation"
-    class="vts-breadcrumbs"
-  >
-    <ol
-      itemscope
-      itemtype="http://schema.org/BreadcrumbList"
-      class="vts-breadcrumbs__list"
-    >
+  <nav role="navigation" class="vts-breadcrumbs">
+    <ol itemscope itemtype="http://schema.org/BreadcrumbList" class="vts-breadcrumbs__list">
       <li
         v-for="(item, index) in routeBreadcrumbs"
         :key="index"

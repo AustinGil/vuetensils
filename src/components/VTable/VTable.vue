@@ -39,13 +39,11 @@
           >
             {{ header.text || header.key }}
 
-            <!-- eslint-disable vue-a11y/click-events-have-key-events -->
             <button
               v-if="header.sortable"
               :aria-label="ariaLabel(header)"
               @click="onSort(header.key)"
             >
-              <!-- eslint-enable vue-a11y/click-events-have-key-events -->
               <template v-if="header.key === sortBy && sortOrder === 'ASC'">
                 &uarr;
               </template>
@@ -95,35 +93,29 @@
 
     <slot name="pagination" v-bind="{ currentPage, lastPage, goToPage }">
       <div v-if="lastPage > 1">
-        <!-- eslint-disable vue-a11y/click-events-have-key-events -->
         <button
           :disabled="currentPage === 1"
           aria-label="go to previous page"
           @click="goToPage(currentPage - 1)"
         >
-          <!-- eslint-enable vue-a11y/click-events-have-key-events -->
           Prev
         </button>
         <ul>
           <li v-for="pageNum in lastPage" :key="pageNum">
-            <!-- eslint-disable vue-a11y/click-events-have-key-events -->
             <button
               :disabled="pageNum === currentPage"
               :aria-label="`go to page ${pageNum}`"
               @click="goToPage(pageNum)"
             >
-              <!-- eslint-enable vue-a11y/click-events-have-key-events -->
               {{ pageNum }}
             </button>
           </li>
         </ul>
-        <!-- eslint-disable vue-a11y/click-events-have-key-events -->
         <button
           :disabled="currentPage === lastPage"
           aria-label="go to next page"
           @click="goToPage(currentPage + 1)"
         >
-          <!-- eslint-enable vue-a11y/click-events-have-key-events -->
           Next
         </button>
       </div>

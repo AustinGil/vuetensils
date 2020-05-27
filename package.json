@@ -20,8 +20,8 @@
     "dev": "npm run docs:dev",
     "test": "npm run test:unit",
     "test:unit": "jest --config jest.config.js --coverage",
-    "lint": "eslint --config=.eslintrc.js tests/**/*.js src/**/*.js src/**/*.vue",
-    "fix": "eslint --fix --config=.eslintrc.js tests/**/*.js src/**/*.js src/**/*.vue",
+    "lint": "eslint --max-warnings 0 --config=.eslintrc.js tests/**/*.js src/**/*.js src/**/*.vue",
+    "fix": "eslint --fix --max-warnings 0 --config=.eslintrc.js tests/**/*.js src/**/*.js src/**/*.vue",
     "ts": "tsc",
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuetensils.umd.js",
@@ -56,9 +56,7 @@
       "http://localhost:8080/directives/intersect.html#default-behavior"
     ]
   ],
-  "dependencies": {
-    "eslint-plugin-vuejs-accessibility": "^0.1.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
@@ -77,6 +75,7 @@
     "eslint": "^7.0.0",
     "eslint-plugin-jest": "^23.13.1",
     "eslint-plugin-vue": "^6.2.2",
+    "eslint-plugin-vuejs-accessibility": "^0.1.2",
     "husky": "^4.2.5",
     "jest": "24.9.0",
     "jest-serializer-vue-tjw": "^3.14.0",

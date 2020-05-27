@@ -6,10 +6,7 @@
       @click="onClick"
       @keydown="onKeydown"
     >
-      <transition
-        :name="transition"
-        appear
-      >
+      <transition :name="transition" appear>
         <component
           :is="tag"
           ref="content"

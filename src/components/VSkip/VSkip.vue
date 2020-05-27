@@ -1,9 +1,7 @@
 <template functional>
   <a
     :ref="data.ref"
-    :class="['vts-skip',
-             data.class,
-             data.staticClass]"
+    :class="['vts-skip', data.class, data.staticClass]"
     :style="[data.style, data.staticStyle]"
     v-bind="data.attrs"
     :href="props.to"

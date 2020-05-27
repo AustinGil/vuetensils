@@ -7,14 +7,12 @@
     @blur="isFocused = false"
     @focusout="onFocusout"
   >
-    <!-- eslint-disable vue-a11y/click-events-have-key-events -->
     <button
       :aria-expanded="!!isHovered || !!isFocused"
       aria-haspopup="true"
       :class="['vts-dropdown__trigger', classes.trigger]"
       @click="isFocused = !isFocused"
     >
-      <!-- eslint-enable vue-a11y/click-events-have-key-events -->
       <!-- @slot The content within the trigger button -->
       <slot name="trigger">
         {{ text }}

@@ -46,7 +46,7 @@
         @keydown.tab.prevent
       /> -->
       <ul
-        v-show="options.length > 0"
+        v-show="options.length"
         ref="options"
         class="list-reset relative overflow-y-auto scrolling-touch"
         style="max-height: 200px;"
@@ -78,7 +78,20 @@
 
 export default {
   // mixins: [clickaway],
-  props: ["value", "search", "options"],
+  props: {
+    value: {
+      type: String,
+      default: undefined
+    },
+    search: {
+      type: String,
+      default: undefined
+    },
+    options: {
+      type: Array,
+      default: undefined
+    }
+  },
 
   data() {
     return {

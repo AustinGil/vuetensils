@@ -54,9 +54,9 @@ var DatePicker = function(inputNode, buttonNode, dialogNode) {
   this.nextMonthNode = this.dialogNode.querySelector(".nextMonth")
   this.nextYearNode = this.dialogNode.querySelector(".nextYear")
 
-  this.okButtonNode = this.dialogNode.querySelector('button[value="ok"]')
+  this.okButtonNode = this.dialogNode.querySelector("button[value=\"ok\"]")
   this.cancelButtonNode = this.dialogNode.querySelector(
-    'button[value="cancel"]'
+    "button[value=\"cancel\"]"
   )
 
   this.tbodyNode = this.dialogNode.querySelector("table.dates tbody")
