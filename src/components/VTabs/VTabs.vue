@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import { randomString } from "../../utils"
-import keycodes from "../../data/keycodes"
+import { randomString } from '../../utils';
+import keycodes from '../../data/keycodes';
 
 // const NAME = "vts-tabs"
 
@@ -52,7 +52,7 @@ import keycodes from "../../data/keycodes"
  * Keyboard navigation to the tabs only targets active tab. `right` key activates next tab (horizontal orientation) or loops around to start. `left` key activates previous tab (horizontal orientation) or loops around to end. `down` key activates next tab (vertical orientation) or loops around to start. `down` key activates previous tab (vertical orientation) or loops around to end. (in horizontal orientation), `home` key activates first tab. `end` key activates last tab.
  */
 export default {
-  name: "VTabs",
+  name: 'VTabs',
 
   props: {
     /**
@@ -67,7 +67,7 @@ export default {
      */
     orientation: {
       type: String,
-      default: "horizontal",
+      default: 'horizontal',
     },
 
     classes: {
@@ -82,88 +82,88 @@ export default {
 
   computed: {
     tablist() {
-      return Object.keys(this.$slots)
+      return Object.keys(this.$slots);
     },
   },
 
   created() {
-    const { id } = this.$attrs
-    this.id = id ? id : `vts-${randomString(4)}`
+    const { id } = this.$attrs;
+    this.id = id ? id : `vts-${randomString(4)}`;
   },
 
   methods: {
     onKeydown(event) {
-      const { keyCode } = event
+      const { keyCode } = event;
       switch (keyCode) {
         case keycodes.END:
-          event.preventDefault()
-          this.activeIndex = this.tablist.length - 1
-          this.setFocus()
-          break
+          event.preventDefault();
+          this.activeIndex = this.tablist.length - 1;
+          this.setFocus();
+          break;
         case keycodes.HOME:
-          event.preventDefault()
-          this.activeIndex = 0
-          this.setFocus()
-          break
+          event.preventDefault();
+          this.activeIndex = 0;
+          this.setFocus();
+          break;
         // Up and down are in keydown because we need to prevent page scroll >:)
         case keycodes.LEFT:
         case keycodes.RIGHT:
         case keycodes.UP:
         case keycodes.DOWN:
-          this.determineOrientation(event)
-          break
+          this.determineOrientation(event);
+          break;
       }
     },
 
     // When a tablist's aria-orientation is set to vertical, only up and down arrow should function. In all other cases only left and right arrow function.
     determineOrientation(event) {
-      const keyCode = event.keyCode
-      let proceed = false
-      if (this.orientation === "vertical") {
+      const keyCode = event.keyCode;
+      let proceed = false;
+      if (this.orientation === 'vertical') {
         if (keyCode === keycodes.UP || keyCode === keycodes.DOWN) {
-          event.preventDefault()
-          proceed = true
+          event.preventDefault();
+          proceed = true;
         }
       } else {
         if (keyCode === keycodes.LEFT || keyCode === keycodes.RIGHT) {
-          proceed = true
+          proceed = true;
         }
       }
       if (proceed) {
-        this.switchTabOnArrowPress(event)
-        this.setFocus()
+        this.switchTabOnArrowPress(event);
+        this.setFocus();
       }
     },
 
     // Either focus the next, previous, first, or last tab depening on key pressed
     switchTabOnArrowPress(event) {
-      const keyCode = event.keyCode
+      const keyCode = event.keyCode;
       const directions = {
         [keycodes.LEFT]: -1,
         [keycodes.UP]: -1,
         [keycodes.RIGHT]: 1,
         [keycodes.DOWN]: 1,
-      }
+      };
 
       /* istanbul ignore next */
-      if (!directions[keyCode]) return
+      if (!directions[keyCode]) return;
 
-      const activeIndex = this.activeIndex
-      const tabLength = this.$refs.tab.length
-      const nextIndex = activeIndex + directions[keyCode]
+      const activeIndex = this.activeIndex;
+      const tabLength = this.$refs.tab.length;
+      const nextIndex = activeIndex + directions[keyCode];
 
       if (nextIndex < 0) {
-        this.activeIndex = tabLength - 1
+        this.activeIndex = tabLength - 1;
       } else if (nextIndex >= tabLength) {
-        this.activeIndex = 0
+        this.activeIndex = 0;
       } else {
-        this.activeIndex = nextIndex
+        this.activeIndex = nextIndex;
       }
     },
 
     setFocus() {
-      this.$refs.tab[this.activeIndex].focus()
+      this.$refs.tab[this.activeIndex].focus();
     },
   },
-}
+};
 </script>

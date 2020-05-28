@@ -1,13 +1,6 @@
 <template>
-  <nav
-    role="navigation"
-    class="vts-breadcrumbs"
-  >
-    <ol
-      itemscope
-      itemtype="http://schema.org/BreadcrumbList"
-      class="vts-breadcrumbs__list"
-    >
+  <nav role="navigation" class="vts-breadcrumbs">
+    <ol itemscope itemtype="http://schema.org/BreadcrumbList" class="vts-breadcrumbs__list">
       <li
         v-for="(item, index) in routeBreadcrumbs"
         :key="index"
@@ -36,7 +29,7 @@
 
 <script>
 export default {
-  name: "VBreadcrumbs",
+  name: 'VBreadcrumbs',
   props: {
     breadcrumbs: {
       type: Array,
@@ -47,10 +40,10 @@ export default {
   computed: {
     routeBreadcrumbs() {
       if (this.breadcrumbs.length) {
-        return this.breadcrumbs
+        return this.breadcrumbs;
       }
-      if (this.$route.fullPath === "/dashboard") {
-        return [{ text: "Home" }]
+      if (this.$route.fullPath === '/dashboard') {
+        return [{ text: 'Home' }];
       }
 
       const routes = this.$route.matched.reduce((routes, route) => {
@@ -58,31 +51,31 @@ export default {
         if (
           route.parent &&
           (route.path === route.parent.path ||
-            route.path === route.parent.path + "/")
+            route.path === route.parent.path + '/')
         ) {
-          return routes
+          return routes;
         }
 
-        route.text = this.getText(route)
+        route.text = this.getText(route);
 
-        routes.push(route)
-        return routes
-      }, [])
+        routes.push(route);
+        return routes;
+      }, []);
 
-      return routes
+      return routes;
     },
   },
 
   methods: {
     getText(item) {
       if (item.meta && item.meta.title) {
-        return item.meta.title
+        return item.meta.title;
       }
       if (item.name) {
-        return item.name
+        return item.name;
       }
-      return item.path
+      return item.path;
     },
   },
-}
+};
 </script>

@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "VTry",
+  name: 'VTry',
 
   props: {
     stopPropagation: Boolean,
@@ -13,21 +13,21 @@ export default {
   }),
 
   errorCaptured(error /* vm, info */) {
-    this.error = error
+    this.error = error;
     // this.vm = vm
     // this.info = info
 
-    return !this.stopPropagation
+    return !this.stopPropagation;
   },
 
   render(/* h */) {
-    const { error, $scopedSlots } = this
+    const { error, $scopedSlots } = this;
 
     if (error && $scopedSlots.catch) {
-      return $scopedSlots.catch(error)
+      return $scopedSlots.catch(error);
     }
 
-    return $scopedSlots.default()
+    return $scopedSlots.default();
   },
-}
+};
 </script>

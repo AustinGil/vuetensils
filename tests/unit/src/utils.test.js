@@ -73,7 +73,7 @@ describe('Utilities', () => {
       const slot = ['a'];
 
       expect(safeSlot(render, slot))
-        .toEqual(['a'])
+        .toEqual(['a']);
     });
 
     test('Multiple slots', () => {

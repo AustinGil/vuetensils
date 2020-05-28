@@ -1,9 +1,7 @@
 <template functional>
   <a
     :ref="data.ref"
-    :class="['vts-skip',
-             data.class,
-             data.staticClass]"
+    :class="['vts-skip', data.class, data.staticClass]"
     :style="[data.style, data.staticStyle]"
     v-bind="data.attrs"
     :href="props.to"
@@ -16,7 +14,7 @@
 
 <script>
 export default {
-  name: "VSkip",
+  name: 'VSkip',
   props: {
     to: {
       type: String,
@@ -36,21 +34,21 @@ export default {
   //   }
   // },
   skipTo(id) {
-    if (!id) return
+    if (!id) return;
 
-    const target = window.document.getElementById(id.slice(1))
-    if (!target) return
+    const target = window.document.getElementById(id.slice(1));
+    if (!target) return;
 
     if (
-      !["a", "select", "input", "button", "textarea"].includes(
+      !['a', 'select', 'input', 'button', 'textarea'].includes(
         target.tagName.toLowerCase()
       )
     ) {
-      target.setAttribute("tabindex", "-1")
+      target.setAttribute('tabindex', '-1');
     }
-    target.focus()
+    target.focus();
   },
-}
+};
 </script>
 
 <style>
