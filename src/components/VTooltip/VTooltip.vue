@@ -1,14 +1,14 @@
 <script>
 // TODO: checkout http://pauljadam.com/demos/tooltip.html
 // @ts-check
-import { randomString } from "../../utils";
+import { randomString } from '../../utils';
 
 export default {
-  name: "VTooltip",
+  name: 'VTooltip',
   props: {
     tag: {
       type: String,
-      default: "span",
+      default: 'span',
     },
 
     id: {
@@ -38,19 +38,19 @@ export default {
     const tooltip = this.$scopedSlots.tooltip();
 
     const content = h(
-      "span",
+      'span',
       {
         class: [
-          "vts-tooltip__content",
+          'vts-tooltip__content',
           {
-            "vts-tooltip__content--visible": show,
+            'vts-tooltip__content--visible': show,
           },
           classes.content,
         ],
         attrs: {
           id: `${id}__content`,
-          role: "tooltip",
-          "aria-hidden": !show + "",
+          role: 'tooltip',
+          'aria-hidden': !show + '',
         },
       },
       tooltip
@@ -69,9 +69,9 @@ export default {
     const parent = h(
       tag,
       {
-        class: ["vts-tooltip", classes.toggle],
+        class: ['vts-tooltip', classes.toggle],
         on,
-        attrs: { id, tabindex: 0, "aria-describedby": `${id}__content` },
+        attrs: { id, tabindex: 0, 'aria-describedby': `${id}__content` },
       },
       [defaultSlot, content]
     );

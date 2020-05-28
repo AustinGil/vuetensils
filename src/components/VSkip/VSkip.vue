@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: "VSkip",
+  name: 'VSkip',
   props: {
     to: {
       type: String,
@@ -40,11 +40,11 @@ export default {
     if (!target) return;
 
     if (
-      !["a", "select", "input", "button", "textarea"].includes(
+      !['a', 'select', 'input', 'button', 'textarea'].includes(
         target.tagName.toLowerCase()
       )
     ) {
-      target.setAttribute("tabindex", "-1");
+      target.setAttribute('tabindex', '-1');
     }
     target.focus();
   },

@@ -6,11 +6,11 @@
 
 <script>
 export default {
-  name: "VResize",
+  name: 'VResize',
   props: {
     tag: {
       type: String,
-      default: "div",
+      default: 'div',
     },
   },
 
@@ -22,9 +22,9 @@ export default {
   mounted() {
     const fn = this.updateDimensions;
     fn();
-    window.addEventListener("resize", fn);
-    this.$once("hook:beforeDestroy", () => {
-      window.removeEventListener("resize", fn);
+    window.addEventListener('resize', fn);
+    this.$once('hook:beforeDestroy', () => {
+      window.removeEventListener('resize', fn);
     });
   },
 

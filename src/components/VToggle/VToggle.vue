@@ -39,15 +39,15 @@
 </template>
 
 <script>
-import { randomString } from "../../utils";
+import { randomString } from '../../utils';
 /**
  * Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
  */
 export default {
-  name: "VToggle",
+  name: 'VToggle',
   model: {
-    prop: "open",
-    event: "update",
+    prop: 'open',
+    event: 'update',
   },
 
   props: {
@@ -58,7 +58,7 @@ export default {
 
     label: {
       type: String,
-      default: "",
+      default: '',
     },
 
     disabled: Boolean,
@@ -80,9 +80,9 @@ export default {
       this.isOpen = next;
     },
     isOpen(isOpen) {
-      if (typeof window === "undefined") return;
-      this.$emit("update", isOpen);
-      this.$emit(isOpen ? "open" : "close");
+      if (typeof window === 'undefined') return;
+      this.$emit('update', isOpen);
+      this.$emit(isOpen ? 'open' : 'close');
     },
   },
 
@@ -97,15 +97,15 @@ export default {
     },
 
     expand(el) {
-      el.style.overflow = "hidden";
+      el.style.overflow = 'hidden';
       el.style.height = `${el.scrollHeight}px`;
       // Force repaint to make sure the animation is triggered correctly.
       el.scrollHeight;
     },
 
     resetHeight(el) {
-      el.style.overflow = "visible";
-      el.style.height = "";
+      el.style.overflow = 'visible';
+      el.style.height = '';
     },
   },
 };

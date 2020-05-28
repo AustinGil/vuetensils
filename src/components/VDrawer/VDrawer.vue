@@ -1,17 +1,17 @@
 <script>
-import KEYCODES from "../../data/keycodes";
-import FOCUSABLE from "../../data/focusable";
+import KEYCODES from '../../data/keycodes';
+import FOCUSABLE from '../../data/focusable';
 
-const NAME = "vts-drawer";
+const NAME = 'vts-drawer';
 
 /**
  * A convenient sidebar that can be toggled on or off. When opened, it traps the user's focus so that keyboard navigation will remain within the sidebar until it is closed. It also supports being closed by pressing the ESC key.
  */
 export default {
-  name: "VDrawer",
+  name: 'VDrawer',
   model: {
-    prop: "showing",
-    event: "update",
+    prop: 'showing',
+    event: 'update',
   },
 
   props: {
@@ -21,7 +21,7 @@ export default {
     showing: Boolean,
     tag: {
       type: String,
-      default: "aside",
+      default: 'aside',
     },
     /**
      * Flag to place the drawer on the right side.
@@ -32,14 +32,14 @@ export default {
      */
     width: {
       type: String,
-      default: "",
+      default: '',
     },
     /**
      * CSS max-width value.
      */
     maxWidth: {
       type: String,
-      default: "",
+      default: '',
     },
     /**
      * Disable page scrolling when drawer is open.
@@ -50,14 +50,14 @@ export default {
      */
     transition: {
       type: String,
-      default: "",
+      default: '',
     },
     /**
      * Vue transition name for the background.
      */
     bgTransition: {
       type: String,
-      default: "",
+      default: '',
     },
 
     classes: {
@@ -79,7 +79,7 @@ export default {
     },
     localShow: {
       handler(next, prev) {
-        if (typeof window === "undefined") return;
+        if (typeof window === 'undefined') return;
 
         if (next && next != prev) {
           this.activeElement = document.activeElement;
@@ -95,7 +95,7 @@ export default {
           }
         }
 
-        this.$emit("update", next);
+        this.$emit('update', next);
       },
     },
   },
@@ -107,16 +107,16 @@ export default {
   methods: {
     onOpen() {
       const { onClick, onKeydown, noScroll } = this;
-      window.addEventListener("click", onClick);
-      window.addEventListener("keydown", onKeydown);
-      noScroll && document.body.style.setProperty("overflow", "hidden");
+      window.addEventListener('click', onClick);
+      window.addEventListener('keydown', onKeydown);
+      noScroll && document.body.style.setProperty('overflow', 'hidden');
       this.$nextTick(() => this.$refs.content.focus());
     },
     onClose() {
       const { onClick, onKeydown, noScroll } = this;
-      window.removeEventListener("click", onClick);
-      window.removeEventListener("keydown", onKeydown);
-      noScroll && document.body.style.removeProperty("overflow");
+      window.removeEventListener('click', onClick);
+      window.removeEventListener('keydown', onKeydown);
+      noScroll && document.body.style.removeProperty('overflow');
     },
     onClick(event) {
       if (event.target.classList.contains(NAME)) {
@@ -174,17 +174,17 @@ export default {
             click: () => (this.localShow = true),
           },
           bind: {
-            type: "button",
-            role: "button",
-            "aria-haspopup": true,
-            "aria-expanded": "" + localShow,
+            type: 'button',
+            role: 'button',
+            'aria-haspopup': true,
+            'aria-expanded': '' + localShow,
           },
           attrs: {
             // TODO: deprecated
-            type: "button",
-            role: "button",
-            "aria-haspopup": true,
-            "aria-expanded": "" + localShow,
+            type: 'button',
+            role: 'button',
+            'aria-haspopup': true,
+            'aria-expanded': '' + localShow,
           },
         })
       );
@@ -194,10 +194,10 @@ export default {
       let content = h(
         this.tag,
         {
-          ref: "content",
+          ref: 'content',
           class: [
             `${NAME}__content`,
-            { "vts-drawer__content--right": !!this.right },
+            { 'vts-drawer__content--right': !!this.right },
             classes.content,
           ],
           style: {
@@ -205,14 +205,14 @@ export default {
             maxWidth: this.maxWidth,
           },
           attrs: {
-            tabindex: "-1",
+            tabindex: '-1',
             // role: "dialog", // TODO: ?
           },
         },
         [this.$slots.default]
       );
       content = h(
-        "transition",
+        'transition',
         {
           props: { name: this.transition, appear: true },
         },
@@ -220,7 +220,7 @@ export default {
       );
 
       const component = h(
-        "div",
+        'div',
         {
           class: [NAME, classes.root, classes.bg, this.$attrs.class],
         },
@@ -229,7 +229,7 @@ export default {
 
       children.push(
         h(
-          "transition",
+          'transition',
           {
             props: { name: this.bgTransition, appear: true },
           },
@@ -238,7 +238,7 @@ export default {
       );
     }
 
-    return h("span", children);
+    return h('span', children);
   },
 };
 </script>

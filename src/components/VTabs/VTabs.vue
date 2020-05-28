@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import { randomString } from "../../utils";
-import keycodes from "../../data/keycodes";
+import { randomString } from '../../utils';
+import keycodes from '../../data/keycodes';
 
 // const NAME = "vts-tabs"
 
@@ -52,7 +52,7 @@ import keycodes from "../../data/keycodes";
  * Keyboard navigation to the tabs only targets active tab. `right` key activates next tab (horizontal orientation) or loops around to start. `left` key activates previous tab (horizontal orientation) or loops around to end. `down` key activates next tab (vertical orientation) or loops around to start. `down` key activates previous tab (vertical orientation) or loops around to end. (in horizontal orientation), `home` key activates first tab. `end` key activates last tab.
  */
 export default {
-  name: "VTabs",
+  name: 'VTabs',
 
   props: {
     /**
@@ -67,7 +67,7 @@ export default {
      */
     orientation: {
       type: String,
-      default: "horizontal",
+      default: 'horizontal',
     },
 
     classes: {
@@ -119,7 +119,7 @@ export default {
     determineOrientation(event) {
       const keyCode = event.keyCode;
       let proceed = false;
-      if (this.orientation === "vertical") {
+      if (this.orientation === 'vertical') {
         if (keyCode === keycodes.UP || keyCode === keycodes.DOWN) {
           event.preventDefault();
           proceed = true;

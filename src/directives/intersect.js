@@ -13,7 +13,7 @@ export default {
 
     if (options.root) {
       options.root =
-        typeof options.root === "string"
+        typeof options.root === 'string'
           ? document.querySelector(options.root)
           : options.root;
     }

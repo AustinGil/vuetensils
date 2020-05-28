@@ -10,36 +10,36 @@ var DatePickerDay = DatePickerDay || {};
 
 var DatePicker = function(inputNode, buttonNode, dialogNode) {
   this.dayLabels = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
   ];
   this.monthLabels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
-  this.messageCursorKeys = "Cursor keys can navigate dates";
-  this.lastMessage = "";
+  this.messageCursorKeys = 'Cursor keys can navigate dates';
+  this.lastMessage = '';
 
   this.inputNode = inputNode;
   this.buttonNode = buttonNode;
   this.dialogNode = dialogNode;
-  this.messageNode = dialogNode.querySelector(".message");
+  this.messageNode = dialogNode.querySelector('.message');
 
   this.dateInput = new CalendarButtonInput(
     this.inputNode,
@@ -47,17 +47,17 @@ var DatePicker = function(inputNode, buttonNode, dialogNode) {
     this
   );
 
-  this.MonthYearNode = this.dialogNode.querySelector(".monthYear");
+  this.MonthYearNode = this.dialogNode.querySelector('.monthYear');
 
-  this.prevYearNode = this.dialogNode.querySelector(".prevYear");
-  this.prevMonthNode = this.dialogNode.querySelector(".prevMonth");
-  this.nextMonthNode = this.dialogNode.querySelector(".nextMonth");
-  this.nextYearNode = this.dialogNode.querySelector(".nextYear");
+  this.prevYearNode = this.dialogNode.querySelector('.prevYear');
+  this.prevMonthNode = this.dialogNode.querySelector('.prevMonth');
+  this.nextMonthNode = this.dialogNode.querySelector('.nextMonth');
+  this.nextYearNode = this.dialogNode.querySelector('.nextYear');
 
-  this.okButtonNode = this.dialogNode.querySelector("button[value=\"ok\"]");
-  this.cancelButtonNode = this.dialogNode.querySelector("button[value=\"cancel\"]");
+  this.okButtonNode = this.dialogNode.querySelector('button[value="ok"]');
+  this.cancelButtonNode = this.dialogNode.querySelector('button[value="cancel"]');
 
-  this.tbodyNode = this.dialogNode.querySelector("table.dates tbody");
+  this.tbodyNode = this.dialogNode.querySelector('table.dates tbody');
 
   this.lastRowNode = null;
 
@@ -87,39 +87,39 @@ var DatePicker = function(inputNode, buttonNode, dialogNode) {
 DatePicker.prototype.init = function() {
   this.dateInput.init();
 
-  this.okButtonNode.addEventListener("click", this.handleOkButton.bind(this));
-  this.okButtonNode.addEventListener("keydown", this.handleOkButton.bind(this));
+  this.okButtonNode.addEventListener('click', this.handleOkButton.bind(this));
+  this.okButtonNode.addEventListener('keydown', this.handleOkButton.bind(this));
 
-  this.cancelButtonNode.addEventListener("click", this.handleCancelButton.bind(this));
-  this.cancelButtonNode.addEventListener("keydown", this.handleCancelButton.bind(this));
+  this.cancelButtonNode.addEventListener('click', this.handleCancelButton.bind(this));
+  this.cancelButtonNode.addEventListener('keydown', this.handleCancelButton.bind(this));
 
-  this.prevMonthNode.addEventListener("click", this.handlePreviousMonthButton.bind(this));
-  this.nextMonthNode.addEventListener("click", this.handleNextMonthButton.bind(this));
-  this.prevYearNode.addEventListener("click", this.handlePreviousYearButton.bind(this));
-  this.nextYearNode.addEventListener("click", this.handleNextYearButton.bind(this));
+  this.prevMonthNode.addEventListener('click', this.handlePreviousMonthButton.bind(this));
+  this.nextMonthNode.addEventListener('click', this.handleNextMonthButton.bind(this));
+  this.prevYearNode.addEventListener('click', this.handlePreviousYearButton.bind(this));
+  this.nextYearNode.addEventListener('click', this.handleNextYearButton.bind(this));
 
-  this.prevMonthNode.addEventListener("keydown", this.handlePreviousMonthButton.bind(this));
-  this.nextMonthNode.addEventListener("keydown", this.handleNextMonthButton.bind(this));
-  this.prevYearNode.addEventListener("keydown", this.handlePreviousYearButton.bind(this));
+  this.prevMonthNode.addEventListener('keydown', this.handlePreviousMonthButton.bind(this));
+  this.nextMonthNode.addEventListener('keydown', this.handleNextMonthButton.bind(this));
+  this.prevYearNode.addEventListener('keydown', this.handlePreviousYearButton.bind(this));
 
-  this.nextYearNode.addEventListener("keydown", this.handleNextYearButton.bind(this));
+  this.nextYearNode.addEventListener('keydown', this.handleNextYearButton.bind(this));
 
-  document.body.addEventListener("mousedown", this.handleBackgroundMouseDown.bind(this), true);
-  document.body.addEventListener("mouseup", this.handleBackgroundMouseUp.bind(this), true);
+  document.body.addEventListener('mousedown', this.handleBackgroundMouseDown.bind(this), true);
+  document.body.addEventListener('mouseup', this.handleBackgroundMouseUp.bind(this), true);
 
   // Create Grid of Dates
 
-  this.tbodyNode.innerHTML = "";
+  this.tbodyNode.innerHTML = '';
   var index = 0;
   for (var i = 0; i < 6; i++) {
     var row = this.tbodyNode.insertRow(i);
     this.lastRowNode = row;
-    row.classList.add("dateRow");
+    row.classList.add('dateRow');
     for (var j = 0; j < 7; j++) {
-      var cell = document.createElement("td");
-      cell.classList.add("dateCell");
-      var cellButton = document.createElement("button");
-      cellButton.classList.add("dateButton");
+      var cell = document.createElement('td');
+      cell.classList.add('dateCell');
+      var cellButton = document.createElement('button');
+      cellButton.classList.add('dateButton');
       cell.appendChild(cellButton);
       row.appendChild(cell);
       var dpDay = new DatePickerDay(cellButton, this, index, i, j);
@@ -138,7 +138,7 @@ DatePicker.prototype.updateGrid = function() {
   var fd = this.focusDay;
 
   this.MonthYearNode.innerHTML =
-    this.monthLabels[fd.getMonth()] + " " + fd.getFullYear();
+    this.monthLabels[fd.getMonth()] + ' ' + fd.getFullYear();
 
   var firstDayOfMonth = new Date(fd.getFullYear(), fd.getMonth(), 1);
   var daysInMonth = new Date(fd.getFullYear(), fd.getMonth() + 1, 0).getDate();
@@ -156,7 +156,7 @@ DatePicker.prototype.updateGrid = function() {
       d.getMonth() == this.selectedDay.getMonth() &&
       d.getDate() == this.selectedDay.getDate()
     ) {
-      this.days[i].domNode.setAttribute("aria-selected", "true");
+      this.days[i].domNode.setAttribute('aria-selected', 'true');
     }
     d.setDate(d.getDate() + 1);
   }
@@ -169,28 +169,28 @@ DatePicker.prototype.updateGrid = function() {
 };
 
 DatePicker.prototype.hideLastRow = function() {
-  this.lastRowNode.style.visibility = "hidden";
+  this.lastRowNode.style.visibility = 'hidden';
 };
 
 DatePicker.prototype.showLastRow = function() {
-  this.lastRowNode.style.visibility = "visible";
+  this.lastRowNode.style.visibility = 'visible';
 };
 
 DatePicker.prototype.setFocusDay = function(flag) {
-  if (typeof flag !== "boolean") {
+  if (typeof flag !== 'boolean') {
     flag = true;
   }
 
   var fd = this.focusDay;
 
   function checkDay(d) {
-    d.domNode.setAttribute("tabindex", "-1");
+    d.domNode.setAttribute('tabindex', '-1');
     if (
       d.day.getDate() == fd.getDate() &&
       d.day.getMonth() == fd.getMonth() &&
       d.day.getFullYear() == fd.getFullYear()
     ) {
-      d.domNode.setAttribute("tabindex", "0");
+      d.domNode.setAttribute('tabindex', '0');
       if (flag) {
         d.domNode.focus();
       }
@@ -225,7 +225,7 @@ DatePicker.prototype.getDaysInMonth = function() {
 };
 
 DatePicker.prototype.show = function() {
-  this.dialogNode.style.display = "block";
+  this.dialogNode.style.display = 'block';
   this.dialogNode.style.zIndex = 2;
 
   this.getDateInput();
@@ -234,13 +234,13 @@ DatePicker.prototype.show = function() {
 };
 
 DatePicker.prototype.isOpen = function() {
-  return window.getComputedStyle(this.dialogNode).display !== "none";
+  return window.getComputedStyle(this.dialogNode).display !== 'none';
 };
 
 DatePicker.prototype.hide = function() {
-  this.setMessage("");
+  this.setMessage('');
 
-  this.dialogNode.style.display = "none";
+  this.dialogNode.style.display = 'none';
 
   this.hasFocusFlag = false;
   this.dateInput.setFocus();
@@ -269,7 +269,7 @@ DatePicker.prototype.handleOkButton = function(event) {
   var flag = false;
 
   switch (event.type) {
-    case "keydown":
+    case 'keydown':
       switch (event.keyCode) {
         case this.keyCode.ENTER:
         case this.keyCode.SPACE:
@@ -296,7 +296,7 @@ DatePicker.prototype.handleOkButton = function(event) {
       }
       break;
 
-    case "click":
+    case 'click':
       this.setTextboxDate();
       this.hide();
       flag = true;
@@ -316,7 +316,7 @@ DatePicker.prototype.handleCancelButton = function(event) {
   var flag = false;
 
   switch (event.type) {
-    case "keydown":
+    case 'keydown':
       switch (event.keyCode) {
         case this.keyCode.ENTER:
         case this.keyCode.SPACE:
@@ -334,7 +334,7 @@ DatePicker.prototype.handleCancelButton = function(event) {
       }
       break;
 
-    case "click":
+    case 'click':
       this.hide();
       flag = true;
       break;
@@ -353,7 +353,7 @@ DatePicker.prototype.handleNextYearButton = function(event) {
   var flag = false;
 
   switch (event.type) {
-    case "keydown":
+    case 'keydown':
       switch (event.keyCode) {
         case this.keyCode.ESC:
           this.hide();
@@ -370,7 +370,7 @@ DatePicker.prototype.handleNextYearButton = function(event) {
 
       break;
 
-    case "click":
+    case 'click':
       this.moveToNextYear();
       this.setFocusDay(false);
       break;
@@ -389,7 +389,7 @@ DatePicker.prototype.handlePreviousYearButton = function(event) {
   var flag = false;
 
   switch (event.type) {
-    case "keydown":
+    case 'keydown':
       switch (event.keyCode) {
         case this.keyCode.ENTER:
         case this.keyCode.SPACE:
@@ -416,7 +416,7 @@ DatePicker.prototype.handlePreviousYearButton = function(event) {
 
       break;
 
-    case "click":
+    case 'click':
       this.moveToPreviousYear();
       this.setFocusDay(false);
       break;
@@ -435,7 +435,7 @@ DatePicker.prototype.handleNextMonthButton = function(event) {
   var flag = false;
 
   switch (event.type) {
-    case "keydown":
+    case 'keydown':
       switch (event.keyCode) {
         case this.keyCode.ESC:
           this.hide();
@@ -452,7 +452,7 @@ DatePicker.prototype.handleNextMonthButton = function(event) {
 
       break;
 
-    case "click":
+    case 'click':
       this.moveToNextMonth();
       this.setFocusDay(false);
       break;
@@ -471,7 +471,7 @@ DatePicker.prototype.handlePreviousMonthButton = function(event) {
   var flag = false;
 
   switch (event.type) {
-    case "keydown":
+    case 'keydown':
       switch (event.keyCode) {
         case this.keyCode.ESC:
           this.hide();
@@ -488,7 +488,7 @@ DatePicker.prototype.handlePreviousMonthButton = function(event) {
 
       break;
 
-    case "click":
+    case 'click':
       this.moveToPreviousMonth();
       this.setFocusDay(false);
       flag = true;
@@ -583,7 +583,7 @@ DatePicker.prototype.setTextboxDate = function(day) {
 };
 
 DatePicker.prototype.getDateInput = function() {
-  var parts = this.dateInput.getDate().split("/");
+  var parts = this.dateInput.getDate().split('/');
 
   if (
     parts.length === 3 &&
@@ -606,9 +606,9 @@ DatePicker.prototype.getDateInput = function() {
 
 DatePicker.prototype.getDateForButtonLabel = function(year, month, day) {
   if (
-    typeof year !== "number" ||
-    typeof month !== "number" ||
-    typeof day !== "number"
+    typeof year !== 'number' ||
+    typeof month !== 'number' ||
+    typeof day !== 'number'
   ) {
     this.selectedDay = this.focusDay;
   } else {
@@ -616,9 +616,9 @@ DatePicker.prototype.getDateForButtonLabel = function(year, month, day) {
   }
 
   var label = this.dayLabels[this.selectedDay.getDay()];
-  label += " " + this.monthLabels[this.selectedDay.getMonth()];
-  label += " " + this.selectedDay.getDate();
-  label += ", " + this.selectedDay.getFullYear();
+  label += ' ' + this.monthLabels[this.selectedDay.getMonth()];
+  label += ' ' + this.selectedDay.getDate();
+  label += ', ' + this.selectedDay.getFullYear();
   return label;
 };
 

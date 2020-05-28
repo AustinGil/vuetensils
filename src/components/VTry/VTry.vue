@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "VTry",
+  name: 'VTry',
 
   props: {
     stopPropagation: Boolean,

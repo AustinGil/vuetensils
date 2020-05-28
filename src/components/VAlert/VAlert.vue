@@ -29,10 +29,10 @@
  * A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
  */
 export default {
-  name: "VAlert",
+  name: 'VAlert',
   model: {
-    prop: "visible",
-    event: "update",
+    prop: 'visible',
+    event: 'update',
   },
 
   props: {
@@ -41,7 +41,7 @@ export default {
      */
     tag: {
       type: String,
-      default: "div",
+      default: 'div',
     },
     /**
      * Determines whether the alert is visible. Also binds with `v-model`.
@@ -62,7 +62,7 @@ export default {
      */
     dismissLabel: {
       type: [String, Boolean],
-      default: "Dismiss this alert",
+      default: 'Dismiss this alert',
     },
     /**
      * The transition name if you want to add one.
@@ -89,7 +89,7 @@ export default {
         if (visible) {
           this.dismissed = false;
         }
-        if (typeof visible === "number") {
+        if (typeof visible === 'number') {
           this.clearTimer(); // Clear timers in case this.visible watcher adds multiples
           this.countdown();
         }
@@ -109,13 +109,13 @@ export default {
        * @event dismiss
        * @type { undefined }
        */
-      this.$emit("dismiss");
+      this.$emit('dismiss');
       this.dismissed = true;
-      if (typeof this.visible === "number") {
-        this.$emit("update", 0);
+      if (typeof this.visible === 'number') {
+        this.$emit('update', 0);
         this.clearTimer();
       } else {
-        this.$emit("update", false);
+        this.$emit('update', false);
       }
     },
 
@@ -129,7 +129,7 @@ export default {
          * @event update
          * @type { boolean/number }
          */
-        this.$emit("update", visible - 1);
+        this.$emit('update', visible - 1);
       }, 1000);
     },
 

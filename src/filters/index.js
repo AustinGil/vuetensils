@@ -14,7 +14,7 @@ export const capitalize = str => str[0].toUpperCase() + str.slice(1);
 export function currency(str, currency, locale = navigator.language) {
   // Alternative: (73.57).toLocaleString('de-DE',{style:'currency',currency:'EUR'});
   return new Intl.NumberFormat(locale, {
-    style: "currency",
+    style: 'currency',
     currency,
   }).format(str);
 }
@@ -51,7 +51,7 @@ export function plural(str, plural, qty) {
  * @param {string} [append = '...']
  * @return {string}
  */
-export function truncate(str, length = 100, append = "...") {
+export function truncate(str, length = 100, append = '...') {
   // TODO: dont split last word
   if (str.length > length) {
     return str.substring(0, length - append.length) + append;

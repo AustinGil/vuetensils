@@ -1,11 +1,11 @@
 <script>
-import { safeSlot } from "../../utils";
+import { safeSlot } from '../../utils';
 
 /**
  * Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
  */
 export default {
-  name: "VIntersect",
+  name: 'VIntersect',
   props: {
     /**
      * The IntersectionObserver threshold value.
@@ -51,7 +51,7 @@ export default {
     this.observer = new IntersectionObserver(handler, observerOptions);
     this.observer.observe(this.$el);
 
-    this.$once("hook:beforeDestroy", () => {
+    this.$once('hook:beforeDestroy', () => {
       this.observer.disconnect();
     });
   },
@@ -66,21 +66,21 @@ export default {
          * @event enter
          * @type { IntersectionObserverEntry }
          */
-        this.$emit("enter", entry);
+        this.$emit('enter', entry);
       } else {
         /**
          * Fired when the observed element exits the screen.
          * @event exit
          * @type { IntersectionObserverEntry }
          */
-        this.$emit("exit", entry);
+        this.$emit('exit', entry);
       }
       /**
        * Fired when the observed element enters or exits the screen.
        * @event change
        * @type { IntersectionObserverEntry }
        */
-      this.$emit("change", entry);
+      this.$emit('change', entry);
     },
   },
 

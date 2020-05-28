@@ -116,8 +116,8 @@ export default {
       this.close();
     },
     commitSelection() {
-      this.$emit("input", this.options[this.highlightedIndex]);
-      this.$emit("search", "");
+      this.$emit('input', this.options[this.highlightedIndex]);
+      this.$emit('search', '');
       this.close();
     },
     select(index) {
@@ -128,7 +128,7 @@ export default {
       this.open();
       this.highlightedIndex = index;
       this.$nextTick(() => {
-        this.$refs.option[index].scrollIntoView({ block: "nearest" });
+        this.$refs.option[index].scrollIntoView({ block: 'nearest' });
       });
     },
     highlightPrev() {

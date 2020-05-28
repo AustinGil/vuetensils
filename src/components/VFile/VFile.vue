@@ -55,13 +55,13 @@
 </template>
 
 <script>
-import { randomString } from "../../utils";
+import { randomString } from '../../utils';
 
 export default {
-  name: "VFile",
+  name: 'VFile',
   model: {
-    prop: "files",
-    event: "update",
+    prop: 'files',
+    event: 'update',
   },
 
   props: {
@@ -96,14 +96,14 @@ export default {
   },
 
   created() {
-    this.id = this.$attrs.id || "vts-" + randomString(4);
+    this.id = this.$attrs.id || 'vts-' + randomString(4);
   },
 
   methods: {
     onChange(event) {
       const files = Array.from(event.target.files);
       this.localFiles = files;
-      this.$emit("update", files);
+      this.$emit('update', files);
     },
 
     onDrop(event) {
@@ -113,7 +113,7 @@ export default {
         files.length = 1;
       }
       this.localFiles = files;
-      this.$emit("update", files);
+      this.$emit('update', files);
     },
 
     // clear() {

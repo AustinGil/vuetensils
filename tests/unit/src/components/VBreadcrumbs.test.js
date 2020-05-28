@@ -1,13 +1,13 @@
-import { mount, RouterLinkStub } from "@vue/test-utils";
+import { mount, RouterLinkStub } from '@vue/test-utils';
 
-import VBreadcrumbs from "../../../../src/components/VBreadcrumbs/VBreadcrumbs.vue";
+import VBreadcrumbs from '../../../../src/components/VBreadcrumbs/VBreadcrumbs.vue';
 
-describe("VBreadcrumbs", () => {
-  describe("Created", () => {
+describe('VBreadcrumbs', () => {
+  describe('Created', () => {
     const wrapperOptions = (propsData) => ({
       propsData,
       stubs: {
-        "router-link": RouterLinkStub
+        'router-link': RouterLinkStub
       },
       mocks: {
         $route: {
@@ -16,14 +16,14 @@ describe("VBreadcrumbs", () => {
       }
     });
 
-    test("Renders correctly without props", () => {
+    test('Renders correctly without props', () => {
       const wrapper = mount(VBreadcrumbs, wrapperOptions());
 
       expect(wrapper)
         .toMatchSnapshot();
     });
 
-    test("Renders 1 empty crumb", () => {
+    test('Renders 1 empty crumb', () => {
       const props = {
         breadcrumbs: [{}]
       };
@@ -33,11 +33,11 @@ describe("VBreadcrumbs", () => {
         .toMatchSnapshot();
     });
 
-    test("Renders 1 crumb", () => {
+    test('Renders 1 crumb', () => {
       const props = {
         breadcrumbs: [{
-          text: "First",
-          path: "/first"
+          text: 'First',
+          path: '/first'
         }]
       };
       const wrapper = mount(VBreadcrumbs, wrapperOptions(props));
@@ -46,20 +46,20 @@ describe("VBreadcrumbs", () => {
         .toMatchSnapshot();
     });
 
-    test("Renders 3 crumbs", () => {
+    test('Renders 3 crumbs', () => {
       const props = {
         breadcrumbs: [
           {
-            text: "First",
-            path: "/first"
+            text: 'First',
+            path: '/first'
           },
           {
-            text: "Second",
-            path: "/second"
+            text: 'Second',
+            path: '/second'
           },
           {
-            text: "Third",
-            path: "/third"
+            text: 'Third',
+            path: '/third'
           }
         ]
       };
@@ -70,10 +70,10 @@ describe("VBreadcrumbs", () => {
     });
   });
 
-  describe("Crumbs from routes", () => {
+  describe('Crumbs from routes', () => {
     const wrapperOptions = (route) => ({
       stubs: {
-        "router-link": RouterLinkStub
+        'router-link': RouterLinkStub
       },
       mocks: {
         $route: {
@@ -83,23 +83,23 @@ describe("VBreadcrumbs", () => {
       }
     });
 
-    test("Dashboard defaults to home text", () => {
+    test('Dashboard defaults to home text', () => {
       const route = {
-        fullPath: "/dashboard"
+        fullPath: '/dashboard'
       };
       const wrapper = mount(VBreadcrumbs, wrapperOptions(route));
 
-      expect(wrapper.find("li"))
+      expect(wrapper.find('li'))
         .toMatchSnapshot();
     });
 
-    test("Prevent duplicate child routes", () => {
+    test('Prevent duplicate child routes', () => {
       const route = {
         matched: [
           {
-            path: "test",
+            path: 'test',
             parent: {
-              path: "test"
+              path: 'test'
             }
           }
         ]
@@ -110,13 +110,13 @@ describe("VBreadcrumbs", () => {
         .toMatchSnapshot();
     });
 
-    test("Prevent duplicate child routes (with trailing slash)", () => {
+    test('Prevent duplicate child routes (with trailing slash)', () => {
       const route = {
         matched: [
           {
-            path: "test/",
+            path: 'test/',
             parent: {
-              path: "test"
+              path: 'test'
             }
           }
         ]
@@ -127,13 +127,13 @@ describe("VBreadcrumbs", () => {
         .toMatchSnapshot();
     });
 
-    describe("Get text", () => {
-      test("From meta title", () => {
+    describe('Get text', () => {
+      test('From meta title', () => {
         const route = {
           matched: [
             {
               meta: {
-                title: "Title"
+                title: 'Title'
               }
             }
           ]
@@ -144,11 +144,11 @@ describe("VBreadcrumbs", () => {
           .toMatchSnapshot();
       });
 
-      test("From name", () => {
+      test('From name', () => {
         const route = {
           matched: [
             {
-              name: "Name"
+              name: 'Name'
             }
           ]
         };
@@ -158,11 +158,11 @@ describe("VBreadcrumbs", () => {
           .toMatchSnapshot();
       });
 
-      test("From path", () => {
+      test('From path', () => {
         const route = {
           matched: [
             {
-              path: "records/"
+              path: 'records/'
             }
           ]
         };

@@ -125,17 +125,17 @@
 </template>
 
 <script>
-import { randomString } from "../../utils";
+import { randomString } from '../../utils';
 
 /**
  * Input component that automatically includes labels, validation, and aria descriptions for any errors.
  */
 export default {
-  name: "VInput",
+  name: 'VInput',
   inheritAttrs: false,
 
   model: {
-    event: "update",
+    event: 'update',
   },
 
   props: {
@@ -152,7 +152,7 @@ export default {
      */
     value: {
       type: [String, Number, Boolean, Array],
-      default: "",
+      default: '',
     },
 
     /**
@@ -182,19 +182,19 @@ export default {
   computed: {
     tag() {
       const { type } = this.$attrs;
-      if (type === "textarea") {
-        return "textarea";
+      if (type === 'textarea') {
+        return 'textarea';
       }
-      if (type === "select") {
-        return "select";
+      if (type === 'select') {
+        return 'select';
       }
-      return "input";
+      return 'input';
     },
 
     computedOptions() {
       return this.options.map(item => {
         // Each item should be an object with at least value and label which we can bind to later
-        item = typeof item === "object" ? item : { value: item };
+        item = typeof item === 'object' ? item : { value: item };
         Object.assign(item, this.$attrs);
         item.label = item.label || item.value;
         item.name = item.name || this.id;
@@ -205,7 +205,7 @@ export default {
 
     isMultiple() {
       const { multiple } = this.$attrs;
-      return multiple != null && multiple != "false";
+      return multiple != null && multiple != 'false';
     },
 
     error() {
@@ -218,14 +218,14 @@ export default {
       this.localValue = next;
     },
     localValue: {
-      handler: "validate",
+      handler: 'validate',
     },
   },
 
   created() {
     // Might cause an issue with SSR
     const { id, name } = this.$attrs;
-    this.id = id || "vts-" + randomString(4);
+    this.id = id || 'vts-' + randomString(4);
     this.name = name || this.id;
   },
 
@@ -240,9 +240,9 @@ export default {
 
       let value;
 
-      if (type === "checkbox") {
+      if (type === 'checkbox') {
         value = target.checked;
-      } else if (type === "select" && isMultiple) {
+      } else if (type === 'select' && isMultiple) {
         value = [];
         target.options.forEach(option => {
           // for of not supported
@@ -258,7 +258,7 @@ export default {
        * @event update
        * @type { any }
        */
-      this.$emit("update", value);
+      this.$emit('update', value);
       this.validate();
     },
 

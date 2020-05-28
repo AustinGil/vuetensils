@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import { randomString } from "../../utils";
+import { randomString } from '../../utils';
 
 export default {
-  name: "VForm",
+  name: 'VForm',
   props: {
     lazy: Boolean,
   },
@@ -33,7 +33,7 @@ export default {
 
   computed: {
     event() {
-      return this.lazy ? "change" : "input";
+      return this.lazy ? 'change' : 'input';
     },
 
     valid() {
@@ -60,7 +60,7 @@ export default {
   },
 
   mounted() {
-    const els = Array.from(this.$el.querySelectorAll("input, textarea, select"));
+    const els = Array.from(this.$el.querySelectorAll('input, textarea, select'));
 
     const localInputs = {};
 
@@ -83,9 +83,9 @@ export default {
         },
       };
 
-      input.addEventListener("blur", this.onBlur, { once: true });
-      this.$once("hook:beforeDestroy", () => {
-        input.removeEventListener("blur", this.onBlur);
+      input.addEventListener('blur', this.onBlur, { once: true });
+      this.$once('hook:beforeDestroy', () => {
+        input.removeEventListener('blur', this.onBlur);
       });
     });
     this.localInputs = localInputs;
@@ -119,10 +119,10 @@ export default {
 
     clear() {
       const els = Array.from(
-        this.$el.querySelectorAll("input, textarea, select")
+        this.$el.querySelectorAll('input, textarea, select')
       );
       els.forEach(input => {
-        input.value = "";
+        input.value = '';
       });
     },
   },

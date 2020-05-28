@@ -1,9 +1,9 @@
 module.exports = {
   root: true,
   parserOptions: {
-    parser: "babel-eslint",
+    parser: 'babel-eslint',
     ecmaVersion: 8,
-    sourceType: "module",
+    sourceType: 'module',
   },
   env: {
     browser: true,
@@ -13,50 +13,50 @@ module.exports = {
     jsdom: true,
     Promise: true
   },
-  plugins: ["jest", "vue"],
+  plugins: ['jest', 'vue'],
   extends: [
-    "eslint:recommended",
-    "plugin:vue/recommended",
-    "plugin:jest/recommended",
-    "plugin:vuejs-accessibility/recommended",
+    'eslint:recommended',
+    'plugin:vue/recommended',
+    'plugin:jest/recommended',
+    'plugin:vuejs-accessibility/recommended',
   ],
   rules: {
-    "comma-dangle": [
-      "error",
+    'comma-dangle': [
+      'error',
       {
-        "arrays": "only-multiline",
-        "objects": "only-multiline",
-        "imports": "never",
-        "exports": "never",
-        "functions": "never",
+        'arrays': 'only-multiline',
+        'objects': 'only-multiline',
+        'imports': 'never',
+        'exports': 'never',
+        'functions': 'never',
       },
     ],
-    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
-    "quotes": ["error", "double"],
-    "semi": ["error", "always"],
-    "vue/html-self-closing": [
-      "error",
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'quotes': ['error', 'single'],
+    'semi': ['error', 'always'],
+    'vue/html-self-closing': [
+      'error',
       {
-        "html": {
-          "void": "always",
-          "normal": "always",
-          "component": "always"
+        'html': {
+          'void': 'always',
+          'normal': 'always',
+          'component': 'always'
         },
-        "svg": "always",
-        "math": "always"
+        'svg': 'always',
+        'math': 'always'
       }
     ],
-    "vue/max-attributes-per-line": [
-      "error",
+    'vue/max-attributes-per-line': [
+      'error',
       {
-        "singleline": 3,
-        "multiline": {
-          "max": 1,
-          "allowFirstLine": false
+        'singleline': 3,
+        'multiline': {
+          'max': 1,
+          'allowFirstLine': false
         }
       }
     ],
-    "vue/require-prop-types": ["error"]
+    'vue/require-prop-types': ['error']
   }
-}
+};

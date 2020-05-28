@@ -5,17 +5,17 @@
 function copyToClipboard(content) {
   const activeEl = document.activeElement;
 
-  const textarea = document.createElement("textarea");
+  const textarea = document.createElement('textarea');
   textarea.value = content;
 
-  textarea.setAttribute("readonly", ""); // Prevent keyboard from showing on mobile
-  textarea.style.position = "absolute";
-  textarea.style.left = "-9999px";
-  textarea.style.fontSize = "12pt"; // Prevent zooming on iOS
+  textarea.setAttribute('readonly', ''); // Prevent keyboard from showing on mobile
+  textarea.style.position = 'absolute';
+  textarea.style.left = '-9999px';
+  textarea.style.fontSize = '12pt'; // Prevent zooming on iOS
 
   document.body.append(textarea);
   textarea.select();
-  document.execCommand("copy");
+  document.execCommand('copy');
   textarea.remove();
 
   activeEl && activeEl.focus();
@@ -24,14 +24,14 @@ function copyToClipboard(content) {
 export default {
   bind(el, binding) {
     binding.handler = () => copyToClipboard(binding.value);
-    el.addEventListener("click", binding.handler);
+    el.addEventListener('click', binding.handler);
   },
   unbind(el, binding) {
-    el.removeEventListener("click", binding.handler);
+    el.removeEventListener('click', binding.handler);
   },
   update(el, binding) {
-    el.removeEventListener("click", binding.handler);
+    el.removeEventListener('click', binding.handler);
     binding.handler = () => copyToClipboard(binding.value);
-    el.addEventListener("click", binding.handler);
+    el.addEventListener('click', binding.handler);
   },
 };

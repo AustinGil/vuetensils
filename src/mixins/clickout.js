@@ -1,9 +1,9 @@
 export default {
   mounted() {
-    if (typeof document !== "undefined") {
-      document.documentElement.addEventListener("click", this._clickOutListener);
-      this.$once("hook:beforeDestroy", () => {
-        document.removeEventListener("click", this._clickOutListener);
+    if (typeof document !== 'undefined') {
+      document.documentElement.addEventListener('click', this._clickOutListener);
+      this.$once('hook:beforeDestroy', () => {
+        document.removeEventListener('click', this._clickOutListener);
       });
     }
   },

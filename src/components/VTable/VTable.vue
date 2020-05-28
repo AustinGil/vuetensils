@@ -125,7 +125,7 @@
 
 <script>
 export default {
-  name: "VTable",
+  name: 'VTable',
   props: {
     headers: {
       type: Array,
@@ -153,7 +153,7 @@ export default {
     },
     caption: {
       type: String,
-      default: "",
+      default: '',
     },
     // TODO: sortable prop
   },
@@ -194,7 +194,7 @@ export default {
       });
 
       if (sortBy && sortOrder) {
-        const multiplier = sortOrder === "ASC" ? 1 : -1;
+        const multiplier = sortOrder === 'ASC' ? 1 : -1;
         const isNum = Number.isFinite(cItems[0].data[sortBy]);
 
         cItems = cItems.sort((a, b) => {
@@ -227,7 +227,7 @@ export default {
   mounted() {
     const { scrollWidth, clientWidth } = this.$refs.container;
     const scrollable = scrollWidth > clientWidth;
-    this.tabindex = scrollable ? "0" : null;
+    this.tabindex = scrollable ? '0' : null;
   },
 
   methods: {
@@ -237,19 +237,19 @@ export default {
 
       if (key !== sortBy) {
         this.sortBy = key;
-        this.sortOrder = "ASC";
+        this.sortOrder = 'ASC';
         return;
       }
 
       switch (sortOrder) {
-        case "ASC":
-          this.sortOrder = "DESC";
+        case 'ASC':
+          this.sortOrder = 'DESC';
           break;
-        case "DESC":
+        case 'DESC':
           this.sortOrder = null;
           break;
         default:
-          this.sortOrder = "ASC";
+          this.sortOrder = 'ASC';
       }
     },
 
@@ -259,31 +259,31 @@ export default {
     },
 
     emitRowClick(item) {
-      this.$emit("click:row", item.original);
+      this.$emit('click:row', item.original);
     },
 
     ariaSort(header) {
-      let order = "descending";
+      let order = 'descending';
 
       if (this.sortBy !== header.key) {
         order = null;
-      } else if (this.sortOrder === "ASC") {
-        order = "ascending";
+      } else if (this.sortOrder === 'ASC') {
+        order = 'ascending';
       }
 
       return order;
     },
     ariaLabel(header) {
-      let order = "default";
+      let order = 'default';
 
       if (!this.sortOrder) {
-        order = "ascending";
-      } else if (this.sortOrder === "ASC") {
-        order = "descending";
+        order = 'ascending';
+      } else if (this.sortOrder === 'ASC') {
+        order = 'descending';
       }
 
-      return ["sort by", header.text || header.key, "in", order, "order"].join(
-        " "
+      return ['sort by', header.text || header.key, 'in', order, 'order'].join(
+        ' '
       );
     },
   },

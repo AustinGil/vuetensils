@@ -23,7 +23,7 @@
 </template>
 
 <script>
-const NAME = "vts-img";
+const NAME = 'vts-img';
 
 /**
  * Drop in replacement for the HTML `<img>` tag which supports lazy-loading. Improves load times by waiting for the image to scroll into view before actually downloading it.
@@ -31,7 +31,7 @@ const NAME = "vts-img";
  Note: This component uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) which is not supported by Internet Explorer.
  */
 export default {
-  name: "VImg",
+  name: 'VImg',
   inheritAttrs: false,
   // functional: true, // TODO
 
@@ -48,21 +48,21 @@ export default {
      */
     srcset: {
       type: String,
-      default: "",
+      default: '',
     },
     /**
      * URL of the blurred placeholder image to use if you need one (ideally a very small image).
      */
     placeholder: {
       type: String,
-      default: "",
+      default: '',
     },
     /**
      * CSS background styles for the placeholder in case you just want colors.
      */
     background: {
       type: String,
-      default: "",
+      default: '',
     },
 
     transitionDuration: {
@@ -79,10 +79,10 @@ export default {
   computed: {
     dataUrl() {
       const { width, height } = this.$attrs;
-      if (!width || !height) return "";
+      if (!width || !height) return '';
 
       const w = 100;
-      const canvas = document.createElement("canvas");
+      const canvas = document.createElement('canvas');
       canvas.width = w;
       canvas.height = (height / width) * w;
 
@@ -92,10 +92,10 @@ export default {
 
   watch: {
     src: {
-      handler: "init",
+      handler: 'init',
     },
     srcset: {
-      handler: "init",
+      handler: 'init',
     },
   },
 
@@ -108,7 +108,7 @@ export default {
       this.observer = new IntersectionObserver(this.handler);
       this.observer.observe(this.$el);
 
-      this.$once("hook:beforeDestroy", () => {
+      this.$once('hook:beforeDestroy', () => {
         this.observer.disconnect();
       });
     },
@@ -128,7 +128,7 @@ export default {
       const { src, srcset } = this;
       const { img } = this.$refs;
 
-      img.addEventListener("load", this.onLoad);
+      img.addEventListener('load', this.onLoad);
 
       if (srcset) {
         img.srcset = srcset;
@@ -144,13 +144,13 @@ export default {
       $el.classList.add(`${NAME}--loaded`);
 
       if (placeholder) {
-        img.addEventListener("transitionend", function onTransitionEnd() {
+        img.addEventListener('transitionend', function onTransitionEnd() {
           placeholder.remove();
-          img.removeEventListener("transitionend", onTransitionEnd);
+          img.removeEventListener('transitionend', onTransitionEnd);
         });
       }
 
-      img.removeEventListener("load", this.onLoad);
+      img.removeEventListener('load', this.onLoad);
     },
   },
 };

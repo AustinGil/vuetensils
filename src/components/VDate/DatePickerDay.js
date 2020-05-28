@@ -32,44 +32,44 @@ var DatePickerDay = function(domNode, datepicker, index, row, column) {
 };
 
 DatePickerDay.prototype.init = function() {
-  this.domNode.setAttribute("tabindex", "-1");
-  this.domNode.addEventListener("mousedown", this.handleMouseDown.bind(this));
-  this.domNode.addEventListener("keydown", this.handleKeyDown.bind(this));
-  this.domNode.addEventListener("focus", this.handleFocus.bind(this));
+  this.domNode.setAttribute('tabindex', '-1');
+  this.domNode.addEventListener('mousedown', this.handleMouseDown.bind(this));
+  this.domNode.addEventListener('keydown', this.handleKeyDown.bind(this));
+  this.domNode.addEventListener('focus', this.handleFocus.bind(this));
 
-  this.domNode.innerHTML = "-1";
+  this.domNode.innerHTML = '-1';
 };
 
 DatePickerDay.prototype.isDisabled = function() {
-  return this.domNode.classList.contains("disabled");
+  return this.domNode.classList.contains('disabled');
 };
 
 DatePickerDay.prototype.updateDay = function(disable, day) {
   if (disable) {
-    this.domNode.classList.add("disabled");
+    this.domNode.classList.add('disabled');
   } else {
-    this.domNode.classList.remove("disabled");
+    this.domNode.classList.remove('disabled');
   }
 
   this.day = new Date(day);
 
   this.domNode.innerHTML = this.day.getDate();
-  this.domNode.setAttribute("tabindex", "-1");
-  this.domNode.removeAttribute("aria-selected");
+  this.domNode.setAttribute('tabindex', '-1');
+  this.domNode.removeAttribute('aria-selected');
 
   var d = this.day.getDate().toString();
   if (this.day.getDate() < 9) {
-    d = "0" + d;
+    d = '0' + d;
   }
 
   var m = this.day.getMonth() + 1;
   if (this.day.getMonth() < 9) {
-    m = "0" + m;
+    m = '0' + m;
   }
 
   this.domNode.setAttribute(
-    "data-date",
-    this.day.getFullYear() + "-" + m + "-" + d
+    'data-date',
+    this.day.getFullYear() + '-' + m + '-' + d
   );
 };
 
@@ -86,7 +86,7 @@ DatePickerDay.prototype.handleKeyDown = function(event) {
       if (event.shiftKey) {
         this.datepicker.nextYearNode.focus();
       }
-      this.datepicker.setMessage("");
+      this.datepicker.setMessage('');
       flag = true;
       break;
 

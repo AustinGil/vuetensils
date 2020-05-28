@@ -1,11 +1,11 @@
 
 <script>
-import { safeSlot } from "../../utils";
+import { safeSlot } from '../../utils';
 /**
  * A renderless component for awaiting promises to resolve; great for making HTTP requests. Supports showing pending, resolved, or rejected promises.
  */
 export default {
-  name: "VAsync",
+  name: 'VAsync',
   props: {
     /**
      * A promise or function that returns a promise.
@@ -34,7 +34,7 @@ export default {
 
   watch: {
     await: {
-      handler: "awaitOn",
+      handler: 'awaitOn',
       immediate: true,
     },
 
@@ -45,7 +45,7 @@ export default {
          * @event pending
          * @type { boolean }
          */
-        this.$emit("pending", pending);
+        this.$emit('pending', pending);
       },
       immediate: true,
     },
@@ -55,7 +55,7 @@ export default {
     awaitOn(promise) {
       if (!promise) return;
 
-      promise = typeof promise === "function" ? promise() : promise;
+      promise = typeof promise === 'function' ? promise() : promise;
 
       if (!promise.then) return;
 
@@ -65,13 +65,13 @@ export default {
 
       return promise
         .then(results => {
-          this.results = typeof results === "undefined" ? this.default : results;
+          this.results = typeof results === 'undefined' ? this.default : results;
           /**
            * Fired after promise has resolved with the resolved value.
            * @event resolve
            * @type { unknown }
            */
-          this.$emit("resolve", results);
+          this.$emit('resolve', results);
         })
         .catch(error => {
           if (error instanceof Error) {
@@ -86,7 +86,7 @@ export default {
            * @event reject
            * @type { error }
            */
-          this.$emit("reject", error);
+          this.$emit('reject', error);
         })
         .finally(() => {
           this.pending = false;
@@ -96,7 +96,7 @@ export default {
            * @event finally
            * @type { undefined }
            */
-          this.$emit("finally");
+          this.$emit('finally');
         });
     },
   },

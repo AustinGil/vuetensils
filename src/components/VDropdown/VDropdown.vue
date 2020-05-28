@@ -37,14 +37,14 @@
  * Adds a button that can show/hide dropdown content when it is hovered over, or clicked. When it is clicked, the content will persist until the user clicks out or focuses out. Includes relevant ARIA attributes for the hidden content.
  */
 export default {
-  name: "VDrawer",
+  name: 'VDrawer',
   props: {
     /**
      * The toggle button text.
      */
     text: {
       type: String,
-      default: "",
+      default: '',
     },
     /**
      * Where the content should be placed in relation to the button.
@@ -53,9 +53,9 @@ export default {
      */
     position: {
       type: String,
-      default: "bottom",
+      default: 'bottom',
       validator(value) {
-        return ["top", "bottom"].includes(value);
+        return ['top', 'bottom'].includes(value);
       },
     },
     /**
@@ -63,7 +63,7 @@ export default {
      */
     transition: {
       type: String,
-      default: "",
+      default: '',
     },
 
     classes: {
@@ -79,9 +79,9 @@ export default {
 
   mounted() {
     const { onClickout } = this;
-    document.addEventListener("click", onClickout);
-    this.$once("hook:beforeDestroy", () => {
-      document.removeEventListener("click", onClickout);
+    document.addEventListener('click', onClickout);
+    this.$once('hook:beforeDestroy', () => {
+      document.removeEventListener('click', onClickout);
     });
   },
 

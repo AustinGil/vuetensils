@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: "VBreadcrumbs",
+  name: 'VBreadcrumbs',
   props: {
     breadcrumbs: {
       type: Array,
@@ -42,8 +42,8 @@ export default {
       if (this.breadcrumbs.length) {
         return this.breadcrumbs;
       }
-      if (this.$route.fullPath === "/dashboard") {
-        return [{ text: "Home" }];
+      if (this.$route.fullPath === '/dashboard') {
+        return [{ text: 'Home' }];
       }
 
       const routes = this.$route.matched.reduce((routes, route) => {
@@ -51,7 +51,7 @@ export default {
         if (
           route.parent &&
           (route.path === route.parent.path ||
-            route.path === route.parent.path + "/")
+            route.path === route.parent.path + '/')
         ) {
           return routes;
         }
