@@ -97,56 +97,56 @@ export default {
     return {
       isOpen: false,
       highlightedIndex: 0,
-    }
+    };
   },
   methods: {
     open() {
-      this.isOpen = true
+      this.isOpen = true;
       this.$nextTick(() => {
-        this.$refs.search.focus()
-      })
+        this.$refs.search.focus();
+      });
     },
     close() {
-      this.isOpen = false
+      this.isOpen = false;
       this.$nextTick(() => {
-        this.$refs.input.focus()
-      })
+        this.$refs.input.focus();
+      });
     },
     cancel() {
-      this.close()
+      this.close();
     },
     commitSelection() {
-      this.$emit("input", this.options[this.highlightedIndex])
-      this.$emit("search", "")
-      this.close()
+      this.$emit("input", this.options[this.highlightedIndex]);
+      this.$emit("search", "");
+      this.close();
     },
     select(index) {
-      this.highlightedIndex = index
-      this.commitSelection()
+      this.highlightedIndex = index;
+      this.commitSelection();
     },
     highlight(index) {
-      this.open()
-      this.highlightedIndex = index
+      this.open();
+      this.highlightedIndex = index;
       this.$nextTick(() => {
-        this.$refs.option[index].scrollIntoView({ block: "nearest" })
-      })
+        this.$refs.option[index].scrollIntoView({ block: "nearest" });
+      });
     },
     highlightPrev() {
       this.highlight(
         this.highlightedIndex - 1 < 0
           ? this.options.length - 1
           : this.highlightedIndex - 1
-      )
+      );
     },
     highlightNext() {
       this.highlight(
         this.highlightedIndex + 1 >= this.options.length
           ? 0
           : this.highlightedIndex + 1
-      )
+      );
     },
   },
-}
+};
 </script>
 
 <style>

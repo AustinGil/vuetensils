@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { randomString } from "../../utils"
+import { randomString } from "../../utils";
 
 export default {
   name: "VFile",
@@ -88,32 +88,32 @@ export default {
 
   watch: {
     files(files) {
-      this.localFiles = files
+      this.localFiles = files;
     },
     localFiles() {
-      this.droppable = false
+      this.droppable = false;
     },
   },
 
   created() {
-    this.id = this.$attrs.id || "vts-" + randomString(4)
+    this.id = this.$attrs.id || "vts-" + randomString(4);
   },
 
   methods: {
     onChange(event) {
-      const files = Array.from(event.target.files)
-      this.localFiles = files
-      this.$emit("update", files)
+      const files = Array.from(event.target.files);
+      this.localFiles = files;
+      this.$emit("update", files);
     },
 
     onDrop(event) {
-      const files = Array.from(event.dataTransfer.files)
-      const isMulti = this.$attrs.multiple != null
+      const files = Array.from(event.dataTransfer.files);
+      const isMulti = this.$attrs.multiple != null;
       if (!isMulti && files.length > 1) {
-        files.length = 1
+        files.length = 1;
       }
-      this.localFiles = files
-      this.$emit("update", files)
+      this.localFiles = files;
+      this.$emit("update", files);
     },
 
     // clear() {
@@ -122,7 +122,7 @@ export default {
     //   this.$emit("update", [])
     // },
   },
-}
+};
 </script>
 
 <style>

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { randomString } from "../../utils"
+import { randomString } from "../../utils";
 
 export default {
   name: "VForm",
@@ -33,40 +33,40 @@ export default {
 
   computed: {
     event() {
-      return this.lazy ? "change" : "input"
+      return this.lazy ? "change" : "input";
     },
 
     valid() {
-      return !Object.values(this.localInputs).find(input => !input.valid)
+      return !Object.values(this.localInputs).find(input => !input.valid);
     },
 
     error() {
-      return !this.valid && this.dirty
+      return !this.valid && this.dirty;
     },
 
     inputs() {
-      const inputs = {}
-      const { localInputs } = this
+      const inputs = {};
+      const { localInputs } = this;
 
       for (const key in localInputs) {
-        const input = localInputs[key]
+        const input = localInputs[key];
         inputs[key] = {
           ...input,
           error: input.dirty && !input.valid,
-        }
+        };
       }
-      return inputs
+      return inputs;
     },
   },
 
   mounted() {
-    const els = Array.from(this.$el.querySelectorAll("input, textarea, select"))
+    const els = Array.from(this.$el.querySelectorAll("input, textarea, select"));
 
-    const localInputs = {}
+    const localInputs = {};
 
     els.forEach(input => {
-      const name = input.name || randomString(6)
-      const validity = input.validity
+      const name = input.name || randomString(6);
+      const validity = input.validity;
 
       localInputs[name] = {
         value: input.value,
@@ -81,20 +81,20 @@ export default {
           max: validity.rangeUnderflow,
           pattern: validity.patternMismatch,
         },
-      }
+      };
 
-      input.addEventListener("blur", this.onBlur, { once: true })
+      input.addEventListener("blur", this.onBlur, { once: true });
       this.$once("hook:beforeDestroy", () => {
-        input.removeEventListener("blur", this.onBlur)
-      })
-    })
-    this.localInputs = localInputs
+        input.removeEventListener("blur", this.onBlur);
+      });
+    });
+    this.localInputs = localInputs;
   },
 
   methods: {
     onEvent({ target }) {
-      const { localInputs } = this
-      const validity = target.validity
+      const { localInputs } = this;
+      const validity = target.validity;
 
       localInputs[target.name] = {
         ...localInputs[target.name],
@@ -109,22 +109,22 @@ export default {
           max: validity.rangeUnderflow,
           pattern: validity.patternMismatch,
         },
-      }
-      this.localInputs = localInputs
+      };
+      this.localInputs = localInputs;
     },
     onBlur({ target }) {
-      this.dirty = true
-      this.localInputs[target.name].dirty = true
+      this.dirty = true;
+      this.localInputs[target.name].dirty = true;
     },
 
     clear() {
       const els = Array.from(
         this.$el.querySelectorAll("input, textarea, select")
-      )
+      );
       els.forEach(input => {
-        input.value = ""
-      })
+        input.value = "";
+      });
     },
   },
-}
+};
 </script>

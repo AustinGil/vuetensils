@@ -34,21 +34,21 @@ export default {
   //   }
   // },
   skipTo(id) {
-    if (!id) return
+    if (!id) return;
 
-    const target = window.document.getElementById(id.slice(1))
-    if (!target) return
+    const target = window.document.getElementById(id.slice(1));
+    if (!target) return;
 
     if (
       !["a", "select", "input", "button", "textarea"].includes(
         target.tagName.toLowerCase()
       )
     ) {
-      target.setAttribute("tabindex", "-1")
+      target.setAttribute("tabindex", "-1");
     }
-    target.focus()
+    target.focus();
   },
-}
+};
 </script>
 
 <style>

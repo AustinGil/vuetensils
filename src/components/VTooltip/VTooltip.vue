@@ -1,7 +1,7 @@
 <script>
 // TODO: checkout http://pauljadam.com/demos/tooltip.html
 // @ts-check
-import { randomString } from "../../utils"
+import { randomString } from "../../utils";
 
 export default {
   name: "VTooltip",
@@ -32,10 +32,10 @@ export default {
   }),
 
   render(h) {
-    const { tag, show, id, focus, classes } = this
+    const { tag, show, id, focus, classes } = this;
 
-    const defaultSlot = this.$scopedSlots.default()
-    const tooltip = this.$scopedSlots.tooltip()
+    const defaultSlot = this.$scopedSlots.default();
+    const tooltip = this.$scopedSlots.tooltip();
 
     const content = h(
       "span",
@@ -54,16 +54,16 @@ export default {
         },
       },
       tooltip
-    )
+    );
 
     const on = {
       focus: () => (this.show = true),
       blur: () => (this.show = false), // TODO: this should not run if the next target is inside the tooltip
-    }
+    };
     // add hover events unless focus only
     if (!focus) {
-      on.mouseenter = () => (this.show = true)
-      on.mouseleave = () => (this.show = false)
+      on.mouseenter = () => (this.show = true);
+      on.mouseleave = () => (this.show = false);
     }
 
     const parent = h(
@@ -74,11 +74,11 @@ export default {
         attrs: { id, tabindex: 0, "aria-describedby": `${id}__content` },
       },
       [defaultSlot, content]
-    )
+    );
 
-    return parent
+    return parent;
   },
-}
+};
 </script>
 
 <style>

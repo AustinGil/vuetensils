@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { randomString } from "../../utils"
+import { randomString } from "../../utils";
 /**
  * Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
  */
@@ -72,43 +72,43 @@ export default {
   data() {
     return {
       isOpen: this.open,
-    }
+    };
   },
 
   watch: {
     open(next) {
-      this.isOpen = next
+      this.isOpen = next;
     },
     isOpen(isOpen) {
-      if (typeof window === "undefined") return
-      this.$emit("update", isOpen)
-      this.$emit(isOpen ? "open" : "close")
+      if (typeof window === "undefined") return;
+      this.$emit("update", isOpen);
+      this.$emit(isOpen ? "open" : "close");
     },
   },
 
   created() {
-    const { id } = this.$attrs
-    this.id = id ? id : `vts-${randomString(4)}`
+    const { id } = this.$attrs;
+    this.id = id ? id : `vts-${randomString(4)}`;
   },
 
   methods: {
     collapse(el) {
-      el.style.height = 0
+      el.style.height = 0;
     },
 
     expand(el) {
-      el.style.overflow = "hidden"
-      el.style.height = `${el.scrollHeight}px`
+      el.style.overflow = "hidden";
+      el.style.height = `${el.scrollHeight}px`;
       // Force repaint to make sure the animation is triggered correctly.
-      el.scrollHeight
+      el.scrollHeight;
     },
 
     resetHeight(el) {
-      el.style.overflow = "visible"
-      el.style.height = ""
+      el.style.overflow = "visible";
+      el.style.height = "";
     },
   },
-}
+};
 </script>
 
 <style>

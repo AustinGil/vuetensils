@@ -1,6 +1,6 @@
-import { mount, RouterLinkStub } from "@vue/test-utils"
+import { mount, RouterLinkStub } from "@vue/test-utils";
 
-import VBreadcrumbs from "../../../../src/components/VBreadcrumbs/VBreadcrumbs.vue"
+import VBreadcrumbs from "../../../../src/components/VBreadcrumbs/VBreadcrumbs.vue";
 
 describe("VBreadcrumbs", () => {
   describe("Created", () => {
@@ -14,24 +14,24 @@ describe("VBreadcrumbs", () => {
           matched: []
         }
       }
-    })
+    });
 
     test("Renders correctly without props", () => {
-      const wrapper = mount(VBreadcrumbs, wrapperOptions())
+      const wrapper = mount(VBreadcrumbs, wrapperOptions());
 
       expect(wrapper)
-        .toMatchSnapshot()
-    })
+        .toMatchSnapshot();
+    });
 
     test("Renders 1 empty crumb", () => {
       const props = {
         breadcrumbs: [{}]
-      }
-      const wrapper = mount(VBreadcrumbs, wrapperOptions(props))
+      };
+      const wrapper = mount(VBreadcrumbs, wrapperOptions(props));
 
       expect(wrapper)
-        .toMatchSnapshot()
-    })
+        .toMatchSnapshot();
+    });
 
     test("Renders 1 crumb", () => {
       const props = {
@@ -39,12 +39,12 @@ describe("VBreadcrumbs", () => {
           text: "First",
           path: "/first"
         }]
-      }
-      const wrapper = mount(VBreadcrumbs, wrapperOptions(props))
+      };
+      const wrapper = mount(VBreadcrumbs, wrapperOptions(props));
 
       expect(wrapper)
-        .toMatchSnapshot()
-    })
+        .toMatchSnapshot();
+    });
 
     test("Renders 3 crumbs", () => {
       const props = {
@@ -62,13 +62,13 @@ describe("VBreadcrumbs", () => {
             path: "/third"
           }
         ]
-      }
-      const wrapper = mount(VBreadcrumbs, wrapperOptions(props))
+      };
+      const wrapper = mount(VBreadcrumbs, wrapperOptions(props));
 
       expect(wrapper)
-        .toMatchSnapshot()
-    })
-  })
+        .toMatchSnapshot();
+    });
+  });
 
   describe("Crumbs from routes", () => {
     const wrapperOptions = (route) => ({
@@ -81,17 +81,17 @@ describe("VBreadcrumbs", () => {
           ...route
         }
       }
-    })
+    });
 
     test("Dashboard defaults to home text", () => {
       const route = {
         fullPath: "/dashboard"
-      }
-      const wrapper = mount(VBreadcrumbs, wrapperOptions(route))
+      };
+      const wrapper = mount(VBreadcrumbs, wrapperOptions(route));
 
       expect(wrapper.find("li"))
-        .toMatchSnapshot()
-    })
+        .toMatchSnapshot();
+    });
 
     test("Prevent duplicate child routes", () => {
       const route = {
@@ -103,12 +103,12 @@ describe("VBreadcrumbs", () => {
             }
           }
         ]
-      }
-      const wrapper = mount(VBreadcrumbs, wrapperOptions(route))
+      };
+      const wrapper = mount(VBreadcrumbs, wrapperOptions(route));
 
       expect(wrapper)
-        .toMatchSnapshot()
-    })
+        .toMatchSnapshot();
+    });
 
     test("Prevent duplicate child routes (with trailing slash)", () => {
       const route = {
@@ -120,12 +120,12 @@ describe("VBreadcrumbs", () => {
             }
           }
         ]
-      }
-      const wrapper = mount(VBreadcrumbs, wrapperOptions(route))
+      };
+      const wrapper = mount(VBreadcrumbs, wrapperOptions(route));
 
       expect(wrapper)
-        .toMatchSnapshot()
-    })
+        .toMatchSnapshot();
+    });
 
     describe("Get text", () => {
       test("From meta title", () => {
@@ -137,12 +137,12 @@ describe("VBreadcrumbs", () => {
               }
             }
           ]
-        }
-        const wrapper = mount(VBreadcrumbs, wrapperOptions(route))
+        };
+        const wrapper = mount(VBreadcrumbs, wrapperOptions(route));
 
         expect(wrapper)
-          .toMatchSnapshot()
-      })
+          .toMatchSnapshot();
+      });
 
       test("From name", () => {
         const route = {
@@ -151,12 +151,12 @@ describe("VBreadcrumbs", () => {
               name: "Name"
             }
           ]
-        }
-        const wrapper = mount(VBreadcrumbs, wrapperOptions(route))
+        };
+        const wrapper = mount(VBreadcrumbs, wrapperOptions(route));
 
         expect(wrapper)
-          .toMatchSnapshot()
-      })
+          .toMatchSnapshot();
+      });
 
       test("From path", () => {
         const route = {
@@ -165,12 +165,12 @@ describe("VBreadcrumbs", () => {
               path: "records/"
             }
           ]
-        }
-        const wrapper = mount(VBreadcrumbs, wrapperOptions(route))
+        };
+        const wrapper = mount(VBreadcrumbs, wrapperOptions(route));
 
         expect(wrapper)
-          .toMatchSnapshot()
-      })
-    })
-  })
-})
+          .toMatchSnapshot();
+      });
+    });
+  });
+});

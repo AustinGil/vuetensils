@@ -69,7 +69,7 @@
  * https://github.com/primefaces/primevue/blob/master/src/components/autocomplete/AutoComplete.vue
  */
 
-import { randomString } from "../../utils"
+import { randomString } from "../../utils";
 
 /**
  * Input component that automatically includes labels, validation, and aria descriptions for any errors.
@@ -119,46 +119,46 @@ export default {
       anyInvalid: false, // TODO: deprecate
       dirty: false,
       invalid: {},
-    }
+    };
   },
 
   computed: {
     tag() {
-      const { type } = this.$attrs
+      const { type } = this.$attrs;
       if (type === "textarea") {
-        return "textarea"
+        return "textarea";
       }
       if (type === "select") {
-        return "select"
+        return "select";
       }
-      return "input"
+      return "input";
     },
 
     computedOptions() {
       return this.options.map(item => {
         // Each item should be an object with at least value and label which we can bind to later
-        item = typeof item === "object" ? item : { value: item }
-        Object.assign(item, this.$attrs)
-        item.label = item.label || item.value
-        item.name = item.name || this.id
-        item.required = true
-        return item
-      })
+        item = typeof item === "object" ? item : { value: item };
+        Object.assign(item, this.$attrs);
+        item.label = item.label || item.value;
+        item.name = item.name || this.id;
+        item.required = true;
+        return item;
+      });
     },
 
     isMultiple() {
-      const { multiple } = this.$attrs
-      return multiple != null && multiple != "false"
+      const { multiple } = this.$attrs;
+      return multiple != null && multiple != "false";
     },
 
     error() {
-      return !this.valid && this.dirty
+      return !this.valid && this.dirty;
     },
   },
 
   watch: {
     value(next) {
-      this.localValue = next
+      this.localValue = next;
     },
     localValue: {
       handler: "validate",
@@ -167,54 +167,54 @@ export default {
 
   created() {
     // Might cause an issue with SSR
-    const { id, name } = this.$attrs
-    this.id = id ? id : `vts-${randomString(4)}`
-    this.name = name ? name : this.id
+    const { id, name } = this.$attrs;
+    this.id = id ? id : `vts-${randomString(4)}`;
+    this.name = name ? name : this.id;
   },
 
   mounted() {
-    this.validate()
+    this.validate();
   },
 
   methods: {
     onInput({ target }) {
-      const { type } = this.$attrs
-      const isMultiple = this.isMultiple
+      const { type } = this.$attrs;
+      const isMultiple = this.isMultiple;
 
-      let value
+      let value;
 
       if (type === "checkbox") {
-        value = target.checked
+        value = target.checked;
       } else if (type === "select" && isMultiple) {
-        value = []
+        value = [];
         target.options.forEach(option => {
           // for of not supported
           if (option.selected) {
-            value.push(option.value)
+            value.push(option.value);
           }
-        })
+        });
       } else {
-        value = target.value
+        value = target.value;
       }
 
       /**
        * @event update
        * @type { any }
        */
-      this.$emit("update", value)
-      this.validate()
+      this.$emit("update", value);
+      this.validate();
     },
 
     validate() {
-      const input = this.$refs.input
-      if (Array.isArray(input)) return
+      const input = this.$refs.input;
+      if (Array.isArray(input)) return;
 
-      const { validity } = input
+      const { validity } = input;
 
       // https://logaretm.com/blog/2019-05-03-html-aided-vuejs-form-validation/
 
-      this.anyInvalid = !validity.valid // TODO: deprecate
-      this.valid = validity.valid
+      this.anyInvalid = !validity.valid; // TODO: deprecate
+      this.valid = validity.valid;
       this.invalid = {
         type: validity.typeMismatch,
         required: validity.valueMissing,
@@ -223,8 +223,8 @@ export default {
         min: validity.rangeOverflow,
         max: validity.rangeUnderflow,
         pattern: validity.patternMismatch,
-      }
+      };
     },
   },
-}
+};
 </script>

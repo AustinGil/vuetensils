@@ -164,7 +164,7 @@ export default {
       sortOrder: this.order && this.order.toUpperCase(),
       currentPage: this.page,
       tabindex: null,
-    }
+    };
   },
 
   computed: {
@@ -174,120 +174,120 @@ export default {
         headers[item.key] = {
           sortable: true,
           ...item,
-        }
-        return headers
-      }, {})
+        };
+        return headers;
+      }, {});
     },
 
     cItems() {
-      const { items, sortBy, sortOrder, currentPage, perPage, cHeaders } = this
+      const { items, sortBy, sortOrder, currentPage, perPage, cHeaders } = this;
 
       let cItems = items.map(original => {
-        const data = {}
+        const data = {};
         Object.keys(cHeaders).forEach(key => {
-          data[key] = original[key]
-        })
+          data[key] = original[key];
+        });
         return {
           original,
           data,
-        }
-      })
+        };
+      });
 
       if (sortBy && sortOrder) {
-        const multiplier = sortOrder === "ASC" ? 1 : -1
-        const isNum = Number.isFinite(cItems[0].data[sortBy])
+        const multiplier = sortOrder === "ASC" ? 1 : -1;
+        const isNum = Number.isFinite(cItems[0].data[sortBy]);
 
         cItems = cItems.sort((a, b) => {
-          const aVal = a.data[sortBy]
-          const bVal = b.data[sortBy]
+          const aVal = a.data[sortBy];
+          const bVal = b.data[sortBy];
 
           if (isNum) {
-            return (aVal - bVal) * multiplier
+            return (aVal - bVal) * multiplier;
           }
 
-          if (aVal < bVal) return -1 * multiplier
-          if (aVal > bVal) return 1 * multiplier
-          return 0
-        })
+          if (aVal < bVal) return -1 * multiplier;
+          if (aVal > bVal) return 1 * multiplier;
+          return 0;
+        });
       }
 
       if (perPage > -1) {
-        const offset = (Math.max(currentPage, 1) - 1) * perPage
-        cItems = cItems.slice(offset, offset + perPage)
+        const offset = (Math.max(currentPage, 1) - 1) * perPage;
+        cItems = cItems.slice(offset, offset + perPage);
       }
 
-      return cItems
+      return cItems;
     },
 
     lastPage() {
-      return Math.ceil(this.items.length / this.perPage)
+      return Math.ceil(this.items.length / this.perPage);
     },
   },
 
   mounted() {
-    const { scrollWidth, clientWidth } = this.$refs.container
-    const scrollable = scrollWidth > clientWidth
-    this.tabindex = scrollable ? "0" : null
+    const { scrollWidth, clientWidth } = this.$refs.container;
+    const scrollable = scrollWidth > clientWidth;
+    this.tabindex = scrollable ? "0" : null;
   },
 
   methods: {
     onSort(key) {
-      const { sortBy, sortOrder } = this
-      this.currentPage = 1
+      const { sortBy, sortOrder } = this;
+      this.currentPage = 1;
 
       if (key !== sortBy) {
-        this.sortBy = key
-        this.sortOrder = "ASC"
-        return
+        this.sortBy = key;
+        this.sortOrder = "ASC";
+        return;
       }
 
       switch (sortOrder) {
         case "ASC":
-          this.sortOrder = "DESC"
-          break
+          this.sortOrder = "DESC";
+          break;
         case "DESC":
-          this.sortOrder = null
-          break
+          this.sortOrder = null;
+          break;
         default:
-          this.sortOrder = "ASC"
+          this.sortOrder = "ASC";
       }
     },
 
     goToPage(page) {
-      const { lastPage } = this
-      this.currentPage = Math.min(Math.max(1, page), lastPage)
+      const { lastPage } = this;
+      this.currentPage = Math.min(Math.max(1, page), lastPage);
     },
 
     emitRowClick(item) {
-      this.$emit("click:row", item.original)
+      this.$emit("click:row", item.original);
     },
 
     ariaSort(header) {
-      let order = "descending"
+      let order = "descending";
 
       if (this.sortBy !== header.key) {
-        order = null
+        order = null;
       } else if (this.sortOrder === "ASC") {
-        order = "ascending"
+        order = "ascending";
       }
 
-      return order
+      return order;
     },
     ariaLabel(header) {
-      let order = "default"
+      let order = "default";
 
       if (!this.sortOrder) {
-        order = "ascending"
+        order = "ascending";
       } else if (this.sortOrder === "ASC") {
-        order = "descending"
+        order = "descending";
       }
 
       return ["sort by", header.text || header.key, "in", order, "order"].join(
         " "
-      )
+      );
     },
   },
-}
+};
 </script>
 
 <style>

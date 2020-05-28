@@ -87,11 +87,11 @@ export default {
     visible: {
       handler(visible) {
         if (visible) {
-          this.dismissed = false
+          this.dismissed = false;
         }
         if (typeof visible === "number") {
-          this.clearTimer() // Clear timers in case this.visible watcher adds multiples
-          this.countdown()
+          this.clearTimer(); // Clear timers in case this.visible watcher adds multiples
+          this.countdown();
         }
       },
       immediate: true,
@@ -99,7 +99,7 @@ export default {
   },
 
   beforeDestroy() {
-    this.clearTimer()
+    this.clearTimer();
   },
 
   methods: {
@@ -109,19 +109,19 @@ export default {
        * @event dismiss
        * @type { undefined }
        */
-      this.$emit("dismiss")
-      this.dismissed = true
+      this.$emit("dismiss");
+      this.dismissed = true;
       if (typeof this.visible === "number") {
-        this.$emit("update", 0)
-        this.clearTimer()
+        this.$emit("update", 0);
+        this.clearTimer();
       } else {
-        this.$emit("update", false)
+        this.$emit("update", false);
       }
     },
 
     countdown() {
-      const { visible } = this
-      if (visible <= 0) return
+      const { visible } = this;
+      if (visible <= 0) return;
 
       this.timerId = setTimeout(() => {
         /**
@@ -129,17 +129,17 @@ export default {
          * @event update
          * @type { boolean/number }
          */
-        this.$emit("update", visible - 1)
-      }, 1000)
+        this.$emit("update", visible - 1);
+      }, 1000);
     },
 
     clearTimer() {
-      const { timerId } = this
+      const { timerId } = this;
       if (timerId) {
-        clearInterval(timerId)
-        this.timerId = null
+        clearInterval(timerId);
+        this.timerId = null;
       }
     },
   },
-}
+};
 </script>

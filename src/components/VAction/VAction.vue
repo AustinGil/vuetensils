@@ -6,30 +6,30 @@
  */
 function getTag({ to }, { attrs }) {
   if (to) {
-    return "RouterLink"
+    return "RouterLink";
   }
   if (attrs && attrs.href) {
-    return "a"
+    return "a";
   }
-  return "button"
+  return "button";
 }
 
 export default {
   name: "VAction",
   functional: true,
   render(h, { data, listeners, props, children }) {
-    const tag = getTag(props, data)
+    const tag = getTag(props, data);
     const options = {
       ...data,
       props,
       class: ["vts-action"],
       on: listeners,
-    }
+    };
     if (tag === "RouterLink") {
-      options.nativeOn = listeners
+      options.nativeOn = listeners;
     }
 
-    return h(tag, options, children)
+    return h(tag, options, children);
   },
-}
+};
 </script>

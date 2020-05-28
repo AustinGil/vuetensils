@@ -20,20 +20,20 @@ export default {
   }),
 
   mounted() {
-    const fn = this.updateDimensions
-    fn()
-    window.addEventListener("resize", fn)
+    const fn = this.updateDimensions;
+    fn();
+    window.addEventListener("resize", fn);
     this.$once("hook:beforeDestroy", () => {
-      window.removeEventListener("resize", fn)
-    })
+      window.removeEventListener("resize", fn);
+    });
   },
 
   methods: {
     updateDimensions() {
-      const el = this.$el
-      this.width = el.offsetWidth
-      this.height = el.offsetHeight
+      const el = this.$el;
+      this.width = el.offsetWidth;
+      this.height = el.offsetHeight;
     },
   },
-}
+};
 </script>

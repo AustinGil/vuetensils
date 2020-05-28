@@ -23,7 +23,7 @@
 </template>
 
 <script>
-const NAME = "vts-img"
+const NAME = "vts-img";
 
 /**
  * Drop in replacement for the HTML `<img>` tag which supports lazy-loading. Improves load times by waiting for the image to scroll into view before actually downloading it.
@@ -78,15 +78,15 @@ export default {
 
   computed: {
     dataUrl() {
-      const { width, height } = this.$attrs
-      if (!width || !height) return ""
+      const { width, height } = this.$attrs;
+      if (!width || !height) return "";
 
-      const w = 100
-      const canvas = document.createElement("canvas")
-      canvas.width = w
-      canvas.height = (height / width) * w
+      const w = 100;
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = (height / width) * w;
 
-      return canvas.toDataURL()
+      return canvas.toDataURL();
     },
   },
 
@@ -100,60 +100,60 @@ export default {
   },
 
   mounted() {
-    this.init()
+    this.init();
   },
 
   methods: {
     init() {
-      this.observer = new IntersectionObserver(this.handler)
-      this.observer.observe(this.$el)
+      this.observer = new IntersectionObserver(this.handler);
+      this.observer.observe(this.$el);
 
       this.$once("hook:beforeDestroy", () => {
-        this.observer.disconnect()
-      })
+        this.observer.disconnect();
+      });
     },
 
     handler([entry]) {
-      const { $el } = this
+      const { $el } = this;
 
       if (entry.isIntersecting) {
         // Element is in viewport
-        $el.classList.add(`${NAME}--loading`)
-        this.loadImg()
-        this.observer.disconnect()
+        $el.classList.add(`${NAME}--loading`);
+        this.loadImg();
+        this.observer.disconnect();
       }
     },
 
     loadImg() {
-      const { src, srcset } = this
-      const { img } = this.$refs
+      const { src, srcset } = this;
+      const { img } = this.$refs;
 
-      img.addEventListener("load", this.onLoad)
+      img.addEventListener("load", this.onLoad);
 
       if (srcset) {
-        img.srcset = srcset
+        img.srcset = srcset;
       }
-      img.src = src
+      img.src = src;
     },
 
     onLoad() {
-      const { $el } = this
-      const { img, placeholder } = this.$refs
+      const { $el } = this;
+      const { img, placeholder } = this.$refs;
 
-      $el.classList.remove(`${NAME}--loading`)
-      $el.classList.add(`${NAME}--loaded`)
+      $el.classList.remove(`${NAME}--loading`);
+      $el.classList.add(`${NAME}--loaded`);
 
       if (placeholder) {
         img.addEventListener("transitionend", function onTransitionEnd() {
-          placeholder.remove()
-          img.removeEventListener("transitionend", onTransitionEnd)
-        })
+          placeholder.remove();
+          img.removeEventListener("transitionend", onTransitionEnd);
+        });
       }
 
-      img.removeEventListener("load", this.onLoad)
+      img.removeEventListener("load", this.onLoad);
     },
   },
-}
+};
 </script>
 
 <style>

@@ -3,7 +3,7 @@
  * @param {string} str
  * @return {string}
  */
-export const capitalize = str => str[0].toUpperCase() + str.slice(1)
+export const capitalize = str => str[0].toUpperCase() + str.slice(1);
 
 /**
  * @param {number} str
@@ -16,7 +16,7 @@ export function currency(str, currency, locale = navigator.language) {
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
-  }).format(str)
+  }).format(str);
 }
 
 /**
@@ -25,7 +25,7 @@ export function currency(str, currency, locale = navigator.language) {
  * @return {string}
  */
 export function number(str, locale = navigator.language) {
-  return new Intl.NumberFormat(locale).format(str)
+  return new Intl.NumberFormat(locale).format(str);
 }
 
 /**
@@ -33,7 +33,7 @@ export function number(str, locale = navigator.language) {
  * @param {string} placeholder
  * @return {string}
  */
-export const placeholder = (str, placeholder) => str || placeholder
+export const placeholder = (str, placeholder) => str || placeholder;
 
 /**
  * @param {string} str
@@ -42,7 +42,7 @@ export const placeholder = (str, placeholder) => str || placeholder
  * @return {string}
  */
 export function plural(str, plural, qty) {
-  return qty === 0 || qty > 1 ? plural : str
+  return qty === 0 || qty > 1 ? plural : str;
 }
 
 /**
@@ -54,9 +54,9 @@ export function plural(str, plural, qty) {
 export function truncate(str, length = 100, append = "...") {
   // TODO: dont split last word
   if (str.length > length) {
-    return str.substring(0, length - append.length) + append
+    return str.substring(0, length - append.length) + append;
   } else {
-    return str
+    return str;
   }
 }
 

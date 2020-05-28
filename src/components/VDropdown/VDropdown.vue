@@ -55,7 +55,7 @@ export default {
       type: String,
       default: "bottom",
       validator(value) {
-        return ["top", "bottom"].includes(value)
+        return ["top", "bottom"].includes(value);
       },
     },
     /**
@@ -78,27 +78,27 @@ export default {
   }),
 
   mounted() {
-    const { onClickout } = this
-    document.addEventListener("click", onClickout)
+    const { onClickout } = this;
+    document.addEventListener("click", onClickout);
     this.$once("hook:beforeDestroy", () => {
-      document.removeEventListener("click", onClickout)
-    })
+      document.removeEventListener("click", onClickout);
+    });
   },
 
   methods: {
     onClickout(e) {
       if (!this.$el.contains(e.target)) {
-        this.isFocused = false
+        this.isFocused = false;
       }
     },
 
     onFocusout(event) {
       if (!this.$el.contains(event.relatedTarget)) {
-        this.isFocused = false
+        this.isFocused = false;
       }
     },
   },
-}
+};
 </script>
 
 <style>

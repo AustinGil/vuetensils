@@ -10,4 +10,4 @@ export default [
   "embed",
   "[contenteditable]",
   "[tabindex]:not([tabindex^=\"-\"])"
-]
+];
