@@ -18,32 +18,24 @@
       :class="['vts-file__input', classes.input]"
       @change="onChange"
       v-on="$listeners"
-    >
+    />
 
     <span :class="['vts-file__text', classes.text]">
       <slot name="label">{{ label }}</slot>
     </span>
 
-    <div
-      class="vts-file__dropzone"
-      @dragenter.prevent="droppable = true"
-    >
+    <div class="vts-file__dropzone" @dragenter.prevent="droppable = true">
       <slot v-bind="{ files: localFiles, droppable }">
-        <span
-          v-if="localFiles.length"
-          aria-hidden="true"
-        >
-          {{
-            localFiles.length > 1
-              ? `${localFiles.length} files selected`
-              : localFiles[0].name
-          }}
+        <span v-if="localFiles.length" aria-hidden="true">
+          <template v-if="localFiles.length > 1">
+            {{ localFiles.length }} files selected
+          </template>
+          <template v-else>
+            {{ localFiles[0].name }}
+          </template>
         </span>
 
-        <span
-          v-else
-          aria-hidden="true"
-        >
+        <span v-else aria-hidden="true">
           Choose files or drop here
         </span>
       </slot>
@@ -63,13 +55,13 @@
 </template>
 
 <script>
-import { randomString } from "../../utils"
+import { randomString } from '../../utils';
 
 export default {
-  name: "VFile",
+  name: 'VFile',
   model: {
-    prop: "files",
-    event: "update",
+    prop: 'files',
+    event: 'update',
   },
 
   props: {
@@ -96,32 +88,32 @@ export default {
 
   watch: {
     files(files) {
-      this.localFiles = files
+      this.localFiles = files;
     },
     localFiles() {
-      this.droppable = false
+      this.droppable = false;
     },
   },
 
   created() {
-    this.id = this.$attrs.id || 'vts-' + randomString(4)
+    this.id = this.$attrs.id || 'vts-' + randomString(4);
   },
 
   methods: {
     onChange(event) {
-      const files = Array.from(event.target.files)
-      this.localFiles = files
-      this.$emit("update", files)
+      const files = Array.from(event.target.files);
+      this.localFiles = files;
+      this.$emit('update', files);
     },
 
     onDrop(event) {
-      const files = Array.from(event.dataTransfer.files)
-      const isMulti = this.$attrs.multiple != null
+      const files = Array.from(event.dataTransfer.files);
+      const isMulti = this.$attrs.multiple != null;
       if (!isMulti && files.length > 1) {
-        files.length = 1
+        files.length = 1;
       }
-      this.localFiles = files
-      this.$emit("update", files)
+      this.localFiles = files;
+      this.$emit('update', files);
     },
 
     // clear() {
@@ -130,7 +122,7 @@ export default {
     //   this.$emit("update", [])
     // },
   },
-}
+};
 </script>
 
 <style>

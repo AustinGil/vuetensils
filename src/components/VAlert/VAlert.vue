@@ -9,14 +9,12 @@
       <!-- @slot The default slot content that is shown to the user -->
       <slot />
 
-      <!-- eslint-disable vue-a11y/click-events-have-key-events -->
       <button
         v-if="dismissible"
         :aria-label="dismissLabel"
         :class="['vts-alert__dismiss', classes.dismiss]"
         @click="dismiss"
       >
-        <!-- eslint-enable vue-a11y/click-events-have-key-events -->
         <!-- @slot The dismiss button content -->
         <slot name="dismiss">
           &times;
@@ -31,10 +29,10 @@
  * A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
  */
 export default {
-  name: "VAlert",
+  name: 'VAlert',
   model: {
-    prop: "visible",
-    event: "update",
+    prop: 'visible',
+    event: 'update',
   },
 
   props: {
@@ -43,7 +41,7 @@ export default {
      */
     tag: {
       type: String,
-      default: "div",
+      default: 'div',
     },
     /**
      * Determines whether the alert is visible. Also binds with `v-model`.
@@ -64,7 +62,7 @@ export default {
      */
     dismissLabel: {
       type: [String, Boolean],
-      default: "Dismiss this alert",
+      default: 'Dismiss this alert',
     },
     /**
      * The transition name if you want to add one.
@@ -89,11 +87,11 @@ export default {
     visible: {
       handler(visible) {
         if (visible) {
-          this.dismissed = false
+          this.dismissed = false;
         }
-        if (typeof visible === "number") {
-          this.clearTimer() // Clear timers in case this.visible watcher adds multiples
-          this.countdown()
+        if (typeof visible === 'number') {
+          this.clearTimer(); // Clear timers in case this.visible watcher adds multiples
+          this.countdown();
         }
       },
       immediate: true,
@@ -101,7 +99,7 @@ export default {
   },
 
   beforeDestroy() {
-    this.clearTimer()
+    this.clearTimer();
   },
 
   methods: {
@@ -111,19 +109,19 @@ export default {
        * @event dismiss
        * @type { undefined }
        */
-      this.$emit("dismiss")
-      this.dismissed = true
-      if (typeof this.visible === "number") {
-        this.$emit("update", 0)
-        this.clearTimer()
+      this.$emit('dismiss');
+      this.dismissed = true;
+      if (typeof this.visible === 'number') {
+        this.$emit('update', 0);
+        this.clearTimer();
       } else {
-        this.$emit("update", false)
+        this.$emit('update', false);
       }
     },
 
     countdown() {
-      const { visible } = this
-      if (visible <= 0) return
+      const { visible } = this;
+      if (visible <= 0) return;
 
       this.timerId = setTimeout(() => {
         /**
@@ -131,17 +129,17 @@ export default {
          * @event update
          * @type { boolean/number }
          */
-        this.$emit("update", visible - 1)
-      }, 1000)
+        this.$emit('update', visible - 1);
+      }, 1000);
     },
 
     clearTimer() {
-      const { timerId } = this
+      const { timerId } = this;
       if (timerId) {
-        clearInterval(timerId)
-        this.timerId = null
+        clearInterval(timerId);
+        this.timerId = null;
       }
     },
   },
-}
+};
 </script>

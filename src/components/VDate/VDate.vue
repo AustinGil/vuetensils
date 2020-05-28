@@ -313,7 +313,7 @@
 <script>
 export default {
   // https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/datepicker-dialog.html
-}
+};
 </script>
 
 <style>
