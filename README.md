@@ -139,10 +139,10 @@ If I want my projects to follow best practices for semantic markup and accessibi
 <!-- VirtualList? https://codepen.io/Stegosource/pen/NWGGKZp?editors=1010 -->
 <!-- v-focusabe? https://blog.vuestorefront.io/how-storefront-ui-solves-website-accessibility-issues/ -->
 <!-- https://github.com/conventional-changelog/standard-version -->
-<!-- TODO: Babel transpiler -->
 <!-- TODO: Toast/notification -->
 <!-- TODO: Toggles: https://codepen.io/heydon/pen/QqzRvQ/ -->
-<!-- TODO: https://rollup-plugin-vue.vuejs.org/examples.html#minimal -->
 <!-- TODO: https://medium.com/faun/automate-your-npm-publish-with-github-actions-dfe8059645dd -->
 <!-- TODO: Docgen: https://github.com/vue-styleguidist/vue-styleguidist/tree/dev/examples/docgen/ -->
+<!-- TODO: https://vue-styleguidist.github.io/docs/docgen-cli.html -->
 <!-- TODO: https://xaksis.github.io/vue-good-table/guide/#installation -->
+<!-- TODO: https://dequeuniversity.com/library/ -->
