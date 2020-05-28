@@ -66,26 +66,27 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="i in 6" :key="i">
+          <tr v-for="i in 6" :key="`i-${i}`">
             <td
               v-for="j in 7"
-              :key="j"
+              :key="`j-${j}`"
               :class="[
                 'vts-date__cell',
-                { 'vts-date__cell--active': i === 3 && j === 4 },
+                { 'vts-date__cell--active': isFocusedIndex(i, j) },
               ]"
             >
               <button
                 :class="[
                   'vts-date__day',
-                  { 'vts-date__day--active': i === 3 && j === 4 },
+                  { 'vts-date__day--active': isFocusedIndex(i, j) },
                 ]"
-                :tabindex="i === 3 && j === 4 ? '0' : '-1'"
-                :aria-selected="i === 3 && j === 4"
-                :disabled="i !== 3 || j !== 4"
+                :tabindex="isFocusedIndex(i, j) ? '0' : '-1'"
+                :aria-selected="isFocusedIndex(i, j)"
+                :disabled="!isFocusedIndex(i, j)"
               >
-                {{ days[7 * (i - 1) + (j - 1)] }}
+                {{ days[7 * (i - 1) + (j - 1)].getDate() }}
               </button>
+              <!-- focusDay -->
             </td>
           </tr>
         </tbody>
@@ -106,12 +107,29 @@
 </template>
 
 <script>
-import keycodes from "../../data/keycodes.js"
+import keycodes from '../../data/keycodes.js';
 
 /**
  * @typedef { object } Date
  * @property {function} getFullYear
  */
+
+/**
+ * @param {object} first
+ * @param {object} second
+ * @return {boolean}
+ */
+function sameDays(first, second) {
+  // console.log(
+  //   first.getMonth() === second.getMonth(),
+  //   first.getDate() === second.getDate()
+  // )
+  return (
+    first.getFullYear() === second.getFullYear() &&
+    first.getMonth() === second.getMonth() &&
+    first.getDate() === second.getDate()
+  );
+}
 
 export default {
   // https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/datepicker-dialog.html
@@ -119,30 +137,30 @@ export default {
     monthLabels: {
       type: Array,
       default: () => [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
       ],
     },
     dayLabels: {
       type: Array,
       default: () => [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
       ],
     },
   },
@@ -150,13 +168,13 @@ export default {
   data: () => ({
     // dayList: [],
     daysOfWeek: Object.freeze({
-      Su: "Sunday",
-      Mo: "Monday",
-      Tu: "Tuesday",
-      We: "Wednesday",
-      Th: "Thursday",
-      Fr: "Friday",
-      Sa: "Saturday",
+      Su: 'Sunday',
+      Mo: 'Monday',
+      Tu: 'Tuesday',
+      We: 'Wednesday',
+      Th: 'Thursday',
+      Fr: 'Friday',
+      Sa: 'Saturday',
     }),
     focusDay: new Date(),
     selectedDay: new Date(0, 0, 1),
@@ -165,61 +183,104 @@ export default {
 
   computed: {
     monthYear() {
-      const { monthLabels, focusDay } = this
-      return `${monthLabels[focusDay.getMonth()]} ${focusDay.getFullYear()}`
+      const { monthLabels, focusDay } = this;
+      return `${monthLabels[focusDay.getMonth()]} ${focusDay.getFullYear()}`;
     },
     days() {
-      /**
-       * @type {object}
-       * @property {string} focusDay
-       */
-      const { focusDay } = this
+      const { focusDay } = this;
       const firstDayOfMonth = new Date(
         focusDay.getFullYear(),
         focusDay.getMonth(),
         1
-      )
-      const dayOfWeek = firstDayOfMonth.getDay()
-      firstDayOfMonth.setDate(firstDayOfMonth.getDate() - dayOfWeek)
+      );
+      const dayOfWeek = firstDayOfMonth.getDay();
+      firstDayOfMonth.setDate(firstDayOfMonth.getDate() - dayOfWeek);
 
       const daysInMonth = new Date(
         focusDay.getFullYear(),
         focusDay.getMonth() + 1,
         0
-      ).getDate()
+      ).getDate();
 
-      const d = new Date(firstDayOfMonth)
-      const days = []
+      const d = new Date(firstDayOfMonth);
+      const days = [];
 
       // 42 = most rows (6) * weekdays (7)
       for (let i = 0, l = 42; i < l; i++) {
-        days.push(new Date(d))
-        d.setDate(d.getDate() + 1)
+        days.push(new Date(d));
+        d.setDate(d.getDate() + 1);
       }
 
       if (dayOfWeek + daysInMonth < 36) {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.hideLastRow = true
+        this.hideLastRow = true;
       } else {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.showLastRow = false
+        this.showLastRow = false;
       }
-      return days
+      return days;
     },
   },
 
   methods: {
     hide() {
-      console.log("hide")
+      console.log('hide');
+    },
+
+    isFocusedIndex(i, j) {
+      const { days, focusDay } = this;
+      const weekIndex = i - 1;
+      const dayIndex = j - 1;
+      const testDate = days[weekIndex * 7 + dayIndex];
+
+      return sameDays(focusDay, testDate);
     },
 
     onKeydown(event) {
-      let flag = false
+      const { focusDay } = this;
+      let flag = false;
+      let d;
 
+      if (event.target.classList.contains('vts-date__day')) {
+        switch (event.keyCode) {
+          case keycodes.ENTER:
+          case keycodes.SPACE:
+            // this.datepicker.setTextboxDate(this.day)
+            // this.datepicker.hide()
+            flag = true;
+            break;
+
+          case keycodes.RIGHT:
+            d = new Date(focusDay);
+            d.setDate(d.getDate() + 1);
+            this.focusDay = d;
+
+            flag = true;
+            break;
+
+          case keycodes.LEFT:
+            d = new Date(focusDay);
+            d.setDate(d.getDate() - 1);
+            this.focusDay = d;
+
+            flag = true;
+            break;
+
+          case keycodes.DOWN:
+            // this.datepicker.moveFocusToNextWeek()
+            flag = true;
+            break;
+
+          case keycodes.UP:
+            // this.datepicker.moveFocusToPreviousWeek()
+            flag = true;
+            break;
+        }
+      }
       switch (event.keyCode) {
         case keycodes.ESC:
-          this.hide()
-          break
+          this.hide();
+          break;
 
         case keycodes.TAB:
           // TODO: focus trap
@@ -229,43 +290,16 @@ export default {
           }
           // this.datepicker.setMessage("")
           // flag = true
-          break
-
-        case keycodes.ENTER:
-        case keycodes.SPACE:
-          // this.datepicker.setTextboxDate(this.day)
-          // this.datepicker.hide()
-          flag = true
-          break
-
-        case keycodes.RIGHT:
-          // this.datepicker.moveFocusToNextDay()
-          flag = true
-          break
-
-        case keycodes.LEFT:
-          // this.datepicker.moveFocusToPreviousDay()
-          flag = true
-          break
-
-        case keycodes.DOWN:
-          // this.datepicker.moveFocusToNextWeek()
-          flag = true
-          break
-
-        case keycodes.UP:
-          // this.datepicker.moveFocusToPreviousWeek()
-          flag = true
-          break
+          break;
 
         case keycodes.PAGEUP:
           if (event.shiftKey) {
-            this.datepicker.moveToPreviousYear()
+            // this.datepicker.moveToPreviousYear();
           } else {
             // this.datepicker.moveToPreviousMonth()
           }
-          flag = true
-          break
+          flag = true;
+          break;
 
         case keycodes.PAGEDOWN:
           if (event.shiftKey) {
@@ -273,35 +307,35 @@ export default {
           } else {
             // this.datepicker.moveToNextMonth()
           }
-          flag = true
-          break
+          flag = true;
+          break;
 
         case keycodes.HOME:
           // this.datepicker.moveFocusToFirstDayOfWeek()
-          flag = true
-          break
+          flag = true;
+          break;
 
         case keycodes.END:
           // this.datepicker.moveFocusToLastDayOfWeek()
-          flag = true
-          break
+          flag = true;
+          break;
       }
 
       if (flag) {
-        event.stopPropagation()
-        event.preventDefault()
+        event.stopPropagation();
+        event.preventDefault();
       }
     },
 
     onCancel() {
-      console.log("cancel")
+      console.log('cancel');
     },
 
     onOk() {
-      console.log("ok", this.selectedDay)
+      console.log('ok', this.selectedDay);
     },
   },
-}
+};
 </script>
 
 <style>
