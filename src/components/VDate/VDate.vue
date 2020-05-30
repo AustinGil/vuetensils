@@ -66,31 +66,31 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="i in 6" :key="`i-${i}`">
+          <tr v-for="week in 6" :key="week">
             <td
-              v-for="j in 7"
-              :key="`j-${j}`"
+              v-for="day in weeksDays[week - 1]"
+              :key="day.date.toString()"
               :class="[
                 'vts-date__cell',
-                { 'vts-date__cell--active': isFocusedIndex(i, j) },
+                { 'vts-date__cell--active': day.isFocused },
               ]"
             >
               <button
                 :class="[
                   'vts-date__day',
-                  { 'vts-date__day--active': isFocusedIndex(i, j) },
+                  { 'vts-date__day--active': day.isFocused },
                 ]"
-                :tabindex="isFocusedIndex(i, j) ? '0' : '-1'"
-                :aria-selected="isFocusedIndex(i, j)"
-                :disabled="!isFocusedIndex(i, j)"
+                :tabindex="day.isFocused ? '0' : '-1'"
+                :aria-selected="day.isFocused"
+                :disabled="!day.isFocused"
               >
-                {{ days[7 * (i - 1) + (j - 1)].getDate() }}
+                {{ day.date.getDate() }}
               </button>
-              <!-- focusDay -->
             </td>
           </tr>
         </tbody>
       </table>
+
       <div class="">
         <button class="" value="cancel" @click="onCancel">
           Cancel
@@ -108,11 +108,6 @@
 
 <script>
 import keycodes from '../../data/keycodes.js';
-
-/**
- * @typedef { object } Date
- * @property {function} getFullYear
- */
 
 /**
  * @param {object} first
@@ -176,49 +171,53 @@ export default {
       Fr: 'Friday',
       Sa: 'Saturday',
     }),
-    focusDay: new Date(),
-    selectedDay: new Date(0, 0, 1),
+    focusedDate: new Date(),
+    selectedDate: new Date(0, 0, 1),
     hideLastRow: false,
   }),
 
   computed: {
     monthYear() {
-      const { monthLabels, focusDay } = this;
-      return `${monthLabels[focusDay.getMonth()]} ${focusDay.getFullYear()}`;
+      const { monthLabels, focusedDate } = this;
+      return `${
+        monthLabels[focusedDate.getMonth()]
+      } ${focusedDate.getFullYear()}`;
     },
-    days() {
-      const { focusDay } = this;
+    weeksDays() {
+      const { focusedDate } = this;
       const firstDayOfMonth = new Date(
-        focusDay.getFullYear(),
-        focusDay.getMonth(),
+        focusedDate.getFullYear(),
+        focusedDate.getMonth(),
         1
       );
       const dayOfWeek = firstDayOfMonth.getDay();
       firstDayOfMonth.setDate(firstDayOfMonth.getDate() - dayOfWeek);
 
       const daysInMonth = new Date(
-        focusDay.getFullYear(),
-        focusDay.getMonth() + 1,
+        focusedDate.getFullYear(),
+        focusedDate.getMonth() + 1,
         0
       ).getDate();
 
       const d = new Date(firstDayOfMonth);
-      const days = [];
+      const maxWeeks = dayOfWeek + daysInMonth < 36 ? 5 : 6;
+      const weeks = [];
 
-      // 42 = most rows (6) * weekdays (7)
-      for (let i = 0, l = 42; i < l; i++) {
-        days.push(new Date(d));
-        d.setDate(d.getDate() + 1);
+      for (let i = 0; i < maxWeeks; i++) {
+        weeks.push([]);
+
+        for (let j = 0; j < 7; j++) {
+          const date = new Date(d);
+          weeks[i].push({
+            date,
+            isFocused: sameDays(date, focusedDate),
+            isSelected: false,
+          });
+          d.setDate(d.getDate() + 1);
+        }
       }
 
-      if (dayOfWeek + daysInMonth < 36) {
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.hideLastRow = true;
-      } else {
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        this.showLastRow = false;
-      }
-      return days;
+      return weeks;
     },
   },
 
@@ -228,20 +227,22 @@ export default {
     },
 
     isFocusedIndex(i, j) {
-      const { days, focusDay } = this;
+      const { days, focusedDate } = this;
       const weekIndex = i - 1;
       const dayIndex = j - 1;
       const testDate = days[weekIndex * 7 + dayIndex];
 
-      return sameDays(focusDay, testDate);
+      return sameDays(focusedDate, testDate);
     },
 
     onKeydown(event) {
-      const { focusDay } = this;
+      const { focusedDate } = this;
       let flag = false;
       let d;
 
       if (event.target.classList.contains('vts-date__day')) {
+        d = new Date(focusedDate);
+
         switch (event.keyCode) {
           case keycodes.ENTER:
           case keycodes.SPACE:
@@ -251,32 +252,32 @@ export default {
             break;
 
           case keycodes.RIGHT:
-            d = new Date(focusDay);
             d.setDate(d.getDate() + 1);
-            this.focusDay = d;
 
             flag = true;
             break;
 
           case keycodes.LEFT:
-            d = new Date(focusDay);
             d.setDate(d.getDate() - 1);
-            this.focusDay = d;
 
             flag = true;
             break;
 
           case keycodes.DOWN:
-            // this.datepicker.moveFocusToNextWeek()
+            d.setDate(d.getDate() + 7);
+
             flag = true;
             break;
 
           case keycodes.UP:
-            // this.datepicker.moveFocusToPreviousWeek()
+            d.setDate(d.getDate() - 7);
             flag = true;
             break;
         }
+
+        this.focusedDate = d;
       }
+
       switch (event.keyCode) {
         case keycodes.ESC:
           this.hide();
@@ -332,7 +333,7 @@ export default {
     },
 
     onOk() {
-      console.log('ok', this.selectedDay);
+      console.log('ok', this.selectedDate);
     },
   },
 };
