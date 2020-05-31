@@ -22,12 +22,21 @@
       aria-labelledby="id-dialog-label"
     >
       <div class="header">
-        <button ref="prevYear" class="prevYear" aria-label="previous year">
+        <button
+          ref="prevYear"
+          class="prevYear"
+          aria-label="previous year"
+          @click="setFocusedYear(focusedDate.getFullYear() - 1)"
+        >
           <slot name="prevYear">
             &#8606;
           </slot>
         </button>
-        <button class="prevMonth" aria-label="previous month">
+        <button
+          class="prevMonth"
+          aria-label="previous month"
+          @click="setFocusedMonth(focusedDate.getMonth() - 1)"
+        >
           <slot name="prevMonth">
             &#8592;
           </slot>
@@ -35,12 +44,20 @@
         <h4 id="id-dialog-label" class="monthYear" aria-live="polite">
           {{ monthYear }}
         </h4>
-        <button class="nextMonth" aria-label="next month">
+        <button
+          class="nextMonth"
+          aria-label="next month"
+          @click="setFocusedMonth(focusedDate.getMonth() + 1)"
+        >
           <slot name="nextMonth">
             &#8594;
           </slot>
         </button>
-        <button class="nextYear" aria-label="next year">
+        <button
+          class="nextYear"
+          aria-label="next year"
+          @click="setFocusedYear(focusedDate.getFullYear() + 1)"
+        >
           <slot name="nextYear">
             &#8608;
           </slot>
@@ -68,21 +85,20 @@
         <tbody>
           <tr v-for="week in 6" :key="week">
             <td
-              v-for="day in weeksDays[week - 1]"
+              v-for="day in daysByWeeks[week - 1]"
               :key="day.date.toString()"
               :class="[
                 'vts-date__cell',
-                { 'vts-date__cell--active': day.isFocused },
+                { 'vts-date__cell--focused': day.isFocused },
               ]"
             >
               <button
                 :class="[
                   'vts-date__day',
-                  { 'vts-date__day--active': day.isFocused },
+                  { 'vts-date__day--focused': day.isFocused },
                 ]"
                 :tabindex="day.isFocused ? '0' : '-1'"
                 :aria-selected="day.isFocused"
-                :disabled="!day.isFocused"
               >
                 {{ day.date.getDate() }}
               </button>
@@ -161,7 +177,6 @@ export default {
   },
 
   data: () => ({
-    // dayList: [],
     daysOfWeek: Object.freeze({
       Su: 'Sunday',
       Mo: 'Monday',
@@ -173,7 +188,6 @@ export default {
     }),
     focusedDate: new Date(),
     selectedDate: new Date(0, 0, 1),
-    hideLastRow: false,
   }),
 
   computed: {
@@ -183,7 +197,7 @@ export default {
         monthLabels[focusedDate.getMonth()]
       } ${focusedDate.getFullYear()}`;
     },
-    weeksDays() {
+    daysByWeeks() {
       const { focusedDate } = this;
       const firstDayOfMonth = new Date(
         focusedDate.getFullYear(),
@@ -226,23 +240,44 @@ export default {
       console.log('hide');
     },
 
-    isFocusedIndex(i, j) {
-      const { days, focusedDate } = this;
-      const weekIndex = i - 1;
-      const dayIndex = j - 1;
-      const testDate = days[weekIndex * 7 + dayIndex];
+    // setFocusDay(flag = true) {
+    //   var fd = this.focusDay
 
-      return sameDays(focusedDate, testDate);
+    //   function checkDay(d) {
+    //     d.domNode.setAttribute("tabindex", "-1")
+    //     if (
+    //       d.day.getDate() == fd.getDate() &&
+    //       d.day.getMonth() == fd.getMonth() &&
+    //       d.day.getFullYear() == fd.getFullYear()
+    //     ) {
+    //       d.domNode.setAttribute("tabindex", "0")
+    //       if (flag) {
+    //         d.domNode.focus()
+    //       }
+    //     }
+    //   }
+
+    //   this.days.forEach(checkDay.bind(this))
+    // },
+
+    setFocusedMonth(month) {
+      const d = new Date(this.focusedDate);
+      d.setMonth(month);
+      this.focusedDate = d;
+    },
+
+    setFocusedYear(year) {
+      const d = new Date(this.focusedDate);
+      d.setFullYear(year);
+      this.focusedDate = d;
     },
 
     onKeydown(event) {
       const { focusedDate } = this;
       let flag = false;
-      let d;
+      let d = new Date(focusedDate);
 
       if (event.target.classList.contains('vts-date__day')) {
-        d = new Date(focusedDate);
-
         switch (event.keyCode) {
           case keycodes.ENTER:
           case keycodes.SPACE:
@@ -253,19 +288,16 @@ export default {
 
           case keycodes.RIGHT:
             d.setDate(d.getDate() + 1);
-
             flag = true;
             break;
 
           case keycodes.LEFT:
             d.setDate(d.getDate() - 1);
-
             flag = true;
             break;
 
           case keycodes.DOWN:
             d.setDate(d.getDate() + 7);
-
             flag = true;
             break;
 
@@ -274,7 +306,6 @@ export default {
             flag = true;
             break;
         }
-
         this.focusedDate = d;
       }
 
@@ -295,29 +326,29 @@ export default {
 
         case keycodes.PAGEUP:
           if (event.shiftKey) {
-            // this.datepicker.moveToPreviousYear();
+            this.setFocusedYear(focusedDate.getFullYear() - 1);
           } else {
-            // this.datepicker.moveToPreviousMonth()
+            this.setFocusedMonth(focusedDate.getMonth() - 1);
           }
           flag = true;
           break;
 
         case keycodes.PAGEDOWN:
           if (event.shiftKey) {
-            // this.datepicker.moveToNextYear()
+            this.setFocusedYear(focusedDate.getFullYear() + 1);
           } else {
-            // this.datepicker.moveToNextMonth()
+            this.setFocusedMonth(focusedDate.getMonth() + 1);
           }
           flag = true;
           break;
 
         case keycodes.HOME:
-          // this.datepicker.moveFocusToFirstDayOfWeek()
+          d.setDate(d.getDate() - d.getDay());
           flag = true;
           break;
 
         case keycodes.END:
-          // this.datepicker.moveFocusToLastDayOfWeek()
+          d.setDate(d.getDate() + (6 - d.getDay()));
           flag = true;
           break;
       }
