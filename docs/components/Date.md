@@ -34,16 +34,20 @@ export default {
 
 ```vue live
 <template>
-  <VDate
-    v-model="dialog"
-  >
-  </VDate>
+  <div>
+    <VDate
+      v-model="date"
+    >
+    </VDate>
+
+    {{ date }}
+  </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    dialog: false,
+    date: 'May 31 2019',
   }),
 }
 </script>

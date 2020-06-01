@@ -1,32 +1,28 @@
 <template>
-  <div id="myDatepicker" class="datepicker" @keydown="onKeydown">
-    <div class="date">
-      <label for="id-textbox-1">
-        Date
-        <input
-          id="id-textbox-1"
-          type="text"
-          placeholder="mm/dd/yyyy"
-          aria-autocomplete="none"
-        />
-      </label>
-      <button aria-label="Choose Date">
-        calendar btn
-      </button>
-    </div>
+  <div :id="id" class="datepicker">
+    <!-- TODO: slot -->
+    <button aria-label="Choose Date" @click="show = !show">
+      calendar btn {{ show }}
+    </button>
+
     <div
-      id="id-datepicker-1"
-      class="datepickerDialog"
+      v-show="show"
+      ref="calendar"
+      class=""
       role="dialog"
       aria-modal="true"
-      aria-labelledby="id-dialog-label"
+      :aria-labelledby="`${id}-dialog-label`"
+      @click="onClick"
+      @keydown="onKeydown"
+      @keydown.tab="focusTrap"
+      @keydown.esc="show = false"
     >
       <div class="header">
         <button
           ref="prevYear"
           class="prevYear"
           aria-label="previous year"
-          @click="setFocusedYear(focusedDate.getFullYear() - 1)"
+          @click="incrementYearBy(-1)"
         >
           <slot name="prevYear">
             &#8606;
@@ -35,41 +31,28 @@
         <button
           class="prevMonth"
           aria-label="previous month"
-          @click="setFocusedMonth(focusedDate.getMonth() - 1)"
+          @click="incrementMonthBy(-1)"
         >
           <slot name="prevMonth">
             &#8592;
           </slot>
         </button>
-        <h4 id="id-dialog-label" class="monthYear" aria-live="polite">
+        <h4 :id="`${id}-dialog-label`" class="monthYear" aria-live="polite">
           {{ monthYear }}
         </h4>
-        <button
-          class="nextMonth"
-          aria-label="next month"
-          @click="setFocusedMonth(focusedDate.getMonth() + 1)"
-        >
+        <button class="" aria-label="next month" @click="incrementMonthBy(1)">
           <slot name="nextMonth">
             &#8594;
           </slot>
         </button>
-        <button
-          class="nextYear"
-          aria-label="next year"
-          @click="setFocusedYear(focusedDate.getFullYear() + 1)"
-        >
+        <button class="" aria-label="next year" @click="incrementYearBy(1)">
           <slot name="nextYear">
             &#8608;
           </slot>
         </button>
       </div>
       <!-- eslint-disable-next-line vuejs-accessibility/no-redundant-roles -->
-      <table
-        id="myDatepickerGrid"
-        class="dates"
-        role="grid"
-        aria-labelledby="id-dialog-label"
-      >
+      <table class="" role="grid" :aria-labelledby="`${id}-dialog-label`">
         <thead>
           <tr>
             <th
@@ -99,6 +82,7 @@
                 ]"
                 :tabindex="day.isFocused ? '0' : '-1'"
                 :aria-selected="day.isFocused"
+                :value="day.date"
               >
                 {{ day.date.getDate() }}
               </button>
@@ -108,22 +92,23 @@
       </table>
 
       <div class="">
-        <button class="" value="cancel" @click="onCancel">
+        <button class="" value="cancel" @click="show = false">
           Cancel
         </button>
-        <button class="" value="ok" @click="onOk">
+        <button class="" value="ok" @click="selectedDate = focusedDate">
           OK
         </button>
       </div>
       <div class="" aria-live="polite">
-        Test
+        Cursor keys can navigate dates
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import keycodes from '../../data/keycodes.js';
+import KEYCODES from '../../data/keycodes.js';
+import { randomString, applyFocusTrap } from '../../utils.js';
 
 /**
  * @param {object} first
@@ -131,10 +116,6 @@ import keycodes from '../../data/keycodes.js';
  * @return {boolean}
  */
 function sameDays(first, second) {
-  // console.log(
-  //   first.getMonth() === second.getMonth(),
-  //   first.getDate() === second.getDate()
-  // )
   return (
     first.getFullYear() === second.getFullYear() &&
     first.getMonth() === second.getMonth() &&
@@ -142,9 +123,50 @@ function sameDays(first, second) {
   );
 }
 
+const keysUsed = [
+  KEYCODES.UP,
+  KEYCODES.DOWN,
+  KEYCODES.LEFT,
+  KEYCODES.RIGHT,
+  KEYCODES.PAGEUP,
+  KEYCODES.PAGEDOWN,
+  KEYCODES.HOME,
+  KEYCODES.END,
+];
+
 export default {
   // https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/datepicker-dialog.html
+  model: {
+    prop: 'date',
+    event: 'update',
+  },
+
   props: {
+    date: {
+      type: [Date, String],
+      default: new Date(),
+    },
+
+    id: {
+      type: String,
+      default: () => `vts-${randomString(4)}`,
+    },
+
+    daysOfWeek: {
+      type: Object,
+      default: () => {
+        return Object.freeze({
+          Su: 'Sunday',
+          Mo: 'Monday',
+          Tu: 'Tuesday',
+          We: 'Wednesday',
+          Th: 'Thursday',
+          Fr: 'Friday',
+          Sa: 'Saturday',
+        });
+      },
+    },
+
     monthLabels: {
       type: Array,
       default: () => [
@@ -162,33 +184,21 @@ export default {
         'December',
       ],
     },
-    dayLabels: {
-      type: Array,
-      default: () => [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-      ],
+
+    classes: {
+      type: Object,
+      default: () => ({}),
     },
   },
 
-  data: () => ({
-    daysOfWeek: Object.freeze({
-      Su: 'Sunday',
-      Mo: 'Monday',
-      Tu: 'Tuesday',
-      We: 'Wednesday',
-      Th: 'Thursday',
-      Fr: 'Friday',
-      Sa: 'Saturday',
-    }),
-    focusedDate: new Date(),
-    selectedDate: new Date(0, 0, 1),
-  }),
+  data() {
+    return {
+      show: false,
+      previousActiveEl: null,
+      focusedDate: new Date(this.date),
+      selectedDate: new Date(this.date),
+    };
+  },
 
   computed: {
     monthYear() {
@@ -197,8 +207,9 @@ export default {
         monthLabels[focusedDate.getMonth()]
       } ${focusedDate.getFullYear()}`;
     },
+
     daysByWeeks() {
-      const { focusedDate } = this;
+      const { focusedDate, selectedDate } = this;
       const firstDayOfMonth = new Date(
         focusedDate.getFullYear(),
         focusedDate.getMonth(),
@@ -225,7 +236,7 @@ export default {
           weeks[i].push({
             date,
             isFocused: sameDays(date, focusedDate),
-            isSelected: false,
+            isSelected: sameDays(date, selectedDate),
           });
           d.setDate(d.getDate() + 1);
         }
@@ -235,136 +246,110 @@ export default {
     },
   },
 
+  watch: {
+    show(isShow) {
+      const { previousActiveEl, date } = this;
+      if (isShow) {
+        this.previousActiveEl = document.activeElement;
+        this.focusedDate = new Date(date);
+        this.$nextTick(() => {
+          this.$el.querySelector('button[aria-selected="true"]').focus();
+        });
+      } else if (previousActiveEl) {
+        previousActiveEl.focus();
+      }
+    },
+
+    selectedDate(date) {
+      this.$emit('update', date);
+      this.show = false;
+    },
+  },
+
   methods: {
-    hide() {
-      console.log('hide');
-    },
-
-    // setFocusDay(flag = true) {
-    //   var fd = this.focusDay
-
-    //   function checkDay(d) {
-    //     d.domNode.setAttribute("tabindex", "-1")
-    //     if (
-    //       d.day.getDate() == fd.getDate() &&
-    //       d.day.getMonth() == fd.getMonth() &&
-    //       d.day.getFullYear() == fd.getFullYear()
-    //     ) {
-    //       d.domNode.setAttribute("tabindex", "0")
-    //       if (flag) {
-    //         d.domNode.focus()
-    //       }
-    //     }
-    //   }
-
-    //   this.days.forEach(checkDay.bind(this))
-    // },
-
-    setFocusedMonth(month) {
+    incrementMonthBy(inc) {
+      // TODO: bug here on click
       const d = new Date(this.focusedDate);
-      d.setMonth(month);
+      d.setMonth(d.getMonth() + inc);
       this.focusedDate = d;
     },
 
-    setFocusedYear(year) {
+    incrementYearBy(inc) {
       const d = new Date(this.focusedDate);
-      d.setFullYear(year);
+      d.setFullYear(d.getFullYear() + inc);
       this.focusedDate = d;
+    },
+
+    onClick({ target }) {
+      if (!target.classList.contains('vts-date__day')) return;
+      this.selectedDate = new Date(target.value);
     },
 
     onKeydown(event) {
+      // Use event delegation on parent so we dont have 42 event listeners on buttons
+      if (!event.target.classList.contains('vts-date__day')) return;
+      if (!keysUsed.includes(event.keyCode)) return;
+
+      event.stopPropagation();
+      event.preventDefault();
+
       const { focusedDate } = this;
-      let flag = false;
       let d = new Date(focusedDate);
 
-      if (event.target.classList.contains('vts-date__day')) {
-        switch (event.keyCode) {
-          case keycodes.ENTER:
-          case keycodes.SPACE:
-            // this.datepicker.setTextboxDate(this.day)
-            // this.datepicker.hide()
-            flag = true;
-            break;
-
-          case keycodes.RIGHT:
-            d.setDate(d.getDate() + 1);
-            flag = true;
-            break;
-
-          case keycodes.LEFT:
-            d.setDate(d.getDate() - 1);
-            flag = true;
-            break;
-
-          case keycodes.DOWN:
-            d.setDate(d.getDate() + 7);
-            flag = true;
-            break;
-
-          case keycodes.UP:
-            d.setDate(d.getDate() - 7);
-            flag = true;
-            break;
-        }
-        this.focusedDate = d;
-      }
-
       switch (event.keyCode) {
-        case keycodes.ESC:
-          this.hide();
+        case KEYCODES.ENTER:
+        case KEYCODES.SPACE:
+          this.selectedDate = d;
+          return;
+
+        case KEYCODES.RIGHT:
+          d.setDate(d.getDate() + 1);
           break;
 
-        case keycodes.TAB:
-          // TODO: focus trap
-          // this.datepicker.cancelButtonNode.focus()
-          if (event.shiftKey) {
-            // this.datepicker.nextYearNode.focus()
-          }
-          // this.datepicker.setMessage("")
-          // flag = true
+        case KEYCODES.LEFT:
+          d.setDate(d.getDate() - 1);
           break;
 
-        case keycodes.PAGEUP:
+        case KEYCODES.DOWN:
+          d.setDate(d.getDate() + 7);
+          break;
+
+        case KEYCODES.UP:
+          d.setDate(d.getDate() - 7);
+          break;
+
+        case KEYCODES.PAGEUP:
           if (event.shiftKey) {
-            this.setFocusedYear(focusedDate.getFullYear() - 1);
+            d.setFullYear(focusedDate.getFullYear() - 1);
           } else {
-            this.setFocusedMonth(focusedDate.getMonth() - 1);
+            d.setMonth(focusedDate.getMonth() - 1);
           }
-          flag = true;
           break;
 
-        case keycodes.PAGEDOWN:
+        case KEYCODES.PAGEDOWN:
           if (event.shiftKey) {
-            this.setFocusedYear(focusedDate.getFullYear() + 1);
+            d.setFullYear(focusedDate.getFullYear() + 1);
           } else {
-            this.setFocusedMonth(focusedDate.getMonth() + 1);
+            d.setMonth(focusedDate.getMonth() + 1);
           }
-          flag = true;
           break;
 
-        case keycodes.HOME:
+        case KEYCODES.HOME:
           d.setDate(d.getDate() - d.getDay());
-          flag = true;
           break;
 
-        case keycodes.END:
+        case KEYCODES.END:
           d.setDate(d.getDate() + (6 - d.getDay()));
-          flag = true;
           break;
       }
-
-      if (flag) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
+      this.focusedDate = d;
+      this.$nextTick(() => {
+        this.$el.querySelector('button[aria-selected="true"]').focus();
+      });
     },
 
-    onCancel() {
-      console.log('cancel');
-    },
-
-    onOk() {
-      console.log('ok', this.selectedDate);
+    focusTrap(event) {
+      applyFocusTrap(this.$refs.calendar, event);
     },
   },
 };
@@ -385,15 +370,5 @@ export default {
 .datepicker .header {
   display: flex;
   justify-content: space-around;
-}
-
-.datepicker .header button {
-  border-style: none;
-  background: transparent;
-}
-
-.vts-date__day {
-  height: 100%;
-  width: 100%;
 }
 </style>
