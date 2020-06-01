@@ -268,10 +268,17 @@ export default {
 
   methods: {
     incrementMonthBy(inc) {
-      // TODO: bug here on click
-      const d = new Date(this.focusedDate);
-      d.setMonth(d.getMonth() + inc);
-      this.focusedDate = d;
+      const { focusedDate } = this;
+      // get last day of prev/next month
+      const last = new Date(focusedDate);
+      last.setMonth(last.getMonth() + inc + 1);
+      last.setDate(0);
+
+      const fd = new Date(focusedDate);
+      fd.setDate(Math.min(fd.getDate(), last.getDate())); // Must happen before month change`
+      fd.setMonth(fd.getMonth() + inc);
+
+      this.focusedDate = fd;
     },
 
     incrementYearBy(inc) {
