@@ -14,7 +14,8 @@ export { default as VIntersect } from './VIntersect/VIntersect.vue';
 export { default as VModal } from './VModal/VModal.vue'; // TODO: Deprecate this later on
 export { default as VResize } from './VResize/VResize.vue';
 export { default as VSkip } from './VSkip/VSkip.vue';
-export { default as VTabs } from './VTabs/VTabs.vue';
 export { default as VTable } from './VTable/VTable.vue';
+export { default as VTabs } from './VTabs/VTabs.vue';
 export { default as VToggle } from './VToggle/VToggle.vue';
 export { default as VTooltip } from './VTooltip/VTooltip.vue';
+export { default as VTry } from './VTry/VTry.vue';

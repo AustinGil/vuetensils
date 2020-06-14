@@ -52,6 +52,7 @@ module.exports = {
           "/components/Table",
           "/components/Toggle",
           "/components/Tooltip",
+          "/components/Try",
         ],
       },
       {
