@@ -5,7 +5,7 @@ WIP: This component is still looking for more testers and some feedback.
 A date picker with accessibility baked in.
 
 Features:
-- Manages ARIA roles, labels, and atributes.
+- Manages ARIA roles, labels, and attributes.
 - Manages focus ring and traps focus within calendar.
 - Provides keyboard navigation support (see below).
 - Supports passing in min and max date props.

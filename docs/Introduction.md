@@ -104,16 +104,6 @@ If I want my projects to follow best practices for semantic markup and accessibi
 - ✅ My components will be accessible and semantic.
 - ✅ The bundle size will stay as small as possible.
 
-### Changelog
-
-- VInput: Made input label explicit for better a11y. Fixed inital value bug.
-- VDrawer: Added toggle scoped slot. Simplifies implementation and improves a11y 🎊
-- VForm: Added VForm component
-- VAsync: Bug fix for error on default state
-- VInput: Bug fix for invalid status
-- VToggle: support open by default. Better label handling. Better ID handling. Added events.
-- VDialog: Added toggle scoped slot. Simplifies implementation and improves a11y 🎊
-
 ### Roadmap
 
 - Better a11y range input
