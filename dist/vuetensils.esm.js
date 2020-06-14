@@ -345,6 +345,11 @@ var FOCUSABLE = [
   '[contenteditable]:not([tabindex^="-"])',
   '[tabindex]:not([tabindex^="-"])' ];
 
+/**
+ * @param {number} [length] 
+ * @param {string} [allowed] 
+ * @return {string}
+ */
 function randomString(
   length,
   allowed
@@ -365,6 +370,7 @@ function safeSlot(h, slot) {
 
 /**
  * @param {HTMLElement} el
+ * @param {Event} event
  */
 function applyFocusTrap(el, event) {
   var focusable = Array.from(el.querySelectorAll(FOCUSABLE));
@@ -586,16 +592,25 @@ var keycodes = Object.freeze({
 });
 
 var autofocus = {
+  /**
+   * @type {import('vue').DirectiveFunction}
+   */
   inserted: function (el) { return el.focus(); },
 };
 
 var clickout = {
+  /**
+   * @type {import('vue').DirectiveFunction}
+   */
   bind: function bind(el, binding) {
     binding.stop = function (e) { return e.stopPropagation(); };
 
     document.body.addEventListener('click', binding.value);
     el.addEventListener('click', binding.stop);
   },
+  /**
+   * @type {import('vue').DirectiveFunction}
+   */
   unbind: function unbind(el, binding) {
     document.body.removeEventListener('click', binding.value);
     el.removeEventListener('click', binding.stop);
@@ -626,13 +641,22 @@ function copyToClipboard(content) {
 }
 
 var copy = {
+  /**
+   * @type {import('vue').DirectiveFunction}
+   */
   bind: function bind(el, binding) {
     binding.handler = function () { return copyToClipboard(binding.value); };
     el.addEventListener('click', binding.handler);
   },
+  /**
+   * @type {import('vue').DirectiveFunction}
+   */
   unbind: function unbind(el, binding) {
     el.removeEventListener('click', binding.handler);
   },
+  /**
+   * @type {import('vue').DirectiveFunction}
+   */
   update: function update(el, binding) {
     el.removeEventListener('click', binding.handler);
     binding.handler = function () { return copyToClipboard(binding.value); };
@@ -640,6 +664,9 @@ var copy = {
   },
 };
 
+/**
+ * @type {import('vue').DirectiveFunction}
+ */
 function unbind(el) {
   if (!el._vobserver) { return; }
   el._vobserver.unobserve(el);
@@ -647,6 +674,9 @@ function unbind(el) {
 }
 
 var intersect = {
+  /**
+   * @type {import('vue').DirectiveFunction}
+   */
   inserted: function (el, ref) {
     var value = ref.value;
     var modifiers = ref.modifiers;

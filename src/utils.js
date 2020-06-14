@@ -1,5 +1,10 @@
 import FOCUSABLE from './data/focusable.js';
 
+/**
+ * @param {number} [length] 
+ * @param {string} [allowed] 
+ * @return {string}
+ */
 export function randomString(
   length = 10,
   allowed = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -17,6 +22,7 @@ export function safeSlot(h, slot) {
 
 /**
  * @param {HTMLElement} el
+ * @param {Event} event
  */
 export function applyFocusTrap(el, event) {
   const focusable = Array.from(el.querySelectorAll(FOCUSABLE));

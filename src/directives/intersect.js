@@ -1,3 +1,6 @@
+/**
+ * @type {import('vue').DirectiveFunction}
+ */
 function unbind(el) {
   if (!el._vobserver) return;
   el._vobserver.unobserve(el);
@@ -5,6 +8,9 @@ function unbind(el) {
 }
 
 export default {
+  /**
+   * @type {import('vue').DirectiveFunction}
+   */
   inserted: (el, { value, modifiers }) => {
     const options = {
       ...value,

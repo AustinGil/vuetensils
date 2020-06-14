@@ -146,3 +146,4 @@ If I want my projects to follow best practices for semantic markup and accessibi
 <!-- TODO: https://vue-styleguidist.github.io/docs/docgen-cli.html -->
 <!-- TODO: https://xaksis.github.io/vue-good-table/guide/#installation -->
 <!-- TODO: https://dequeuniversity.com/library/ -->
+<!-- TODO: https://github.com/bdryanovski/logchanges -->
