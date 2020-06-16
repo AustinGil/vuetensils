@@ -1,16 +1,14 @@
-# Action
-
-WIP: Implementation is pretty set, but looking for help with naming. Alternative is `VBtn`
+# Btn
 
 A functional component for logically rendering the appropriate actionable elements: `<RouterLink>`, `<a>`, or `<button>`. At first glance, this may not be a particularly helpful component, but it really simplifies list rendering.
 
 Features:
 
+- Renders a `<button>` by default.
 - Renders a [`<RouterLink>`](https://router.vuejs.org/api/#router-link) when provided a `to` prop.
 - Renders an `<a>` link when provided a `href` prop.
-- Renders a `<button>` by default.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VAction/VAction.vue)
+[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VBtn/VBtn.vue)
 
 ## Installation
 
@@ -19,9 +17,9 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VAction } from "vuetensils/src/components"
+import { VBtn } from "vuetensils/src/components"
 
-Vue.component("VAction", VAction)
+Vue.component("VBtn", VBtn)
 ```
 
 Locally:
@@ -29,11 +27,11 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VAction } from "vuetensils/src/components"
+import { VBtn } from "vuetensils/src/components"
 
 export default {
   components: {
-    VAction,
+    VBtn,
   },
   // ...
 }
@@ -44,9 +42,9 @@ export default {
 
 ```vue live
 <template>
-  <VAction @click="log">
-    Click me
-  </VAction>
+  <VBtn @click="log">
+    Log event to console
+  </VBtn>
 </template>
 
 <script>
@@ -62,9 +60,9 @@ export default {
 
 ```vue live
 <template>
-  <VAction :to="'/'">
+  <VBtn :to="'/'">
     Home
-  </VAction>
+  </VBtn>
 </template>
 ```
 
@@ -72,9 +70,9 @@ export default {
 
 ```vue live
 <template>
-  <VAction href="/components/Action.html">
+  <VBtn href="/components/Btn.html">
     Vuetensils
-  </VAction>
+  </VBtn>
 </template>
 ```
 
@@ -84,9 +82,9 @@ export default {
 <template>
   <ul>
     <li v-for="item in items">
-      <VAction v-bind="item.bind" v-on="item.on" >
+      <VBtn v-bind="item.bind" v-on="item.on" >
         {{ item.text }}
-      </VAction>
+      </VBtn>
     </li>
   </ul>
 </template>
@@ -104,7 +102,7 @@ export default {
       {
         text: 'Second (anchor link)',
         bind: {
-          href: '/components/Action.html'
+          href: '/components/Btn.html'
         }
       },
       {

@@ -1,6 +1,7 @@
-export { default as VAction } from './VAction/VAction.vue';
+export { default as VAction } from './VAction/VAction.vue'; // TODO: Deprecated
 export { default as VAlert } from './VAlert/VAlert.vue';
 export { default as VAsync } from './VAsync/VAsync.vue';
+export { default as VBtn } from './VBtn/VBtn.vue';
 // export { default as VBreadcrumbs } from './VBreadcrumbs/VBreadcrumbs.vue';
 export { default as VDate } from './VDate/VDate.vue';
 export { default as VDialog } from './VDialog/VDialog.vue';
