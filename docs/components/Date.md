@@ -99,7 +99,7 @@ export default {
 
 ```vue live
 <template>
-  <VDate date="Dec 21" min="Dec 16" max="Dec 22" />
+  <VDate date="Nov 3, 2020" min="Nov 2, 2020" max="Nov 4, 2020" />
 </template>
 ```
 

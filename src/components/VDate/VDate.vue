@@ -187,7 +187,6 @@ const keysUsed = [
   KEYCODES.PAGEDOWN,
   KEYCODES.HOME,
   KEYCODES.END,
-  KEYCODES.SHIFT,
 ];
 
 // Based on https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/datepicker-dialog.html
