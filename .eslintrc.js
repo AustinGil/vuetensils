@@ -36,8 +36,7 @@ module.exports = {
       {
         'definedTags': [
           'model',
-          'slot',
-          'unknown'
+          'slot'
         ]
       }
     ],
