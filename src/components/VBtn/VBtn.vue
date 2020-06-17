@@ -1,18 +1,5 @@
 <script>
-/**
- * @param {{ to: string }} props
- * @param {{ attrs: { href: string } }} data
- * @return { string }
- */
-function getTag({ to }, { attrs }) {
-  if (to) {
-    return 'RouterLink';
-  }
-  if (attrs && attrs.href) {
-    return 'a';
-  }
-  return 'button';
-}
+import { getTag } from '../utils.js';
 
 /**
  * @type {import('vue').Component}
