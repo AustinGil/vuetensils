@@ -63,6 +63,7 @@ export default {
       if (entry.isIntersecting) {
         /**
          * Fired when the observed element enters the screen.
+         *
          * @event enter
          * @type { IntersectionObserverEntry }
          */
@@ -70,6 +71,7 @@ export default {
       } else {
         /**
          * Fired when the observed element exits the screen.
+         *
          * @event exit
          * @type { IntersectionObserverEntry }
          */
@@ -77,6 +79,7 @@ export default {
       }
       /**
        * Fired when the observed element enters or exits the screen.
+       *
        * @event change
        * @type { IntersectionObserverEntry }
        */
@@ -85,7 +88,7 @@ export default {
   },
 
   render(h) {
-    // @slot Content to be tracked with IntersectionObserver
+    /** @slot Content to be tracked with IntersectionObserver */
     const { entry } = this;
 
     /** @slot Slot content providing isIntersecting */

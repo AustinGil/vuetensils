@@ -22,9 +22,9 @@ export function randomString(
 /**
  * [safeSlot description]
  *
- * @param  {[type]} h    [description]
- * @param  {[type]} slot [description]
- * @return {[type]}      [description]
+ * @param  {[type]} h    hyperscript markup from Vue render function
+ * @param  {[type]} slot component slot
+ * @return {[type]}      Slot or div wrapping the slot
  */
 export function safeSlot(h, slot) {
   return slot && slot.length > 1 ? h('div', slot) : slot;

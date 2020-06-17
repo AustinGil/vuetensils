@@ -31,6 +31,24 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'quotes': ['error', 'single'],
     'semi': ['error', 'always'],
+    'jsdoc/check-tag-names': [
+      'error',
+      {
+        'definedTags': [
+          'model',
+          'slot',
+          'unknown'
+        ]
+      }
+    ],
+    'jsdoc/no-undefined-types': [
+      'warn',
+      {
+        'definedTypes': [
+          'unknown'
+        ]
+      }
+    ],
     'vue/html-self-closing': [
       'error',
       {

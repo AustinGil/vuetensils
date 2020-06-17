@@ -2,7 +2,10 @@
 <script>
 import { safeSlot } from '../../utils';
 /**
- * A renderless component for awaiting promises to resolve; great for making HTTP requests. Supports showing pending, resolved, or rejected promises.
+ * A renderless component for awaiting promises to resolve;
+ * great for making HTTP requests. Supports showing pending,
+ * resolved, or rejected promises.
+ *
  * @type {import('vue').Component}
  */
 export default {
@@ -16,7 +19,8 @@ export default {
       default: () => Promise.resolve(),
     },
     /**
-     * The default value to provide for the `results`. Useful if the promise resolve value is undefined.
+     * The default value to provide for the `results`.
+     * Useful if the promise resolve value is undefined.
      */
     default: {
       type: undefined,
@@ -43,8 +47,9 @@ export default {
       handler(pending) {
         /**
          * Fired whenever the pending status changes.
+         *
          * @event pending
-         * @type { boolean }
+         * @type {boolean}
          */
         this.$emit('pending', pending);
       },
@@ -69,8 +74,9 @@ export default {
           this.results = typeof results === 'undefined' ? this.default : results;
           /**
            * Fired after promise has resolved with the resolved value.
+           *
            * @event resolve
-           * @type { unknown }
+           * @type {unknown}
            */
           this.$emit('resolve', results);
         })
@@ -84,8 +90,9 @@ export default {
           this.error = error;
           /**
            * Fired after promise has rejected with the rejected error.
+           *
            * @event reject
-           * @type { error }
+           * @type {Error}
            */
           this.$emit('reject', error);
         })
@@ -94,8 +101,9 @@ export default {
           this.done = true;
           /**
            * Fired after promise has fulfilled, regardless of success or failure.
+           *
            * @event finally
-           * @type { undefined }
+           * @type {undefined}
            */
           this.$emit('finally');
         });
