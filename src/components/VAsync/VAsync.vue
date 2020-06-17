@@ -76,7 +76,7 @@ export default {
            * Fired after promise has resolved with the resolved value.
            *
            * @event resolve
-           * @type {unknown}
+           * @type {any}
            */
           this.$emit('resolve', results);
         })

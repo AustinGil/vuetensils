@@ -40,14 +40,6 @@ module.exports = {
         ]
       }
     ],
-    'jsdoc/no-undefined-types': [
-      'warn',
-      {
-        'definedTypes': [
-          'unknown'
-        ]
-      }
-    ],
     'vue/html-self-closing': [
       'error',
       {
