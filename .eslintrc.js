@@ -13,9 +13,14 @@ module.exports = {
     jsdom: true,
     Promise: true
   },
-  plugins: ['jest', 'vue'],
+  plugins: [
+    'jest',
+    'jsdoc',
+    'vue'
+  ],
   extends: [
     'eslint:recommended',
+    'plugin:jsdoc/recommended',
     'plugin:vue/recommended',
     'plugin:jest/recommended',
     'plugin:vuejs-accessibility/recommended',
@@ -49,5 +54,13 @@ module.exports = {
       }
     ],
     'vue/require-prop-types': ['error']
+  },
+  settings: {
+    jsdoc: {
+      tagNamePreference: {
+        property: 'prop',
+        returns: 'return'
+      }
+    }
   }
 };
