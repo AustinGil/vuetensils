@@ -1,6 +1,6 @@
 {
   "name": "vuetensils",
-  "version": "0.6.5",
+  "version": "0.7.1",
   "description": "A tasty toolset for Vue.js",
   "author": "Austin Gil <austin@stegosource.com>",
   "license": "MIT",
@@ -23,7 +23,7 @@
     "lint": "eslint --max-warnings 0 --config=.eslintrc.js tests/**/*.js src/**/*.js src/**/*.vue",
     "fix": "eslint --fix --max-warnings 0 --config=.eslintrc.js tests/**/*.js src/**/*.js src/**/*.vue",
     "ts": "tsc",
-    "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
+    "build": "npm run ts & npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuetensils.umd.js",
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuetensils.esm.js",
     "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vuetensils.min.js",

@@ -33,7 +33,7 @@ Globally:
 ```js
 // main.js
 import Vue from "vue"
-import { VAlert } from "vuetensils/src/components"
+import { VAlert } from "vuetensils"
 
 Vue.component("VAlert", VAlert)
 ```
@@ -43,7 +43,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VAlert } from "vuetensils/src/components"
+import { VAlert } from "vuetensils"
 
 export default {
   components: {
@@ -104,16 +104,6 @@ If I want my projects to follow best practices for semantic markup and accessibi
 - ✅ My components will be accessible and semantic.
 - ✅ The bundle size will stay as small as possible.
 
-### Changelog
-
-- VInput: Made input label explicit for better a11y. Fixed inital value bug.
-- VDrawer: Added toggle scoped slot. Simplifies implementation and improves a11y 🎊
-- VForm: Added VForm component
-- VAsync: Bug fix for error on default state
-- VInput: Bug fix for invalid status
-- VToggle: support open by default. Better label handling. Better ID handling. Added events.
-- VDialog: Added toggle scoped slot. Simplifies implementation and improves a11y 🎊
-
 ### Roadmap
 
 - Better a11y range input
@@ -139,9 +129,11 @@ If I want my projects to follow best practices for semantic markup and accessibi
 <!-- VirtualList? https://codepen.io/Stegosource/pen/NWGGKZp?editors=1010 -->
 <!-- v-focusabe? https://blog.vuestorefront.io/how-storefront-ui-solves-website-accessibility-issues/ -->
 <!-- https://github.com/conventional-changelog/standard-version -->
-<!-- TODO: Babel transpiler -->
 <!-- TODO: Toast/notification -->
 <!-- TODO: Toggles: https://codepen.io/heydon/pen/QqzRvQ/ -->
-<!-- TODO: https://rollup-plugin-vue.vuejs.org/examples.html#minimal -->
 <!-- TODO: https://medium.com/faun/automate-your-npm-publish-with-github-actions-dfe8059645dd -->
 <!-- TODO: Docgen: https://github.com/vue-styleguidist/vue-styleguidist/tree/dev/examples/docgen/ -->
+<!-- TODO: https://vue-styleguidist.github.io/docs/docgen-cli.html -->
+<!-- TODO: https://xaksis.github.io/vue-good-table/guide/#installation -->
+<!-- TODO: https://dequeuniversity.com/library/ -->
+<!-- TODO: https://github.com/bdryanovski/logchanges -->

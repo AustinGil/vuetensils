@@ -3,6 +3,7 @@
 import { safeSlot } from '../../utils';
 /**
  * A renderless component for awaiting promises to resolve; great for making HTTP requests. Supports showing pending, resolved, or rejected promises.
+ * @type {import('vue').Component}
  */
 export default {
   name: 'VAsync',

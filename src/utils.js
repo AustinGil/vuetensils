@@ -1,3 +1,10 @@
+import FOCUSABLE from './data/focusable.js';
+
+/**
+ * @param {number} [length] 
+ * @param {string} [allowed] 
+ * @return {string}
+ */
 export function randomString(
   length = 10,
   allowed = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -11,4 +18,34 @@ export function randomString(
 
 export function safeSlot(h, slot) {
   return slot && slot.length > 1 ? h('div', slot) : slot;
+}
+
+/**
+ * @param {HTMLElement} el
+ * @param {Event} event
+ */
+export function applyFocusTrap(el, event) {
+  const focusable = Array.from(el.querySelectorAll(FOCUSABLE));
+
+  if (!focusable.length) {
+    event.preventDefault();
+    return;
+  }
+
+  if (!el.contains(document.activeElement)) {
+    event.preventDefault();
+    focusable[0].focus();
+  } else {
+    const focusedItemIndex = focusable.indexOf(document.activeElement);
+
+    if (event.shiftKey && focusedItemIndex === 0) {
+      focusable[focusable.length - 1].focus();
+      event.preventDefault();
+    }
+
+    if (!event.shiftKey && focusedItemIndex === focusable.length - 1) {
+      focusable[0].focus();
+      event.preventDefault();
+    }
+  }
 }

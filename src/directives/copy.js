@@ -22,13 +22,22 @@ function copyToClipboard(content) {
 }
 
 export default {
+  /**
+   * @type {import('vue').DirectiveFunction}
+   */
   bind(el, binding) {
     binding.handler = () => copyToClipboard(binding.value);
     el.addEventListener('click', binding.handler);
   },
+  /**
+   * @type {import('vue').DirectiveFunction}
+   */
   unbind(el, binding) {
     el.removeEventListener('click', binding.handler);
   },
+  /**
+   * @type {import('vue').DirectiveFunction}
+   */
   update(el, binding) {
     el.removeEventListener('click', binding.handler);
     binding.handler = () => copyToClipboard(binding.value);

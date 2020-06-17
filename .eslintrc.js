@@ -21,16 +21,7 @@ module.exports = {
     'plugin:vuejs-accessibility/recommended',
   ],
   rules: {
-    'comma-dangle': [
-      'error',
-      {
-        'arrays': 'only-multiline',
-        'objects': 'only-multiline',
-        'imports': 'never',
-        'exports': 'never',
-        'functions': 'never',
-      },
-    ],
+    'comma-dangle': ['error','only-multiline'],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'quotes': ['error', 'single'],

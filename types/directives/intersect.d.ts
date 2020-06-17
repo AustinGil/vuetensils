@@ -1,9 +1,9 @@
 declare namespace _default {
-    export function inserted(el: any, { value, modifiers }: {
-        value: any;
-        modifiers: any;
-    }): void;
+    export const inserted: import('vue').DirectiveFunction;
     export { unbind };
 }
 export default _default;
-declare function unbind(el: any): void;
+/**
+ * @type {import('vue').DirectiveFunction}
+ */
+declare function unbind(el: HTMLElement): void;

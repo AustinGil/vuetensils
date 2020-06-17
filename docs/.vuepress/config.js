@@ -34,10 +34,10 @@ module.exports = {
         title: "Components",
         collapsable: false,
         children: [
-          "/components/Action",
           "/components/Alert",
           "/components/Async",
-          // "/components/Date",
+          "/components/Btn",
+          "/components/Date",
           "/components/Dialog",
           "/components/Drawer",
           "/components/Dropdown",
@@ -52,6 +52,7 @@ module.exports = {
           "/components/Table",
           "/components/Toggle",
           "/components/Tooltip",
+          "/components/Try",
         ],
       },
       {

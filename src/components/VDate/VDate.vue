@@ -1,529 +1,500 @@
 <template>
-  <div id="myDatepicker" class="datepicker">
-    <div class="date">
-      <label for="id-textbox-1">
-        Date
-        <input
-          id="id-textbox-1"
-          type="text"
-          placeholder="mm/dd/yyyy"
-          aria-autocomplete="none"
-        />
-      </label>
-      <button class="icon" aria-label="Choose Date">
-        calendar btn
+  <div :id="id" v-clickout="onClickout" :class="['vtd-date', classes.root]">
+    <slot v-bind="toggle">
+      <button
+        v-bind="toggle.bind"
+        type="button"
+        :class="['vtd-date__toggle', classes.toggle]"
+        v-on="toggle.on"
+      >
+        <span role="img" aria-label="show calendar">&#x1F4C5;</span>
       </button>
-    </div>
+    </slot>
+
     <div
-      id="id-datepicker-1"
-      class="datepickerDialog"
+      v-show="show"
+      ref="calendar"
+      class=""
       role="dialog"
       aria-modal="true"
-      aria-labelledby="id-dialog-label"
+      :aria-labelledby="`${id}-dialog-label`"
+      :class="['vtd-date__wrapper', classes.wrapper]"
+      @click="onClick"
+      @keydown="onKeydown"
+      @keydown.tab="onTab"
+      @keydown.esc="show = false"
     >
-      <div class="header">
-        <button class="prevYear" aria-label="previous year">
-          <span class="fas fa-angle-double-left fa-lg" />
+      <div class="vts-date__navigation">
+        <button
+          :class="['vtd-date__prev-year', classes.prevYear]"
+          aria-label="previous year"
+          type="button"
+          :disabled="disableNav.prevYear"
+          @click="incrementYearBy(-1)"
+        >
+          <slot name="prevYearLabel">
+            &#8606;
+          </slot>
         </button>
-        <button class="prevMonth" aria-label="previous month">
-          <span class="fas fa-angle-left fa-lg" />
+        <button
+          :class="['vtd-date__prev-month', classes.prevMonth]"
+          aria-label="previous month"
+          type="button"
+          :disabled="disableNav.prevMonth"
+          @click="incrementMonthBy(-1)"
+        >
+          <slot name="prevMonthLabel">
+            &#8592;
+          </slot>
         </button>
-        <h2 id="id-dialog-label" class="monthYear" aria-live="polite">
-          Month Year
-        </h2>
-        <button class="nextMonth" aria-label="next month">
-          <span class="fas fa-angle-right fa-lg" />
+        <h4
+          :id="`${id}-dialog-label`"
+          :class="['vtd-date__title', classes.title]"
+          aria-live="polite"
+        >
+          {{ monthYear }}
+        </h4>
+        <button
+          :class="['vtd-date__next-month', classes.nextMonth]"
+          aria-label="next month"
+          type="button"
+          :disabled="disableNav.nextMonth"
+          @click="incrementMonthBy(1)"
+        >
+          <slot name="nextMonthLabel">
+            &#8594;
+          </slot>
         </button>
-        <button class="nextYear" aria-label="next year">
-          <span class="fas fa-angle-double-right fa-lg" />
+        <button
+          :class="['vtd-date__next-year', classes.nextYear]"
+          aria-label="next year"
+          type="button"
+          :disabled="disableNav.nextYear"
+          @click="incrementYearBy(1)"
+        >
+          <slot name="nextYearLabel">
+            &#8608;
+          </slot>
         </button>
       </div>
       <!-- eslint-disable-next-line vuejs-accessibility/no-redundant-roles -->
       <table
-        id="myDatepickerGrid"
-        class="dates"
+        :class="['vtd-date__calendar', classes.calendar]"
         role="grid"
-        aria-labelledby="id-dialog-label"
+        :aria-labelledby="`${id}-dialog-label`"
       >
-        <thead>
-          <tr>
-            <th scope="col" abbr="Sunday">
-              Su
-            </th>
-            <th scope="col" abbr="Monday">
-              Mo
-            </th>
-            <th scope="col" abbr="Tuesday">
-              Tu
-            </th>
-            <th scope="col" abbr="Wednesday">
-              We
-            </th>
-            <th scope="col" abbr="Thursday">
-              Th
-            </th>
-            <th scope="col" abbr="Friday">
-              Fr
-            </th>
-            <th scope="col" abbr="Saturday">
-              Sa
+        <thead :class="['vtd-date__thead', classes.thead]">
+          <tr :class="['vtd-date__week', classes.week]">
+            <th
+              v-for="(val, key) in daysOfWeek"
+              :key="key"
+              :abbr="val"
+              scope="col"
+              :class="['vtd-date__th', classes.th]"
+            >
+              {{ key }}
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                25
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                26
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                27
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                28
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                29
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                30
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                1
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                2
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                3
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                4
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                5
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                6
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                7
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                8
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                9
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                10
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                11
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                12
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                13
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="0">
-                14
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                15
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                16
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                17
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                18
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                19
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                20
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                21
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                22
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                23
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                24
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                25
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                26
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                27
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                28
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                29
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                30
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1">
-                31
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                1
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                2
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                3
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                4
-              </button>
-            </td>
-            <td class="dateCell">
-              <button class="dateButton" tabindex="-1" disabled="">
-                5
+        <tbody :class="['vtd-date__tbody', classes.tbody]">
+          <tr
+            v-for="week in 6"
+            :key="week"
+            :class="['vtd-date__tr', classes.tr]"
+          >
+            <td
+              v-for="day in daysByWeeks[week - 1]"
+              :key="day.date.toString()"
+              :class="[
+                'vts-date__td',
+                { 'vts-date__td--focused': day.isFocused },
+                { 'vts-date__td--selected': day.isSelected },
+                classes.td,
+                { [classes.tdFocused]: classes.tdFocused && day.isFocused },
+                { [classes.tdSelected]: classes.tdSelected && day.isSelected },
+              ]"
+            >
+              <button
+                :class="[
+                  'vts-date__day',
+                  { 'vts-date__day--focused': day.isFocused },
+                  { 'vts-date__day--selected': day.isSelected },
+                  classes.day,
+                  { [classes.dayFocused]: classes.dayFocused && day.isFocused },
+                  {
+                    [classes.daySelected]:
+                      classes.daySelected && day.isSelected,
+                  },
+                ]"
+                :tabindex="day.isFocused ? '0' : '-1'"
+                :aria-selected="day.isFocused"
+                :value="day.date"
+                :disabled="day.disabled"
+                type="button"
+              >
+                {{ day.date.getDate() }}
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-      <div class="dialogButtonGroup">
-        <button class="dialogButton" value="cancel">
+
+      <!-- TODO: -->
+      <!-- <div class="">
+        <button class="" value="cancel" type="button" @click="show = false">
           Cancel
         </button>
-        <button class="dialogButton" value="ok">
+        <button
+          class=""
+          value="ok"
+          type="button"
+          @click="selectedDate = focusedDate"
+        >
           OK
         </button>
       </div>
-      <div class="message" aria-live="polite">
-        Test
-      </div>
+      <div class="" aria-live="polite">
+        Cursor keys can navigate dates
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
+import KEYCODES from '../../data/keycodes.js';
+import { clickout } from '../../directives';
+import { randomString, applyFocusTrap } from '../../utils.js';
+
+/**
+ * @param {object} first
+ * @param {object} second
+ * @return {boolean}
+ */
+function sameDays(first, second) {
+  return (
+    first.getFullYear() === second.getFullYear() &&
+    first.getMonth() === second.getMonth() &&
+    first.getDate() === second.getDate()
+  );
+}
+
+const keysUsed = [
+  KEYCODES.UP,
+  KEYCODES.DOWN,
+  KEYCODES.LEFT,
+  KEYCODES.RIGHT,
+  KEYCODES.PAGEUP,
+  KEYCODES.PAGEDOWN,
+  KEYCODES.HOME,
+  KEYCODES.END,
+];
+
+// Based on https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/datepicker-dialog.html
 export default {
-  // https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/datepicker-dialog.html
+  directives: {
+    clickout,
+  },
+
+  model: {
+    prop: 'date',
+    event: 'update',
+  },
+
+  props: {
+    // TODO: include, exclude
+    date: {
+      type: [Date, String],
+      default: () => new Date(),
+    },
+
+    min: {
+      type: [Date, String],
+      default: '',
+    },
+
+    max: {
+      type: [Date, String],
+      default: '',
+    },
+
+    id: {
+      type: String,
+      default: () => `vts-${randomString(4)}`,
+    },
+
+    daysOfWeek: {
+      type: Object,
+      default: () => {
+        return Object.freeze({
+          Su: 'Sunday',
+          Mo: 'Monday',
+          Tu: 'Tuesday',
+          We: 'Wednesday',
+          Th: 'Thursday',
+          Fr: 'Friday',
+          Sa: 'Saturday',
+        });
+      },
+    },
+
+    monthLabels: {
+      type: Array,
+      default: () => [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ],
+    },
+
+    classes: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+
+  data() {
+    return {
+      show: false,
+      previousActiveEl: null,
+      focusedDate: new Date(this.date),
+      selectedDate: new Date(this.date),
+    };
+  },
+
+  computed: {
+    monthYear() {
+      const { monthLabels, focusedDate } = this;
+      return `${
+        monthLabels[focusedDate.getMonth()]
+      } ${focusedDate.getFullYear()}`;
+    },
+
+    disableNav() {
+      const { focusedDate, min, max } = this;
+      const disableNav = {};
+      const minDate = new Date(min);
+      const maxDate = new Date(max);
+
+      if (min) {
+        disableNav.prevYear = focusedDate.getYear() <= minDate.getYear();
+        disableNav.prevMonth = focusedDate.getMonth() <= minDate.getMonth();
+      }
+      if (max) {
+        disableNav.nextYear = focusedDate.getYear() >= maxDate.getYear();
+        disableNav.nextMonth = focusedDate.getMonth() >= maxDate.getMonth();
+      }
+      return disableNav;
+    },
+
+    daysByWeeks() {
+      const { focusedDate, selectedDate, min, max } = this;
+      const firstDayOfMonth = new Date(
+        focusedDate.getFullYear(),
+        focusedDate.getMonth(),
+        1
+      );
+      const dayOfWeek = firstDayOfMonth.getDay();
+      firstDayOfMonth.setDate(firstDayOfMonth.getDate() - dayOfWeek);
+
+      const daysInMonth = new Date(
+        focusedDate.getFullYear(),
+        focusedDate.getMonth() + 1,
+        0
+      ).getDate();
+
+      const d = new Date(firstDayOfMonth);
+      const maxWeeks = dayOfWeek + daysInMonth < 36 ? 5 : 6;
+      const weeks = [];
+
+      for (let i = 0; i < maxWeeks; i++) {
+        weeks.push([]);
+
+        for (let j = 0; j < 7; j++) {
+          const date = new Date(d);
+          let disabled = false;
+          if (min) {
+            disabled = date < new Date(min);
+          }
+          if (max && !disabled) {
+            disabled = date > new Date(max);
+          }
+
+          weeks[i].push({
+            date,
+            isFocused: sameDays(date, focusedDate),
+            isSelected: sameDays(date, selectedDate),
+            disabled,
+          });
+          d.setDate(d.getDate() + 1);
+        }
+      }
+
+      return weeks;
+    },
+
+    toggle() {
+      const { show } = this;
+      return {
+        bind: {
+          'aria-label': 'Select Date',
+          'aria-expanded': '' + show,
+        },
+        on: {
+          click: () => {
+            this.show = !show;
+          },
+        },
+      };
+    },
+  },
+
+  watch: {
+    show(isShow) {
+      const { previousActiveEl, date } = this;
+      if (isShow) {
+        this.previousActiveEl = document.activeElement;
+        this.focusedDate = new Date(date);
+        this.$nextTick(() => {
+          this.$el.querySelector('button[aria-selected="true"]').focus();
+        });
+      } else if (previousActiveEl) {
+        previousActiveEl.focus();
+      }
+    },
+
+    selectedDate(date) {
+      this.$emit('update', date);
+      this.show = false;
+    },
+  },
+
+  methods: {
+    incrementMonthBy(inc) {
+      const { focusedDate } = this;
+      // get last day of prev/next month
+      const last = new Date(focusedDate);
+      last.setMonth(last.getMonth() + inc + 1);
+      last.setDate(0);
+
+      const fd = new Date(focusedDate);
+      fd.setDate(Math.min(fd.getDate(), last.getDate())); // Must happen before month change`
+      fd.setMonth(fd.getMonth() + inc);
+
+      this.focusedDate = fd;
+    },
+
+    incrementYearBy(inc) {
+      const d = new Date(this.focusedDate);
+      d.setFullYear(d.getFullYear() + inc);
+      this.focusedDate = d;
+    },
+
+    onClick({ target }) {
+      if (!target.classList.contains('vts-date__day')) return;
+      this.selectedDate = new Date(target.value);
+    },
+
+    onKeydown(event) {
+      // Use event delegation on parent so we dont have 42 event listeners on buttons
+      if (!event.target.classList.contains('vts-date__day')) return;
+      if (!keysUsed.includes(event.keyCode)) return;
+
+      event.stopPropagation();
+      event.preventDefault();
+
+      const { focusedDate, min, max } = this;
+      let d = new Date(focusedDate);
+
+      switch (event.keyCode) {
+        case KEYCODES.ENTER:
+        case KEYCODES.SPACE:
+          this.selectedDate = d;
+          return;
+
+        case KEYCODES.RIGHT:
+          d.setDate(d.getDate() + 1);
+          break;
+
+        case KEYCODES.LEFT:
+          d.setDate(d.getDate() - 1);
+          break;
+
+        case KEYCODES.DOWN:
+          d.setDate(d.getDate() + 7);
+          break;
+
+        case KEYCODES.UP:
+          d.setDate(d.getDate() - 7);
+          break;
+
+        case KEYCODES.PAGEUP:
+          if (event.shiftKey) {
+            d.setFullYear(focusedDate.getFullYear() - 1);
+          } else {
+            d.setMonth(focusedDate.getMonth() - 1);
+          }
+          break;
+
+        case KEYCODES.PAGEDOWN:
+          if (event.shiftKey) {
+            d.setFullYear(focusedDate.getFullYear() + 1);
+          } else {
+            d.setMonth(focusedDate.getMonth() + 1);
+          }
+          break;
+
+        case KEYCODES.HOME:
+          d.setDate(d.getDate() - d.getDay());
+          break;
+
+        case KEYCODES.END:
+          d.setDate(d.getDate() + (6 - d.getDay()));
+          break;
+      }
+
+      const minDate = min && new Date(min);
+      const maxDate = max && new Date(max);
+
+      if ((minDate && d < minDate) || (maxDate && d > maxDate)) return;
+
+      this.focusedDate = d;
+
+      this.$nextTick(() => {
+        this.$el.querySelector('button[aria-selected="true"]').focus();
+      });
+    },
+
+    onTab(event) {
+      applyFocusTrap(this.$refs.calendar, event);
+    },
+
+    onClickout(event) {
+      const { show } = this;
+      event.preventDefault();
+      if (show) {
+        this.show = false;
+      }
+    },
+  },
 };
 </script>
 
 <style>
-.datepicker {
-  margin-top: 1em;
+.vtd-date {
   position: relative;
 }
 
-.datepicker button.icon {
-  padding: 4px;
-  margin: 0;
-  border: transparent 2px solid;
-  border-radius: 5px;
-  text-align: left;
-  background-color: white;
-  position: relative;
-  left: -4px;
-  top: 3px;
-}
-
-.datepicker button.icon:focus {
-  outline: none;
-  border-color: hsl(216, 80%, 55%);
-}
-
-.datepicker span.arrow {
-  margin: 0;
-  padding: 0;
-  display: none;
-  background: transparent;
-}
-
-.datepicker input {
-  margin: 0;
-  width: 20%;
-}
-
-.datepicker .datepickerDialog {
-  position: absolute;
-  width: 45%;
-  clear: both;
-  display: none;
-  border: 3px solid hsl(216, 80%, 55%);
-  margin-top: 1em;
-  border-radius: 5px;
-  padding: 0;
-  background-color: #fff;
-}
-
-.datepicker .header {
-  cursor: default;
-  background-color: hsl(216, 80%, 55%);
-  padding: 7px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: white;
+.vts-date__navigation {
   display: flex;
   justify-content: space-around;
-}
-
-.datepicker .header h2 {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  font-size: 1em;
-  color: white;
-  text-transform: none;
-  font-weight: bold;
-}
-
-.datepicker .header button {
-  border-style: none;
-  background: transparent;
-}
-
-.datepicker .datepickerDialog button::-moz-focus-inner {
-  border: 0;
-}
-
-.datepicker .prevYear,
-.datepicker .prevMonth,
-.datepicker .nextMonth,
-.datepicker .nextYear {
-  padding: 4px;
-  width: 24px;
-  height: 24px;
-  color: white;
-}
-
-.datepicker .prevYear:focus,
-.datepicker .prevMonth:focus,
-.datepicker .nextMonth:focus,
-.datepicker .nextYear:focus {
-  padding: 2px;
-  border: 2px solid white;
-  border-radius: 4px;
-  outline: 0;
-}
-
-.datepicker .dialogButtonGroup {
-  text-align: right;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  margin-right: 1em;
-}
-
-.datepicker .dialogButton {
-  padding: 5px;
-  margin-left: 1em;
-  width: 5em;
-  background-color: hsl(216, 80%, 92%);
-  font-size: 0.85em;
-  color: black;
-  outline: none;
-  border: 1px solid hsl(216, 80%, 92%);
-  border-radius: 5px;
-}
-
-.datepicker .dialogButton:focus {
-  padding: 4px;
-  border: 2px solid black;
-}
-
-.datepicker .fa-calendar-alt {
-  color: hsl(216, 89%, 72%);
-}
-
-.datepicker .monthYear {
-  display: inline-block;
-  width: 12em;
-  text-align: center;
-}
-
-.datepicker table.dates {
-  width: 100%;
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 1em;
-}
-
-.datepicker table.dates th,
-.datepicker table.dates td {
-  text-align: center;
-}
-
-.datepicker .dateRow {
-  border: 1px solid black;
-}
-
-.datepicker .dateCell {
-  outline: 0;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  height: 40px;
-  width: 40px;
-}
-
-.datepicker .dateButton {
-  padding: 0;
-  margin: 0;
-  line-height: inherit;
-  height: 100%;
-  width: 100%;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  font-size: 15px;
-  background: #eee;
-}
-
-.datepicker .dateButton:focus,
-.datepicker .dateButton:hover {
-  padding: 0;
-  background-color: hsl(216, 80%, 92%);
-}
-
-.datepicker .dateButton:focus {
-  border-width: 2px;
-  border-color: rgb(100, 100, 100);
-  outline: 0;
-}
-
-.datepicker .dateButton[aria-selected] {
-  border-color: rgb(100, 100, 100);
-}
-
-.datepicker .dateButton[tabindex="0"] {
-  background-color: hsl(216, 80%, 92%);
-}
-
-.datepicker .disabled {
-  color: #afafaf;
-}
-
-.datepicker .disabled:hover {
-  color: black;
-}
-
-.datepicker .dateButton:disabled {
-  color: #777;
-  background-color: #fff;
-  border: none;
-  cursor: not-allowed;
-}
-
-.datepicker .message {
-  padding-top: 0.25em;
-  padding-left: 1em;
-  height: 1.75em;
-  background: hsl(216, 80%, 55%);
-  color: white;
 }
 </style>
