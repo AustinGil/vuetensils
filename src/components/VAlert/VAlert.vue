@@ -106,6 +106,7 @@ export default {
     dismiss() {
       /**
        * Fired when a user manually dismissed an alert
+       *
        * @event dismiss
        * @type { undefined }
        */
@@ -126,6 +127,7 @@ export default {
       this.timerId = setTimeout(() => {
         /**
          * Fired whenever the visibility changes. Either through user interaction, or a countdown timer
+         *
          * @event update
          * @type { boolean/number }
          */

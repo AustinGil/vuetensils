@@ -282,9 +282,13 @@ export default {
         order = 'descending';
       }
 
-      return ['sort by', header.text || header.key, 'in', order, 'order'].join(
-        ' '
-      );
+      return [
+        'sort by',
+        header.text || header.key,
+        'in',
+        order,
+        'order'
+      ].join(' ');
     },
   },
 };

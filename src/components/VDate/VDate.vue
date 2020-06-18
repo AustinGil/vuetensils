@@ -166,9 +166,11 @@ import { clickout } from '../../directives';
 import { randomString, applyFocusTrap } from '../../utils.js';
 
 /**
- * @param {object} first
- * @param {object} second
- * @return {boolean}
+ * Compares the year, month, and day of two dates to confirm if they match.
+ *
+ * @param  {object}  first  Date object
+ * @param  {object}  second Date object
+ * @return {boolean}        True if dates match
  */
 function sameDays(first, second) {
   return (

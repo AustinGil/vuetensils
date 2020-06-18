@@ -13,9 +13,14 @@ module.exports = {
     jsdom: true,
     Promise: true
   },
-  plugins: ['jest', 'vue'],
+  plugins: [
+    'jest',
+    'jsdoc',
+    'vue'
+  ],
   extends: [
     'eslint:recommended',
+    'plugin:jsdoc/recommended',
     'plugin:vue/recommended',
     'plugin:jest/recommended',
     'plugin:vuejs-accessibility/recommended',
@@ -26,6 +31,15 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'quotes': ['error', 'single'],
     'semi': ['error', 'always'],
+    'jsdoc/check-tag-names': [
+      'error',
+      {
+        'definedTags': [
+          'model',
+          'slot'
+        ]
+      }
+    ],
     'vue/html-self-closing': [
       'error',
       {
@@ -49,5 +63,13 @@ module.exports = {
       }
     ],
     'vue/require-prop-types': ['error']
+  },
+  settings: {
+    jsdoc: {
+      tagNamePreference: {
+        property: 'prop',
+        returns: 'return'
+      }
+    }
   }
 };

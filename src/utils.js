@@ -1,9 +1,12 @@
 import FOCUSABLE from './data/focusable.js';
 
 /**
- * @param {number} [length] 
- * @param {string} [allowed] 
- * @return {string}
+ * Generates a random string of defined length based on
+ * a string of allowed characters.
+ *
+ * @param  {number} length  How many random characters will be in the returned string. Defaults to 10
+ * @param  {string} allowed Which characters can be used when creating the random string. Defaults to A-Z,a-z,0-9
+ * @return {string}         A string of random characters
  */
 export function randomString(
   length = 10,
@@ -16,13 +19,23 @@ export function randomString(
   return result;
 }
 
+/**
+ * [safeSlot description]
+ *
+ * @param  {[type]} h    hyperscript markup from Vue render function
+ * @param  {[type]} slot component slot
+ * @return {[type]}      Slot or div wrapping the slot
+ */
 export function safeSlot(h, slot) {
   return slot && slot.length > 1 ? h('div', slot) : slot;
 }
 
 /**
- * @param {HTMLElement} el
- * @param {Event} event
+ * [applyFocusTrap description]
+ *
+ * @param  {HTMLElement} el    [description]
+ * @param  {Event}       event [description]
+ * @return {undefined}         [description]
  */
 export function applyFocusTrap(el, event) {
   const focusable = Array.from(el.querySelectorAll(FOCUSABLE));
