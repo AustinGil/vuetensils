@@ -166,8 +166,7 @@ import { clickout } from '../../directives';
 import { randomString, applyFocusTrap } from '../../utils.js';
 
 /**
- * Compares the year, month, and day of two dates to confirm
- * if they match.
+ * Compares the year, month, and day of two dates to confirm if they match.
  *
  * @param  {object}  first  Date object
  * @param  {object}  second Date object
