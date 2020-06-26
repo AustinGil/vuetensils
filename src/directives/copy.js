@@ -1,6 +1,7 @@
 /**
  * Copies a string of text to the user's clipboard
- * @param {String} content The content within the downloaded file
+ *
+ * @param {string} content The content within the downloaded file
  */
 function copyToClipboard(content) {
   const activeEl = document.activeElement;

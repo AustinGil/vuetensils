@@ -183,16 +183,22 @@ DatePicker.prototype.setFocusDay = function(flag) {
 
   var fd = this.focusDay;
 
-  function checkDay(d) {
-    d.domNode.setAttribute('tabindex', '-1');
+  /**
+   * [checkDay description]
+   *
+   * @param  {object}    day [description]
+   * @return {undefined}     Mutates day object
+   */
+  function checkDay(day) {
+    day.domNode.setAttribute('tabindex', '-1');
     if (
-      d.day.getDate() == fd.getDate() &&
-      d.day.getMonth() == fd.getMonth() &&
-      d.day.getFullYear() == fd.getFullYear()
+      day.day.getDate() == fd.getDate() &&
+      day.day.getMonth() == fd.getMonth() &&
+      day.day.getFullYear() == fd.getFullYear()
     ) {
-      d.domNode.setAttribute('tabindex', '0');
+      day.domNode.setAttribute('tabindex', '0');
       if (flag) {
-        d.domNode.focus();
+        day.domNode.focus();
       }
     }
   }
@@ -623,6 +629,9 @@ DatePicker.prototype.getDateForButtonLabel = function(year, month, day) {
 };
 
 DatePicker.prototype.setMessage = function(str) {
+  /**
+   * [setMessageDelayed description]
+   */
   function setMessageDelayed() {
     this.messageNode.textContent = str;
   }

@@ -125,6 +125,7 @@ export default {
     show() {
       /**
        * Fired when the modal opens.
+       *
        * @event show
        * @type { boolean }
        */
@@ -134,6 +135,7 @@ export default {
     hide() {
       /**
        * Fired when the modal closes.
+       *
        * @event hide
        * @type { boolean }
        */
@@ -146,6 +148,7 @@ export default {
       this.$emit(event, !showing);
       /**
        * Fired whenever the modal opens or closes.
+       *
        * @event change
        * @type { boolean }
        */
