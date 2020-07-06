@@ -10,7 +10,7 @@ A "naked" component library for Vue.js focused on being:
 Links:
 
 - [Docs](https://vuetensils.stegosource.com/)
-- [NPM](https://www.npmjs.com/package/vuetensils)
+- [npm](https://www.npmjs.com/package/vuetensils)
 - [GitHub](https://github.com/Stegosource/vuetensils)
 - [Updates](https://3bb5fb5a.sibforms.com/serve/MUIEAAOwgrWtf43Lfv80ES_hibAhazPDEy4w9IxRIda1b8g1GNnmHYkDfvIKG-Ox35EtWkJfMyCMBTQ3nG2msGhc3WnHa7XKfkgBzYdL3ASbIEckbn47QtJDIvpOskWQuRIXYI-7dVuM5F25yKdcJch7VN8aAbrpEn8_PMXWpqENTJ6r9bOZgHj6vnAQwHDsdwXDOZIonAP3x3vx)
 
@@ -32,10 +32,10 @@ Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VAlert } from "vuetensils"
+import Vue from 'vue';
+import { VAlert } from 'vuetensils';
 
-Vue.component("VAlert", VAlert)
+Vue.component('VAlert', VAlert);
 ```
 
 Locally:
@@ -43,14 +43,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VAlert } from "vuetensils"
+import { VAlert } from 'vuetensils';
 
 export default {
   components: {
     VAlert,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -73,7 +73,7 @@ export default {
   border-radius: 4px;
   padding: 0 10px;
   color: #900;
-  background: #fdd;
+  background: #FDD;
 }
 ```
 
