@@ -2,13 +2,13 @@
 
 A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
 
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VAlert/VAlert.vue)
+
 Features:
 
 - Includes ARIA `role="alert"` attribute
 - Option for dismiss button
 - Option for timeout
-
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VAlert/VAlert.vue)
 
 ## Installation
 
@@ -16,10 +16,10 @@ Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VAlert } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VAlert } from 'vuetensils/src/components';
 
-Vue.component("VAlert", VAlert)
+Vue.component('VAlert', VAlert);
 ```
 
 Locally:
@@ -27,14 +27,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VAlert } from "vuetensils/src/components"
+import { VAlert } from 'vuetensils/src/components';
 
 export default {
   components: {
     VAlert,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -57,7 +57,7 @@ export default {
   border-radius: 4px;
   padding: 0 10px;
   color: #900;
-  background: #fdd;
+  background: #FDD;
 }
 ```
 
@@ -80,7 +80,7 @@ export default {
   border-radius: 4px;
   padding: 10px;
   color: #009;
-  background: #dff;
+  background: #DFF;
 }
 
 .vts-alert.info .vts-alert__dismiss {
@@ -120,7 +120,7 @@ export default {
   data: () => ({
     alert: false,
   }),
-}
+};
 </script>
 ```
 
@@ -152,7 +152,7 @@ export default {
   data: () => ({
     alert: false,
   }),
-}
+};
 </script>
 ```
 
@@ -189,7 +189,7 @@ export default {
   data: () => ({
     countdown: 10,
   }),
-}
+};
 </script>
 ```
 
@@ -211,14 +211,14 @@ export default {
   data: () => ({
     alert: false,
   }),
-}
+};
 </script>
 ```
 
 ```css
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,

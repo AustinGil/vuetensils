@@ -1,6 +1,8 @@
 # Dialog
 
-A dialog component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the dialog until it is closed. It supports being closed by clicking outside the dialog content or pressing the ESC key.
+A dialog component for showing users content which overlays the rest of the application. When opened, it traps the user's focus so that keyboard navigation will remain within the dialog until it is closed. It supports being closed by clicking outside the dialog content or pressing the ESC key.
+
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDialog/VDialog.vue)
 
 Features:
 
@@ -10,18 +12,16 @@ Features:
 - Adds event listener to close dialog on the `esc` key.
 - Supports preventing page scroll while open.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDialog/VDialog.vue)
-
 ## Installation
 
 Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VDialog } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VDialog } from 'vuetensils/src/components';
 
-Vue.component("VDialog", VDialog)
+Vue.component('VDialog', VDialog);
 ```
 
 Locally:
@@ -29,14 +29,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VDialog } from "vuetensils/src/components"
+import { VDialog } from 'vuetensils/src/components';
 
 export default {
   components: {
     VDialog,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -46,19 +46,23 @@ export default {
 <template>
   <VDialog
     v-model="dialog"
-    @chane="$log"
+    @change="$log"
     bg-transition="fade"
     class="my-dialog"
   >
     <template #toggle="{ bind, on }">
-      <button v-bind="bind" v-on="on">Show the dialog</button>
+      <button v-bind="bind" v-on="on">
+        Show the dialog
+      </button>
     </template>
 
-    This is the dialog content.
-    <br />
-    It traps the user focus.
-    <br />
-    <button @click="dialog = false" aria-label="close" class="my-dialog__close">
+    This is the dialog content.<br />
+    It traps the user's focus.<br />
+    <button
+      @click="dialog = false"
+      aria-label="close"
+      class="my-dialog__close"
+    >
       &times;
     </button>
   </VDialog>
@@ -69,14 +73,14 @@ export default {
   data: () => ({
     dialog: false,
   }),
-}
+};
 </script>
 ```
 
 ```css
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,
@@ -87,7 +91,7 @@ export default {
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-up-enter,
@@ -105,8 +109,8 @@ export default {
   border-radius: 7px;
   padding: 20px;
   font-family: sans-serif;
-  background: #fff;
-  transition: transform 0.3s;
+  background: #FFF;
+  transition: 0.3s ease transform;
 }
 
 .my-dialog .fade-enter .vts-dialog__content,
@@ -130,7 +134,7 @@ Dialog background colors have been removed. The following styles have been added
 
 ```css
 .bg-white {
-  background-color: #fff;
+  background-color: #FFF;
 }
 
 .bg-black-alpha .vts-modal {
@@ -144,7 +148,9 @@ Dialog background colors have been removed. The following styles have been added
 <template>
   <VDialog class="test" :classes="{ bg: 'bg-black-alpha' }">
     <template #toggle="{ bind, on }">
-      <button v-bind="bind" v-on="on">Show the dialog</button>
+      <button v-bind="bind" v-on="on">
+        Show the dialog
+      </button>
     </template>
 
     <div class="bg-white">This is the dialog content.</div>
@@ -156,7 +162,7 @@ export default {
   data: () => ({
     dialog: false,
   }),
-}
+};
 </script>
 ```
 
@@ -168,7 +174,9 @@ export default {
     <VDialog v-model="dialog" :classes="{ bg: 'bg-black-alpha' }">
       <div class="bg-white">This is the dialog content.</div>
     </VDialog>
-    <button @click="dialog = !dialog">Show the dialog</button>
+    <button @click="dialog = !dialog">
+      Show the dialog
+    </button>
   </div>
 </template>
 
@@ -177,7 +185,7 @@ export default {
   data: () => ({
     dialog: false,
   }),
-}
+};
 </script>
 ```
 
@@ -188,12 +196,13 @@ export default {
   <div>
     <VDialog v-model="dialog" :classes="{ bg: 'bg-black-alpha' }">
       <div class="bg-white">
-        This is the dialog content.
-        <br />
+        This is the dialog content.<br />
         <button @click="dialog = false">Close</button>
       </div>
     </VDialog>
-    <button @click="dialog = !dialog">Show the dialog</button>
+    <button @click="dialog = !dialog">
+      Show the dialog
+    </button>
   </div>
 </template>
 
@@ -202,7 +211,7 @@ export default {
   data: () => ({
     dialog: false,
   }),
-}
+};
 </script>
 ```
 
@@ -212,7 +221,9 @@ export default {
 <template>
   <VDialog noScroll :classes="{ bg: 'bg-black-alpha' }">
     <template #toggle="{ bind, on }">
-      <button v-bind="bind" v-on="on">Show the dialog</button>
+      <button v-bind="bind" v-on="on">
+        Show the dialog
+      </button>
     </template>
 
     <div class="bg-white">This is the dialog content.</div>
@@ -232,14 +243,16 @@ export default {
       :classes="{ bg: 'bg-black-alpha' }"
     >
       <div class="bg-white">
-        This is the dialog content.
-        <br />
-        It traps the user focus.
-        <br />
-        <button @click="dialog = false">Close</button>
+        This is the dialog content.<br />
+        It traps the user focus.<br />
+        <button @click="dialog = false">
+          Close
+        </button>
       </div>
     </VDialog>
-    <button @click="dialog = !dialog">Show the dialog</button>
+    <button @click="dialog = !dialog">
+      Show the dialog
+    </button>
   </div>
 </template>
 
@@ -248,14 +261,14 @@ export default {
   data: () => ({
     dialog: false,
   }),
-}
+};
 </script>
 ```
 
 ```css
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,
@@ -266,7 +279,7 @@ export default {
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-up-enter,

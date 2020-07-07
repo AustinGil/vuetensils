@@ -14,7 +14,7 @@
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <styles>
@@ -25,12 +25,12 @@ export default {}
   padding: 5px;
   font-size: 18px;
   text-align: left;
-  color: #fff;
+  color: #FFF;
   background-color: mediumseagreen;
 }
 
 .toggle-content {
-  border: 1px solid #ccc;
+  border: 1px solid #CCC;
   padding: 5px;
 }
 </styles>
@@ -50,7 +50,7 @@ export default {}
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 ```
 

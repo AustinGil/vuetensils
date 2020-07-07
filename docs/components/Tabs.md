@@ -2,6 +2,8 @@
 
 Show and hide content based on which tabs are selected.
 
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VTabs/VTabs.vue)
+
 Features:
 
 - Manages ARIA roles for `tablist`, `tab`, and `tabpanel`.
@@ -10,18 +12,16 @@ Features:
 
 Keyboard navigation to the tabs only targets active tab. `right` key activates next tab (horizontal orientation) or loops around to start. `left` key activates previous tab (horizontal orientation) or loops around to end. `down` key activates next tab (vertical orientation) or loops around to start. `down` key activates previous tab (vertical orientation) or loops around to end. (in horizontal orientation), `home` key activates first tab. `end` key activates last tab.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VTabs/VTabs.vue)
-
 ## Installation
 
 Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VTabs } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VTabs } from 'vuetensils/src/components';
 
-Vue.component("VTabs", VTabs)
+Vue.component('VTabs', VTabs);
 ```
 
 Locally:
@@ -29,14 +29,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VTabs } from "vuetensils/src/components"
+import { VTabs } from 'vuetensils/src/components';
 
 export default {
   components: {
     VTabs,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -63,7 +63,7 @@ export default {
 ```css
 .vts-tabs {
   overflow: hidden;
-  border: 1px solid #ccc;
+  border: 1px solid #CCC;
   border-radius: 0.25rem;
 }
 
@@ -78,8 +78,8 @@ export default {
 }
 
 .vts-tabs [role="tab"][aria-selected="true"] {
-  border-bottom-color: #fff;
-  background: #fff;
+  border-bottom-color: #FFF;
+  background: #FFF;
 }
 
 .vts-tabs [role="tabpanel"] {

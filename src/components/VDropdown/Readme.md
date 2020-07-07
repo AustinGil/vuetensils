@@ -13,7 +13,7 @@
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style>
@@ -22,9 +22,9 @@ export default {}
   border-radius: 5px;
   padding: 10px;
   font-size: 18px;
-  color: #fff;
+  color: #FFF;
   background: darkcyan;
-  transition: border-radius 0.5s ease;
+  transition: 0.5s ease border-radius;
 }
 
 .vts-dropdown__trigger[aria-expanded] {
@@ -40,7 +40,7 @@ export default {}
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-up-enter,
@@ -69,7 +69,7 @@ export default {}
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 ```
 
@@ -90,14 +90,14 @@ export default {}
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style>
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-up-enter,

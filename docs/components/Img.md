@@ -2,15 +2,15 @@
 
 Drop in replacement for the HTML `<img>` tag which supports lazy-loading. Improves load times by waiting for the image to scroll into view before actually downloading it.
 
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VImg/VImg.vue)
+
 Features:
 
 - Built to behave as close to native `<img>` element as possible.
 - Provides lazy-loading with more options than native.
 - Supports placeholder colors or images.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VImg/VImg.vue)
-
-Note that this site has the following global CSS which is applied to examples:
+Note that this site has the following global CSS applied to these examples:
 
 ```css
 img {
@@ -25,10 +25,10 @@ Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VImg } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VImg } from 'vuetensils/src/components';
 
-Vue.component("VImg", VImg)
+Vue.component('VImg', VImg);
 ```
 
 Locally:
@@ -36,14 +36,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VImg } from "vuetensils/src/components"
+import { VImg } from 'vuetensils/src/components';
 
 export default {
   components: {
     VImg,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -79,7 +79,7 @@ Pass in the image dimensions to avoid the page jumping when the image loads
     src="https://source.unsplash.com/random/1000x550"
     width="1000"
     height="550"
-    background="#ddd"
+    background="#DDD"
   />
 </template>
 ```
@@ -107,7 +107,7 @@ If you don't like the default transition duration (300ms), you can pass a custom
     src="https://source.unsplash.com/random/900x551"
     width="900"
     height="551"
-    background="#ddd"
+    background="#DDD"
     transitionDuration="1000"
   />
 </template>

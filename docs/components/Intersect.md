@@ -4,7 +4,7 @@ Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Int
 
 The components accepts four props: `root`, `rootMargin`, `threshold`, and `options`. The first three correspond to the [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) options properties, or you can pass them all together to the `options` prop.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VIntersect/VIntersect.vue)
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VIntersect/VIntersect.vue)
 
 ## Installation
 
@@ -12,10 +12,10 @@ Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VIntersect } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VIntersect } from 'vuetensils/src/components';
 
-Vue.component("VIntersect", VIntersect)
+Vue.component('VIntersect', VIntersect);
 ```
 
 Locally:
@@ -23,14 +23,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VIntersect } from "vuetensils/src/components"
+import { VIntersect } from 'vuetensils/src/components';
 
 export default {
   components: {
     VIntersect,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -68,7 +68,7 @@ export default {
   methods: {
     log: console.log,
   },
-}
+};
 </script>
 ```
 
@@ -109,6 +109,6 @@ export default {
   methods: {
     log: console.log,
   },
-}
+};
 </script>
 ```

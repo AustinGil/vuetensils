@@ -7,7 +7,9 @@
       My drawer content
     </VDrawer>
 
-    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
+    <button @click="showDrawer = !showDrawer">
+      Toggle Drawer
+    </button>
   </div>
 </template>
 
@@ -16,7 +18,7 @@ export default {
   data: () => ({
     showDrawer: false,
   }),
-}
+};
 </script>
 
 <style>
@@ -26,13 +28,13 @@ export default {
 
 .vts-drawer__content {
   padding: 20px;
-  color: #fff;
+  color: #FFF;
   background: #222;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,
@@ -42,7 +44,7 @@ export default {
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-right-enter,
@@ -62,7 +64,9 @@ export default {
       My drawer content
     </VDrawer>
 
-    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
+    <button @click="showDrawer = !showDrawer">
+      Toggle Drawer
+    </button>
   </div>
 </template>
 
@@ -71,7 +75,7 @@ export default {
   data: () => ({
     showDrawer: false,
   }),
-}
+};
 </script>
 ```
 
@@ -84,7 +88,9 @@ export default {
       My drawer content
     </VDrawer>
 
-    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
+    <button @click="showDrawer = !showDrawer">
+      Toggle Drawer
+    </button>
   </div>
 </template>
 
@@ -93,7 +99,7 @@ export default {
   data: () => ({
     showDrawer: false,
   }),
-}
+};
 </script>
 ```
 
@@ -106,7 +112,9 @@ export default {
       My drawer content
     </VDrawer>
 
-    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
+    <button @click="showDrawer = !showDrawer">
+      Toggle Drawer
+    </button>
   </div>
 </template>
 
@@ -115,7 +123,7 @@ export default {
   data: () => ({
     showDrawer: false,
   }),
-}
+};
 </script>
 ```
 
@@ -128,7 +136,9 @@ export default {
       My drawer content
     </VDrawer>
 
-    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
+    <button @click="showDrawer = !showDrawer">
+      Toggle Drawer
+    </button>
   </div>
 </template>
 
@@ -137,13 +147,13 @@ export default {
   data: () => ({
     showDrawer: false,
   }),
-}
+};
 </script>
 
 <style>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,
@@ -153,7 +163,7 @@ export default {
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-right-enter,
@@ -176,7 +186,9 @@ export default {
       My drawer content
     </VDrawer>
 
-    <button @click="showDrawer = !showDrawer">Toggle Drawer</button>
+    <button @click="showDrawer = !showDrawer">
+      Toggle Drawer
+    </button>
   </div>
 </template>
 
@@ -185,13 +197,13 @@ export default {
   data: () => ({
     showDrawer: false,
   }),
-}
+};
 </script>
 
 <style>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,
@@ -201,7 +213,7 @@ export default {
 
 .slide-left-enter-active,
 .slide-left-leave-active {
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-left-enter,

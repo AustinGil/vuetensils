@@ -2,11 +2,11 @@
 
 A functional component to help keyboard users skip to the main content
 
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VSkip/VSkip.vue)
+
 Features:
 - Visually hidden by default but visible on focus.
 - Sets `tabindex` on target when clicked (for focus ring).
-
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VSkip/VSkip.vue)
 
 ## Installation
 
@@ -14,10 +14,10 @@ Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VSkip } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VSkip } from 'vuetensils/src/components';
 
-Vue.component("VSkip", VSkip)
+Vue.component('VSkip', VSkip);
 ```
 
 Locally:
@@ -25,14 +25,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VSkip } from "vuetensils/src/components"
+import { VSkip } from 'vuetensils/src/components';
 
 export default {
   components: {
     VSkip,
   },
   // ...
-}
+};
 </script>
 ```
 

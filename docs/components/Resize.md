@@ -2,7 +2,7 @@
 
 Component which provides the calculated width and height to its default scoped slot. This would allow you do update child components based on the actual size of the element, rather than the size of the screen.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VResize/VResize.vue)
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VResize/VResize.vue)
 
 ## Installation
 
@@ -10,10 +10,10 @@ Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VResize } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VResize } from 'vuetensils/src/components';
 
-Vue.component("VResize", VResize)
+Vue.component('VResize', VResize);
 ```
 
 Locally:
@@ -21,14 +21,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VResize } from "vuetensils/src/components"
+import { VResize } from 'vuetensils/src/components';
 
 export default {
   components: {
     VResize,
   },
   // ...
-}
+};
 </script>
 ```
 

@@ -2,13 +2,13 @@
 
 A functional component for logically rendering the appropriate actionable elements: `<RouterLink>`, `<a>`, or `<button>`. At first glance, this may not be a particularly helpful component, but it really simplifies list rendering.
 
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VBtn/VBtn.vue)
+
 Features:
 
 - Renders a `<button>` by default.
 - Renders a [`<RouterLink>`](https://router.vuejs.org/api/#router-link) when provided a `to` prop.
 - Renders an `<a>` link when provided a `href` prop.
-
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VBtn/VBtn.vue)
 
 ## Installation
 
@@ -16,10 +16,10 @@ Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VBtn } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VBtn } from 'vuetensils/src/components';
 
-Vue.component("VBtn", VBtn)
+Vue.component('VBtn', VBtn);
 ```
 
 Locally:
@@ -27,14 +27,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VBtn } from "vuetensils/src/components"
+import { VBtn } from 'vuetensils/src/components';
 
 export default {
   components: {
     VBtn,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -52,7 +52,7 @@ export default {
   methods: {
     log: console.log,
   },
-}
+};
 </script>
 ```
 
@@ -82,7 +82,7 @@ export default {
 <template>
   <ul>
     <li v-for="item in items">
-      <VBtn v-bind="item.bind" v-on="item.on" >
+      <VBtn v-bind="item.bind" v-on="item.on">
         {{ item.text }}
       </VBtn>
     </li>
@@ -113,6 +113,6 @@ export default {
       }
     ]
   })
-}
+};
 </script>
 ```

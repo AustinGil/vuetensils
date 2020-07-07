@@ -2,7 +2,7 @@
 
 Input component that simplifies accessibility and validation.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VInput/VInput.vue)
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VInput/VInput.vue)
 
 **Features:**
 
@@ -17,10 +17,10 @@ Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VInput } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VInput } from 'vuetensils/src/components';
 
-Vue.component("VInput", VInput)
+Vue.component('VInput', VInput);
 ```
 
 Locally:
@@ -28,14 +28,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VInput } from "vuetensils/src/components"
+import { VInput } from 'vuetensils/src/components';
 
 export default {
   components: {
     VInput,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -47,7 +47,9 @@ export default {
     <VInput label="Name" name="name" required minlength="2">
       <template #description="input">
         <template v-if="input.error">
-          <small v-if="input.invalid.required">This field is required.</small>
+          <small v-if="input.invalid.required">
+            This field is required.
+          </small>
           <small v-if="input.invalid.minlength">
             Must be more than 2 characters
           </small>
@@ -58,7 +60,9 @@ export default {
     <VInput label="Email" name="email" type="email" required>
       <template #description="input">
         <template v-if="input.error">
-          <small v-if="input.invalid.required">This field is required.</small>
+          <small v-if="input.invalid.required">
+            This field is required.
+          </small>
           <small v-if="input.invalid.type">
             Must be an email
           </small>
@@ -80,7 +84,7 @@ export default {
 .vts-input__input {
   display: block;
   width: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid #CCC;
   border-radius: 3px;
   padding: 5px;
 }
@@ -163,7 +167,7 @@ export default {
   data: () => ({
     selected: ["option 2"],
   }),
-}
+};
 </script>
 ```
 
@@ -247,7 +251,7 @@ export default {
   data: () => ({
     input: "init",
   }),
-}
+};
 </script>
 ```
 

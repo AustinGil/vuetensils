@@ -31,7 +31,7 @@ body .live-preview pre {
 }
 
 .bg-white {
-  background-color: #fff;
+  background-color: #FFF;
 }
 
 .bg-black-alpha {
@@ -44,7 +44,7 @@ body .live-preview pre {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,
@@ -54,7 +54,7 @@ body .live-preview pre {
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-right-enter,
@@ -65,7 +65,7 @@ body .live-preview pre {
 
 .slide-left-enter-active,
 .slide-left-leave-active {
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-left-enter,
@@ -77,7 +77,7 @@ body .live-preview pre {
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-up-enter,
@@ -91,7 +91,7 @@ body .live-preview pre {
   border-radius: 4px;
   padding: 0 10px;
   color: #900;
-  background: #fdd;
+  background: #FDD;
 }
 
 .vts-alert.info {
@@ -102,7 +102,7 @@ body .live-preview pre {
   border-radius: 4px;
   padding: 10px;
   color: #009;
-  background: #dff;
+  background: #DFF;
 }
 
 .vts-alert.info .vts-alert__dismiss {
@@ -117,9 +117,9 @@ body .live-preview pre {
 
 .styled .vts-drawer__content {
   padding: 20px;
-  color: #fff;
+  color: #FFF;
   background: #222;
-  transition: transform 0.3s;
+  transition: 0.3s ease transform;
 }
 
 .styled .vts-dropdown__trigger {
@@ -127,9 +127,9 @@ body .live-preview pre {
   border-radius: 5px;
   padding: 10px;
   font-size: 18px;
-  color: #fff;
+  color: #FFF;
   background: darkcyan;
-  transition: border-radius 0.5s ease;
+  transition: 0.5s ease border-radius;
 }
 
 .styled .vts-dropdown__trigger[aria-expanded] {
@@ -140,7 +140,7 @@ body .live-preview pre {
   border: 1px solid darkcyan;
   border-radius: 0 0 5px 5px;
   padding: 10px;
-  background-color: #fff;
+  background-color: #FFF;
 }
 
 .styled.vts-form input {
@@ -163,7 +163,7 @@ body .live-preview pre {
 }
 
 .styled.vts-form:not(.vts-form--invalid) button {
-  color: #fff;
+  color: #FFF;
   background: seagreen;
 }
 
@@ -174,7 +174,7 @@ body .live-preview pre {
   border-radius: 5px;
   padding: 30px;
   background: lightblue;
-  transition: background-color 0.2s ease;
+  transition: 0.2s ease background-color;
 }
 
 .styled .vts-file--droppable .vts-file__dropzone {
@@ -211,7 +211,7 @@ body .live-preview pre {
 .styled .vts-input__input {
   display: block;
   width: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid #CCC;
   border-radius: 3px;
   padding: 5px;
 }
@@ -237,8 +237,8 @@ body .live-preview pre {
   border-radius: 7px;
   padding: 20px;
   font-family: sans-serif;
-  background: #fff;
-  transition: transform 0.3s;
+  background: #FFF;
+  transition: 0.3s ease transform;
 }
 
 .my-dialog .fade-enter .vts-dialog__content,
@@ -265,7 +265,7 @@ body .live-preview pre {
 
 .styled.vts-tabs {
   overflow: hidden;
-  border: 1px solid #ccc;
+  border: 1px solid #CCC;
   border-radius: 0.25rem;
 }
 
@@ -280,8 +280,8 @@ body .live-preview pre {
 }
 
 .styled.vts-tabs [role="tab"][aria-selected="true"] {
-  border-bottom-color: #fff;
-  background: #fff;
+  border-bottom-color: #FFF;
+  background: #FFF;
 }
 
 .styled.vts-tabs [role="tabpanel"] {
@@ -295,18 +295,18 @@ body .live-preview pre {
   padding: 5px;
   font-size: 18px;
   text-align: left;
-  color: #fff;
+  color: #FFF;
   background-color: mediumseagreen;
 }
 
 .toggle-content {
-  border: 1px solid #ccc;
+  border: 1px solid #CCC;
   padding: 5px;
 }
 
 /* .vts-toggle__content {
   box-sizing: border-box;
-  border: 1px solid #ccc;
+  border: 1px solid #CCC;
   padding: 5px;
 } */
 

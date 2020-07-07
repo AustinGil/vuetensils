@@ -113,6 +113,6 @@ export default {
 
 <style>
 .vts-toggle__content {
-  transition: height 300ms ease;
+  transition: 300ms ease height;
 }
 </style>

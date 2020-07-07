@@ -2,30 +2,30 @@
 
 Vue directive to fire a function when the user clicks anywhere outside the target element.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/directives/clickout.js)
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/directives/clickout.js)
 
 ## Installation
 
 Global install:
 
 ```js
-import Vue from "vue"
-import { clickout } from "vuetensils/src/directives"
+import Vue from 'vue';
+import { clickout } from 'vuetensils/src/directives';
 
-Vue.directive("clickout", clickout)
+Vue.directive('clickout', clickout);
 ```
 
 Local install:
 
 ```html
 <script>
-  import { clickout } from "vuetensils/src/directives"
+  import { clickout } from 'vuetensils/src/directives';
 
   export default {
     directives: {
       clickout,
     },
-  }
+  };
 </script>
 ```
 
@@ -44,10 +44,10 @@ Open your console to see the results
 export default {
   methods: {
     onClickout() {
-      console.log("Well, you certainly did not click inside...")
+      console.log('Well, you certainly did not click inside...');
     },
   },
-}
+};
 </script>
 
 <style>

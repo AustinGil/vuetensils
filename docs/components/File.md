@@ -2,13 +2,13 @@
 
 File selector that behaves like a native file input. However, it can be extended to behave like a drag and drop file selector.
 
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VFile/VFile.vue)
+
 Features:
 
 - Supports styling based on dropzone.
 - Built on native file input for accessibility.
 - Works with keyboard-only navigation.
-
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VFile/VFile.vue)
 
 ## Installation
 
@@ -16,10 +16,10 @@ Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VFile } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VFile } from 'vuetensils/src/components';
 
-Vue.component("VFile", VFile)
+Vue.component('VFile', VFile);
 ```
 
 Locally:
@@ -27,14 +27,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VFile } from "vuetensils/src/components"
+import { VFile } from 'vuetensils/src/components';
 
 export default {
   components: {
     VFile,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -57,7 +57,7 @@ export default {
   data: () => ({
     files: [],
   }),
-}
+};
 </script>
 
 <style>
@@ -68,7 +68,7 @@ export default {
   border-radius: 5px;
   padding: 30px;
   background: lightblue;
-  transition: background-color 0.2s ease;
+  transition: 0.2s ease background-color;
 }
 
 .vts-file--droppable .vts-file__dropzone {
@@ -122,7 +122,7 @@ export default {
   data: () => ({
     files: [],
   }),
-}
+};
 </script>
 ```
 
@@ -143,7 +143,7 @@ export default {
   data: () => ({
     files: [],
   }),
-}
+};
 </script>
 ```
 
