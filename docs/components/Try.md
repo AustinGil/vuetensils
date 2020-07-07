@@ -51,12 +51,12 @@ export default {
 <script>
 import Vue from 'vue';
 Vue.component('ThisWillThrow', {
-  template: '<button @click="onClick">Throw</button>',
   methods: {
     onClick() {
       throw new Error('ThisWillThrow...threw...');
     }
   },
+  template: '<button @click="onClick">Throw</button>',
 });
 export default {};
 </script>
@@ -81,16 +81,17 @@ export default {};
 <script>
 import Vue from 'vue';
 Vue.component('ThisWillReject', {
-  template: '<button @click="onClick">Reject</button>',
   methods: {
     onClick() {
       return Promise.reject(new Error('ThisWillReject...rejected...'));
     }
   },
+  template: '<button @click="onClick">Reject</button>',
 });
 export default {};
 </script>
 ```
+
 
 ## Events
 
@@ -106,6 +107,7 @@ export default {};
 <script>
 import Vue from 'vue';
 Vue.component('ThisWillThrow', {
+  /* eslint-disable-next-line vue/require-render-return */
   render() {
     throw new Error('ThisWillThrow...threw...');
   }
@@ -139,12 +141,12 @@ If you want to only show the error handling template on errors, then the catch s
 <script>
 import Vue from 'vue';
 Vue.component('ThisWillThrow', {
-  template: '<button @click="onClick">Throw</button>',
   methods: {
     onClick() {
       throw new Error('ThisWillThrow...threw...');
     }
   },
+  template: '<button @click="onClick">Throw</button>',
 });
 export default {};
 </script>

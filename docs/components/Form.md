@@ -59,7 +59,12 @@ export default {
 
       <label>
         Password: <small>(required, minlength="6")</small>
-        <input name="password" type="password" required minlength="6" />
+        <input
+          name="password"
+          type="password"
+          required
+          minlength="6"
+        />
       </label>
 
       <button type="submit" :disabled="!form.valid">
@@ -161,7 +166,7 @@ Fortunately, VForm provides a `clear()` method.
         Reset
       </button>
 
-      <button @click="form.clear" type="button">
+      <button type="button" @click="form.clear">
         Clear
       </button>
     </template>

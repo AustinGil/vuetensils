@@ -50,7 +50,9 @@ For IE 11 support, you may want to add the following polyfill:
       @exit="log('@exit fired for block 1')"
       @change="log('@change fired for block 1')"
     >
-      <div class="intersection-content">Content block 1</div>
+      <div class="intersection-content">
+        Content block 1
+      </div>
     </VIntersect>
 
     <VIntersect
@@ -58,7 +60,9 @@ For IE 11 support, you may want to add the following polyfill:
       @exit="log('@exit fired for block 2')"
       @change="log('@change fired for block 2')"
     >
-      <div class="intersection-content">Content block 2</div>
+      <div class="intersection-content">
+        Content block 2
+      </div>
     </VIntersect>
   </div>
 </template>

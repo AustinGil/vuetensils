@@ -48,7 +48,7 @@ Try resizing your browser to see it in action.
           sm: width < 300,
         }"
       >
-        <img src="https://www.fillmurray.com/200/200" />
+        <img src="https://www.fillmurray.com/200/200" alt="description" />
         <p>This content is {{ width }}px wide.</p>
       </div>
     </template>

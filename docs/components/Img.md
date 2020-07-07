@@ -108,7 +108,7 @@ If you don't like the default transition duration (300ms), you can pass a custom
     width="900"
     height="551"
     background="#DDD"
-    transitionDuration="1000"
+    transition-duration="1000"
   />
 </template>
 ```

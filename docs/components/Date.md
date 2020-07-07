@@ -72,7 +72,7 @@ export default {
 <template>
   <div>
     Selected Date: {{ date }}
-    <VDate v-model="date"/>
+    <VDate v-model="date" />
   </div>
 </template>
 
@@ -90,7 +90,9 @@ export default {
 <template>
   <VDate>
     <template #default="{ bind, on }">
-      <button v-bind="bind" v-on="on">Calendar!</button>
+      <button v-bind="bind" v-on="on">
+        Calendar!
+      </button>
     </template>
   </VDate>
 </template>

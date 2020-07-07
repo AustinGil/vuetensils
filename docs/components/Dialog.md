@@ -46,9 +46,9 @@ export default {
 <template>
   <VDialog
     v-model="dialog"
-    @change="$log"
     bg-transition="fade"
     class="my-dialog"
+    @change="$log"
   >
     <template #toggle="{ bind, on }">
       <button v-bind="bind" v-on="on">
@@ -59,9 +59,9 @@ export default {
     This is the dialog content.<br />
     It traps the user's focus.<br />
     <button
-      @click="dialog = false"
       aria-label="close"
       class="my-dialog__close"
+      @click="dialog = false"
     >
       &times;
     </button>
@@ -153,7 +153,9 @@ Dialog background colors have been removed. The following styles have been added
       </button>
     </template>
 
-    <div class="bg-white">This is the dialog content.</div>
+    <div class="bg-white">
+      This is the dialog content.
+    </div>
   </VDialog>
 </template>
 
@@ -172,7 +174,9 @@ export default {
 <template>
   <div>
     <VDialog v-model="dialog" :classes="{ bg: 'bg-black-alpha' }">
-      <div class="bg-white">This is the dialog content.</div>
+      <div class="bg-white">
+        This is the dialog content.
+      </div>
     </VDialog>
     <button @click="dialog = !dialog">
       Show the dialog
@@ -197,7 +201,9 @@ export default {
     <VDialog v-model="dialog" :classes="{ bg: 'bg-black-alpha' }">
       <div class="bg-white">
         This is the dialog content.<br />
-        <button @click="dialog = false">Close</button>
+        <button @click="dialog = false">
+          Close
+        </button>
       </div>
     </VDialog>
     <button @click="dialog = !dialog">
@@ -219,14 +225,16 @@ export default {
 
 ```vue live
 <template>
-  <VDialog noScroll :classes="{ bg: 'bg-black-alpha' }">
+  <VDialog no-scroll :classes="{ bg: 'bg-black-alpha' }">
     <template #toggle="{ bind, on }">
       <button v-bind="bind" v-on="on">
         Show the dialog
       </button>
     </template>
 
-    <div class="bg-white">This is the dialog content.</div>
+    <div class="bg-white">
+      This is the dialog content.
+    </div>
   </VDialog>
 </template>
 ```

@@ -81,7 +81,7 @@ export default {
 ```vue live
 <template>
   <ul>
-    <li v-for="item in items">
+    <li v-for="item in items" :key="item.text">
       <VBtn v-bind="item.bind" v-on="item.on">
         {{ item.text }}
       </VBtn>

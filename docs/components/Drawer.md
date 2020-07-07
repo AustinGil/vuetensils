@@ -198,7 +198,7 @@ export default {
 
 ```vue live
 <template>
-  <VDrawer noScroll :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }">
+  <VDrawer no-scroll :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }">
     <template #toggle="{ bind, on }">
       <button v-bind="bind" v-on="on">
         Toggle Drawer

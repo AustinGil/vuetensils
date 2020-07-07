@@ -46,11 +46,11 @@ The default handler fires whenever the element enter or exits the context.
 ```vue live
 <template>
   <div>
-    <div v-intersect="$log" class="intersect-example"></div>
+    <div v-intersect="$log" class="intersect-example" />
     <div
       v-intersect="() => $log('something happened')"
       class="intersect-example"
-    ></div>
+    />
   </div>
 </template>
 ```
@@ -65,7 +65,7 @@ Only fires when the element enters the context.
     <div
       v-intersect.enter="() => $log('I have arrived!')"
       class="intersect-example"
-    ></div>
+    />
   </div>
 </template>
 ```
@@ -80,7 +80,7 @@ Only fires when the element exits the context.
     <div
       v-intersect.exit="() => $log('Peace out!')"
       class="intersect-example"
-    ></div>
+    />
   </div>
 </template>
 ```
@@ -95,7 +95,7 @@ Only fires when the handler once. Can be chained to `.enter` or `.exit`.
     <div
       v-intersect.once="() => $log('You will not see me again')"
       class="intersect-example"
-    ></div>
+    />
   </div>
 </template>
 ```
@@ -110,7 +110,7 @@ You can attach a handler for the `onEnter`, `onExit`, and `onChange` events.
     <div
       v-intersect="{ onEnter, onExit, onChange }"
       class="intersect-example"
-    ></div>
+    />
   </div>
 </template>
 

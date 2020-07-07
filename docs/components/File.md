@@ -160,11 +160,15 @@ Note that the default dropzone content has an `aria-hidden="true"` attribute to 
 <template>
   <VFile label="Select a file">
     <template #default="{ files, droppable}">
-      <p v-if="droppable" aria-hidden="true">Go ahead, let go.</p>
+      <p v-if="droppable" aria-hidden="true">
+        Go ahead, let go.
+      </p>
       <p v-else-if="files.length" aria-hidden="true">
         You selected {{ files[0].name }}.
       </p>
-      <p v-else aria-hidden="true">Drop some sweet files here.</p>
+      <p v-else aria-hidden="true">
+        Drop some sweet files here.
+      </p>
     </template>
   </VFile>
 </template>

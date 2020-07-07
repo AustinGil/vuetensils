@@ -43,8 +43,13 @@ export default {
 
 ```vue live
 <template>
-  <form @submit.prevent class="styled">
-    <VInput label="Name" name="name" required minlength="2">
+  <form class="styled" @submit.prevent>
+    <VInput
+      label="Name"
+      name="name"
+      required
+      minlength="2"
+    >
       <template #description="input">
         <template v-if="input.error">
           <small v-if="input.invalid.required">
@@ -57,7 +62,12 @@ export default {
       </template>
     </VInput>
 
-    <VInput label="Email" name="email" type="email" required>
+    <VInput
+      label="Email"
+      name="email"
+      type="email"
+      required
+    >
       <template #description="input">
         <template v-if="input.error">
           <small v-if="input.invalid.required">
@@ -149,11 +159,11 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
 
 ```vue live
 <template>
-  <form @submit.prevent class="styled">
+  <form class="styled" @submit.prevent>
     <VInput
+      v-model="selected"
       label="select (multiple)"
       name="select-multi"
-      v-model="selected"
       type="select"
       :options="['option 1', 'option 2', 'option 3', 'option 4']"
       multiple
@@ -165,7 +175,7 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
 <script>
 export default {
   data: () => ({
-    selected: ["option 2"],
+    selected: ['option 2'],
   }),
 };
 </script>
@@ -241,7 +251,12 @@ Note that client-side validation is never a substitute for server-side validatio
         <input name="second" required minlength="6" />
       </label>
 
-      <VInput value="start?" name="third" label="yo" required />
+      <VInput
+        value="start?"
+        name="third"
+        label="yo"
+        required
+      />
     </template>
   </VForm>
 </template>
@@ -249,7 +264,7 @@ Note that client-side validation is never a substitute for server-side validatio
 <script>
 export default {
   data: () => ({
-    input: "init",
+    input: 'init',
   }),
 };
 </script>

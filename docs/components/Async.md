@@ -119,9 +119,15 @@ export default {
   <div>
     <VAsync :await="sleep">
       <template #default="{ pending, results, error }">
-        <p v-if="pending">just...a bit...more...</p>
-        <p v-else-if="error">{{ results }}</p>
-        <p v-else="results">{{ results }}</p>
+        <p v-if="pending">
+          just...a bit...more...
+        </p>
+        <p v-else-if="error">
+          {{ results }}
+        </p>
+        <p v-else-if="results">
+          {{ results }}
+        </p>
       </template>
     </VAsync>
   </div>
@@ -154,7 +160,9 @@ export default {
         <p>{{ results }}</p>
       </template>
     </VAsync>
-    <button @click="onClick">Call new promise</button>
+    <button @click="onClick">
+      Call new promise
+    </button>
   </div>
 </template>
 
@@ -191,7 +199,9 @@ export default {
         <p>{{ results }}</p>
       </template>
     </VAsync>
-    <button @click="onClick">Call promise</button>
+    <button @click="onClick">
+      Call promise
+    </button>
   </div>
 </template>
 

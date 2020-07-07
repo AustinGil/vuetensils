@@ -47,7 +47,9 @@ Your implementation will vary, but it basically just relies on receiving the has
 ```vue live
 <template>
   <div>
-    <VSkip to="#main">Skip To Main Content</VSkip>
+    <VSkip to="#main">
+      Skip To Main Content
+    </VSkip>
 
     <!-- perhaps a nav here -->
     <nav>

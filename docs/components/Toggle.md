@@ -101,7 +101,9 @@ You can access the `open` status through the scoped slots.
       Title
     </template>
 
-    <template #default="{isOpen}">isOpen: {{ isOpen }}</template>
+    <template #default="{isOpen}">
+      isOpen: {{ isOpen }}
+    </template>
   </VToggle>
 </template>
 ```

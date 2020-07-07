@@ -48,7 +48,9 @@ Try tabbing through these elements.
 <template>
   <div>
     <VTooltip>
-      <template #tooltip>heyo :)</template>
+      <template #tooltip>
+        heyo :)
+      </template>
 
       I have a tooltip!
     </VTooltip>
@@ -66,7 +68,9 @@ Try tabbing through these elements.
     <button>before</button>
 
     <VTooltip>
-      <template #tooltip>heyo :)</template>
+      <template #tooltip>
+        heyo :)
+      </template>
 
       I have a tooltip!
     </VTooltip>
@@ -81,7 +85,9 @@ Try tabbing through these elements.
 ```vue live
 <template>
   <VTooltip tag="div">
-    <template #tooltip>heyo :)</template>
+    <template #tooltip>
+      heyo :)
+    </template>
 
     <h1>I have a tooltip!</h1>
   </VTooltip>
@@ -95,7 +101,9 @@ Hovering over the target will not do anything, but you can click on it or tab to
 ```vue live
 <template>
   <VTooltip focus>
-    <template #tooltip>heyo :)</template>
+    <template #tooltip>
+      heyo :)
+    </template>
 
     I have a tooltip!
   </VTooltip>
