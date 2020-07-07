@@ -138,7 +138,7 @@ export default {
   data: () => ({
     sleep: new Promise((resolve, reject) =>
       setTimeout(() => {
-        resolve('Woop! We\'re done');
+        resolve('Woop! all done');
       }, 2000)
     ),
   }),
@@ -176,7 +176,7 @@ export default {
     onClick() {
       this.waitForIt = new Promise((resolve) => {
         setTimeout(() => {
-          resolve('Ok, we\'re done now.');
+          resolve('Ok, all done now.');
         }, 500);
       });
     },
@@ -211,7 +211,7 @@ export default {
     onClick() {
       const promise = new Promise((resolve) => {
         setTimeout(() => {
-          resolve('Ok, we\'re done now.');
+          resolve('Ok, all done now.');
         }, 500);
       });
       this.$refs.async.awaitOn(promise);

@@ -118,13 +118,13 @@ You can attach a handler for the `onEnter`, `onExit`, and `onChange` events.
 export default {
   methods: {
     onEnter(entry, el) {
-      console.log('I\'m here!');
+      console.log('I am here!');
     },
     onExit(entry, el) {
-      console.log('I\'m gone!');
+      console.log('I am gone!');
     },
     onChange(entry, el) {
-      console.log('Let me check... I\'m ' + entry.isIntersecting ? 'here' : 'gone');
+      console.log('Let me check... I am ' + entry.isIntersecting ? 'here' : 'gone');
     },
   },
 };
