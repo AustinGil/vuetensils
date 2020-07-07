@@ -2,7 +2,7 @@
 
 Adds a button that can show/hide dropdown content when it is hovered over, or clicked. When it is clicked, the content will persist until the user clicks out or focuses out. Includes relevant ARIA attributes for the hidden content.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDropdown/VDropdown.vue)
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDropdown/VDropdown.vue)
 
 ## Installation
 
@@ -10,10 +10,10 @@ Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VDropdown } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VDropdown } from 'vuetensils/src/components';
 
-Vue.component("VDropdown", VDropdown)
+Vue.component('VDropdown', VDropdown);
 ```
 
 Locally:
@@ -21,14 +21,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VDropdown } from "vuetensils/src/components"
+import { VDropdown } from 'vuetensils/src/components';
 
 export default {
   components: {
     VDropdown,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -36,8 +36,14 @@ export default {
 
 ```vue live
 <template>
-  <VDropdown text="Show me what you got!" transition="slide-up" class="styled">
-    <div class="dropdown-content">Here is some custom dropdown content.</div>
+  <VDropdown
+    text="Show me what you got!"
+    transition="slide-up"
+    class="styled"
+  >
+    <div class="dropdown-content">
+      Here is some custom dropdown content.
+    </div>
   </VDropdown>
 </template>
 ```
@@ -48,9 +54,9 @@ export default {
   border-radius: 5px;
   padding: 10px;
   font-size: 18px;
-  color: #fff;
+  color: #FFF;
   background: darkcyan;
-  transition: border-radius 0.5s ease;
+  transition: 0.5s ease border-radius;
 }
 
 .vts-dropdown__trigger[aria-expanded] {
@@ -61,13 +67,13 @@ export default {
   border: 1px solid darkcyan;
   border-radius: 0 0 5px 5px;
   padding: 10px;
-  background-color: #fff;
+  background-color: #FFF;
 }
 
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-up-enter,
@@ -83,7 +89,7 @@ Dialog background colors have been removed. The following styles have been added
 
 ```css
 .bg-white {
-  background-color: #fff;
+  background-color: #FFF;
 }
 ```
 
@@ -135,7 +141,7 @@ Dialog background colors have been removed. The following styles have been added
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-up-enter,

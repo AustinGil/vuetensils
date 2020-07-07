@@ -12,7 +12,7 @@ export default {
   data: () => ({
     name: "",
   }),
-}
+};
 </script>
 
 <style>
@@ -24,7 +24,7 @@ export default {
   display: block;
   width: 100%;
   padding: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #CCC;
   border-radius: 3px;
 }
 </style>
@@ -40,7 +40,7 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 ```
 
@@ -50,7 +50,7 @@ export default {}
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 ```
 
@@ -60,7 +60,7 @@ export default {}
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 ```
 
@@ -70,7 +70,7 @@ export default {}
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 ```
 
@@ -84,7 +84,7 @@ export default {}
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 ```
 
@@ -98,7 +98,7 @@ export default {}
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 ```
 
@@ -116,7 +116,7 @@ If you want to add a description to your input, the best practice is to include 
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 ```
 
@@ -164,7 +164,7 @@ export default {
   data: () => ({
     value: "",
   }),
-}
+};
 </script>
 ```
 

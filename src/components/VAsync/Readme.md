@@ -11,13 +11,13 @@ This component is great for handling any asynchronous tasks that involve promise
 </template>
 
 <script>
-const url = "https://jsonplaceholder.typicode.com/posts/1"
+const url = 'https://jsonplaceholder.typicode.com/posts/1';
 
 export default {
   data: () => ({
-    httpRequest: fetch(url).then(res => res.json()),
+    httpRequest: fetch(url).then((response) => response.json()),
   }),
-}
+};
 </script>
 ```
 
@@ -39,9 +39,9 @@ export default {
 <script>
 export default {
   data: () => ({
-    sleep: new Promise(res => setTimeout(res, 3000)),
+    sleep: new Promise((resolve) => setTimeout((resolve), 3000)),
   }),
-}
+};
 </script>
 ```
 
@@ -63,13 +63,13 @@ export default {
 <script>
 export default {
   data: () => ({
-    sleep: new Promise((res, rej) =>
+    sleep: new Promise((resolve, reject) =>
       setTimeout(() => {
-        rej(new Error("something went wrong"))
+        reject(new Error('something went wrong'));
       }, 2000)
     ),
   }),
-}
+};
 </script>
 ```
 
@@ -91,13 +91,13 @@ export default {
 <script>
 export default {
   data: () => ({
-    sleep: new Promise((res, rej) =>
+    sleep: new Promise((resolve, reject) =>
       setTimeout(() => {
-        res("Woop! We're done")
+        resolve('Woop! We\'re done');
       }, 2000)
     ),
   }),
-}
+};
 </script>
 ```
 
@@ -127,14 +127,14 @@ export default {
 
   methods: {
     onClick() {
-      this.waitForIt = new Promise(res => {
+      this.waitForIt = new Promise(resolve => {
         setTimeout(() => {
-          res("Ok, we're done now.")
-        }, 500)
-      })
+          resolve('Ok, we\'re done now.');
+        }, 500);
+      });
     },
   },
-}
+};
 </script>
 ```
 
@@ -160,14 +160,14 @@ export default {
 export default {
   methods: {
     onClick() {
-      const promise = new Promise(res => {
+      const promise = new Promise((resolve) => {
         setTimeout(() => {
-          res("Ok, we're done now.")
-        }, 500)
-      })
-      this.$refs.async.awaitOn(promise)
+          resolve('Ok, we\'re done now.');
+        }, 500);
+      });
+      this.$refs.async.awaitOn(promise);
     },
   },
-}
+};
 </script>
 ```

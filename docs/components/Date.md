@@ -1,8 +1,10 @@
 # Date
 
-WIP: This component is still looking for more testers and some feedback.
+**WIP: This component is still looking for more testers and some feedback.**
 
 A date picker with accessibility baked in.
+
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDate/VDate.vue)
 
 Features:
 - Manages ARIA roles, labels, and attributes.
@@ -10,25 +12,24 @@ Features:
 - Provides keyboard navigation support (see below).
 - Supports passing in min and max date props.
 
-Keyboard navigation:
-|Key|Action|
-|---|---|
-|Enter/Spacebar| Select the currently focused date and hide the calendar.|
-|Right| Move to next day.|
-|Left| Move to previous day.|
-|Down| Move to next week.|
-|Up| Move to previous week.|
-|Home| Move to beginning of week.|
-|End| Move to beginning of week.|
-|PageUp| Move to previous month.|
-|Shift + PageUp| Move to previous year.|
-|PageDown| Move to next month.|
-|Shift + PageDown| Move to next year.|
-|Esc| Hide the calendar without selecting a date.|
+**Keyboard navigation:**
 
-NOTE: I would probably recommend using the browser's [built in date picker](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date) (`<input type="date">`) because it's simpler, consistent across website, and it's less code. However, it does not support custom styling.
+Key              | Action
+:--              | :--
+Enter/Spacebar   | Select the currently focused date and hide the calendar.
+Right            | Move to next day.
+Left             | Move to previous day.
+Down             | Move to next week.
+Up               | Move to previous week.
+Home             | Move to beginning of week.
+End              | Move to beginning of week.
+PageUp           | Move to previous month.
+Shift + PageUp   | Move to previous year.
+PageDown         | Move to next month.
+Shift + PageDown | Move to next year.
+Esc              | Hide the calendar without selecting a date.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDate/VDate.vue)
+**NOTE:** I would probably recommend using the browser's [built in date picker](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date) (`<input type="date">`) because it's simpler, consistent across website, and it's less code. However, it does not support custom styling.
 
 ## Installation
 
@@ -36,10 +37,10 @@ Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VDate } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VDate } from 'vuetensils/src/components';
 
-Vue.component("VDate", VDate)
+Vue.component('VDate', VDate);
 ```
 
 Locally:
@@ -47,14 +48,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VDate } from "vuetensils/src/components"
+import { VDate } from 'vuetensils/src/components';
 
 export default {
   components: {
     VDate,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -71,7 +72,7 @@ export default {
 <template>
   <div>
     Selected Date: {{ date }}
-    <VDate v-model="date"/>
+    <VDate v-model="date" />
   </div>
 </template>
 
@@ -80,7 +81,7 @@ export default {
   data: () => ({
     date: new Date(),
   }),
-}
+};
 </script>
 ```
 
@@ -89,7 +90,9 @@ export default {
 <template>
   <VDate>
     <template #default="{ bind, on }">
-      <button v-bind="bind" v-on="on">Calendar!</button>
+      <button v-bind="bind" v-on="on">
+        Calendar!
+      </button>
     </template>
   </VDate>
 </template>

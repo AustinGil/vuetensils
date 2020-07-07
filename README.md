@@ -32,10 +32,10 @@ Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VAlert } from "vuetensils"
+import Vue from 'vue';
+import { VAlert } from 'vuetensils';
 
-Vue.component("VAlert", VAlert)
+Vue.component('VAlert', VAlert);
 ```
 
 Locally:
@@ -43,14 +43,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VAlert } from "vuetensils"
+import { VAlert } from 'vuetensils';
 
 export default {
   components: {
     VAlert,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -73,7 +73,7 @@ export default {
   border-radius: 4px;
   padding: 0 10px;
   color: #900;
-  background: #fdd;
+  background: #FDD;
 }
 ```
 

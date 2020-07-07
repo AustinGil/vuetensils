@@ -9,7 +9,7 @@
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style>
@@ -33,7 +33,7 @@ export default {}
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style>
@@ -66,7 +66,7 @@ export default {}
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 ```
 
@@ -90,7 +90,7 @@ export default {
   data: () => ({
     alert: false,
   }),
-}
+};
 </script>
 ```
 
@@ -106,7 +106,7 @@ Allow users to hide an alert
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 ```
 
@@ -126,7 +126,7 @@ export default {
   data: () => ({
     alert: false,
   }),
-}
+};
 </script>
 ```
 
@@ -144,7 +144,7 @@ You can provide your own content for the dismiss button with the `dismiss` slot.
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 ```
 
@@ -167,7 +167,7 @@ export default {
   data: () => ({
     countdown: 10,
   }),
-}
+};
 </script>
 ```
 
@@ -189,13 +189,13 @@ export default {
   data: () => ({
     alert: false,
   }),
-}
+};
 </script>
 
 <style>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,

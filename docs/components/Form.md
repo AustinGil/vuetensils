@@ -2,6 +2,8 @@
 
 Form wrapper that provides better security practices and automatic input validation based on [HTML5 form validation API](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation).
 
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VForm/VForm.vue)
+
 Features:
 
 - Automatic tracking of input validation.
@@ -11,18 +13,16 @@ Features:
 
 **Important**: Every input should have a [`name`](https://www.w3schools.com/TAGS/att_input_name.asp). This is important for HTML forms, in general, but also helps VForm keep track. If none is provided, it will still work though.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VForm/VForm.vue)
-
 ## Installation
 
 Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VForm } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VForm } from 'vuetensils/src/components';
 
-Vue.component("VForm", VForm)
+Vue.component('VForm', VForm);
 ```
 
 Locally:
@@ -30,14 +30,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VForm } from "vuetensils/src/components"
+import { VForm } from 'vuetensils/src/components';
 
 export default {
   components: {
     VForm,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -48,24 +48,28 @@ export default {
   <VForm class="styled" @submit.prevent="onSubmit">
     <template #default="form">
       <label>
-        Name:
-        <small>(required)</small>
+        Name: <small>(required)</small>
         <input name="name" required />
       </label>
 
       <label>
-        Email:
-        <small>(required, type="email")</small>
+        Email: <small>(required, type="email")</small>
         <input name="email" type="email" required />
       </label>
 
       <label>
-        Password:
-        <small>(required, minlength="6")</small>
-        <input name="password" type="password" required minlength="6" />
+        Password: <small>(required, minlength="6")</small>
+        <input
+          name="password"
+          type="password"
+          required
+          minlength="6"
+        />
       </label>
 
-      <button type="submit" :disabled="!form.valid">Submit</button>
+      <button type="submit" :disabled="!form.valid">
+        Submit
+      </button>
     </template>
   </VForm>
 </template>
@@ -74,12 +78,12 @@ export default {
 export default {
   methods: {
     onSubmit({ target }) {
-      const form = new FormData(target)
-      const data = Object.fromEntries(form)
-      console.log(data)
+      const form = new FormData(target);
+      const data = Object.fromEntries(form);
+      console.log(data);
     },
   },
-}
+};
 </script>
 
 <style>
@@ -103,7 +107,7 @@ export default {
 }
 
 .vts-form:not(.vts-form--invalid) button {
-  color: #fff;
+  color: #FFF;
   background: seagreen;
 }
 </style>
@@ -126,7 +130,9 @@ The form provides the following status:
         <input name="name" required />
       </label>
 
-      <button type="submit" :disabled="!form.valid">Submit</button>
+      <button type="submit" :disabled="!form.valid">
+        Submit
+      </button>
 
       <pre>{{ form }}</pre>
     </template>
@@ -156,9 +162,13 @@ Fortunately, VForm provides a `clear()` method.
       </label>
       <br />
 
-      <button type="reset">Reset</button>
+      <button type="reset">
+        Reset
+      </button>
 
-      <button @click="form.clear" type="button">Clear</button>
+      <button type="button" @click="form.clear">
+        Clear
+      </button>
     </template>
   </VForm>
 </template>

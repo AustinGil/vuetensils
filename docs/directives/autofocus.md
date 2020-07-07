@@ -2,30 +2,30 @@
 
 Vue directive to bring focus to an element when it mounts to the page.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/directives/autofocus.js)
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/directives/autofocus.js)
 
 ## Installation
 
 Global install:
 
 ```js
-import Vue from "vue"
-import { autofocus } from "vuetensils/src/directives"
+import Vue from 'vue';
+import { autofocus } from 'vuetensils/src/directives';
 
-Vue.directive("autofocus", autofocus)
+Vue.directive('autofocus', autofocus);
 ```
 
 Local install:
 
 ```html
 <script>
-  import { autofocus } from "vuetensils/src/directives"
+  import { autofocus } from 'vuetensils/src/directives';
 
   export default {
     directives: {
       autofocus,
     },
-  }
+  };
 </script>
 ```
 

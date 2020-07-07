@@ -1,7 +1,11 @@
 /**
- * @param {{ to: string }} props
- * @param {{ attrs: { href: string } }} data
- * @return { string }
+ * Detects if a VDOM element is a <RouterLink>, <a>, or <button>
+ *
+ * @param  {object} props           props container
+ * @param  {string} props.to        the :to prop for router-link
+ * @param  {object} data            data container
+ * @param  {object} data.attrs      attributes container
+ * @return {string}                 'RouterLink', 'a', or 'button'
  */
 function getTag(ref, ref$1) {
   var to = ref.to;
@@ -255,6 +259,7 @@ var script$1 = {
     dismiss: function dismiss() {
       /**
        * Fired when a user manually dismissed an alert
+       *
        * @event dismiss
        * @type { undefined }
        */
@@ -278,6 +283,7 @@ var script$1 = {
       this.timerId = setTimeout(function () {
         /**
          * Fired whenever the visibility changes. Either through user interaction, or a countdown timer
+         *
          * @event update
          * @type { boolean/number }
          */
@@ -346,9 +352,12 @@ var FOCUSABLE = [
   '[tabindex]:not([tabindex^="-"])' ];
 
 /**
- * @param {number} [length] 
- * @param {string} [allowed] 
- * @return {string}
+ * Generates a random string of defined length based on
+ * a string of allowed characters.
+ *
+ * @param  {number} length  How many random characters will be in the returned string. Defaults to 10
+ * @param  {string} allowed Which characters can be used when creating the random string. Defaults to A-Z,a-z,0-9
+ * @return {string}         A string of random characters
  */
 function randomString(
   length,
@@ -364,13 +373,23 @@ function randomString(
   return result;
 }
 
+/**
+ * [safeSlot description]
+ *
+ * @param  {[type]} h    hyperscript markup from Vue render function
+ * @param  {[type]} slot component slot
+ * @return {[type]}      Slot or div wrapping the slot
+ */
 function safeSlot(h, slot) {
   return slot && slot.length > 1 ? h('div', slot) : slot;
 }
 
 /**
- * @param {HTMLElement} el
- * @param {Event} event
+ * [applyFocusTrap description]
+ *
+ * @param  {HTMLElement} el    [description]
+ * @param  {Event}       event [description]
+ * @return {undefined}         [description]
  */
 function applyFocusTrap(el, event) {
   var focusable = Array.from(el.querySelectorAll(FOCUSABLE));
@@ -400,7 +419,10 @@ function applyFocusTrap(el, event) {
 
 //
 /**
- * A renderless component for awaiting promises to resolve; great for making HTTP requests. Supports showing pending, resolved, or rejected promises.
+ * A renderless component for awaiting promises to resolve;
+ * great for making HTTP requests. Supports showing pending,
+ * resolved, or rejected promises.
+ *
  * @type {import('vue').Component}
  */
 var script$2 = {
@@ -414,7 +436,8 @@ var script$2 = {
       default: function () { return Promise.resolve(); },
     },
     /**
-     * The default value to provide for the `results`. Useful if the promise resolve value is undefined.
+     * The default value to provide for the `results`.
+     * Useful if the promise resolve value is undefined.
      */
     default: {
       type: undefined,
@@ -441,8 +464,9 @@ var script$2 = {
       handler: function handler(pending) {
         /**
          * Fired whenever the pending status changes.
+         *
          * @event pending
-         * @type { boolean }
+         * @type {boolean}
          */
         this.$emit('pending', pending);
       },
@@ -469,8 +493,9 @@ var script$2 = {
           this$1.results = typeof results === 'undefined' ? this$1.default : results;
           /**
            * Fired after promise has resolved with the resolved value.
+           *
            * @event resolve
-           * @type { unknown }
+           * @type {any}
            */
           this$1.$emit('resolve', results);
         })
@@ -484,8 +509,9 @@ var script$2 = {
           this$1.error = error;
           /**
            * Fired after promise has rejected with the rejected error.
+           *
            * @event reject
-           * @type { error }
+           * @type {Error}
            */
           this$1.$emit('reject', error);
         })
@@ -494,8 +520,9 @@ var script$2 = {
           this$1.done = true;
           /**
            * Fired after promise has fulfilled, regardless of success or failure.
+           *
            * @event finally
-           * @type { undefined }
+           * @type {undefined}
            */
           this$1.$emit('finally');
         });
@@ -578,18 +605,19 @@ var __vue_script__$2 = script$2;
   );
 
 /**
- * @param {{ to: string }} props
- * @param {{ attrs: { href: string } }} data
- * @return { string }
+ * Detects if a VDOM element is a <RouterLink>, <a>, or <button>
+ *
+ * @param  {object} props           props container
+ * @param  {string} props.to        the :to prop for router-link
+ * @param  {object} data            data container
+ * @param  {object} data.attrs      attributes container
+ * @return {string}                 'RouterLink', 'a', or 'button'
  */
-function getTag$1(ref, ref$1) {
-  var to = ref.to;
-  var attrs = ref$1.attrs;
-
-  if (to) {
+function getTag$1(props, data) {
+  if (props && props.to) {
     return 'RouterLink';
   }
-  if (attrs && attrs.href) {
+  if (data && data.attrs && data.attrs.href) {
     return 'a';
   }
   return 'button';
@@ -697,7 +725,8 @@ var clickout = {
 
 /**
  * Copies a string of text to the user's clipboard
- * @param {String} content The content within the downloaded file
+ *
+ * @param {string} content The content within the downloaded file
  */
 function copyToClipboard(content) {
   var activeEl = document.activeElement;
@@ -814,9 +843,11 @@ var intersect = {
 //
 
 /**
- * @param {object} first
- * @param {object} second
- * @return {boolean}
+ * Compares the year, month, and day of two dates to confirm if they match.
+ *
+ * @param  {object}  first  Date object
+ * @param  {object}  second Date object
+ * @return {boolean}        True if dates match
  */
 function sameDays(first, second) {
   return (
@@ -834,8 +865,7 @@ var keysUsed = [
   keycodes.PAGEUP,
   keycodes.PAGEDOWN,
   keycodes.HOME,
-  keycodes.END,
-  keycodes.SHIFT ];
+  keycodes.END ];
 
 // Based on https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/datepicker-dialog.html
 var script$4 = {
@@ -1234,7 +1264,7 @@ var __vue_staticRenderFns__$1 = [];
   /* style */
   var __vue_inject_styles__$4 = function (inject) {
     if (!inject) { return }
-    inject("data-v-a5bea4d0_0", { source: ".vtd-date{position:relative}.vts-date__navigation{display:flex;justify-content:space-around}", map: undefined, media: undefined });
+    inject("data-v-99f9016c_0", { source: ".vtd-date{position:relative}.vts-date__navigation{display:flex;justify-content:space-around}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -1530,7 +1560,7 @@ var __vue_script__$5 = script$5;
   /* style */
   var __vue_inject_styles__$5 = function (inject) {
     if (!inject) { return }
-    inject("data-v-7fc53b3c_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
+    inject("data-v-297a4270_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -1819,7 +1849,7 @@ var __vue_script__$6 = script$6;
   /* style */
   var __vue_inject_styles__$6 = function (inject) {
     if (!inject) { return }
-    inject("data-v-3f942b24_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-drawer__content{overflow:auto;max-width:300px;height:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-left:auto}", map: undefined, media: undefined });
+    inject("data-v-112270ea_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-drawer__content{overflow:auto;max-width:300px;height:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-left:auto}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -1960,7 +1990,7 @@ var __vue_staticRenderFns__$2 = [];
   /* style */
   var __vue_inject_styles__$7 = function (inject) {
     if (!inject) { return }
-    inject("data-v-49649a41_0", { source: ".vts-dropdown{display:inline-block;position:relative}.vts-dropdown__content{position:absolute;z-index:5;min-width:100%}.vts-dropdown__content--top{top:0;transform:translateY(-100%)}", map: undefined, media: undefined });
+    inject("data-v-3420b45e_0", { source: ".vts-dropdown{display:inline-block;position:relative}.vts-dropdown__content{position:absolute;z-index:5;min-width:100%}.vts-dropdown__content--top{top:0;transform:translateY(-100%)}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -2073,7 +2103,7 @@ var __vue_staticRenderFns__$3 = [];
   /* style */
   var __vue_inject_styles__$8 = function (inject) {
     if (!inject) { return }
-    inject("data-v-b9d8e72c_0", { source: ".vts-file__input{position:absolute;overflow:hidden;clip:rect(0 0 0 0);width:1px;height:1px;margin:-1px;border:0;padding:0}.vts-file__dropzone{position:relative}.vts-file__overlay{position:absolute;top:0;right:0;bottom:0;left:0}input:focus~.vts-file__dropzone{outline-width:1px;outline-style:auto;outline-color:Highlight;outline-color:-webkit-focus-ring-color}", map: undefined, media: undefined });
+    inject("data-v-59e1008e_0", { source: ".vts-file__input{position:absolute;overflow:hidden;clip:rect(0 0 0 0);width:1px;height:1px;margin:-1px;border:0;padding:0}.vts-file__dropzone{position:relative}.vts-file__overlay{position:absolute;top:0;right:0;bottom:0;left:0}input:focus~.vts-file__dropzone{outline-width:1px;outline-style:auto;outline-color:Highlight;outline-color:-webkit-focus-ring-color}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -2439,7 +2469,7 @@ var __vue_staticRenderFns__$5 = [];
   /* style */
   var __vue_inject_styles__$a = function (inject) {
     if (!inject) { return }
-    inject("data-v-06c368be_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
+    inject("data-v-d808738c_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -2750,6 +2780,7 @@ var script$c = {
       if (entry.isIntersecting) {
         /**
          * Fired when the observed element enters the screen.
+         *
          * @event enter
          * @type { IntersectionObserverEntry }
          */
@@ -2757,6 +2788,7 @@ var script$c = {
       } else {
         /**
          * Fired when the observed element exits the screen.
+         *
          * @event exit
          * @type { IntersectionObserverEntry }
          */
@@ -2764,6 +2796,7 @@ var script$c = {
       }
       /**
        * Fired when the observed element enters or exits the screen.
+       *
        * @event change
        * @type { IntersectionObserverEntry }
        */
@@ -2772,7 +2805,7 @@ var script$c = {
   },
 
   render: function render(h) {
-    // @slot Content to be tracked with IntersectionObserver
+    /** @slot Content to be tracked with IntersectionObserver */
     var ref = this;
     var entry = ref.entry;
 
@@ -2924,6 +2957,7 @@ var script$d = {
     show: function show() {
       /**
        * Fired when the modal opens.
+       *
        * @event show
        * @type { boolean }
        */
@@ -2933,6 +2967,7 @@ var script$d = {
     hide: function hide() {
       /**
        * Fired when the modal closes.
+       *
        * @event hide
        * @type { boolean }
        */
@@ -2946,6 +2981,7 @@ var script$d = {
       this.$emit(event, !showing);
       /**
        * Fired whenever the modal opens or closes.
+       *
        * @event change
        * @type { boolean }
        */
@@ -3003,7 +3039,7 @@ var __vue_staticRenderFns__$7 = [];
   /* style */
   var __vue_inject_styles__$d = function (inject) {
     if (!inject) { return }
-    inject("data-v-5a664208_0", { source: ".vts-modal{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.2)}.vts-modal [tabindex=\"-1\"]:focus{outline:0}.vts-modal__content{overflow:auto;max-width:70vw;max-height:80vh;background:#fff}", map: undefined, media: undefined });
+    inject("data-v-2a3c9394_0", { source: ".vts-modal{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.2)}.vts-modal [tabindex=\"-1\"]:focus{outline:0}.vts-modal__content{overflow:auto;max-width:70vw;max-height:80vh;background:#fff}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -3168,7 +3204,7 @@ var __vue_staticRenderFns__$9 = [];
   /* style */
   var __vue_inject_styles__$f = function (inject) {
     if (!inject) { return }
-    inject("data-v-2dfc7186_0", { source: ".vts-skip{position:fixed;z-index:1000;top:0;left:-10000px;border:3px solid;padding:.5rem;color:#000;background-color:#fff}.vts-skip:focus{left:0}", map: undefined, media: undefined });
+    inject("data-v-22cb860d_0", { source: ".vts-skip{position:fixed;z-index:1000;top:0;left:-10000px;border:3px solid;padding:.5rem;color:#000;background-color:#fff}.vts-skip:focus{left:0}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -3489,9 +3525,13 @@ var script$g = {
         order = 'descending';
       }
 
-      return ['sort by', header.text || header.key, 'in', order, 'order'].join(
-        ' '
-      );
+      return [
+        'sort by',
+        header.text || header.key,
+        'in',
+        order,
+        'order'
+      ].join(' ');
     },
   },
 };
@@ -3506,7 +3546,7 @@ var __vue_staticRenderFns__$a = [];
   /* style */
   var __vue_inject_styles__$g = function (inject) {
     if (!inject) { return }
-    inject("data-v-741b8ccc_0", { source: ".table-container{overflow-x:auto}@media (min-width:400px){.table-container{display:block}.lists-container{display:none}}", map: undefined, media: undefined });
+    inject("data-v-1a49dcc0_0", { source: ".table-container{overflow-x:auto}@media (min-width:400px){.table-container{display:block}.lists-container{display:none}}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -3779,7 +3819,7 @@ var __vue_staticRenderFns__$c = [];
   /* style */
   var __vue_inject_styles__$i = function (inject) {
     if (!inject) { return }
-    inject("data-v-5b410022_0", { source: ".vts-toggle__content{transition:height .3s ease}", map: undefined, media: undefined });
+    inject("data-v-e273c384_0", { source: ".vts-toggle__content{transition:.3s ease height}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -3898,7 +3938,7 @@ var __vue_script__$j = script$j;
   /* style */
   var __vue_inject_styles__$j = function (inject) {
     if (!inject) { return }
-    inject("data-v-a27240d4_0", { source: ".vts-tooltip{position:relative}.vts-tooltip__content{position:absolute;top:0;left:50%;transform:translate(-50%,-100%)}.vts-tooltip__content[aria-hidden=true]{display:none}", map: undefined, media: undefined });
+    inject("data-v-71e176c7_0", { source: ".vts-tooltip{position:relative}.vts-tooltip__content{position:absolute;top:0;left:50%;transform:translate(-50%,-100%)}.vts-tooltip__content[aria-hidden=true]{display:none}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -3997,61 +4037,74 @@ var __vue_script__$k = script$k;
   );
 
 // @ts-check
+
 /**
- * @param {string} str
- * @return {string}
+ * Uppercase the first character of a string.
+ *
+ * @param  {string} str String to uppercase the first letter of
+ * @return {string}     Original string with the first letter in uppercase
  */
 var capitalize = function (str) { return str[0].toUpperCase() + str.slice(1); };
 
 /**
- * @param {number} str
- * @param {string} currency
- * @param {string} [locale = navigator.language]
- * @return {string}
+ * Formats a number as currency using the user's locale. 1234.56 => '$1,234.56'
+ *
+ * @param  {number} num      The number to be formatted
+ * @param  {string} currency The type of currency, such as 'USD' or 'JPY'
+ * @param  {string} locale   The locale for formatting the number, such as 'en-US'. Defaults to navigator.language
+ * @return {string}          The number as a string formatted in the locale of the user
  */
-function currency(str, currency, locale) {
+function currency(num, currency, locale) {
   if ( locale === void 0 ) locale = navigator.language;
 
   // Alternative: (73.57).toLocaleString('de-DE',{style:'currency',currency:'EUR'});
   return new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: currency,
-  }).format(str);
+  }).format(num);
 }
 
 /**
- * @param {number} str
- * @param {string} [locale = navigator.language]
- * @return {string}
+ * Formats a number to a culture code locale. 1234 => '1,234'
+ *
+ * @param  {number} num    The number to be formatted
+ * @param  {string} locale Culture-code for formatting the number, such as 'en-US'. Defaults to navigator.language
+ * @return {string}        A formmated number based on a culture code
  */
-function number(str, locale) {
+function number(num, locale) {
   if ( locale === void 0 ) locale = navigator.language;
 
-  return new Intl.NumberFormat(locale).format(str);
+  return new Intl.NumberFormat(locale).format(num);
 }
 
 /**
- * @param {string} str
- * @param {string} placeholder
- * @return {string}
+ * Takes in a value and a fallback. Return fallback if value is falsy.
+ *
+ * @param  {string} str         Desired text to display
+ * @param  {string} placeholder Fallback text
+ * @return {string}             Shows desired text unless falsy, then shows fallback
  */
 var placeholder = function (str, placeholder) { return str || placeholder; };
 
 /**
- * @param {string} str
- * @param {string} plural
- * @param {number} qty
- * @return {string}
+ * Returns the plural or singular form of a word based on a amount
+ *
+ * @param  {string} singular The singular form of a noun, like "entity"
+ * @param  {string} plural   The plural form of a noun, like "entities"
+ * @param  {number} amount   The amount of the item the noun represents
+ * @return {string}          The correct plurality
  */
-function plural(str, plural, qty) {
-  return qty === 0 || qty > 1 ? plural : str;
+function plural(singular, plural, amount) {
+  return amount !== 1 ? plural : singular;
 }
 
 /**
- * @param {string} str
- * @param {number} [length = 100]
- * @param {string} [append = '...']
- * @return {string}
+ * Replaces all characters of a string that surpass a length with a new string.
+ *
+ * @param  {string} str    String of text to be truncated
+ * @param  {number} length Amount of characters to allow before truncating. Defaults to 100
+ * @param  {string} append Text to append to the end of a truncated string. Defaults to '...'
+ * @return {string}        The original string, or a truncated version if it exceed the allowed limit.
  */
 function truncate(str, length, append) {
   if ( length === void 0 ) length = 100;
