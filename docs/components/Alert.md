@@ -2,13 +2,13 @@
 
 A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
 
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VAlert/VAlert.vue)
+
 Features:
 
 - Includes ARIA `role="alert"` attribute
 - Option for dismiss button
 - Option for timeout
-
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VAlert/VAlert.vue)
 
 ## Installation
 
@@ -16,10 +16,10 @@ Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VAlert } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VAlert } from 'vuetensils/src/components';
 
-Vue.component("VAlert", VAlert)
+Vue.component('VAlert', VAlert);
 ```
 
 Locally:
@@ -27,14 +27,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VAlert } from "vuetensils/src/components"
+import { VAlert } from 'vuetensils/src/components';
 
 export default {
   components: {
     VAlert,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -57,7 +57,7 @@ export default {
   border-radius: 4px;
   padding: 0 10px;
   color: #900;
-  background: #fdd;
+  background: #FDD;
 }
 ```
 
@@ -80,7 +80,7 @@ export default {
   border-radius: 4px;
   padding: 10px;
   color: #009;
-  background: #dff;
+  background: #DFF;
 }
 
 .vts-alert.info .vts-alert__dismiss {
@@ -107,7 +107,9 @@ With `v-model`, you can toggle an alert on or off.
 ```vue live
 <template>
   <div>
-    <button @click="alert = !alert">Toggle alert</button>
+    <button @click="alert = !alert">
+      Toggle alert
+    </button>
 
     <VAlert v-model="alert">
       I can be toggled
@@ -120,7 +122,7 @@ export default {
   data: () => ({
     alert: false,
   }),
-}
+};
 </script>
 ```
 
@@ -139,7 +141,9 @@ Allow users to hide an alert
 ```vue live
 <template>
   <div>
-    <button @click="alert = true">Show alert</button>
+    <button @click="alert = true">
+      Show alert
+    </button>
 
     <VAlert v-model="alert" dismissible>
       Click that button to make me go away
@@ -152,7 +156,7 @@ export default {
   data: () => ({
     alert: false,
   }),
-}
+};
 </script>
 ```
 
@@ -177,7 +181,9 @@ It also supports providing seconds to the `visible` prop (or `v-model`) so the a
 ```vue live
 <template>
   <div>
-    <button @click="countdown = 10">Reset time</button>
+    <button @click="countdown = 10">
+      Reset time
+    </button>
     <VAlert v-model="countdown" dismissible>
       This alert will dismiss in {{ countdown }} seconds.
     </VAlert>
@@ -189,7 +195,7 @@ export default {
   data: () => ({
     countdown: 10,
   }),
-}
+};
 </script>
 ```
 
@@ -198,7 +204,9 @@ export default {
 ```vue live
 <template>
   <div>
-    <button @click="alert = !alert">Toggle alert</button>
+    <button @click="alert = !alert">
+      Toggle alert
+    </button>
 
     <VAlert v-model="alert" transition="fade">
       I can be toggled
@@ -211,14 +219,14 @@ export default {
   data: () => ({
     alert: false,
   }),
-}
+};
 </script>
 ```
 
 ```css
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,

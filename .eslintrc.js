@@ -16,6 +16,7 @@ module.exports = {
   plugins: [
     'jest',
     'jsdoc',
+    'markdown',
     'vue'
   ],
   extends: [
@@ -26,7 +27,7 @@ module.exports = {
     'plugin:vuejs-accessibility/recommended',
   ],
   rules: {
-    'comma-dangle': ['error','only-multiline'],
+    'comma-dangle': ['error', 'only-multiline'],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'quotes': ['error', 'single'],
@@ -62,7 +63,17 @@ module.exports = {
         }
       }
     ],
-    'vue/require-prop-types': ['error']
+    'vue/require-prop-types': ['error'],
+    'vuejs-accessibility/label-has-for': [
+      'error',
+      {
+        'components': ['Label'],
+        'required': {
+          'some': ['nesting', 'id']
+        },
+        'allowChildren': false
+      }
+    ]
   },
   settings: {
     jsdoc: {
@@ -71,5 +82,25 @@ module.exports = {
         returns: 'return'
       }
     }
-  }
+  },
+  overrides: [
+    {
+      files: ['**/*.md'],
+      processor: 'markdown/markdown'
+    },
+    {
+      files: ['**/*.vue live'],
+      processor: 'vue/.vue',
+      rules: {
+        'no-unused-vars':  [
+          'error',
+          {
+            'args': 'none'
+          }
+        ],
+        // https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility/issues/29
+        'vuejs-accessibility/accessible-emoji': ['off']
+      }
+    }
+  ]
 };

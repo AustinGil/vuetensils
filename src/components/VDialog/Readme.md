@@ -4,13 +4,15 @@
 <template>
   <div class="styled">
     <VDialog v-model="dialog" transition="slide-up" bg-transition="fade">
-      This is the dialog content.
-      <br />
-      It traps the user focus.
-      <br />
-      <button @click="dialog = false" aria-label="close">&times;</button>
+      This is the dialog content.<br />
+      It traps the user focus.<br />
+      <button @click="dialog = false" aria-label="close">
+        &times;
+      </button>
     </VDialog>
-    <button @click="dialog = !dialog">Show the dialog</button>
+    <button @click="dialog = !dialog">
+      Show the dialog
+    </button>
   </div>
 </template>
 
@@ -19,7 +21,7 @@ export default {
   data: () => ({
     dialog: false,
   }),
-}
+};
 </script>
 
 <style>
@@ -45,7 +47,7 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,
@@ -56,7 +58,7 @@ export default {
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-up-enter,
@@ -75,7 +77,9 @@ export default {
     <VDialog v-model="dialog">
       This is the dialog content.
     </VDialog>
-    <button @click="dialog = !dialog">Show the dialog</button>
+    <button @click="dialog = !dialog">
+      Show the dialog
+    </button>
   </div>
 </template>
 
@@ -84,7 +88,7 @@ export default {
   data: () => ({
     dialog: false,
   }),
-}
+};
 </script>
 ```
 
@@ -94,11 +98,14 @@ export default {
 <template>
   <div>
     <VDialog v-model="dialog">
-      This is the dialog content.
-      <br />
-      <button @click="dialog = false">Close</button>
+      This is the dialog content.<br />
+      <button @click="dialog = false">
+        Close
+      </button>
     </VDialog>
-    <button @click="dialog = !dialog">Show the dialog</button>
+    <button @click="dialog = !dialog">
+      Show the dialog
+    </button>
   </div>
 </template>
 
@@ -107,7 +114,7 @@ export default {
   data: () => ({
     dialog: false,
   }),
-}
+};
 </script>
 ```
 
@@ -117,11 +124,14 @@ export default {
 <template>
   <div>
     <VDialog v-model="dialog" noScroll>
-      This is the dialog content.
-      <br />
-      <button @click="dialog = false">Close</button>
+      This is the dialog content.<br />
+      <button @click="dialog = false">
+        Close
+      </button>
     </VDialog>
-    <button @click="dialog = !dialog">Show the dialog</button>
+    <button @click="dialog = !dialog">
+      Show the dialog
+    </button>
   </div>
 </template>
 
@@ -130,7 +140,7 @@ export default {
   data: () => ({
     dialog: false,
   }),
-}
+};
 </script>
 ```
 
@@ -140,13 +150,15 @@ export default {
 <template>
   <div>
     <VDialog v-model="dialog" transition="slide-up" bg-transition="fade">
-      This is the dialog content.
-      <br />
-      It traps the user focus.
-      <br />
-      <button @click="dialog = false">Close</button>
+      This is the dialog content.<br />
+      It traps the user focus.<br />
+      <button @click="dialog = false">
+        Close
+      </button>
     </VDialog>
-    <button @click="dialog = !dialog">Show the dialog</button>
+    <button @click="dialog = !dialog">
+      Show the dialog
+    </button>
   </div>
 </template>
 
@@ -155,13 +167,13 @@ export default {
   data: () => ({
     dialog: false,
   }),
-}
+};
 </script>
 
 <style>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,
@@ -172,7 +184,7 @@ export default {
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-up-enter,

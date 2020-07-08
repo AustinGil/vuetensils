@@ -34,7 +34,7 @@ export default {
   methods: {
     log: console.log
   }
-}
+};
 </script>
 
 <style>

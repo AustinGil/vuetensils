@@ -6,7 +6,7 @@
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style>
@@ -29,7 +29,7 @@ Pass in the image dimensions to avoid the page jumping when the image loads
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style>
@@ -53,7 +53,7 @@ img {
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style>
@@ -69,7 +69,7 @@ img {
 ```vue
 <template>
   <VImg
-    :src="`https://images.unsplash.com/photo-1546094324-7fd2718befe3?w=1080`"
+    src="https://images.unsplash.com/photo-1546094324-7fd2718befe3?w=1080"
     width="1080"
     height="864"
     placeholder="https://images.unsplash.com/photo-1546094324-7fd2718befe3?w=30"
@@ -77,7 +77,7 @@ img {
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style>
@@ -111,7 +111,7 @@ Don't forget all the other best practices such as `srcset` attribute and `alt` t
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style>

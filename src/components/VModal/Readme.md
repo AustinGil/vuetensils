@@ -4,13 +4,13 @@
 <template>
   <div class="styled">
     <VModal v-model="modal" transition="slide-up" bg-transition="fade">
-      This is the modal content.
-      <br />
-      It traps the user focus.
-      <br />
+      This is the modal content.<br />
+      It traps the user focus.<br />
       <button @click="modal = false" aria-label="close">&times;</button>
     </VModal>
-    <button @click="modal = !modal">Show the modal</button>
+    <button @click="modal = !modal">
+      Show the modal
+    </button>
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
   data: () => ({
     modal: false,
   }),
-}
+};
 </script>
 
 <style>
@@ -45,7 +45,7 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,
@@ -56,7 +56,7 @@ export default {
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-up-enter,
@@ -75,7 +75,9 @@ export default {
     <VModal v-model="modal">
       This is the modal content.
     </VModal>
-    <button @click="modal = !modal">Show the modal</button>
+    <button @click="modal = !modal">
+      Show the modal
+    </button>
   </div>
 </template>
 
@@ -84,7 +86,7 @@ export default {
   data: () => ({
     modal: false,
   }),
-}
+};
 </script>
 ```
 
@@ -94,11 +96,14 @@ export default {
 <template>
   <div>
     <VModal v-model="modal">
-      This is the modal content.
-      <br />
-      <button @click="modal = false">Close</button>
+      This is the modal content.<br />
+      <button @click="modal = false">
+        Close
+      </button>
     </VModal>
-    <button @click="modal = !modal">Show the modal</button>
+    <button @click="modal = !modal">
+      Show the modal
+    </button>
   </div>
 </template>
 
@@ -107,7 +112,7 @@ export default {
   data: () => ({
     modal: false,
   }),
-}
+};
 </script>
 ```
 
@@ -117,11 +122,14 @@ export default {
 <template>
   <div>
     <VModal v-model="modal" noScroll>
-      This is the modal content.
-      <br />
-      <button @click="modal = false">Close</button>
+      This is the modal content.<br />
+      <button @click="modal = false">
+        Close
+      </button>
     </VModal>
-    <button @click="modal = !modal">Show the modal</button>
+    <button @click="modal = !modal">
+      Show the modal
+    </button>
   </div>
 </template>
 
@@ -130,7 +138,7 @@ export default {
   data: () => ({
     modal: false,
   }),
-}
+};
 </script>
 ```
 
@@ -140,13 +148,15 @@ export default {
 <template>
   <div>
     <VModal v-model="modal" transition="slide-up" bg-transition="fade">
-      This is the modal content.
-      <br />
-      It traps the user focus.
-      <br />
-      <button @click="modal = false">Close</button>
+      This is the modal content.<br />
+      It traps the user focus.<br />
+      <button @click="modal = false">
+        Close
+      </button>
     </VModal>
-    <button @click="modal = !modal">Show the modal</button>
+    <button @click="modal = !modal">
+      Show the modal
+    </button>
   </div>
 </template>
 
@@ -155,13 +165,13 @@ export default {
   data: () => ({
     modal: false,
   }),
-}
+};
 </script>
 
 <style>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,
@@ -172,7 +182,7 @@ export default {
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-up-enter,

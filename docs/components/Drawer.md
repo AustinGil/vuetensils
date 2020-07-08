@@ -2,6 +2,8 @@
 
 A convenient sidebar that can be toggled on or off. When opened, it traps the user's focus so that keyboard navigation will remain within the sidebar until it is closed. It also supports being closed by pressing the ESC key.
 
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDrawer/VDrawer.vue)
+
 Features:
 
 - Manages `tabindex` attributes for drawer accessibility.
@@ -10,18 +12,16 @@ Features:
 - Adds event listener to close drawer on the `esc` key.
 - Supports preventing page scroll while open.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDrawer/VDrawer.vue)
-
 ## Installation
 
 Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VDrawer } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VDrawer } from 'vuetensils/src/components';
 
-Vue.component("VDrawer", VDrawer)
+Vue.component('VDrawer', VDrawer);
 ```
 
 Locally:
@@ -29,14 +29,14 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VDrawer } from "vuetensils/src/components"
+import { VDrawer } from 'vuetensils/src/components';
 
 export default {
   components: {
     VDrawer,
   },
   // ...
-}
+};
 </script>
 ```
 
@@ -47,7 +47,9 @@ export default {
   <div class="styled">
     <VDrawer transition="slide-right" bg-transition="fade">
       <template #toggle="{ bind, on }">
-        <button v-bind="bind" v-on="on">Toggle Drawer</button>
+        <button v-bind="bind" v-on="on">
+          Toggle Drawer
+        </button>
       </template>
 
       My drawer content
@@ -63,14 +65,14 @@ export default {
 
 .vts-drawer__content {
   padding: 20px;
-  color: #fff;
+  color: #FFF;
   background: #222;
-  transition: transform 0.3s;
+  transition: 0.3s ease transform;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,
@@ -80,7 +82,7 @@ export default {
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-right-enter,
@@ -99,7 +101,7 @@ To add background colors to the content, you chave 3 options:
 1. Use the provided `.vts-drawer__content` class to add a background color:
    ```css
    .vts-drawer__content {
-     background: #fff;
+     background: #FFF;
    }
    ```
 2. Use the `classes` prop object to provide a custom class:
@@ -117,7 +119,7 @@ To add background colors to the content, you chave 3 options:
    ```css
    .sidebar {
      height: 100%;
-     background: #fff;
+     background: #FFF;
    }
    ```
 
@@ -127,7 +129,7 @@ The following styles have been added to **this site** to make the drawers easier
 
 ```css
 .bg-white {
-  background-color: #fff;
+  background-color: #FFF;
 }
 
 .bg-black-alpha {
@@ -139,7 +141,9 @@ The following styles have been added to **this site** to make the drawers easier
 <template>
   <VDrawer :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }">
     <template #toggle="{ bind, on }">
-      <button v-bind="bind" v-on="on">Toggle Drawer</button>
+      <button v-bind="bind" v-on="on">
+        Toggle Drawer
+      </button>
     </template>
 
     My drawer content
@@ -159,7 +163,9 @@ The following styles have been added to **this site** to make the drawers easier
       My drawer content
     </VDrawer>
 
-    <button @click="drawer = !drawer">Show the drawer</button>
+    <button @click="drawer = !drawer">
+      Show the drawer
+    </button>
   </div>
 </template>
 
@@ -168,7 +174,7 @@ export default {
   data: () => ({
     drawer: false,
   }),
-}
+};
 </script>
 ```
 
@@ -178,7 +184,9 @@ export default {
 <template>
   <VDrawer right :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }">
     <template #toggle="{ bind, on }">
-      <button v-bind="bind" v-on="on">Toggle Drawer</button>
+      <button v-bind="bind" v-on="on">
+        Toggle Drawer
+      </button>
     </template>
 
     My drawer content
@@ -190,9 +198,11 @@ export default {
 
 ```vue live
 <template>
-  <VDrawer noScroll :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }">
+  <VDrawer no-scroll :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }">
     <template #toggle="{ bind, on }">
-      <button v-bind="bind" v-on="on">Toggle Drawer</button>
+      <button v-bind="bind" v-on="on">
+        Toggle Drawer
+      </button>
     </template>
 
     My drawer content
@@ -210,7 +220,9 @@ export default {
     :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }"
   >
     <template #toggle="{ bind, on }">
-      <button v-bind="bind" v-on="on">Toggle Drawer</button>
+      <button v-bind="bind" v-on="on">
+        Toggle Drawer
+      </button>
     </template>
 
     My drawer content
@@ -221,7 +233,7 @@ export default {
 ```css
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: 0.5s ease opacity;
 }
 
 .fade-enter,
@@ -231,7 +243,7 @@ export default {
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: opacity 0.5s, transform 0.5s;
+  transition: 0.5s ease opacity, 0.5s ease transform;
 }
 
 .slide-right-enter,

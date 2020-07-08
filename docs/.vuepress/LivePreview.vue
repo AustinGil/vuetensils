@@ -12,7 +12,7 @@
 
 <style>
 .live-preview {
-  border: 1px solid #ccc;
+  border: 1px solid #CCC;
   border-radius: 5px;
   padding: 15px;
   font: initial;

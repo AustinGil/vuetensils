@@ -1,8 +1,10 @@
 # Tooltip
 
-WIP: Still need to add transitions, but feel free to copy from source.
+**WIP: Still need to add transitions, but feel free to copy from source.**
 
 A component that let's you add a tooltip to an element.
+
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VTooltip/VTooltip.vue)
 
 Features:
 - Supports keyboard navigation for the target DOM node.
@@ -10,18 +12,16 @@ Features:
 - Includes `role="tooltip"` attribute for tooltip content.
 - Manages `aria-hidden` and `aria-describedby` attributes.
 
-[Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VTooltip/VTooltip.vue)
-
 ## Installation
 
 Globally:
 
 ```js
 // main.js
-import Vue from "vue"
-import { VTooltip } from "vuetensils/src/components"
+import Vue from 'vue';
+import { VTooltip } from 'vuetensils/src/components';
 
-Vue.component("VTooltip", VTooltip)
+Vue.component('VTooltip', VTooltip);
 ```
 
 Locally:
@@ -29,26 +29,28 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VTooltip } from "vuetensils/src/components"
+import { VTooltip } from 'vuetensils/src/components';
 
 export default {
   components: {
     VTooltip,
   },
   // ...
-}
+};
 </script>
 ```
 
 ## Default Example
 
-Try tabbing through these elements
+Try tabbing through these elements.
 
 ```vue live
 <template>
   <div>
     <VTooltip>
-      <template #tooltip>heyo :)</template>
+      <template #tooltip>
+        heyo :)
+      </template>
 
       I have a tooltip!
     </VTooltip>
@@ -58,7 +60,7 @@ Try tabbing through these elements
 
 ## Tabbing Example
 
-Try tabbing through these elements
+Try tabbing through these elements.
 
 ```vue live
 <template>
@@ -66,7 +68,9 @@ Try tabbing through these elements
     <button>before</button>
 
     <VTooltip>
-      <template #tooltip>heyo :)</template>
+      <template #tooltip>
+        heyo :)
+      </template>
 
       I have a tooltip!
     </VTooltip>
@@ -81,7 +85,9 @@ Try tabbing through these elements
 ```vue live
 <template>
   <VTooltip tag="div">
-    <template #tooltip>heyo :)</template>
+    <template #tooltip>
+      heyo :)
+    </template>
 
     <h1>I have a tooltip!</h1>
   </VTooltip>
@@ -95,7 +101,9 @@ Hovering over the target will not do anything, but you can click on it or tab to
 ```vue live
 <template>
   <VTooltip focus>
-    <template #tooltip>heyo :)</template>
+    <template #tooltip>
+      heyo :)
+    </template>
 
     I have a tooltip!
   </VTooltip>

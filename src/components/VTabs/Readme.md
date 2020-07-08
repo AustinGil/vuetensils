@@ -18,13 +18,13 @@
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style>
 .vts-tabs {
   overflow: hidden;
-  border: 1px solid #ccc;
+  border: 1px solid #CCC;
   border-radius: 0.25rem;
 }
 
@@ -39,8 +39,8 @@ export default {}
 }
 
 .vts-tabs [role="tab"][aria-selected="true"] {
-  border-bottom-color: #fff;
-  background: #fff;
+  border-bottom-color: #FFF;
+  background: #FFF;
 }
 
 .vts-tabs [role="tabpanel"] {
@@ -66,7 +66,7 @@ export default {}
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 ```
 

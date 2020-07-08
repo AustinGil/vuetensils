@@ -5,7 +5,7 @@ pageClass: cookbook
 
 # Cookbook
 
-Just some simple copy/paste examples
+Just some simple copy/paste examples.
 
 ## Custom Radio & Checkbox CSS
 

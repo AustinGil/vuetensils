@@ -6,28 +6,30 @@ The directive also supports modifiers to fire only when the element enters, only
 
 Check your JavaScript console and scroll around to see what's going on.
 
+- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/directives/intersect.js)
+
 ## Installation
 
 Global install:
 
 ```js
-import Vue from "vue"
-import { intersect } from "vuetensils/src/directives"
+import Vue from 'vue';
+import { intersect } from 'vuetensils/src/directives';
 
-Vue.directive("intersect", intersect)
+Vue.directive('intersect', intersect);
 ```
 
 Local install:
 
 ```html
 <script>
-  import { intersect } from "vuetensils/src/directives"
+  import { intersect } from 'vuetensils/src/directives';
 
   export default {
     directives: {
       intersect,
     },
-  }
+  };
 </script>
 ```
 
@@ -44,18 +46,18 @@ The default handler fires whenever the element enter or exits the context.
 ```vue live
 <template>
   <div>
-    <div v-intersect="$log" class="intersect-example"></div>
+    <div v-intersect="$log" class="intersect-example" />
     <div
       v-intersect="() => $log('something happened')"
       class="intersect-example"
-    ></div>
+    />
   </div>
 </template>
 ```
 
 ## .enter modifier
 
-Only fires when the element enters the context
+Only fires when the element enters the context.
 
 ```vue live
 <template>
@@ -63,14 +65,14 @@ Only fires when the element enters the context
     <div
       v-intersect.enter="() => $log('I have arrived!')"
       class="intersect-example"
-    ></div>
+    />
   </div>
 </template>
 ```
 
 ## .exit modifier
 
-Only fires when the element exits the context
+Only fires when the element exits the context.
 
 ```vue live
 <template>
@@ -78,14 +80,14 @@ Only fires when the element exits the context
     <div
       v-intersect.exit="() => $log('Peace out!')"
       class="intersect-example"
-    ></div>
+    />
   </div>
 </template>
 ```
 
 ## .once modifier
 
-Only fires when the handler once. Can be chaned to .enter or .exit.
+Only fires when the handler once. Can be chained to `.enter` or `.exit`.
 
 ```vue live
 <template>
@@ -93,14 +95,14 @@ Only fires when the handler once. Can be chaned to .enter or .exit.
     <div
       v-intersect.once="() => $log('You will not see me again')"
       class="intersect-example"
-    ></div>
+    />
   </div>
 </template>
 ```
 
 ## Multiple Handlers
 
-You can attach a handler for the onEnter, onExit, and onChange events
+You can attach a handler for the `onEnter`, `onExit`, and `onChange` events.
 
 ```vue live
 <template>
@@ -108,7 +110,7 @@ You can attach a handler for the onEnter, onExit, and onChange events
     <div
       v-intersect="{ onEnter, onExit, onChange }"
       class="intersect-example"
-    ></div>
+    />
   </div>
 </template>
 
@@ -116,18 +118,16 @@ You can attach a handler for the onEnter, onExit, and onChange events
 export default {
   methods: {
     onEnter(entry, el) {
-      console.log("I'm here!")
+      console.log('I am here!');
     },
     onExit(entry, el) {
-      console.log("I'm gone!")
+      console.log('I am gone!');
     },
     onChange(entry, el) {
-      console.log(
-        `Let me check...I'm ${entry.isIntersecting ? "here" : "gone"}`
-      )
+      console.log('Let me check... I am ' + entry.isIntersecting ? 'here' : 'gone');
     },
   },
-}
+};
 </script>
 ```
 
@@ -151,27 +151,24 @@ export default {
 
   methods: {
     onChange({ isIntersecting }) {
-      this.isVisible = isIntersecting
+      this.isVisible = isIntersecting;
     },
   },
-}
+};
 </script>
 ```
 
 ## Available properties
 
-- onChange: The callback invoked when intersection state changes.
-- onEnter: The callback invoked when element is intersecting with context.
-- onExit: The callback invoked when element is not intersecting with context.
-
-- threshold: A number between 0 and 1. for example if it is 0.5 the function will be invoked when half of the element is visible in the root element.
-
-- root: The scrollable element query selector like "#some-id". must be an ancestor of the element with which you use this directive
-
-- rootMargin: the margen given to the root element. same as css margin.
+- **onChange:** The callback invoked when intersection state changes.
+- **onEnter:** The callback invoked when element is intersecting with context.
+- **onExit:** The callback invoked when element is not intersecting with context.
+- **threshold:** A number between 0 and 1. For example, if it is 0.5 the function will be invoked when half of the element is visible in the root element.
+- **root:** The scrollable element query selector like `'#some-id'`. Must be an ancestor of the element with on which you use this directive.
+- **rootMargin:** The margin given to the root element. Same as CSS margin.
 
 ## Available modifiers
 
-- change: will take the passed function and assign it to onChange (Default).
-- enter: will take the passed function and assign it to onEnter.
-- exit: will take the passed function and assign it to onExit.
+- **change:** Will take the passed function and assign it to `onChange` (default).
+- **enter:** Will take the passed function and assign it to `onEnter`.
+- **exit:** Will take the passed function and assign it to `onExit`.
