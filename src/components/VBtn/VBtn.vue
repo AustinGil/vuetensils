@@ -2,11 +2,11 @@
 /**
  * Detects if a VDOM element is a <RouterLink>, <a>, or <button>
  *
- * @param  {object} props           props container
- * @param  {string} props.to        the :to prop for router-link
- * @param  {object} data            data container
- * @param  {object} data.attrs      attributes container
- * @return {string}                 'RouterLink', 'a', or 'button'
+ * @param  {object} props       props container
+ *         {string} props.to    the :to prop for router-link
+ * @param  {object} data        data container
+ *         {object} data.attrs  attributes container
+ * @return {string}             'RouterLink', 'a', or 'button'
  */
 export function getTag(props, data) {
   if (props && props.to) {
