@@ -97,9 +97,7 @@ module.exports = {
           {
             'args': 'none'
           }
-        ],
-        // https://github.com/vue-a11y/eslint-plugin-vuejs-accessibility/issues/29
-        'vuejs-accessibility/accessible-emoji': ['off']
+        ]
       }
     }
   ]
