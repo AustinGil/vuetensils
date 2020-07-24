@@ -134,7 +134,7 @@ export default {
       }
     },
     onKeydown(event) {
-      if (event.keyCode === KEYCODES.ESC) {
+      if (event.keyCode === KEYCODES.ESC && this.dismissible) {
         this.localShow = false;
       }
       if (event.keyCode === KEYCODES.TAB) {
