@@ -79,8 +79,19 @@ export default {
         </template>
       </template>
     </VInput>
+
+    <VInput v-model="v" type="textarea" />
+    {{ v }}
   </form>
 </template>
+
+<script>
+export default {
+  data: () => ({
+    v: ''
+  })
+};
+</script>
 
 <style>
 .vts-input {
@@ -214,7 +225,7 @@ If you want to add a description to your input, the best practice is to include 
 ```vue live
 <template>
   <VInput label="Features:" name="features">
-    <template v-slot:description>
+    <template #description>
       Are there any other features you would like to see?
     </template>
   </VInput>

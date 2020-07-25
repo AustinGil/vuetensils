@@ -1,6 +1,6 @@
 module.exports = {
-  semi: false,
-  singleQuote: false,
+  semi: true,
+  singleQuote: true,
   htmlWhitespaceSensitivity: "ignore",
   trailingComma: "es5"
-}
+};
