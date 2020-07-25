@@ -18,9 +18,6 @@ export function getTag(props, data) {
   return 'button';
 }
 
-/**
- * @type {import('vue').Component}
- */
 export default {
   name: 'VBtn',
   functional: true,

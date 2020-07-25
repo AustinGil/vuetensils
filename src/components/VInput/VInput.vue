@@ -73,9 +73,9 @@
         v-else-if="'textarea' === $attrs.type"
         ref="input"
         v-bind="bind"
-      >
-        {{ localValue }}
-      </textarea>
+        @input="onInput"
+        @blur.once="dirty = true"
+      >{{ localValue }}</textarea>
 
       <input
         v-else-if="'checkbox' === $attrs.type"
