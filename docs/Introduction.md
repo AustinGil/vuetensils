@@ -33,7 +33,7 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VAlert } from 'vuetensils';
+import { VAlert } from 'vuetensils/src/components';
 
 Vue.component('VAlert', VAlert);
 ```
@@ -43,7 +43,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VAlert } from 'vuetensils';
+import { VAlert } from 'vuetensils/src/components';
 
 export default {
   components: {
@@ -137,3 +137,4 @@ If I want my projects to follow best practices for semantic markup and accessibi
 <!-- TODO: https://xaksis.github.io/vue-good-table/guide/#installation -->
 <!-- TODO: https://dequeuniversity.com/library/ -->
 <!-- TODO: https://github.com/bdryanovski/logchanges -->
+<!-- TODO: https://codepen.io/Stegosource/pen/mdVRKEq OR https://codepen.io/smhigley/pen/JjoKgxb OR https://codepen.io/smhigley/pen/GRgjRVN -->

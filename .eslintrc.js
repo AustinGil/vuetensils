@@ -11,14 +11,9 @@ module.exports = {
   },
   globals: {
     jsdom: true,
-    Promise: true
+    Promise: true,
   },
-  plugins: [
-    'jest',
-    'jsdoc',
-    'markdown',
-    'vue'
-  ],
+  plugins: ['jest', 'jsdoc', 'markdown', 'vue'],
   extends: [
     'eslint:recommended',
     'plugin:jsdoc/recommended',
@@ -30,75 +25,75 @@ module.exports = {
     'comma-dangle': ['error', 'only-multiline'],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'quotes': ['error', 'single'],
-    'semi': ['error', 'always'],
+    quotes: ['error', 'single'],
+    semi: ['error', 'always'],
+
     'jsdoc/check-tag-names': [
       'error',
       {
-        'definedTags': [
-          'model',
-          'slot'
-        ]
-      }
+        definedTags: ['model', 'slot'],
+      },
     ],
+
+    'vue/no-textarea-mustache': 'off',
     'vue/html-self-closing': [
       'error',
       {
-        'html': {
-          'void': 'always',
-          'normal': 'always',
-          'component': 'always'
+        html: {
+          void: 'always',
+          normal: 'always',
+          component: 'always',
         },
-        'svg': 'always',
-        'math': 'always'
-      }
+        svg: 'always',
+        math: 'always',
+      },
     ],
     'vue/max-attributes-per-line': [
       'error',
       {
-        'singleline': 3,
-        'multiline': {
-          'max': 1,
-          'allowFirstLine': false
-        }
-      }
+        singleline: 3,
+        multiline: {
+          max: 1,
+          allowFirstLine: false,
+        },
+      },
     ],
     'vue/require-prop-types': ['error'],
     'vuejs-accessibility/label-has-for': [
       'error',
       {
-        'components': ['Label'],
-        'required': {
-          'some': ['nesting', 'id']
+        components: ['Label'],
+        required: {
+          some: ['nesting', 'id'],
         },
-        'allowChildren': false
-      }
-    ]
+        allowChildren: false,
+      },
+    ],
   },
   settings: {
     jsdoc: {
       tagNamePreference: {
         property: 'prop',
-        returns: 'return'
-      }
-    }
+        returns: 'return',
+      },
+    },
   },
   overrides: [
     {
       files: ['**/*.md'],
-      processor: 'markdown/markdown'
+      processor: 'markdown/markdown',
     },
     {
       files: ['**/*.vue live'],
       processor: 'vue/.vue',
       rules: {
-        'no-unused-vars':  [
+        'no-unused-vars': [
           'error',
           {
-            'args': 'none'
-          }
-        ]
-      }
-    }
-  ]
+            args: 'none',
+          },
+        ],
+      },
+    },
+  ],
 };

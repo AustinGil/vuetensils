@@ -129,7 +129,7 @@ export default {
          * Fired whenever the visibility changes. Either through user interaction, or a countdown timer
          *
          * @event update
-         * @type { boolean/number }
+         * @type { boolean|number }
          */
         this.$emit('update', visible - 1);
       }, 1000);

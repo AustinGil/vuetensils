@@ -13,7 +13,7 @@
     ]"
   >
     <fieldset
-      v-if="$attrs.type === 'radio'"
+      v-if="'radio' === $attrs.type"
       :class="['vts-input__fieldset', classes.fieldset]"
     >
       <legend v-if="label" :class="['vts-input__legend', classes.text]">
@@ -28,15 +28,8 @@
         <input
           :id="`${id}__input-${index}`"
           ref="input"
-          :checked="localValue === option.value"
-          :type="$attrs.type"
-          :name="option.name"
-          :value="option.value"
-          :aria-invalid="!valid"
-          :aria-describedby="error && `${id}__description`"
-          :class="['vts-input__input', classes.input]"
-          v-bind="$attrs"
-          @input="$emit('update', option.value)"
+          v-bind="option"
+          @input="onInput({ target: { value: option.value } })"
           @blur.once="dirty = true"
           v-on="$listeners"
         />
@@ -52,22 +45,17 @@
       :class="['vts-input__label', classes.label]"
     >
       <span
-        v-if="$attrs.type !== 'checkbox'"
+        v-if="'checkbox' !== $attrs.type"
         :class="['vts-input__text', classes.text]"
       >
         {{ label }}
       </span>
 
       <select
-        v-if="$attrs.type === 'select'"
-        :id="`${id}__input`"
+        v-if="'select' === $attrs.type"
         ref="input"
-        :name="name"
-        :aria-invalid="!valid"
-        :aria-describedby="error && `${id}__description`"
-        :class="['vts-input__input', classes.input]"
-        v-bind="$attrs"
-        @blur="onInput"
+        v-bind="bind"
+        @input="onInput"
         @blur.once="dirty = true"
         v-on="$listeners"
       >
@@ -81,27 +69,36 @@
         </option>
       </select>
 
-      <component
-        :is="tag"
+      <textarea
+        v-else-if="'textarea' === $attrs.type"
+        ref="input"
+        v-bind="bind"
+        @input="onInput"
+        @blur.once="dirty = true"
+      >{{ localValue }}</textarea>
+
+      <input
+        v-else-if="'checkbox' === $attrs.type"
+        ref="input"
+        v-bind="bind"
+        :checked="typeof localValue !== 'string' ? localValue : $attrs.checked"
+        @input="onInput"
+        @blur.once="dirty = true"
+        v-on="$listeners"
+      />
+
+      <input
         v-else
-        :id="`${id}__input`"
         ref="input"
         :value="localValue"
-        v-bind="$attrs"
-        :aria-invalid="!valid"
-        :aria-describedby="error && `${id}__description`"
-        :class="['vts-input__input', classes.input]"
-        :checked="$attrs.type === 'checkbox' && localValue === true"
+        v-bind="bind"
         @input="onInput"
-        @blur.once.once="dirty = true"
+        @blur.once="dirty = true"
         v-on="$listeners"
-      >
-        <template v-if="tag === 'textarea'">
-          {{ localValue }}
-        </template>
-      </component>
+      />
+
       <span
-        v-if="$attrs.type === 'checkbox'"
+        v-if="'checkbox' === $attrs.type"
         :class="['vts-input__text', classes.text]"
       >
         {{ label }}
@@ -180,26 +177,28 @@ export default {
   },
 
   computed: {
-    tag() {
-      const { type } = this.$attrs;
-      if (type === 'textarea') {
-        return 'textarea';
-      }
-      if (type === 'select') {
-        return 'select';
-      }
-      return 'input';
+    bind() {
+      const { id, valid, error, classes, $attrs } = this;
+      const attrs = {
+        'aria-invalid': !valid,
+        'aria-describedby': error && `${id}__description`,
+        ...$attrs,
+        id: `${id}__input`,
+        class: ['vts-input__input', classes.input],
+      };
+      return attrs;
     },
 
     computedOptions() {
-      return this.options.map(item => {
+      const { id, $attrs, bind, localValue } = this;
+      return this.options.map((item) => {
         // Each item should be an object with at least value and label which we can bind to later
         item = typeof item === 'object' ? item : { value: item };
-        Object.assign(item, this.$attrs);
-        item.label = item.label || item.value;
-        item.name = item.name || this.id;
-        item.required = true;
-        return item;
+        return Object.assign(item, $attrs, bind, {
+          label: item.label || item.value,
+          name: item.name || id,
+          checked: localValue === item.value,
+        });
       });
     },
 
@@ -244,7 +243,7 @@ export default {
         value = target.checked;
       } else if (type === 'select' && isMultiple) {
         value = [];
-        target.options.forEach(option => {
+        target.options.forEach((option) => {
           // for of not supported
           if (option.selected) {
             value.push(option.value);
@@ -263,8 +262,11 @@ export default {
     },
 
     validate() {
-      const input = this.$refs.input;
-      if (Array.isArray(input)) return;
+      let input = this.$refs.input;
+
+      if (Array.isArray(input)) {
+        input = input[0];
+      }
 
       const { validity } = input;
 

@@ -259,7 +259,7 @@ export default {
     },
 
     emitRowClick(item) {
-      this.$emit('click:row', item.original);
+      this.$emit('click:row', item.original); // eslint-disable-line vue/custom-event-name-casing
     },
 
     ariaSort(header) {
