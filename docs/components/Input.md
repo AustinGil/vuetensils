@@ -79,19 +79,8 @@ export default {
         </template>
       </template>
     </VInput>
-
-    <VInput v-model="v" type="textarea" />
-    {{ v }}
   </form>
 </template>
-
-<script>
-export default {
-  data: () => ({
-    v: ''
-  })
-};
-</script>
 
 <style>
 .vts-input {
