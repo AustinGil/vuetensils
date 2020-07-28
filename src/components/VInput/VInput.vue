@@ -28,8 +28,8 @@
         <input
           :id="`${id}__input-${index}`"
           ref="input"
-          v-bind="option"
-          @input="onInput({ target: { value: option.value } })"
+          v-bind="{ ...bind, ...option }"
+          @input="localValue = option.value"
           @blur.once="dirty = true"
           v-on="$listeners"
         />
@@ -40,31 +40,41 @@
     </fieldset>
 
     <label
+      v-else-if="'checkbox' === $attrs.type"
+      :for="`${id}__input`"
+      :class="['vts-input__label', classes.label]"
+    >
+      <input
+        ref="input"
+        :checked="localValue === undefined ? $attrs.checked : localValue"
+        v-bind="bind"
+        @change="localValue = $event.target.checked"
+        @blur.once.once="dirty = true"
+        v-on="$listeners"
+      />
+      <span :class="['vts-input__text', classes.text]">
+        {{ label }}
+      </span>
+    </label>
+
+    <label
       v-else
       :for="`${id}__input`"
       :class="['vts-input__label', classes.label]"
     >
-      <span
-        v-if="'checkbox' !== $attrs.type"
-        :class="['vts-input__text', classes.text]"
-      >
+      <span :class="['vts-input__text', classes.text]">
         {{ label }}
       </span>
 
       <select
         v-if="'select' === $attrs.type"
         ref="input"
+        v-model="localValue"
         v-bind="bind"
-        @input="onInput"
         @blur.once="dirty = true"
         v-on="$listeners"
       >
-        <option
-          v-for="(option, i) in computedOptions"
-          :key="i"
-          v-bind="option"
-          :selected="localValue.includes(option.value)"
-        >
+        <option v-for="(option, i) in computedOptions" :key="i" v-bind="option">
           {{ option.label }}
         </option>
       </select>
@@ -72,17 +82,8 @@
       <textarea
         v-else-if="'textarea' === $attrs.type"
         ref="input"
+        v-model="localValue"
         v-bind="bind"
-        @input="onInput"
-        @blur.once="dirty = true"
-      >{{ localValue }}</textarea>
-
-      <input
-        v-else-if="'checkbox' === $attrs.type"
-        ref="input"
-        v-bind="bind"
-        :checked="typeof localValue !== 'string' ? localValue : $attrs.checked"
-        @input="onInput"
         @blur.once="dirty = true"
         v-on="$listeners"
       />
@@ -90,19 +91,11 @@
       <input
         v-else
         ref="input"
-        :value="localValue"
+        v-model="localValue"
         v-bind="bind"
-        @input="onInput"
         @blur.once="dirty = true"
         v-on="$listeners"
       />
-
-      <span
-        v-if="'checkbox' === $attrs.type"
-        :class="['vts-input__text', classes.text]"
-      >
-        {{ label }}
-      </span>
     </label>
 
     <div
@@ -149,7 +142,7 @@ export default {
      */
     value: {
       type: [String, Number, Boolean, Array],
-      default: '',
+      default: undefined,
     },
 
     /**
@@ -186,18 +179,21 @@ export default {
         id: `${id}__input`,
         class: ['vts-input__input', classes.input],
       };
+
       return attrs;
     },
 
     computedOptions() {
-      const { id, $attrs, bind, localValue } = this;
+      const { id, $attrs, localValue } = this;
       return this.options.map((item) => {
         // Each item should be an object with at least value and label which we can bind to later
         item = typeof item === 'object' ? item : { value: item };
-        return Object.assign(item, $attrs, bind, {
+        return Object.assign(item, $attrs, {
           label: item.label || item.value,
           name: item.name || id,
-          checked: localValue === item.value,
+          value: item.value,
+          checked:
+            localValue !== undefined ? item.value === localValue : item.checked,
         });
       });
     },
@@ -213,11 +209,17 @@ export default {
   },
 
   watch: {
-    value(next) {
-      this.localValue = next;
+    value(value, previousValue) {
+      if (value === previousValue) return;
+      this.localValue = value;
     },
-    localValue: {
-      handler: 'validate',
+    localValue(value) {
+      /**
+       * @event update
+       * @type { any }
+       */
+      this.$emit('update', value);
+      this.validate();
     },
   },
 
@@ -233,34 +235,6 @@ export default {
   },
 
   methods: {
-    onInput({ target }) {
-      const { type } = this.$attrs;
-      const isMultiple = this.isMultiple;
-
-      let value;
-
-      if (type === 'checkbox') {
-        value = target.checked;
-      } else if (type === 'select' && isMultiple) {
-        value = [];
-        target.options.forEach((option) => {
-          // for of not supported
-          if (option.selected) {
-            value.push(option.value);
-          }
-        });
-      } else {
-        value = target.value;
-      }
-
-      /**
-       * @event update
-       * @type { any }
-       */
-      this.$emit('update', value);
-      this.validate();
-    },
-
     validate() {
       let input = this.$refs.input;
 
