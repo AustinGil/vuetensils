@@ -2522,7 +2522,7 @@
        */
       value: {
         type: [String, Number, Boolean, Array],
-        default: '',
+        default: undefined,
       },
 
       /**
@@ -2562,6 +2562,7 @@
           $attrs,
           {id: (id + "__input"),
           class: ['vts-input__input', classes.input]});
+
         return attrs;
       },
 
@@ -2569,15 +2570,16 @@
         var ref = this;
         var id = ref.id;
         var $attrs = ref.$attrs;
-        var bind = ref.bind;
         var localValue = ref.localValue;
         return this.options.map(function (item) {
           // Each item should be an object with at least value and label which we can bind to later
           item = typeof item === 'object' ? item : { value: item };
-          return Object.assign(item, $attrs, bind, {
+          return Object.assign(item, $attrs, {
             label: item.label || item.value,
             name: item.name || id,
-            checked: localValue === item.value,
+            value: item.value,
+            checked:
+              localValue !== undefined ? item.value === localValue : item.checked,
           });
         });
       },
@@ -2594,11 +2596,17 @@
     },
 
     watch: {
-      value: function value(next) {
-        this.localValue = next;
+      value: function value(value$1, previousValue) {
+        if (value$1 === previousValue) { return; }
+        this.localValue = value$1;
       },
-      localValue: {
-        handler: 'validate',
+      localValue: function localValue(value) {
+        /**
+         * @event update
+         * @type { any }
+         */
+        this.$emit('update', value);
+        this.validate();
       },
     },
 
@@ -2616,37 +2624,6 @@
     },
 
     methods: {
-      onInput: function onInput(ref) {
-        var target = ref.target;
-
-        var ref$1 = this.$attrs;
-        var type = ref$1.type;
-        var isMultiple = this.isMultiple;
-
-        var value;
-
-        if (type === 'checkbox') {
-          value = target.checked;
-        } else if (type === 'select' && isMultiple) {
-          value = [];
-          target.options.forEach(function (option) {
-            // for of not supported
-            if (option.selected) {
-              value.push(option.value);
-            }
-          });
-        } else {
-          value = target.value;
-        }
-
-        /**
-         * @event update
-         * @type { any }
-         */
-        this.$emit('update', value);
-        this.validate();
-      },
-
       validate: function validate() {
         var input = this.$refs.input;
 
@@ -2686,7 +2663,7 @@
         'vts-input--dirty': _vm.dirty,
         'vts-input--error': _vm.error,
       },
-      _vm.classes.root ]},[('radio' === _vm.$attrs.type)?_c('fieldset',{class:['vts-input__fieldset', _vm.classes.fieldset]},[(_vm.label)?_c('legend',{class:['vts-input__legend', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e(),_vm._v(" "),_vm._l((_vm.computedOptions),function(option,index){return _c('label',{key:option.value,class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input-" + index)}},[_c('input',_vm._g(_vm._b({ref:"input",refInFor:true,attrs:{"id":(_vm.id + "__input-" + index)},on:{"input":function($event){return _vm.onInput({ target: { value: option.value } })},"~blur":function($event){_vm.dirty = true;}}},'input',option,false),_vm.$listeners)),_vm._v(" "),_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])])})],2):_c('label',{class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input")}},[('checkbox' !== _vm.$attrs.type)?_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e(),_vm._v(" "),('select' === _vm.$attrs.type)?_c('select',_vm._g(_vm._b({ref:"input",on:{"input":_vm.onInput,"~blur":function($event){_vm.dirty = true;}}},'select',_vm.bind,false),_vm.$listeners),_vm._l((_vm.computedOptions),function(option,i){return _c('option',_vm._b({key:i,domProps:{"selected":_vm.localValue.includes(option.value)}},'option',option,false),[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])}),0):('textarea' === _vm.$attrs.type)?_c('textarea',_vm._b({ref:"input",on:{"input":_vm.onInput,"~blur":function($event){_vm.dirty = true;}}},'textarea',_vm.bind,false),[_vm._v(_vm._s(_vm.localValue))]):('checkbox' === _vm.$attrs.type)?_c('input',_vm._g(_vm._b({ref:"input",domProps:{"checked":typeof _vm.localValue !== 'string' ? _vm.localValue : _vm.$attrs.checked},on:{"input":_vm.onInput,"~blur":function($event){_vm.dirty = true;}}},'input',_vm.bind,false),_vm.$listeners)):_c('input',_vm._g(_vm._b({ref:"input",domProps:{"value":_vm.localValue},on:{"input":_vm.onInput,"~blur":function($event){_vm.dirty = true;}}},'input',_vm.bind,false),_vm.$listeners)),_vm._v(" "),('checkbox' === _vm.$attrs.type)?_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e()]),_vm._v(" "),(_vm.$scopedSlots.description)?_c('div',{class:['vts-input__description', _vm.classes.description],attrs:{"id":(_vm.id + "__description"),"role":"alert"}},[_vm._t("description",null,null,{ valid: _vm.valid, dirty: _vm.dirty, error: _vm.error, invalid: _vm.invalid, anyInvalid: _vm.anyInvalid })],2):_vm._e()])};
+      _vm.classes.root ]},[('radio' === _vm.$attrs.type)?_c('fieldset',{class:['vts-input__fieldset', _vm.classes.fieldset]},[(_vm.label)?_c('legend',{class:['vts-input__legend', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e(),_vm._v(" "),_vm._l((_vm.computedOptions),function(option,index){return _c('label',{key:option.value,class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input-" + index)}},[_c('input',_vm._g(_vm._b({ref:"input",refInFor:true,attrs:{"id":(_vm.id + "__input-" + index)},on:{"input":function($event){_vm.localValue = option.value;},"~blur":function($event){_vm.dirty = true;}}},'input',Object.assign({}, _vm.bind, option),false),_vm.$listeners)),_vm._v(" "),_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])])})],2):('checkbox' === _vm.$attrs.type)?_c('label',{class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input")}},[_c('input',_vm._g(_vm._b({ref:"input",domProps:{"checked":_vm.localValue === undefined ? _vm.$attrs.checked : _vm.localValue},on:{"change":function($event){_vm.localValue = $event.target.checked;},"~blur":function($event){_vm.dirty = true;}}},'input',_vm.bind,false),_vm.$listeners)),_vm._v(" "),_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")])]):_c('label',{class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input")}},[_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]),_vm._v(" "),('select' === _vm.$attrs.type)?_c('select',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",on:{"~blur":function($event){_vm.dirty = true;},"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.localValue=$event.target.multiple ? $$selectedVal : $$selectedVal[0];}}},'select',_vm.bind,false),_vm.$listeners),_vm._l((_vm.computedOptions),function(option,i){return _c('option',_vm._b({key:i},'option',option,false),[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])}),0):('textarea' === _vm.$attrs.type)?_c('textarea',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",domProps:{"value":(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"input":function($event){if($event.target.composing){ return; }_vm.localValue=$event.target.value;}}},'textarea',_vm.bind,false),_vm.$listeners)):(((_vm.bind).type)==='checkbox')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":"checkbox"},domProps:{"checked":Array.isArray(_vm.localValue)?_vm._i(_vm.localValue,null)>-1:(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"change":function($event){var $$a=_vm.localValue,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=null,$$i=_vm._i($$a,$$v);if($$el.checked){$$i<0&&(_vm.localValue=$$a.concat([$$v]));}else {$$i>-1&&(_vm.localValue=$$a.slice(0,$$i).concat($$a.slice($$i+1)));}}else {_vm.localValue=$$c;}}}},'input',_vm.bind,false),_vm.$listeners)):(((_vm.bind).type)==='radio')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":"radio"},domProps:{"checked":_vm._q(_vm.localValue,null)},on:{"~blur":function($event){_vm.dirty = true;},"change":function($event){_vm.localValue=null;}}},'input',_vm.bind,false),_vm.$listeners)):_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":(_vm.bind).type},domProps:{"value":(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"input":function($event){if($event.target.composing){ return; }_vm.localValue=$event.target.value;}}},'input',_vm.bind,false),_vm.$listeners))]),_vm._v(" "),(_vm.$scopedSlots.description)?_c('div',{class:['vts-input__description', _vm.classes.description],attrs:{"id":(_vm.id + "__description"),"role":"alert"}},[_vm._t("description",null,null,{ valid: _vm.valid, dirty: _vm.dirty, error: _vm.error, invalid: _vm.invalid, anyInvalid: _vm.anyInvalid })],2):_vm._e()])};
   var __vue_staticRenderFns__$6 = [];
 
     /* style */
