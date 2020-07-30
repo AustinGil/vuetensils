@@ -602,11 +602,9 @@ var __vue_script__$2 = script$2;
 /**
  * Detects if a VDOM element is a <RouterLink>, <a>, or <button>
  *
- * @param  {object} props       props container
- *         {string} props.to    the :to prop for router-link
- * @param  {object} data        data container
- *         {object} data.attrs  attributes container
- * @return {string}             'RouterLink', 'a', or 'button'
+ * @param {import('vue').PropOptions & {to:string}} props  props container
+ * @param {import('vue').VNodeData} data data container
+ * @return {'RouterLink' | 'a' | 'button'} 'RouterLink', 'a', or 'button'
  */
 function getTag$1(props, data) {
   if (props && props.to) {
@@ -635,6 +633,9 @@ var script$3 = {
     if (tag === 'RouterLink') {
       options.nativeOn = listeners;
     }
+    // if (tag === 'button') {
+    //   // TODO: add type="button" and rel="noopener"
+    // }
 
     return h(tag, options, children);
   },
@@ -2357,21 +2358,9 @@ var script$a = {
     },
   },
 
-  computed: {
-    dataUrl: function dataUrl() {
-      var ref = this.$attrs;
-      var width = ref.width;
-      var height = ref.height;
-      if (!width || !height) { return ''; }
-
-      var w = 100;
-      var canvas = document.createElement('canvas');
-      canvas.width = w;
-      canvas.height = (height / width) * w;
-
-      return canvas.toDataURL();
-    },
-  },
+  data: function () { return ({
+    dataUrl: '',
+  }); },
 
   watch: {
     src: {
@@ -2389,6 +2378,8 @@ var script$a = {
   methods: {
     init: function init() {
       var this$1 = this;
+
+      this.dataUrl = this.getDataUrl();
 
       this.observer = new IntersectionObserver(this.handler);
       this.observer.observe(this.$el);
@@ -2410,6 +2401,22 @@ var script$a = {
         this.loadImg();
         this.observer.disconnect();
       }
+    },
+
+    getDataUrl: function getDataUrl() {
+      if (typeof window === 'undefined') { return; }
+
+      var ref = this.$attrs;
+      var width = ref.width;
+      var height = ref.height;
+      if (!width || !height) { return ''; }
+
+      var w = 100;
+      var canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = (height / width) * w;
+
+      return canvas.toDataURL();
     },
 
     loadImg: function loadImg() {
@@ -2461,7 +2468,7 @@ var __vue_staticRenderFns__$5 = [];
   /* style */
   var __vue_inject_styles__$a = function (inject) {
     if (!inject) { return }
-    inject("data-v-06c368be_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
+    inject("data-v-3998e4b7_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
 
   };
   /* scoped */
