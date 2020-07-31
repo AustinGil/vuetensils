@@ -49,7 +49,7 @@
         :checked="localValue === undefined ? $attrs.checked : localValue"
         v-bind="bind"
         @change="localValue = $event.target.checked"
-        @blur.once.once="dirty = true"
+        @blur.once="dirty = true"
         v-on="$listeners"
       />
       <span :class="['vts-input__text', classes.text]">
@@ -69,7 +69,8 @@
       <select
         v-if="'select' === $attrs.type"
         ref="input"
-        v-model="localValue"
+        :value="localValue"
+        @input.prevent="localValue = $event.target.value"
         v-bind="bind"
         @blur.once="dirty = true"
         v-on="$listeners"
