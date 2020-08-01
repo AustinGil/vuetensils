@@ -2,11 +2,9 @@
 /**
  * Detects if a VDOM element is a <RouterLink>, <a>, or <button>
  *
- * @param  {object} props       props container
- *         {string} props.to    the :to prop for router-link
- * @param  {object} data        data container
- *         {object} data.attrs  attributes container
- * @return {string}             'RouterLink', 'a', or 'button'
+ * @param {import('vue').PropOptions & { to?:string }} props props container
+ * @param {import('vue').VNodeData} data data container
+ * @return {'RouterLink' | 'a' | 'button'} 'RouterLink', 'a', or 'button'
  */
 export function getTag(props, data) {
   if (props && props.to) {
@@ -22,6 +20,7 @@ export default {
   name: 'VBtn',
   functional: true,
   render(h, { data, listeners, props, children }) {
+    data.attrs = data.attrs || {};
     const tag = getTag(props, data);
     const options = {
       ...data,
@@ -29,8 +28,15 @@ export default {
       class: ['vts-action'],
       on: listeners,
     };
+
     if (tag === 'RouterLink') {
       options.nativeOn = listeners;
+    }
+    if (data.attrs.target === '_blank') {
+      options.attrs.rel = 'noopener';
+    }
+    if (tag === 'button') {
+      options.attrs.type = options.attrs.type || 'button';
     }
 
     return h(tag, options, children);

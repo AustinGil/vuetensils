@@ -9,6 +9,8 @@ Features:
 - Renders a `<button>` by default.
 - Renders a [`<RouterLink>`](https://router.vuejs.org/api/#router-link) when provided a `to` prop.
 - Renders an `<a>` link when provided a `href` prop.
+- Adds `type="button"` to `<button>` elements.
+- Adds `rel="noopener"` to links with `target="blank"`
 
 ## Installation
 
