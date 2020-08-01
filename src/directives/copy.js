@@ -27,21 +27,21 @@ export default {
    * @type {import('vue').DirectiveFunction}
    */
   bind(el, binding) {
-    binding.handler = () => copyToClipboard(binding.value);
-    el.addEventListener('click', binding.handler);
-  },
-  /**
-   * @type {import('vue').DirectiveFunction}
-   */
-  unbind(el, binding) {
-    el.removeEventListener('click', binding.handler);
+    (el._vtsClickout = () => copyToClipboard(binding.value)),
+      el.addEventListener('click', el._vtsClickout);
   },
   /**
    * @type {import('vue').DirectiveFunction}
    */
   update(el, binding) {
-    el.removeEventListener('click', binding.handler);
-    binding.handler = () => copyToClipboard(binding.value);
-    el.addEventListener('click', binding.handler);
+    el.removeEventListener('click', el._vtsClickout);
+    el._vtsClickout = () => copyToClipboard(binding.value);
+    el.addEventListener('click', el._vtsClickout);
+  },
+  /**
+   * @type {import('vue').DirectiveFunction}
+   */
+  unbind(el) {
+    el.removeEventListener('click', el._vtsClickout);
   },
 };

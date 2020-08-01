@@ -139,7 +139,7 @@ For example, if I wanted the entire element to be visible before considering it 
 
 ```vue live
 <template>
-  <div v-intersect="{ threshold: 1, onChange }" class="intersect-example">
+  <div v-intersect="{ threshold: 1, onChange }" class="intersect-example" :style="{backgroundColor: isVisible ? 'palegreen' : 'lightpink'}">
     Entirely visible: {{ isVisible }}
   </div>
 </template>

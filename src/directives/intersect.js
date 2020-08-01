@@ -2,9 +2,9 @@
  * @type {import('vue').DirectiveFunction}
  */
 function unbind(el) {
-  if (!el._vobserver) return;
-  el._vobserver.unobserve(el);
-  delete el._vobserver;
+  if (!el._vtsIntersect) return;
+  el._vtsIntersect.unobserve(el);
+  delete el._vtsIntersect;
 }
 
 export default {
@@ -56,7 +56,7 @@ export default {
       }
     }, options);
     observer.observe(el);
-    el._vobserver = observer;
+    el._vtsIntersect = observer;
   },
 
   unbind,

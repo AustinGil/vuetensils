@@ -3,16 +3,22 @@ export default {
    * @type {import('vue').DirectiveFunction}
    */
   bind(el, binding) {
-    binding.stop = e => e.stopPropagation();
+    // TODO: add escape handler?
+    el._vtsClickout = {
+      stop: e => e.stopPropagation(),
+      // esc: e => e.key === 'Escape' && el.data.event()
+    };
 
     document.body.addEventListener('click', binding.value);
-    el.addEventListener('click', binding.stop);
+    // document.body.addEventListener('keydown', el._vtsClickout.esc)
+    el.addEventListener('click', el._vtsClickout.stop);
   },
   /**
    * @type {import('vue').DirectiveFunction}
    */
   unbind(el, binding) {
     document.body.removeEventListener('click', binding.value);
-    el.removeEventListener('click', binding.stop);
+    // document.body.removeEventListener('keydown', el._vtsClickout.esc)
+    el.removeEventListener('click', el._vtsClickout.stop);
   },
 };
