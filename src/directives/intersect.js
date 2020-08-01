@@ -1,5 +1,5 @@
 /**
- * @type {import('vue').DirectiveFunction}
+ * @param {HTMLElement & { _vtsIntersect?: IntersectionObserver}} el
  */
 function unbind(el) {
   if (!el._vtsIntersect) return;

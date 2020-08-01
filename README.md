@@ -77,6 +77,13 @@ export default {
 }
 ```
 
+## Projects Using Vuetensils
+* [https://www.round.com.au/](https://www.round.com.au/)
+* [https://perxapp.com/](https://perxapp.com/)
+* [https://revealbio.com/](https://revealbio.com/)
+* [https://app.matryx.ai/tournaments](https://app.matryx.ai/tournaments)
+* [https://www.lindsaykwardell.com/](https://www.lindsaykwardell.com/)
+
 ## Inspiration
 
 If I want my projects to follow best practices for semantic markup and accessibility, what are my options:

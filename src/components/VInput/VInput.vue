@@ -70,8 +70,8 @@
         v-if="'select' === $attrs.type"
         ref="input"
         :value="localValue"
-        @input.prevent="localValue = $event.target.value"
         v-bind="bind"
+        @input="localValue = $event.target.value"
         @blur.once="dirty = true"
         v-on="$listeners"
       >

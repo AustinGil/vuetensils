@@ -608,7 +608,7 @@
   /**
    * Detects if a VDOM element is a <RouterLink>, <a>, or <button>
    *
-   * @param {import('vue').PropOptions & {to:string}} props  props container
+   * @param {import('vue').PropOptions & { to?:string }} props props container
    * @param {import('vue').VNodeData} data data container
    * @return {'RouterLink' | 'a' | 'button'} 'RouterLink', 'a', or 'button'
    */
@@ -631,17 +631,22 @@
       var props = ref.props;
       var children = ref.children;
 
+      data.attrs = data.attrs || {};
       var tag = getTag$1(props, data);
       var options = Object.assign({}, data,
         {props: props,
         class: ['vts-action'],
         on: listeners});
+
       if (tag === 'RouterLink') {
         options.nativeOn = listeners;
       }
-      // if (tag === 'button') {
-      //   // TODO: add type="button" and rel="noopener"
-      // }
+      if (data.attrs.target === '_blank') {
+        options.attrs.rel = 'noopener';
+      }
+      if (tag === 'button') {
+        options.attrs.type = options.attrs.type || 'button';
+      }
 
       return h(tag, options, children);
     },
@@ -708,17 +713,23 @@
      * @type {import('vue').DirectiveFunction}
      */
     bind: function bind(el, binding) {
-      binding.stop = function (e) { return e.stopPropagation(); };
+      // TODO: add escape handler?
+      el._vtsClickout = {
+        stop: function (e) { return e.stopPropagation(); },
+        // esc: e => e.key === 'Escape' && el.data.event()
+      };
 
       document.body.addEventListener('click', binding.value);
-      el.addEventListener('click', binding.stop);
+      // document.body.addEventListener('keydown', el._vtsClickout.esc)
+      el.addEventListener('click', el._vtsClickout.stop);
     },
     /**
      * @type {import('vue').DirectiveFunction}
      */
     unbind: function unbind(el, binding) {
       document.body.removeEventListener('click', binding.value);
-      el.removeEventListener('click', binding.stop);
+      // document.body.removeEventListener('keydown', el._vtsClickout.esc)
+      el.removeEventListener('click', el._vtsClickout.stop);
     },
   };
 
@@ -728,6 +739,7 @@
    * @param {string} content The content within the downloaded file
    */
   function copyToClipboard(content) {
+    /** @type {Element & { focus?: function }} */
     var activeEl = document.activeElement;
 
     var textarea = document.createElement('textarea');
@@ -746,37 +758,41 @@
     activeEl && activeEl.focus();
   }
 
+  /**
+   * @typedef {HTMLElement & { _vtsCopy?: EventListenerOrEventListenerObject }} CopyEl
+   */
+
   var copy = {
     /**
      * @type {import('vue').DirectiveFunction}
      */
-    bind: function bind(el, binding) {
-      binding.handler = function () { return copyToClipboard(binding.value); };
-      el.addEventListener('click', binding.handler);
+    bind: function bind(/** @type {CopyEl} */ el, binding) {
+      el._vtsCopy = function () { return copyToClipboard(binding.value); };
+      el.addEventListener('click', el._vtsCopy);
     },
     /**
      * @type {import('vue').DirectiveFunction}
      */
-    unbind: function unbind(el, binding) {
-      el.removeEventListener('click', binding.handler);
+    update: function update(/** @type {CopyEl} */ el, binding) {
+      el.removeEventListener('click', el._vtsCopy);
+      el._vtsCopy = function () { return copyToClipboard(binding.value); };
+      el.addEventListener('click', el._vtsCopy);
     },
     /**
      * @type {import('vue').DirectiveFunction}
      */
-    update: function update(el, binding) {
-      el.removeEventListener('click', binding.handler);
-      binding.handler = function () { return copyToClipboard(binding.value); };
-      el.addEventListener('click', binding.handler);
+    unbind: function unbind(/** @type {CopyEl} */ el) {
+      el.removeEventListener('click', el._vtsCopy);
     },
   };
 
   /**
-   * @type {import('vue').DirectiveFunction}
+   * @param {HTMLElement & { _vtsIntersect?: IntersectionObserver}} el
    */
   function unbind(el) {
-    if (!el._vobserver) { return; }
-    el._vobserver.unobserve(el);
-    delete el._vobserver;
+    if (!el._vtsIntersect) { return; }
+    el._vtsIntersect.unobserve(el);
+    delete el._vtsIntersect;
   }
 
   var intersect = {
@@ -833,7 +849,7 @@
         }
       }, options);
       observer.observe(el);
-      el._vobserver = observer;
+      el._vtsIntersect = observer;
     },
 
     unbind: unbind,
@@ -1432,7 +1448,7 @@
         }
       },
       onKeydown: function onKeydown(event) {
-        if (event.keyCode === keycodes.ESC) {
+        if (event.keyCode === keycodes.ESC && this.dismissible) {
           this.localShow = false;
         }
         if (event.keyCode === keycodes.TAB) {
@@ -1559,7 +1575,7 @@
     /* style */
     var __vue_inject_styles__$5 = function (inject) {
       if (!inject) { return }
-      inject("data-v-7fc53b3c_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
+      inject("data-v-2ffabdf0_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -2670,7 +2686,7 @@
         'vts-input--dirty': _vm.dirty,
         'vts-input--error': _vm.error,
       },
-      _vm.classes.root ]},[('radio' === _vm.$attrs.type)?_c('fieldset',{class:['vts-input__fieldset', _vm.classes.fieldset]},[(_vm.label)?_c('legend',{class:['vts-input__legend', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e(),_vm._v(" "),_vm._l((_vm.computedOptions),function(option,index){return _c('label',{key:option.value,class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input-" + index)}},[_c('input',_vm._g(_vm._b({ref:"input",refInFor:true,attrs:{"id":(_vm.id + "__input-" + index)},on:{"input":function($event){_vm.localValue = option.value;},"~blur":function($event){_vm.dirty = true;}}},'input',Object.assign({}, _vm.bind, option),false),_vm.$listeners)),_vm._v(" "),_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])])})],2):('checkbox' === _vm.$attrs.type)?_c('label',{class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input")}},[_c('input',_vm._g(_vm._b({ref:"input",domProps:{"checked":_vm.localValue === undefined ? _vm.$attrs.checked : _vm.localValue},on:{"change":function($event){_vm.localValue = $event.target.checked;},"~blur":function($event){_vm.dirty = true;}}},'input',_vm.bind,false),_vm.$listeners)),_vm._v(" "),_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")])]):_c('label',{class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input")}},[_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]),_vm._v(" "),('select' === _vm.$attrs.type)?_c('select',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",on:{"~blur":function($event){_vm.dirty = true;},"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.localValue=$event.target.multiple ? $$selectedVal : $$selectedVal[0];}}},'select',_vm.bind,false),_vm.$listeners),_vm._l((_vm.computedOptions),function(option,i){return _c('option',_vm._b({key:i},'option',option,false),[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])}),0):('textarea' === _vm.$attrs.type)?_c('textarea',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",domProps:{"value":(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"input":function($event){if($event.target.composing){ return; }_vm.localValue=$event.target.value;}}},'textarea',_vm.bind,false),_vm.$listeners)):(((_vm.bind).type)==='checkbox')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":"checkbox"},domProps:{"checked":Array.isArray(_vm.localValue)?_vm._i(_vm.localValue,null)>-1:(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"change":function($event){var $$a=_vm.localValue,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=null,$$i=_vm._i($$a,$$v);if($$el.checked){$$i<0&&(_vm.localValue=$$a.concat([$$v]));}else {$$i>-1&&(_vm.localValue=$$a.slice(0,$$i).concat($$a.slice($$i+1)));}}else {_vm.localValue=$$c;}}}},'input',_vm.bind,false),_vm.$listeners)):(((_vm.bind).type)==='radio')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":"radio"},domProps:{"checked":_vm._q(_vm.localValue,null)},on:{"~blur":function($event){_vm.dirty = true;},"change":function($event){_vm.localValue=null;}}},'input',_vm.bind,false),_vm.$listeners)):_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":(_vm.bind).type},domProps:{"value":(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"input":function($event){if($event.target.composing){ return; }_vm.localValue=$event.target.value;}}},'input',_vm.bind,false),_vm.$listeners))]),_vm._v(" "),(_vm.$scopedSlots.description)?_c('div',{class:['vts-input__description', _vm.classes.description],attrs:{"id":(_vm.id + "__description"),"role":"alert"}},[_vm._t("description",null,null,{ valid: _vm.valid, dirty: _vm.dirty, error: _vm.error, invalid: _vm.invalid, anyInvalid: _vm.anyInvalid })],2):_vm._e()])};
+      _vm.classes.root ]},[('radio' === _vm.$attrs.type)?_c('fieldset',{class:['vts-input__fieldset', _vm.classes.fieldset]},[(_vm.label)?_c('legend',{class:['vts-input__legend', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e(),_vm._v(" "),_vm._l((_vm.computedOptions),function(option,index){return _c('label',{key:option.value,class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input-" + index)}},[_c('input',_vm._g(_vm._b({ref:"input",refInFor:true,attrs:{"id":(_vm.id + "__input-" + index)},on:{"input":function($event){_vm.localValue = option.value;},"~blur":function($event){_vm.dirty = true;}}},'input',Object.assign({}, _vm.bind, option),false),_vm.$listeners)),_vm._v(" "),_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])])})],2):('checkbox' === _vm.$attrs.type)?_c('label',{class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input")}},[_c('input',_vm._g(_vm._b({ref:"input",domProps:{"checked":_vm.localValue === undefined ? _vm.$attrs.checked : _vm.localValue},on:{"change":function($event){_vm.localValue = $event.target.checked;},"~blur":function($event){_vm.dirty = true;}}},'input',_vm.bind,false),_vm.$listeners)),_vm._v(" "),_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")])]):_c('label',{class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input")}},[_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]),_vm._v(" "),('select' === _vm.$attrs.type)?_c('select',_vm._g(_vm._b({ref:"input",domProps:{"value":_vm.localValue},on:{"input":function($event){_vm.localValue = $event.target.value;},"~blur":function($event){_vm.dirty = true;}}},'select',_vm.bind,false),_vm.$listeners),_vm._l((_vm.computedOptions),function(option,i){return _c('option',_vm._b({key:i},'option',option,false),[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])}),0):('textarea' === _vm.$attrs.type)?_c('textarea',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",domProps:{"value":(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"input":function($event){if($event.target.composing){ return; }_vm.localValue=$event.target.value;}}},'textarea',_vm.bind,false),_vm.$listeners)):(((_vm.bind).type)==='checkbox')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":"checkbox"},domProps:{"checked":Array.isArray(_vm.localValue)?_vm._i(_vm.localValue,null)>-1:(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"change":function($event){var $$a=_vm.localValue,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=null,$$i=_vm._i($$a,$$v);if($$el.checked){$$i<0&&(_vm.localValue=$$a.concat([$$v]));}else {$$i>-1&&(_vm.localValue=$$a.slice(0,$$i).concat($$a.slice($$i+1)));}}else {_vm.localValue=$$c;}}}},'input',_vm.bind,false),_vm.$listeners)):(((_vm.bind).type)==='radio')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":"radio"},domProps:{"checked":_vm._q(_vm.localValue,null)},on:{"~blur":function($event){_vm.dirty = true;},"change":function($event){_vm.localValue=null;}}},'input',_vm.bind,false),_vm.$listeners)):_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":(_vm.bind).type},domProps:{"value":(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"input":function($event){if($event.target.composing){ return; }_vm.localValue=$event.target.value;}}},'input',_vm.bind,false),_vm.$listeners))]),_vm._v(" "),(_vm.$scopedSlots.description)?_c('div',{class:['vts-input__description', _vm.classes.description],attrs:{"id":(_vm.id + "__description"),"role":"alert"}},[_vm._t("description",null,null,{ valid: _vm.valid, dirty: _vm.dirty, error: _vm.error, invalid: _vm.invalid, anyInvalid: _vm.anyInvalid })],2):_vm._e()])};
   var __vue_staticRenderFns__$6 = [];
 
     /* style */

@@ -4,6 +4,8 @@ declare namespace _default {
 }
 export default _default;
 /**
- * @type {import('vue').DirectiveFunction}
+ * @param {HTMLElement & { _vtsIntersect?: IntersectionObserver}} el
  */
-declare function unbind(el: HTMLElement): void;
+declare function unbind(el: HTMLElement & {
+    _vtsIntersect?: IntersectionObserver;
+}): void;

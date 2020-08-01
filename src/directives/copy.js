@@ -4,6 +4,7 @@
  * @param {string} content The content within the downloaded file
  */
 function copyToClipboard(content) {
+  /** @type {Element & { focus?: function }} */
   const activeEl = document.activeElement;
 
   const textarea = document.createElement('textarea');
@@ -22,26 +23,30 @@ function copyToClipboard(content) {
   activeEl && activeEl.focus();
 }
 
+/**
+ * @typedef {HTMLElement & { _vtsCopy?: EventListenerOrEventListenerObject }} CopyEl
+ */
+
 export default {
   /**
    * @type {import('vue').DirectiveFunction}
    */
-  bind(el, binding) {
-    (el._vtsClickout = () => copyToClipboard(binding.value)),
-      el.addEventListener('click', el._vtsClickout);
+  bind(/** @type {CopyEl} */ el, binding) {
+    el._vtsCopy = () => copyToClipboard(binding.value);
+    el.addEventListener('click', el._vtsCopy);
   },
   /**
    * @type {import('vue').DirectiveFunction}
    */
-  update(el, binding) {
-    el.removeEventListener('click', el._vtsClickout);
-    el._vtsClickout = () => copyToClipboard(binding.value);
-    el.addEventListener('click', el._vtsClickout);
+  update(/** @type {CopyEl} */ el, binding) {
+    el.removeEventListener('click', el._vtsCopy);
+    el._vtsCopy = () => copyToClipboard(binding.value);
+    el.addEventListener('click', el._vtsCopy);
   },
   /**
    * @type {import('vue').DirectiveFunction}
    */
-  unbind(el) {
-    el.removeEventListener('click', el._vtsClickout);
+  unbind(/** @type {CopyEl} */ el) {
+    el.removeEventListener('click', el._vtsCopy);
   },
 };
