@@ -20,7 +20,7 @@
     "dev": "npm run docs:dev",
     "test": "npm run test:unit",
     "test:unit": "jest --coverage",
-    "lint": "eslint src/**/*.{js,ts,vue,tsx,jsx,css,scss,md} docs/**/*.{js,ts,vue,tsx,jsx,css,scss,md}",
+    "lint": "eslint --no-error-on-unmatched-pattern src/**/*.{js,ts,vue,tsx,jsx,css,scss,md} docs/**/*.{js,ts,vue,tsx,jsx,css,scss,md}",
     "lint:diff": "eslint $(git diff --name-only -- src/*.vue src/*.js docs/*.vue docs/*.js)",
     "ts": "tsc",
     "audit": "npm run lint:diff && npm run test:unit",
