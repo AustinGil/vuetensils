@@ -9,6 +9,7 @@ function unbind(el) {
 
 export default {
   /**
+   * @param {HTMLElement & { _vtsIntersect?: IntersectionObserver}} el
    * @type {import('vue').DirectiveFunction}
    */
   inserted: (el, { value, modifiers }) => {

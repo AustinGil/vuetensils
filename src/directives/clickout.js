@@ -1,5 +1,6 @@
 export default {
   /**
+   * @param {HTMLElement & { _vtsClickout?:any }} el directive target element
    * @type {import('vue').DirectiveFunction}
    */
   bind(el, binding) {
@@ -14,6 +15,7 @@ export default {
     el.addEventListener('click', el._vtsClickout.stop);
   },
   /**
+   * @param {HTMLElement & { _vtsClickout?:any }} el directive target element
    * @type {import('vue').DirectiveFunction}
    */
   unbind(el, binding) {
