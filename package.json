@@ -33,6 +33,17 @@
     "commit": "git add . && git commit",
     "release": "release-it"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": [
+      "npm run lint -- --fix",
+      "git add"
+    ]
+  },
   "ManifestComments": [
     "Pinned jest to 24.9.0. 25.1.0+ is broken on Windows. Waiting for issue #9459 to be resolved.",
     "Pinned vuepress-plugin-live to 1.4.2 because 1.5.3 broke the following examples in the docs:",
@@ -82,6 +93,7 @@
     "husky": "^4.2.5",
     "jest": "^26.1.0",
     "jest-serializer-vue-tjw": "^3.14.0",
+    "lint-staged": "^10.2.11",
     "minimist": "^1.2.5",
     "release-it": "^13.6.6",
     "rollup": "^2.23.0",
@@ -99,11 +111,6 @@
     "vuepress": "^1.5.2",
     "vuepress-plugin-docgen": "^1.2.9",
     "vuepress-plugin-live": "^1.4.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint && git add"
-    }
   },
   "keywords": [
     "vue",

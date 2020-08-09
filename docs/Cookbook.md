@@ -33,9 +33,18 @@ Just some simple copy/paste examples.
 export default {
   data: () => ({
     iceCreams: [
-      { label: 'Vanilla', value: 'vanilla' },
-      { label: 'Strawberry', value: 'strawberry' },
-      { label: 'Chocolate', value: 'chocolate' },
+      {
+        label: 'Vanilla',
+        value: 'vanilla' 
+      },
+      {
+        label: 'Strawberry',
+        value: 'strawberry' 
+      },
+      {
+        label: 'Chocolate',
+        value: 'chocolate' 
+      },
     ],
   }),
 };

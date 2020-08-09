@@ -5,3 +5,8 @@ declare namespace _default {
     export const unbind: import("vue").DirectiveFunction;
 }
 export default _default;
+export type ClickoutEl = HTMLElement & {
+    _vtsClickout: {
+        stop: EventListener;
+    };
+};

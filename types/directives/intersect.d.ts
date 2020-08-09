@@ -3,9 +3,12 @@ declare namespace _default {
     export { unbind };
 }
 export default _default;
-/**
- * @param {HTMLElement & { _vtsIntersect?: IntersectionObserver}} el
- */
-declare function unbind(el: HTMLElement & {
+export type IntersectEl = HTMLElement & {
     _vtsIntersect?: IntersectionObserver;
-}): void;
+};
+/**
+ * @typedef {HTMLElement & { _vtsIntersect?: IntersectionObserver}} IntersectEl
+ *
+ * @param {IntersectEl} el
+ */
+declare function unbind(el: IntersectEl): void;

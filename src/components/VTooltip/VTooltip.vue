@@ -71,7 +71,11 @@ export default {
       {
         class: ['vts-tooltip', classes.toggle],
         on,
-        attrs: { id, tabindex: 0, 'aria-describedby': `${id}__content` },
+        attrs: {
+          id,
+          tabindex: 0,
+          'aria-describedby': `${id}__content` 
+        },
       },
       [defaultSlot, content]
     );

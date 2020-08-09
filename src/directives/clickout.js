@@ -1,6 +1,11 @@
+/**
+ * @typedef {HTMLElement & {
+ * _vtsClickout: { stop: EventListener}
+ * }} ClickoutEl
+ */
 export default {
   /**
-   * @param {HTMLElement & { _vtsClickout?:any }} el directive target element
+   * @param {ClickoutEl} el directive target element
    * @type {import('vue').DirectiveFunction}
    */
   bind(el, binding) {
@@ -14,8 +19,9 @@ export default {
     // document.body.addEventListener('keydown', el._vtsClickout.esc)
     el.addEventListener('click', el._vtsClickout.stop);
   },
+  
   /**
-   * @param {HTMLElement & { _vtsClickout?:any }} el directive target element
+   * @param {ClickoutEl} el directive target element
    * @type {import('vue').DirectiveFunction}
    */
   unbind(el, binding) {

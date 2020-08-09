@@ -13,6 +13,7 @@ module.exports = {
     jsdom: true,
     Promise: true,
   },
+  'ignorePatterns': ['dist/**/*', 'types/**/*'],
   plugins: ['jest', 'jsdoc', 'markdown', 'vue'],
   extends: [
     'eslint:recommended',
@@ -22,11 +23,53 @@ module.exports = {
     'plugin:vuejs-accessibility/recommended',
   ],
   rules: {
+    'array-bracket-newline': ['error', { multiline: true }],
+    'array-bracket-spacing': ['error', 'never'],
+    'array-element-newline': ['error', 'consistent'],
+    'comma-spacing': [
+      'error', {
+        'before': false,
+        'after': true
+      }
+    ],
     'comma-dangle': ['error', 'only-multiline'],
+    'computed-property-spacing': ['error', 'never'],
+    'max-len': [
+      'warn', {
+        'code': 80,
+        'ignoreComments': true
+      }
+    ],
+    indent: ['error', 2, { SwitchCase: 1 }],
+    quotes: [
+      'error', 'single', {
+        avoidEscape: true,
+        allowTemplateLiterals: true
+      }
+    ],
+    semi: ['error', 'always'],
+    'semi-spacing': ['error'],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    quotes: ['error', 'single'],
-    semi: ['error', 'always'],
+    'no-multiple-empty-lines': ['error', { max: 1 }],
+    'no-multi-spaces': ['error'],
+    'space-before-blocks': ['error'],
+    'space-in-parens': ['error', 'never'],
+    'space-infix-ops': 'error',
+    'space-unary-ops': 'error',
+    'spaced-comment': ['error'],
+    'no-whitespace-before-property': 'error',
+    'no-mixed-spaces-and-tabs': 'error',
+    'block-spacing': ['error'],
+    'brace-style': 'error',
+    'object-curly-newline': [
+      'error', {
+        'multiline': true,
+        'consistent': true
+      }
+    ],
+    'object-curly-spacing': ['error', 'always'],
+    'object-property-newline': ['error'],
 
     'jsdoc/check-tag-names': [
       'error',

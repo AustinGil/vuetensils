@@ -702,8 +702,14 @@ var autofocus = {
   inserted: function (el) { return el.focus(); },
 };
 
+/**
+ * @typedef {HTMLElement & {
+ * _vtsClickout: { stop: EventListener}
+ * }} ClickoutEl
+ */
 var clickout = {
   /**
+   * @param {ClickoutEl} el directive target element
    * @type {import('vue').DirectiveFunction}
    */
   bind: function bind(el, binding) {
@@ -717,7 +723,9 @@ var clickout = {
     // document.body.addEventListener('keydown', el._vtsClickout.esc)
     el.addEventListener('click', el._vtsClickout.stop);
   },
+  
   /**
+   * @param {ClickoutEl} el directive target element
    * @type {import('vue').DirectiveFunction}
    */
   unbind: function unbind(el, binding) {
@@ -781,7 +789,9 @@ var copy = {
 };
 
 /**
- * @param {HTMLElement & { _vtsIntersect?: IntersectionObserver}} el
+ * @typedef {HTMLElement & { _vtsIntersect?: IntersectionObserver}} IntersectEl
+ *
+ * @param {IntersectEl} el
  */
 function unbind(el) {
   if (!el._vtsIntersect) { return; }
@@ -791,6 +801,7 @@ function unbind(el) {
 
 var intersect = {
   /**
+   * @param {IntersectEl} el
    * @type {import('vue').DirectiveFunction}
    */
   inserted: function (el, ref) {
@@ -1550,7 +1561,10 @@ var script$5 = {
         h(
           'transition',
           {
-            props: { name: this.bgTransition, appear: true },
+            props: {
+              name: this.bgTransition,
+              appear: true 
+            },
           },
           [modal]
         )
@@ -1569,7 +1583,7 @@ var __vue_script__$5 = script$5;
   /* style */
   var __vue_inject_styles__$5 = function (inject) {
     if (!inject) { return }
-    inject("data-v-2ffabdf0_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
+    inject("data-v-5bb1cae2_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -1822,7 +1836,10 @@ var script$6 = {
       content = h(
         'transition',
         {
-          props: { name: this.transition, appear: true },
+          props: {
+            name: this.transition,
+            appear: true 
+          },
         },
         [content]
       );
@@ -1839,7 +1856,10 @@ var script$6 = {
         h(
           'transition',
           {
-            props: { name: this.bgTransition, appear: true },
+            props: {
+              name: this.bgTransition,
+              appear: true 
+            },
           },
           [component]
         )
@@ -1858,7 +1878,7 @@ var __vue_script__$6 = script$6;
   /* style */
   var __vue_inject_styles__$6 = function (inject) {
     if (!inject) { return }
-    inject("data-v-3f942b24_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-drawer__content{overflow:auto;max-width:300px;height:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-left:auto}", map: undefined, media: undefined });
+    inject("data-v-54968096_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-drawer__content{overflow:auto;max-width:300px;height:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-left:auto}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -3921,7 +3941,11 @@ var script$j = {
       {
         class: ['vts-tooltip', classes.toggle],
         on: on,
-        attrs: { id: id, tabindex: 0, 'aria-describedby': (id + "__content") },
+        attrs: {
+          id: id,
+          tabindex: 0,
+          'aria-describedby': (id + "__content") 
+        },
       },
       [defaultSlot, content]
     );
@@ -3938,7 +3962,7 @@ var __vue_script__$j = script$j;
   /* style */
   var __vue_inject_styles__$j = function (inject) {
     if (!inject) { return }
-    inject("data-v-a27240d4_0", { source: ".vts-tooltip{position:relative}.vts-tooltip__content{position:absolute;top:0;left:50%;transform:translate(-50%,-100%)}.vts-tooltip__content[aria-hidden=true]{display:none}", map: undefined, media: undefined });
+    inject("data-v-bd1be320_0", { source: ".vts-tooltip{position:relative}.vts-tooltip__content{position:absolute;top:0;left:50%;transform:translate(-50%,-100%)}.vts-tooltip__content[aria-hidden=true]{display:none}", map: undefined, media: undefined });
 
   };
   /* scoped */

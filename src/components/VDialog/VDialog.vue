@@ -237,7 +237,10 @@ export default {
         h(
           'transition',
           {
-            props: { name: this.bgTransition, appear: true },
+            props: {
+              name: this.bgTransition,
+              appear: true 
+            },
           },
           [modal]
         )
