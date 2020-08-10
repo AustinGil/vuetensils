@@ -60,34 +60,34 @@ export default {
       { key: 'age' },
       {
         key: 'gender',
-        sortable: false 
+        sortable: false
       },
     ],
     people: [
       {
         name: 'Mary',
         age: 33,
-        gender: 'female' 
+        gender: 'female'
       },
       {
         name: 'Bob',
         age: 56,
-        gender: 'male' 
+        gender: 'male'
       },
       {
         name: 'Ivana',
         age: 12,
-        gender: 'female' 
+        gender: 'female'
       },
       {
         name: 'Jeremy',
         age: 8,
-        gender: 'male' 
+        gender: 'male'
       },
       {
         name: 'Cassie',
         age: 45,
-        gender: 'female' 
+        gender: 'female'
       },
     ],
   }),

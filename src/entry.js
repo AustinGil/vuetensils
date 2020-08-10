@@ -24,21 +24,21 @@ export default {
     if (!config) return;
 
     if (config.components) {
-      for (const item of config.components) {
+      config.components.forEach(item => {
         Vue.component(item, components[item]);
-      }
+      });
     }
 
     if (config.directives) {
-      for (const item of config.directives) {
+      config.directives.forEach(item => {
         Vue.directive(item, directives[item]);
-      }
+      });
     }
 
     if (config.filters) {
-      for (const item of config.filters) {
+      config.filters.forEach(item => {
         Vue.filter(item, filters[item]);
-      }
+      });
     }
   }
 };
