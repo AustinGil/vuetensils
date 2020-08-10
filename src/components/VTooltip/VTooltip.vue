@@ -1,6 +1,5 @@
 <script>
 // TODO: checkout http://pauljadam.com/demos/tooltip.html
-// @ts-check
 import { randomString } from '../../utils';
 
 export default {
@@ -10,17 +9,11 @@ export default {
       type: String,
       default: 'span',
     },
-
     id: {
       type: String,
       default: () => `vts-${randomString(4)}`,
     },
-
-    focus: {
-      type: Boolean,
-      default: false,
-    },
-
+    focus: Boolean,
     classes: {
       type: Object,
       default: () => ({}),
@@ -74,7 +67,7 @@ export default {
         attrs: {
           id,
           tabindex: 0,
-          'aria-describedby': `${id}__content` 
+          'aria-describedby': `${id}__content`
         },
       },
       [defaultSlot, content]

@@ -51,10 +51,7 @@ export default {
     /**
      * Prevents the page from being scrolled while the dialog is open.
      */
-    noScroll: {
-      type: Boolean,
-      default: false,
-    },
+    noScroll: Boolean,
     /**
      * Transition name to apply to the dialog.
      */
@@ -239,7 +236,7 @@ export default {
           {
             props: {
               name: this.bgTransition,
-              appear: true 
+              appear: true
             },
           },
           [modal]

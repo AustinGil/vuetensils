@@ -51,10 +51,7 @@ export default {
   },
 
   props: {
-    open: {
-      type: Boolean,
-      default: false,
-    },
+    open:  Boolean,
 
     label: {
       type: String,
