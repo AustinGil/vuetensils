@@ -28,7 +28,7 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install modules
-        run: npm i
+        run: npm ci
 
       - name: Audit
         run: npm run audit
