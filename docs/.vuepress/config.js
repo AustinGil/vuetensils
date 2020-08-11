@@ -93,11 +93,11 @@ module.exports = {
         layout: path.resolve(__dirname, './LivePreview'),
       },
     ],
-    [
-      'docgen',
-      {
-        componentsDir: path.join(__dirname, '../../src/components'),
-      },
-    ],
+    // [
+    //   'docgen',
+    //   {
+    //     componentsDir: path.join(__dirname, '../../src/components'),
+    //   },
+    // ],
   ],
 };

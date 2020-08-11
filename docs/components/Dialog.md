@@ -48,7 +48,7 @@ export default {
     v-model="dialog"
     bg-transition="fade"
     class="my-dialog"
-    @change="$log"
+    @change="log"
   >
     <template #toggle="{ bind, on }">
       <button v-bind="bind" v-on="on">
@@ -73,6 +73,9 @@ export default {
   data: () => ({
     dialog: false,
   }),
+  methods: {
+    log: console.log
+  }
 };
 </script>
 ```

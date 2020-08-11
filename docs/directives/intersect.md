@@ -46,13 +46,21 @@ The default handler fires whenever the element enter or exits the context.
 ```vue live
 <template>
   <div>
-    <div v-intersect="$log" class="intersect-example" />
+    <div v-intersect="log" class="intersect-example" />
     <div
-      v-intersect="() => $log('something happened')"
+      v-intersect="() => log('something happened')"
       class="intersect-example"
     />
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    log: console.log
+  },
+};
+</script>
 ```
 
 ## .enter modifier
@@ -63,11 +71,19 @@ Only fires when the element enters the context.
 <template>
   <div>
     <div
-      v-intersect.enter="() => $log('I have arrived!')"
+      v-intersect.enter="() => log('I have arrived!')"
       class="intersect-example"
     />
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    log: console.log
+  },
+};
+</script>
 ```
 
 ## .exit modifier
@@ -78,11 +94,19 @@ Only fires when the element exits the context.
 <template>
   <div>
     <div
-      v-intersect.exit="() => $log('Peace out!')"
+      v-intersect.exit="() => log('Peace out!')"
       class="intersect-example"
     />
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    log: console.log
+  },
+};
+</script>
 ```
 
 ## .once modifier
@@ -93,11 +117,19 @@ Only fires when the handler once. Can be chained to `.enter` or `.exit`.
 <template>
   <div>
     <div
-      v-intersect.once="() => $log('You will not see me again')"
+      v-intersect.once="() => log('You will not see me again')"
       class="intersect-example"
     />
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    log: console.log
+  },
+};
+</script>
 ```
 
 ## Multiple Handlers
