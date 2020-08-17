@@ -1,6 +1,7 @@
 <template>
   <div :class="['vts-toggle', { 'vts-toggle--open': isOpen }, classes.root]">
     <button
+      type="button"
       :id="`${id}-label`"
       ref="label"
       :disabled="disabled"
