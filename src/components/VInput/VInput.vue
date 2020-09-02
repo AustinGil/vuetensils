@@ -72,6 +72,7 @@
         :value="localValue"
         v-bind="bind"
         @input="localValue = $event.target.value"
+        @change="localValue = $event.target.value"
         @blur.once="dirty = true"
         v-on="$listeners"
       >
