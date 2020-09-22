@@ -16,8 +16,8 @@
         :aria-controls="`${id}-panel-${index}`"
         :class="[`vts-tabs__tab vts-tabs__tab--${index}`, classes.tab]"
         role="tab"
-        @keydown="onKeydown"
-        @click="activeIndex = index"
+        @keydown="onKeydown($event, tab, index)"
+        @click="onClick($event, tab, index)"
       >
         {{ tab }}
       </button>
@@ -92,7 +92,11 @@ export default {
   },
 
   methods: {
-    onKeydown(event) {
+    onClick(event, tab, index) {
+      this.activeIndex = index;
+      this.$nextTick(() => this.$emit('tabChange', { event, tab, index }));
+    },
+    onKeydown(event, tab, index) {
       const { keyCode } = event;
       switch (keyCode) {
         case keycodes.END:
@@ -113,6 +117,7 @@ export default {
           this.determineOrientation(event);
           break;
       }
+      this.$nextTick(() => this.$emit('tabChange', { event, tab, index }));
     },
 
     // When a tablist's aria-orientation is set to vertical, only up and down arrow should function. In all other cases only left and right arrow function.
