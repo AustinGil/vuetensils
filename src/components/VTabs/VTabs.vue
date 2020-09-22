@@ -93,11 +93,14 @@ export default {
 
   methods: {
     onClick(event, tab, index) {
+      if (this.activeIndex !== index) {
+        this.$nextTick(() => this.$emit('tabChange', { event, tab, index }));
+      }
       this.activeIndex = index;
-      this.$nextTick(() => this.$emit('tabChange', { event, tab, index }));
     },
     onKeydown(event, tab, index) {
       const { keyCode } = event;
+      const oldIndex = this.activeIndex;
       switch (keyCode) {
         case keycodes.END:
           event.preventDefault();
@@ -117,7 +120,14 @@ export default {
           this.determineOrientation(event);
           break;
       }
-      this.$nextTick(() => this.$emit('tabChange', { event, tab, index }));
+
+      if (oldIndex !== this.activeIndex) {
+        this.$nextTick(() => this.$emit('tabChange', { 
+          event, 
+          tab: this.tablist[this.activeIndex], 
+          index: this.activeIndex 
+        }));
+      }
     },
 
     // When a tablist's aria-orientation is set to vertical, only up and down arrow should function. In all other cases only left and right arrow function.
