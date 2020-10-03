@@ -10,7 +10,7 @@ A "naked" component library for Vue.js focused on being:
 Links:
 
 - [Docs](https://vuetensils.stegosource.com/)
-- [npm](https://www.npmjs.com/package/vuetensils)
+- [NPM](https://www.npmjs.com/package/vuetensils)
 - [GitHub](https://github.com/Stegosource/vuetensils)
 - [Updates](https://3bb5fb5a.sibforms.com/serve/MUIEAAOwgrWtf43Lfv80ES_hibAhazPDEy4w9IxRIda1b8g1GNnmHYkDfvIKG-Ox35EtWkJfMyCMBTQ3nG2msGhc3WnHa7XKfkgBzYdL3ASbIEckbn47QtJDIvpOskWQuRIXYI-7dVuM5F25yKdcJch7VN8aAbrpEn8_PMXWpqENTJ6r9bOZgHj6vnAQwHDsdwXDOZIonAP3x3vx)
 
@@ -33,7 +33,7 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VAlert } from 'vuetensils';
+import { VAlert } from 'vuetensils/src/components';
 
 Vue.component('VAlert', VAlert);
 ```
@@ -43,7 +43,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VAlert } from 'vuetensils';
+import { VAlert } from 'vuetensils/src/components';
 
 export default {
   components: {
@@ -76,6 +76,13 @@ export default {
   background: #FDD;
 }
 ```
+
+## Projects Using Vuetensils
+* [https://www.round.com.au/](https://www.round.com.au/)
+* [https://perxapp.com/](https://perxapp.com/)
+* [https://revealbio.com/](https://revealbio.com/)
+* [https://app.matryx.ai/tournaments](https://app.matryx.ai/tournaments)
+* [https://www.lindsaykwardell.com/](https://www.lindsaykwardell.com/)
 
 ## Inspiration
 
@@ -137,3 +144,4 @@ If I want my projects to follow best practices for semantic markup and accessibi
 <!-- TODO: https://xaksis.github.io/vue-good-table/guide/#installation -->
 <!-- TODO: https://dequeuniversity.com/library/ -->
 <!-- TODO: https://github.com/bdryanovski/logchanges -->
+<!-- TODO: https://codepen.io/Stegosource/pen/mdVRKEq OR https://codepen.io/smhigley/pen/JjoKgxb OR https://codepen.io/smhigley/pen/GRgjRVN -->

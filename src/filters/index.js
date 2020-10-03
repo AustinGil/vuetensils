@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * Uppercase the first character of a string.
  *

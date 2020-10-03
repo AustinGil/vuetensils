@@ -72,10 +72,7 @@ export default {
     /**
      * Prevents the page from being scrolled while the modal is open.
      */
-    noScroll: {
-      type: Boolean,
-      default: false,
-    },
+    noScroll: Boolean,
     /**
      * Transition name to apply to the modal.
      */

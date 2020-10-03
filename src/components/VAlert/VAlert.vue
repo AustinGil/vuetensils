@@ -53,10 +53,7 @@ export default {
     /**
      * Allows a user to dismiss this alert.
      */
-    dismissible: {
-      type: Boolean,
-      default: false,
-    },
+    dismissible: Boolean,
     /**
      * Aria-label that is not visibly, but screen readers will read for the dismiss button.
      */
@@ -129,7 +126,7 @@ export default {
          * Fired whenever the visibility changes. Either through user interaction, or a countdown timer
          *
          * @event update
-         * @type { boolean/number }
+         * @type { boolean|number }
          */
         this.$emit('update', visible - 1);
       }, 1000);

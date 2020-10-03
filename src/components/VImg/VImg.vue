@@ -76,19 +76,9 @@ export default {
     },
   },
 
-  computed: {
-    dataUrl() {
-      const { width, height } = this.$attrs;
-      if (!width || !height) return '';
-
-      const w = 100;
-      const canvas = document.createElement('canvas');
-      canvas.width = w;
-      canvas.height = (height / width) * w;
-
-      return canvas.toDataURL();
-    },
-  },
+  data: () => ({
+    dataUrl: '',
+  }),
 
   watch: {
     src: {
@@ -105,6 +95,8 @@ export default {
 
   methods: {
     init() {
+      this.dataUrl = this.getDataUrl();
+
       this.observer = new IntersectionObserver(this.handler);
       this.observer.observe(this.$el);
 
@@ -122,6 +114,20 @@ export default {
         this.loadImg();
         this.observer.disconnect();
       }
+    },
+
+    getDataUrl() {
+      if (typeof window === 'undefined') return;
+
+      const { width, height } = this.$attrs;
+      if (!width || !height) return '';
+
+      const w = 100;
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = (height / width) * w;
+
+      return canvas.toDataURL();
     },
 
     loadImg() {

@@ -214,7 +214,10 @@ export default {
       content = h(
         'transition',
         {
-          props: { name: this.transition, appear: true },
+          props: {
+            name: this.transition,
+            appear: true 
+          },
         },
         [content]
       );
@@ -231,7 +234,10 @@ export default {
         h(
           'transition',
           {
-            props: { name: this.bgTransition, appear: true },
+            props: {
+              name: this.bgTransition,
+              appear: true 
+            },
           },
           [component]
         )

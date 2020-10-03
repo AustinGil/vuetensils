@@ -33,7 +33,7 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VAlert } from 'vuetensils';
+import { VAlert } from 'vuetensils/src/components';
 
 Vue.component('VAlert', VAlert);
 ```
@@ -43,7 +43,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VAlert } from 'vuetensils';
+import { VAlert } from 'vuetensils/src/components';
 
 export default {
   components: {
@@ -76,6 +76,13 @@ export default {
   background: #FDD;
 }
 ```
+
+## Projects Using Vuetensils
+* [https://www.round.com.au/](https://www.round.com.au/)
+* [https://perxapp.com/](https://perxapp.com/)
+* [https://revealbio.com/](https://revealbio.com/)
+* [https://app.matryx.ai/tournaments](https://app.matryx.ai/tournaments)
+* [https://www.lindsaykwardell.com/](https://www.lindsaykwardell.com/)
 
 ## Inspiration
 
@@ -137,3 +144,4 @@ If I want my projects to follow best practices for semantic markup and accessibi
 <!-- TODO: https://xaksis.github.io/vue-good-table/guide/#installation -->
 <!-- TODO: https://dequeuniversity.com/library/ -->
 <!-- TODO: https://github.com/bdryanovski/logchanges -->
+<!-- TODO: https://codepen.io/Stegosource/pen/mdVRKEq OR https://codepen.io/smhigley/pen/JjoKgxb OR https://codepen.io/smhigley/pen/GRgjRVN -->

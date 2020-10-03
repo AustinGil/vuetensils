@@ -20,11 +20,11 @@ export function randomString(
 }
 
 /**
- * [safeSlot description]
+ * If multiple elements are passed into a slot, this wraps them in a div
  *
- * @param  {[type]} h    hyperscript markup from Vue render function
- * @param  {[type]} slot component slot
- * @return {[type]}      Slot or div wrapping the slot
+ * @param  {Function} h     hyperscript markup from Vue render function
+ * @param  {Array}    slot  Array of VDOM nodes passed into component slot
+ * @return {Array}          VDOM node of the original Slot content or it wrapped in a div
  */
 export function safeSlot(h, slot) {
   return slot && slot.length > 1 ? h('div', slot) : slot;

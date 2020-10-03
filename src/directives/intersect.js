@@ -1,14 +1,17 @@
 /**
- * @type {import('vue').DirectiveFunction}
+ * @typedef {HTMLElement & { _vtsIntersect?: IntersectionObserver}} IntersectEl
+ *
+ * @param {IntersectEl} el
  */
 function unbind(el) {
-  if (!el._vobserver) return;
-  el._vobserver.unobserve(el);
-  delete el._vobserver;
+  if (!el._vtsIntersect) return;
+  el._vtsIntersect.unobserve(el);
+  delete el._vtsIntersect;
 }
 
 export default {
   /**
+   * @param {IntersectEl} el
    * @type {import('vue').DirectiveFunction}
    */
   inserted: (el, { value, modifiers }) => {
@@ -56,7 +59,7 @@ export default {
       }
     }, options);
     observer.observe(el);
-    el._vobserver = observer;
+    el._vtsIntersect = observer;
   },
 
   unbind,

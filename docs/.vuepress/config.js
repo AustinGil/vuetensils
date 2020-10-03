@@ -1,5 +1,5 @@
-const fs = require("fs")
-const path = require("path")
+// const fs = require('fs');
+const path = require('path');
 // const vueDocs = require("vue-docgen-api")
 
 // const components = fs
@@ -16,88 +16,88 @@ const path = require("path")
 // )
 
 module.exports = {
-  title: "Vuetensils",
+  title: 'Vuetensils',
   description:
     'A "naked" component library for building accessible, lightweight, on-brand applications.',
   themeConfig: {
     home: true,
-    logo: "/static/logo.png",
-    repo: "stegosource/vuetensils",
-    lastUpdated: "Last Updated",
+    logo: '/static/logo.png',
+    repo: 'stegosource/vuetensils',
+    lastUpdated: 'Last Updated',
     nav: [
-      { text: "Home", link: "/" },
-      { text: "Docs", link: "/introduction" },
+      { text: 'Home', link: '/' },
+      { text: 'Docs', link: '/introduction' },
     ],
     sidebar: [
-      "/Introduction",
+      '/Introduction',
       {
-        title: "Components",
+        title: 'Components',
         collapsable: false,
         children: [
-          "/components/Alert",
-          "/components/Async",
-          "/components/Btn",
-          "/components/Date",
-          "/components/Dialog",
-          "/components/Drawer",
-          "/components/Dropdown",
-          "/components/File",
-          "/components/Form",
-          "/components/Img",
-          "/components/Input",
-          "/components/Intersect",
-          "/components/Resize",
-          "/components/Skip",
-          "/components/Tabs",
-          "/components/Table",
-          "/components/Toggle",
-          "/components/Tooltip",
-          "/components/Try",
+          '/components/Alert',
+          '/components/Async',
+          '/components/Btn',
+          '/components/Date',
+          '/components/Dialog',
+          '/components/Drawer',
+          '/components/Dropdown',
+          '/components/File',
+          '/components/Form',
+          '/components/Img',
+          '/components/Input',
+          '/components/Intersect',
+          '/components/Resize',
+          '/components/Skip',
+          '/components/Tabs',
+          '/components/Table',
+          '/components/Toggle',
+          '/components/Tooltip',
+          '/components/Try',
         ],
       },
       {
-        title: "Directives",
+        title: 'Directives',
         collapsable: false,
         children: [
-          "/directives/autofocus",
-          "/directives/clickout",
-          "/directives/copy",
-          "/directives/intersect",
+          '/directives/autofocus',
+          '/directives/clickout',
+          '/directives/copy',
+          '/directives/intersect',
         ],
       },
       {
-        title: "Filters",
+        title: 'Filters',
         collapsable: false,
         children: [
-          "/filters/capitalize",
-          "/filters/currency",
-          "/filters/number",
+          '/filters/capitalize',
+          '/filters/currency',
+          '/filters/number',
           // "/filters/placeholder",
-          "/filters/plural",
-          "/filters/truncate",
+          '/filters/plural',
+          '/filters/truncate',
         ],
       },
-      "/Cookbook",
+      '/Cookbook',
     ],
   },
   plugins: [
     [
-      "@vuepress/google-analytics",
+      '@vuepress/google-analytics',
       {
-        ga: "UA-32074770-16",
+        ga: 'UA-32074770-16',
       },
     ],
     [
-      "live",
+      'live',
       {
-        layout: path.resolve(__dirname, "./LivePreview"),
+        layout: path.resolve(__dirname, './LivePreview'),
       },
     ],
-    [
-      "docgen",
-      {
-        componentsDir: path.join(__dirname, "../../src/components"),
-      },
-    ],
+    // [
+    //   'docgen',
+    //   {
+    //     componentsDir: path.join(__dirname, '../../src/components'),
+    //   },
+    // ],
   ],
-}
+};

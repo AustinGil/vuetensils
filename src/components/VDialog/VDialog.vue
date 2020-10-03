@@ -51,10 +51,7 @@ export default {
     /**
      * Prevents the page from being scrolled while the dialog is open.
      */
-    noScroll: {
-      type: Boolean,
-      default: false,
-    },
+    noScroll: Boolean,
     /**
      * Transition name to apply to the dialog.
      */
@@ -134,7 +131,7 @@ export default {
       }
     },
     onKeydown(event) {
-      if (event.keyCode === KEYCODES.ESC) {
+      if (event.keyCode === KEYCODES.ESC && this.dismissible) {
         this.localShow = false;
       }
       if (event.keyCode === KEYCODES.TAB) {
@@ -237,7 +234,10 @@ export default {
         h(
           'transition',
           {
-            props: { name: this.bgTransition, appear: true },
+            props: {
+              name: this.bgTransition,
+              appear: true
+            },
           },
           [modal]
         )

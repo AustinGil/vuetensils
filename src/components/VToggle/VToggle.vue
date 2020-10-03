@@ -1,6 +1,7 @@
 <template>
   <div :class="['vts-toggle', { 'vts-toggle--open': isOpen }, classes.root]">
     <button
+      type="button"
       :id="`${id}-label`"
       ref="label"
       :disabled="disabled"
@@ -51,10 +52,7 @@ export default {
   },
 
   props: {
-    open: {
-      type: Boolean,
-      default: false,
-    },
+    open:  Boolean,
 
     label: {
       type: String,

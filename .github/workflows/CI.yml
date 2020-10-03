@@ -1,0 +1,36 @@
+# Docs: https://docs.github.com/en/actions
+# Reference: https://docs.github.com/en/actions/reference
+# Syntax: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+
+name: CI
+
+# Controls when the action will run.
+# https://docs.github.com/en/actions/reference/events-that-trigger-workflows
+on:
+  push:
+    branches: [ production, staging ]
+
+env:
+  REPO_NAME: ${{ github.event.repository.name }}
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install modules
+        run: npm ci
+
+      - name: Audit
+        run: npm run audit
+
+      # TODO: - name: Publish

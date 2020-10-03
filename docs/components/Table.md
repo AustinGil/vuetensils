@@ -58,14 +58,37 @@ export default {
     headers: [
       { key: 'name' },
       { key: 'age' },
-      { key: 'gender', sortable: false },
+      {
+        key: 'gender',
+        sortable: false
+      },
     ],
     people: [
-      { name: 'Mary',   age: 33, gender: 'female' },
-      { name: 'Bob',    age: 56, gender: 'male'   },
-      { name: 'Ivana',  age: 12, gender: 'female' },
-      { name: 'Jeremy', age: 8,  gender: 'male'   },
-      { name: 'Cassie', age: 45, gender: 'female' },
+      {
+        name: 'Mary',
+        age: 33,
+        gender: 'female'
+      },
+      {
+        name: 'Bob',
+        age: 56,
+        gender: 'male'
+      },
+      {
+        name: 'Ivana',
+        age: 12,
+        gender: 'female'
+      },
+      {
+        name: 'Jeremy',
+        age: 8,
+        gender: 'male'
+      },
+      {
+        name: 'Cassie',
+        age: 45,
+        gender: 'female'
+      },
     ],
   }),
 };
