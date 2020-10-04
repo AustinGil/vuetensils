@@ -1,8 +1,10 @@
 const fs = require('fs');
 
 let options = {
-  // 'Section508', 'WCAG2A', 'WCAG2AA', or 'WCAG2AAA'
-  standard: 'WCAG2A',
+  defaults: {
+    // 'Section508', 'WCAG2A', 'WCAG2AA', or 'WCAG2AAA'
+    standard: 'WCAG2AA',
+  },
   urls: []
 };
 
