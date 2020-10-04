@@ -35,12 +35,10 @@ Local install:
 <template>
   <div>
     <p>Check it out, this input is focused whenever the page loads</p>
-    <form>
-      <label>
-        Some label
-        <input v-autofocus />
-      </label>
-    </form>
+    <label>
+      Some label
+      <input v-autofocus />
+    </label>
   </div>
 </template>
 ```

@@ -55,7 +55,7 @@ export default {
   padding: 10px;
   font-size: 18px;
   color: #FFF;
-  background: darkcyan;
+  background: #008484;
   transition: 0.5s ease border-radius;
 }
 
@@ -64,7 +64,7 @@ export default {
 }
 
 .dropdown-content {
-  border: 1px solid darkcyan;
+  border: 1px solid #008484;
   border-radius: 0 0 5px 5px;
   padding: 10px;
   background-color: #FFF;

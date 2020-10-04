@@ -169,6 +169,10 @@ Fortunately, VForm provides a `clear()` method.
       <button type="button" @click="form.clear">
         Clear
       </button>
+
+      <button type="submit" :disabled="!form.valid">
+        Submit
+      </button>
     </template>
   </VForm>
 </template>
