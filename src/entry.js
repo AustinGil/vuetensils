@@ -3,6 +3,15 @@ import * as directives from './directives/index';
 import * as filters from './filters/index';
 
 /**
+ * TODO:
+ * Provide config options for library/components
+ * Finish up rebuilding table
+ * Get rid of auto safe slot (breaking)
+ * Create main.css file
+ * Prop warning messages (img alt, input label)
+ */
+
+/**
  * @typedef {Array<'VAction'|'VAlert'|'VAsync'|'VBtn'|'VDate'|'VDialog'|'VDrawer'|'VDropdown'|'VFile'|'VForm'|'VImg'|'VInput'|'VIntersect'|'VResize'|'VSkip'|'VTable'|'VTabs'|'VToggle'|'VTooltip'|'VTry'>} ComponentsList
  * @typedef {Array<'autofocus'|'clickout'|'copy'|'intersect'>} DirectivesList
  * @typedef {Array<'capitalize'|'currency'|'number'|'placeholder'|'plural'|'truncate'>} FiltersList

@@ -1,6 +1,5 @@
 
 <script>
-import { safeSlot } from '../../utils';
 /**
  * A renderless component for awaiting promises to resolve;
  * great for making HTTP requests. Supports showing pending,
@@ -108,7 +107,7 @@ export default {
     },
   },
 
-  render(h) {
+  render() {
     const { pending, error, results, done } = this;
 
     /** @slot Rendered while the promise is in a pending state */
@@ -121,27 +120,27 @@ export default {
     const defaultSlot = this.$scopedSlots.default;
 
     if (pending && pendingSlot) {
-      return safeSlot(h, pendingSlot());
+      return pendingSlot();
     }
 
     if (done && error && rejectedSlot) {
-      return safeSlot(h, rejectedSlot(error));
+      return rejectedSlot(error);
     }
 
     if (done && !error && resolvedSlot) {
-      return safeSlot(h, resolvedSlot(results));
+      return resolvedSlot(results);
     }
 
     if (!defaultSlot) return;
 
-    return safeSlot(
-      h,
-      defaultSlot({
-        pending,
-        results,
-        error,
-      })
-    );
+    return defaultSlot({
+      pending,
+      resolved: results,
+      rejected: error,
+      // TODO: update docs
+      results,
+      error,
+    });
   },
 };
 </script>

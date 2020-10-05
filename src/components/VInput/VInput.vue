@@ -116,7 +116,13 @@
 </template>
 
 <script>
-import { randomString } from '../../utils';
+import { randomString, isType } from '../../utils';
+
+/**
+ * TODO:
+ * Provide prop for error,invalid classes on input
+ * Remove span from labels (breaking)
+ */
 
 /**
  * Input component that automatically includes labels, validation, and aria descriptions for any errors.
@@ -152,6 +158,11 @@ export default {
     options: {
       type: Array,
       default: () => [],
+    },
+
+    errors: {
+      type: Object,
+      default: undefined,
     },
 
     classes: {
@@ -206,6 +217,31 @@ export default {
 
     error() {
       return !this.valid && this.dirty;
+    },
+
+    errorMessages() {
+      const { errors, invalid, $attrs } = this;
+      if (!errors || !isType(errors, 'object')) return false;
+
+      const messages = {};
+
+      for (const attr of [
+        'type',
+        'required',
+        'minlength',
+        'maxlength',
+        'min',
+        'max',
+        'pattern',
+      ]) {
+        if (invalid[attr] && errors[attr]) {
+          messages[attr] = isType(errors[attr], 'function')
+            ? errors[attr]($attrs[attr])
+            : errors[attr];
+        }
+      }
+
+      return Object.keys(messages).length ? messages : undefined;
     },
   },
 

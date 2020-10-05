@@ -1,6 +1,4 @@
 <script>
-import { safeSlot } from '../../utils';
-
 /**
  * Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
  */
@@ -87,7 +85,7 @@ export default {
     },
   },
 
-  render(h) {
+  render() {
     /** @slot Content to be tracked with IntersectionObserver */
     const { entry } = this;
 
@@ -96,10 +94,10 @@ export default {
     const scopedSlot = this.$scopedSlots.default;
 
     if (defaultSlot) {
-      return safeSlot(h, defaultSlot);
+      return defaultSlot;
     }
 
-    return safeSlot(h, scopedSlot(entry));
+    return scopedSlot(entry);
   },
 };
 </script>

@@ -21,9 +21,10 @@
 
   <div
     ref="container"
-    class="vts-table"
     role="group"
     aria-labelledby="caption"
+    :class="['vts-table', classes.root]"
+    :tabindex="tabindex"
   >
     <table :class="[classes.table]">
       <caption v-if="caption" id="caption" :class="[classes.caption]">
@@ -88,9 +89,9 @@
         </slot>
       </tbody>
 
-      <!-- <tfoot v-if="$slots.tfoot">
+      <tfoot v-if="$slots.tfoot" :class="[classes.tfoot]">
         <slot name="tfoot" />
-      </tfoot> -->
+      </tfoot>
     </table>
 
     <slot name="pagination" v-bind="{ currentPage, lastPage, goToPage }">
@@ -161,6 +162,10 @@ export default {
       default: '',
     },
     // TODO: sortable prop
+    classes: {
+      type: Object,
+      default: () => ({})
+    }
   },
 
   data() {

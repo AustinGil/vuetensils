@@ -20,14 +20,19 @@ export function randomString(
 }
 
 /**
- * If multiple elements are passed into a slot, this wraps them in a div
+ * Tells you if a given value matches the type you pass.
  *
- * @param  {Function} h     hyperscript markup from Vue render function
- * @param  {Array}    slot  Array of VDOM nodes passed into component slot
- * @return {Array}          VDOM node of the original Slot content or it wrapped in a div
+ * @param {any} v The value to get the type of
+ * @param {string} type The type you are asserting against
+ * @return {boolean} Whether the given input matches the type passed
  */
-export function safeSlot(h, slot) {
-  return slot && slot.length > 1 ? h('div', slot) : slot;
+export function isType (v, type) {
+  return (
+    Object.prototype.toString
+      .call(v)
+      .slice(8, -1)
+      .toLowerCase() === type.toLowerCase()
+  );
 }
 
 /**

@@ -1,6 +1,4 @@
 <script>
-import { safeSlot } from '../../utils';
-
 export default {
   name: 'VTry',
 
@@ -24,14 +22,14 @@ export default {
     return !this.stopPropagation;
   },
 
-  render(h) {
+  render() {
     const { error, $scopedSlots } = this;
 
     if (error && $scopedSlots.catch) {
-      return safeSlot(h, $scopedSlots.catch(error));
+      return $scopedSlots.catch(error);
     }
 
-    return safeSlot(h, $scopedSlots.default(error));
+    return $scopedSlots.default(error);
   },
 };
 </script>
