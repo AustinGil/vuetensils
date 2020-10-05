@@ -25,7 +25,7 @@ export default {
     const options = {
       ...data,
       props,
-      class: ['vts-action'],
+      class: ['vts-action', data.class],
       on: listeners,
     };
 

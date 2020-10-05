@@ -43,8 +43,10 @@ This component is great for handling any asynchronous tasks that involve promise
 <template>
   <VAsync :await="httpRequest">
     <template #resolved="results">
-      <h3>{{ results.title }}</h3>
-      <p>{{ results.body }}</p>
+      <div>
+        <h3>{{ results.title }}</h3>
+        <p>{{ results.body }}</p>
+      </div>
     </template>
   </VAsync>
 </template>
@@ -88,7 +90,7 @@ export default {
 
 ```vue live
 <template>
-  <VAsync :await="sleep">
+  <VAsync :await="brokenPromise">
     <template #pending>
       just...a bit...more...
     </template>
@@ -102,12 +104,8 @@ export default {
 <script>
 export default {
   data: () => ({
-    sleep: new Promise((resolve, reject) =>
-      setTimeout(() => {
-        reject(new Error('something went wrong'));
-      }, 2000)
-    ),
-  }),
+    brokenPromise: Promise.reject(new Error('something went wrong'))
+  })
 };
 </script>
 ```
@@ -117,18 +115,16 @@ export default {
 ```vue live
 <template>
   <div>
-    <VAsync :await="sleep">
-      <template #default="{ pending, results, error }">
-        <p v-if="pending">
+    <VAsync v-slot="promise" :await="sleep">
+        <p v-if="promise.pending">
           just...a bit...more...
         </p>
-        <p v-else-if="error">
+        <p v-else-if="promise.error">
           {{ results }}
         </p>
-        <p v-else-if="results">
+        <p v-else-if="promise.results">
           {{ results }}
         </p>
-      </template>
     </VAsync>
   </div>
 </template>
