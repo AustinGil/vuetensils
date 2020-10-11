@@ -6,9 +6,9 @@ A simple component for notifiying users of specific information. Good for inform
 
 Features:
 
-- Includes ARIA `role="alert"` attribute
-- Option for dismiss button
-- Option for timeout
+- Includes ARIA `role="alert"` attribute.
+- Option for dismiss button.
+- Option for timeout.
 
 ## Installation
 
