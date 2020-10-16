@@ -185,7 +185,7 @@ You can use these events to style any element within the root.
 
 ## Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', input: 'input-class', text: 'text-class', dropzone: 'dropzone-class' }"
