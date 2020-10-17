@@ -283,7 +283,7 @@ export default {
 
 ## Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', fieldset: 'fieldset-class', label: 'label-class', text: 'text-class', input: 'input-class', description: 'description-class' }"

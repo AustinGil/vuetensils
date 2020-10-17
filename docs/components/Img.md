@@ -138,7 +138,7 @@ Don't forget all the other best practices such as `srcset` attribute and `alt` t
 
 ## Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', placeholder: 'placeholder-class', img: 'img-class' }"
