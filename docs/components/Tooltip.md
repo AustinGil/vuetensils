@@ -4,7 +4,7 @@
 
 A component that let's you add a tooltip to an element.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VTooltip/VTooltip.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VTooltip/VTooltip.vue)
 
 Features:
 - Supports keyboard navigation for the target DOM node.

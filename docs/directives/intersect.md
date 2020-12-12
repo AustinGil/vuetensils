@@ -6,7 +6,7 @@ The directive also supports modifiers to fire only when the element enters, only
 
 Check your JavaScript console and scroll around to see what's going on.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/directives/intersect.js)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/directives/intersect.js)
 
 ## Installation
 

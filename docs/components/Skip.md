@@ -2,7 +2,7 @@
 
 A functional component to help keyboard users skip to the main content
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VSkip/VSkip.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VSkip/VSkip.vue)
 
 Features:
 - Visually hidden by default but visible on focus.

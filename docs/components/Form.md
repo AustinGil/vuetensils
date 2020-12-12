@@ -2,7 +2,7 @@
 
 Form wrapper that provides better security practices and automatic input validation based on [HTML5 form validation API](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation).
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VForm/VForm.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VForm/VForm.vue)
 
 Features:
 

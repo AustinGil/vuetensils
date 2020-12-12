@@ -2,7 +2,7 @@
 
 Formats a string number to a currency number using the browser's [Intl object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl). Currency codes are based on [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters/index.js)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/filters/index.js)
 
 ## Installation
 

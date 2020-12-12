@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: stegosource/vuetensils
+  repo: austingil/vuetensils
   # branch: master
 
 # publish_mode: editorial_workflow

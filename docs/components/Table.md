@@ -4,7 +4,7 @@
 
 Takes a list of objects and a list of table headers and creates an HTML table with sorting and pagination built in.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VTable/VTable.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VTable/VTable.vue)
 
 Features:
 

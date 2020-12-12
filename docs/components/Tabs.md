@@ -2,7 +2,7 @@
 
 Show and hide content based on which tabs are selected.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VTabs/VTabs.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VTabs/VTabs.vue)
 
 Features:
 

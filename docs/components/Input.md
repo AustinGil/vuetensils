@@ -2,7 +2,7 @@
 
 Input component that simplifies accessibility and validation.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VInput/VInput.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VInput/VInput.vue)
 
 **Features:**
 

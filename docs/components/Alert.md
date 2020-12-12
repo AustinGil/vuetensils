@@ -2,7 +2,7 @@
 
 A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VAlert/VAlert.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VAlert/VAlert.vue)
 
 Features:
 

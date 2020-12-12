@@ -15,7 +15,7 @@ features:
   # - title: Adaptible
   # - title: Opt-in
   # - title: Easy to learn
-footer: MIT Licensed | Copyright © 2018-present </> with ❤️️ by Stegosource
+footer: MIT Licensed | Copyright © 2018-present </> with ❤️️ by AustinGil
 ---
 
 <h3 class="text-center">

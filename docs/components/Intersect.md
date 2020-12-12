@@ -4,7 +4,7 @@ Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Int
 
 The components accepts four props: `root`, `rootMargin`, `threshold`, and `options`. The first three correspond to the [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) options properties, or you can pass them all together to the `options` prop.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VIntersect/VIntersect.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VIntersect/VIntersect.vue)
 
 ## Installation
 

@@ -22,7 +22,7 @@ module.exports = {
   themeConfig: {
     home: true,
     logo: '/static/logo.png',
-    repo: 'stegosource/vuetensils',
+    repo: 'austingil/vuetensils',
     lastUpdated: 'Last Updated',
     nav: [
       { text: 'Home', link: '/' },

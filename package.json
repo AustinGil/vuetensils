@@ -2,7 +2,7 @@
   "name": "vuetensils",
   "version": "1.0.0-0",
   "description": "A tasty toolset for Vue.js",
-  "author": "Austin Gil <austin@stegosource.com>",
+  "author": "Austin Gil <hey@austingil.com>",
   "license": "MIT",
   "main": "dist/vuetensils.umd.js",
   "module": "dist/vuetensils.esm.js",
@@ -14,7 +14,7 @@
   "typings": "types",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Stegosource/vuetensils.git"
+    "url": "git+https://github.com/AustinGil/vuetensils.git"
   },
   "scripts": {
     "dev": "npm run docs:dev",

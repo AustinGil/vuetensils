@@ -2,7 +2,7 @@
 
 Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VToggle/VToggle.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VToggle/VToggle.vue)
 
 ## Installation
 

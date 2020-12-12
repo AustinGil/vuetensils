@@ -2,7 +2,7 @@
 
 A functional component for logically rendering the appropriate actionable elements: `<RouterLink>`, `<a>`, or `<button>`. At first glance, this may not be a particularly helpful component, but it really simplifies list rendering.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VBtn/VBtn.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VBtn/VBtn.vue)
 
 Features:
 

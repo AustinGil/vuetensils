@@ -2,7 +2,7 @@
 
 A utillity component to wrap around components that may or may not throw and error or reject a promise. Provides you with some logic to handle those errors.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VTry/VTry.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VTry/VTry.vue)
 
 ## Installation
 

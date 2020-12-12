@@ -2,7 +2,7 @@
 
 Formats a string number to a user friendly number using the browser's [Intl object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl). Note that the format will default to the user's browser locale settings based on [navigator.language](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorLanguage/language).
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/filters/index.js)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/filters/index.js)
 
 ## Installation
 

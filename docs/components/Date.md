@@ -4,7 +4,7 @@
 
 A date picker with accessibility baked in.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDate/VDate.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VDate/VDate.vue)
 
 Features:
 - Manages ARIA roles, labels, and attributes.

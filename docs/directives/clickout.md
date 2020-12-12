@@ -2,7 +2,7 @@
 
 Vue directive to fire a function when the user clicks anywhere outside the target element.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/directives/clickout.js)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/directives/clickout.js)
 
 ## Installation
 

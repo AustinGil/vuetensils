@@ -2,7 +2,7 @@
 
 Drop in replacement for the HTML `<img>` tag which supports lazy-loading. Improves load times by waiting for the image to scroll into view before actually downloading it.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VImg/VImg.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VImg/VImg.vue)
 
 Features:
 

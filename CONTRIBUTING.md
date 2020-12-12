@@ -9,7 +9,7 @@ This is my first time doing one of these, so here's the deal:
 
 ## Issue tracker
 
-The [issue tracker](https://github.com/stegosource/vuetensils/issues) is
+The [issue tracker](https://github.com/austingil/vuetensils/issues) is
 the preferred channel for bug reports, features requests
 and submitting pull requests, but please respect the following
 restrictions:
