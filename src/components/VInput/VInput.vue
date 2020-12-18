@@ -145,6 +145,14 @@ export default {
     },
 
     /**
+     * Every input should have a label with the exception of `radio` which supports labels for the `options` prop.
+     */
+    name: {
+      type: String,
+      required: true,
+    },
+
+    /**
      * The input value. Works for all inputs except type `radio`. See `options` prop.
      */
     value: {
@@ -183,12 +191,13 @@ export default {
 
   computed: {
     bind() {
-      const { id, valid, error, classes, $attrs } = this;
+      const { id, name, valid, error, classes, $attrs } = this;
       const attrs = {
         'aria-invalid': !valid,
         'aria-describedby': error && `${id}__description`,
         ...$attrs,
         id: `${id}__input`,
+        name: name,
         class: ['vts-input__input', classes.input],
       };
 
@@ -202,7 +211,7 @@ export default {
         item = typeof item === 'object' ? item : { value: item };
         return Object.assign(item, $attrs, {
           label: item.label || item.value,
-          name: item.name || id,
+          name: $attrs.name || id,
           value: item.value,
           checked:
             localValue !== undefined ? item.value === localValue : item.checked,
@@ -225,7 +234,7 @@ export default {
 
       const messages = {};
 
-      for (const attr of [
+      [
         'type',
         'required',
         'minlength',
@@ -233,13 +242,13 @@ export default {
         'min',
         'max',
         'pattern',
-      ]) {
+      ].forEach(attr => {
         if (invalid[attr] && errors[attr]) {
           messages[attr] = isType(errors[attr], 'function')
             ? errors[attr]($attrs[attr])
             : errors[attr];
         }
-      }
+      });
 
       return Object.keys(messages).length ? messages : undefined;
     },
@@ -261,9 +270,7 @@ export default {
   },
 
   created() {
-    const { id, name } = this.$attrs;
-    this.id = id || 'vts-' + randomString(4);
-    this.name = name || this.id;
+    this.id = this.$attrs.id || 'vts-' + randomString(4);
   },
 
   mounted() {
@@ -275,6 +282,7 @@ export default {
       let input = this.$refs.input;
 
       if (Array.isArray(input)) {
+        if (!input.length) return;
         input = input[0];
       }
 

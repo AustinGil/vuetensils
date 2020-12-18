@@ -332,86 +332,8 @@ var __vue_staticRenderFns__ = [];
     undefined
   );
 
-var FOCUSABLE = [
-  'a[href]:not([tabindex^="-"])',
-  'area[href]:not([tabindex^="-"])',
-  'input:not([disabled]):not([type="hidden"]):not([aria-hidden]):not([tabindex^="-"])',
-  'select:not([disabled]):not([aria-hidden]):not([tabindex^="-"])',
-  'textarea:not([disabled]):not([aria-hidden]):not([tabindex^="-"])',
-  'button:not([disabled]):not([aria-hidden]):not([tabindex^="-"]):not([tabindex^="-"])',
-  'iframe:not([tabindex^="-"])',
-  'object:not([tabindex^="-"])',
-  'embed:not([tabindex^="-"])',
-  '[contenteditable]:not([tabindex^="-"])',
-  '[tabindex]:not([tabindex^="-"])' ];
-
-/**
- * Generates a random string of defined length based on
- * a string of allowed characters.
- *
- * @param  {number} length  How many random characters will be in the returned string. Defaults to 10
- * @param  {string} allowed Which characters can be used when creating the random string. Defaults to A-Z,a-z,0-9
- * @return {string}         A string of random characters
- */
-function randomString(
-  length,
-  allowed
-) {
-  if ( length === void 0 ) length = 10;
-  if ( allowed === void 0 ) allowed = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-  var result = '';
-  for (var i = 0; i < length; i++) {
-    result += allowed.charAt(Math.floor(Math.random() * allowed.length));
-  }
-  return result;
-}
-
-/**
- * If multiple elements are passed into a slot, this wraps them in a div
- *
- * @param  {Function} h     hyperscript markup from Vue render function
- * @param  {Array}    slot  Array of VDOM nodes passed into component slot
- * @return {Array}          VDOM node of the original Slot content or it wrapped in a div
- */
-function safeSlot(h, slot) {
-  return slot && slot.length > 1 ? h('div', slot) : slot;
-}
-
-/**
- * [applyFocusTrap description]
- *
- * @param  {HTMLElement} el    [description]
- * @param  {Event}       event [description]
- * @return {undefined}         [description]
- */
-function applyFocusTrap(el, event) {
-  var focusable = Array.from(el.querySelectorAll(FOCUSABLE));
-
-  if (!focusable.length) {
-    event.preventDefault();
-    return;
-  }
-
-  if (!el.contains(document.activeElement)) {
-    event.preventDefault();
-    focusable[0].focus();
-  } else {
-    var focusedItemIndex = focusable.indexOf(document.activeElement);
-
-    if (event.shiftKey && focusedItemIndex === 0) {
-      focusable[focusable.length - 1].focus();
-      event.preventDefault();
-    }
-
-    if (!event.shiftKey && focusedItemIndex === focusable.length - 1) {
-      focusable[0].focus();
-      event.preventDefault();
-    }
-  }
-}
-
 //
+
 /**
  * A renderless component for awaiting promises to resolve;
  * great for making HTTP requests. Supports showing pending,
@@ -521,7 +443,7 @@ var script$2 = {
     },
   },
 
-  render: function render(h) {
+  render: function render() {
     var ref = this;
     var pending = ref.pending;
     var error = ref.error;
@@ -538,27 +460,27 @@ var script$2 = {
     var defaultSlot = this.$scopedSlots.default;
 
     if (pending && pendingSlot) {
-      return safeSlot(h, pendingSlot());
+      return pendingSlot();
     }
 
     if (done && error && rejectedSlot) {
-      return safeSlot(h, rejectedSlot(error));
+      return rejectedSlot(error);
     }
 
     if (done && !error && resolvedSlot) {
-      return safeSlot(h, resolvedSlot(results));
+      return resolvedSlot(results);
     }
 
     if (!defaultSlot) { return; }
 
-    return safeSlot(
-      h,
-      defaultSlot({
-        pending: pending,
-        results: results,
-        error: error,
-      })
-    );
+    return defaultSlot({
+      pending: pending,
+      resolved: results,
+      rejected: error,
+      // TODO: update docs
+      results: results,
+      error: error,
+    });
   },
 };
 
@@ -626,7 +548,7 @@ var script$3 = {
     var tag = getTag$1(props, data);
     var options = Object.assign({}, data,
       {props: props,
-      class: ['vts-action'],
+      class: ['vts-action', data.class],
       on: listeners});
 
     if (tag === 'RouterLink') {
@@ -864,6 +786,90 @@ var directives = /*#__PURE__*/Object.freeze({
   copy: copy,
   intersect: intersect
 });
+
+var FOCUSABLE = [
+  'a[href]:not([tabindex^="-"])',
+  'area[href]:not([tabindex^="-"])',
+  'input:not([disabled]):not([type="hidden"]):not([aria-hidden]):not([tabindex^="-"])',
+  'select:not([disabled]):not([aria-hidden]):not([tabindex^="-"])',
+  'textarea:not([disabled]):not([aria-hidden]):not([tabindex^="-"])',
+  'button:not([disabled]):not([aria-hidden]):not([tabindex^="-"]):not([tabindex^="-"])',
+  'iframe:not([tabindex^="-"])',
+  'object:not([tabindex^="-"])',
+  'embed:not([tabindex^="-"])',
+  '[contenteditable]:not([tabindex^="-"])',
+  '[tabindex]:not([tabindex^="-"])' ];
+
+/**
+ * Generates a random string of defined length based on
+ * a string of allowed characters.
+ *
+ * @param  {number} length  How many random characters will be in the returned string. Defaults to 10
+ * @param  {string} allowed Which characters can be used when creating the random string. Defaults to A-Z,a-z,0-9
+ * @return {string}         A string of random characters
+ */
+function randomString(
+  length,
+  allowed
+) {
+  if ( length === void 0 ) length = 10;
+  if ( allowed === void 0 ) allowed = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  var result = '';
+  for (var i = 0; i < length; i++) {
+    result += allowed.charAt(Math.floor(Math.random() * allowed.length));
+  }
+  return result;
+}
+
+/**
+ * Tells you if a given value matches the type you pass.
+ *
+ * @param {any} v The value to get the type of
+ * @param {string} type The type you are asserting against
+ * @return {boolean} Whether the given input matches the type passed
+ */
+function isType (v, type) {
+  return (
+    Object.prototype.toString
+      .call(v)
+      .slice(8, -1)
+      .toLowerCase() === type.toLowerCase()
+  );
+}
+
+/**
+ * [applyFocusTrap description]
+ *
+ * @param  {HTMLElement} el    [description]
+ * @param  {Event}       event [description]
+ * @return {undefined}         [description]
+ */
+function applyFocusTrap(el, event) {
+  var focusable = Array.from(el.querySelectorAll(FOCUSABLE));
+
+  if (!focusable.length) {
+    event.preventDefault();
+    return;
+  }
+
+  if (!el.contains(document.activeElement)) {
+    event.preventDefault();
+    focusable[0].focus();
+  } else {
+    var focusedItemIndex = focusable.indexOf(document.activeElement);
+
+    if (event.shiftKey && focusedItemIndex === 0) {
+      focusable[focusable.length - 1].focus();
+      event.preventDefault();
+    }
+
+    if (!event.shiftKey && focusedItemIndex === focusable.length - 1) {
+      focusable[0].focus();
+      event.preventDefault();
+    }
+  }
+}
 
 //
 
@@ -2128,13 +2134,13 @@ var __vue_render__$3 = function () {var _vm=this;var _h=_vm.$createElement;var _
       'vts-file--droppable': _vm.droppable,
       'vts-file--selected': !!_vm.localFiles.length,
     },
-    _vm.classes.label ],attrs:{"for":_vm.id}},[_c('input',_vm._g(_vm._b({ref:"input",class:['vts-file__input', _vm.classes.input],attrs:{"id":_vm.id,"type":"file"},on:{"change":_vm.onChange}},'input',_vm.$attrs,false),_vm.$listeners)),_vm._v(" "),_c('span',{class:['vts-file__text', _vm.classes.text]},[_vm._t("label",[_vm._v(_vm._s(_vm.label))])],2),_vm._v(" "),_c('div',{staticClass:"vts-file__dropzone",on:{"dragenter":function($event){$event.preventDefault();_vm.droppable = true;}}},[_vm._t("default",[(_vm.localFiles.length)?_c('span',{attrs:{"aria-hidden":"true"}},[(_vm.localFiles.length > 1)?[_vm._v("\n          "+_vm._s(_vm.localFiles.length)+" files selected\n        ")]:[_vm._v("\n          "+_vm._s(_vm.localFiles[0].name)+"\n        ")]],2):_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("\n        Choose files or drop here\n      ")])],null,{ files: _vm.localFiles, droppable: _vm.droppable }),_vm._v(" "),(_vm.droppable)?_c('span',{staticClass:"vts-file__overlay",on:{"drop":function($event){$event.preventDefault();return _vm.onDrop($event)},"dragenter":function($event){$event.stopPropagation();_vm.droppable = true;},"dragleave":function($event){$event.stopPropagation();_vm.droppable = false;},"dragover":function($event){$event.preventDefault();}}},[_vm._t("overlay")],2):_vm._e()],2)])};
+    _vm.classes.label ],attrs:{"for":_vm.id}},[_c('input',_vm._g(_vm._b({ref:"input",class:['vts-visually-hidden', _vm.classes.input],attrs:{"id":_vm.id,"type":"file"},on:{"change":_vm.onChange}},'input',_vm.$attrs,false),_vm.$listeners)),_vm._v(" "),_c('span',{class:['vts-file__text', _vm.classes.text]},[_vm._t("label",[_vm._v(_vm._s(_vm.label))])],2),_vm._v(" "),_c('div',{staticClass:"vts-file__dropzone",on:{"dragenter":function($event){$event.preventDefault();_vm.droppable = true;}}},[_vm._t("default",[(_vm.localFiles.length)?_c('span',{attrs:{"aria-hidden":"true"}},[(_vm.localFiles.length > 1)?[_vm._v("\n          "+_vm._s(_vm.localFiles.length)+" files selected\n        ")]:[_vm._v("\n          "+_vm._s(_vm.localFiles[0].name)+"\n        ")]],2):_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("\n        Choose files or drop here\n      ")])],null,{ files: _vm.localFiles, droppable: _vm.droppable }),_vm._v(" "),(_vm.droppable)?_c('span',{staticClass:"vts-file__overlay",on:{"drop":function($event){$event.preventDefault();return _vm.onDrop($event)},"dragenter":function($event){$event.stopPropagation();_vm.droppable = true;},"dragleave":function($event){$event.stopPropagation();_vm.droppable = false;},"dragover":function($event){$event.preventDefault();}}},[_vm._t("overlay")],2):_vm._e()],2)])};
 var __vue_staticRenderFns__$3 = [];
 
   /* style */
   var __vue_inject_styles__$8 = function (inject) {
     if (!inject) { return }
-    inject("data-v-b9d8e72c_0", { source: ".vts-file__input{position:absolute;overflow:hidden;clip:rect(0 0 0 0);width:1px;height:1px;margin:-1px;border:0;padding:0}.vts-file__dropzone{position:relative}.vts-file__overlay{position:absolute;top:0;right:0;bottom:0;left:0}input:focus~.vts-file__dropzone{outline-width:1px;outline-style:auto;outline-color:Highlight;outline-color:-webkit-focus-ring-color}", map: undefined, media: undefined });
+    inject("data-v-e3c1b43c_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);width:1px;height:1px;margin:-1px;border:0;padding:0}.vts-file__dropzone{position:relative}.vts-file__overlay{position:absolute;top:0;right:0;bottom:0;left:0}input:focus~.vts-file__dropzone{outline-width:1px;outline-style:auto;outline-color:Highlight;outline-color:-webkit-focus-ring-color}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -2168,6 +2174,10 @@ var script$9 = {
   name: 'VForm',
   props: {
     lazy: Boolean,
+    honeypot: {
+      type: [Boolean, String],
+      default: false,
+    }
   },
 
   data: function () { return ({
@@ -2270,7 +2280,11 @@ var script$9 = {
         this.$el.querySelectorAll('input, textarea, select')
       );
       els.forEach(function (input) {
-        input.value = '';
+        if(['radio', 'checkbox'].includes(input.type)) {
+          input.checked = false;
+        } else {
+          input.value = '';
+        }
       });
     },
   },
@@ -2286,19 +2300,21 @@ var __vue_render__$4 = function () {var _vm=this;var _h=_vm.$createElement;var _
       'vts-form--invalid': !_vm.valid,
       'vts-form--dirty': _vm.dirty,
       'vts-form--error': _vm.error,
-    } ],attrs:{"method":_vm.$attrs.method || 'POST'},on:_vm._d({},[_vm.event,_vm.onEvent])},'form',_vm.$attrs,false),_vm.$listeners),[_vm._t("default",null,null,{ valid: _vm.valid, dirty: _vm.dirty, error: _vm.error, inputs: _vm.inputs, clear: _vm.clear })],2)};
+    } ],attrs:{"method":_vm.$attrs.method || 'POST'},on:_vm._d({},[_vm.event,_vm.onEvent])},'form',_vm.$attrs,false),_vm.$listeners),[(_vm.honeypot)?_c('input',{staticClass:"visually-hidden",attrs:{"name":typeof _vm.honeypot === 'string' ? _vm.honeypot : 'vts-honeypot',"tabindex":"-1","autocomplete":"off"}}):_vm._e(),_vm._v(" "),_vm._t("default",null,null,{ valid: _vm.valid, dirty: _vm.dirty, error: _vm.error, inputs: _vm.inputs, clear: _vm.clear })],2)};
 var __vue_staticRenderFns__$4 = [];
 
   /* style */
-  var __vue_inject_styles__$9 = undefined;
+  var __vue_inject_styles__$9 = function (inject) {
+    if (!inject) { return }
+    inject("data-v-1751ee3b_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);width:1px;height:1px;margin:-1px;border:0;padding:0}", map: undefined, media: undefined });
+
+  };
   /* scoped */
   var __vue_scope_id__$9 = undefined;
   /* module identifier */
   var __vue_module_identifier__$9 = undefined;
   /* functional template */
   var __vue_is_functional_template__$9 = false;
-  /* style inject */
-  
   /* style inject SSR */
   
   /* style inject shadow dom */
@@ -2313,7 +2329,7 @@ var __vue_staticRenderFns__$4 = [];
     __vue_is_functional_template__$9,
     __vue_module_identifier__$9,
     false,
-    undefined,
+    createInjector,
     undefined,
     undefined
   );
@@ -2537,6 +2553,12 @@ var __vue_staticRenderFns__$5 = [];
 //
 
 /**
+ * TODO:
+ * Provide prop for error,invalid classes on input
+ * Remove span from labels (breaking)
+ */
+
+/**
  * Input component that automatically includes labels, validation, and aria descriptions for any errors.
  */
 var script$b = {
@@ -2557,6 +2579,14 @@ var script$b = {
     },
 
     /**
+     * Every input should have a label with the exception of `radio` which supports labels for the `options` prop.
+     */
+    name: {
+      type: String,
+      required: true,
+    },
+
+    /**
      * The input value. Works for all inputs except type `radio`. See `options` prop.
      */
     value: {
@@ -2570,6 +2600,11 @@ var script$b = {
     options: {
       type: Array,
       default: function () { return []; },
+    },
+
+    errors: {
+      type: Object,
+      default: undefined,
     },
 
     classes: {
@@ -2592,6 +2627,7 @@ var script$b = {
     bind: function bind() {
       var ref = this;
       var id = ref.id;
+      var name = ref.name;
       var valid = ref.valid;
       var error = ref.error;
       var classes = ref.classes;
@@ -2600,6 +2636,7 @@ var script$b = {
         'aria-describedby': error && (id + "__description")},
         $attrs,
         {id: (id + "__input"),
+        name: name,
         class: ['vts-input__input', classes.input]});
 
       return attrs;
@@ -2615,7 +2652,7 @@ var script$b = {
         item = typeof item === 'object' ? item : { value: item };
         return Object.assign(item, $attrs, {
           label: item.label || item.value,
-          name: item.name || id,
+          name: $attrs.name || id,
           value: item.value,
           checked:
             localValue !== undefined ? item.value === localValue : item.checked,
@@ -2631,6 +2668,33 @@ var script$b = {
 
     error: function error() {
       return !this.valid && this.dirty;
+    },
+
+    errorMessages: function errorMessages() {
+      var ref = this;
+      var errors = ref.errors;
+      var invalid = ref.invalid;
+      var $attrs = ref.$attrs;
+      if (!errors || !isType(errors, 'object')) { return false; }
+
+      var messages = {};
+
+      [
+        'type',
+        'required',
+        'minlength',
+        'maxlength',
+        'min',
+        'max',
+        'pattern' ].forEach(function (attr) {
+        if (invalid[attr] && errors[attr]) {
+          messages[attr] = isType(errors[attr], 'function')
+            ? errors[attr]($attrs[attr])
+            : errors[attr];
+        }
+      });
+
+      return Object.keys(messages).length ? messages : undefined;
     },
   },
 
@@ -2650,11 +2714,7 @@ var script$b = {
   },
 
   created: function created() {
-    var ref = this.$attrs;
-    var id = ref.id;
-    var name = ref.name;
-    this.id = id || 'vts-' + randomString(4);
-    this.name = name || this.id;
+    this.id = this.$attrs.id || 'vts-' + randomString(4);
   },
 
   mounted: function mounted() {
@@ -2666,6 +2726,7 @@ var script$b = {
       var input = this.$refs.input;
 
       if (Array.isArray(input)) {
+        if (!input.length) { return; }
         input = input[0];
       }
 
@@ -2826,7 +2887,7 @@ var script$c = {
     },
   },
 
-  render: function render(h) {
+  render: function render() {
     /** @slot Content to be tracked with IntersectionObserver */
     var ref = this;
     var entry = ref.entry;
@@ -2836,10 +2897,10 @@ var script$c = {
     var scopedSlot = this.$scopedSlots.default;
 
     if (defaultSlot) {
-      return safeSlot(h, defaultSlot);
+      return defaultSlot;
     }
 
-    return safeSlot(h, scopedSlot(entry));
+    return scopedSlot(entry);
   },
 };
 
@@ -3380,6 +3441,7 @@ var __vue_staticRenderFns__$9 = [];
 //
 //
 //
+//
 
 var script$g = {
   name: 'VTable',
@@ -3413,6 +3475,10 @@ var script$g = {
       default: '',
     },
     // TODO: sortable prop
+    classes: {
+      type: Object,
+      default: function () { return ({}); }
+    }
   },
 
   data: function data() {
@@ -3563,13 +3629,13 @@ var script$g = {
 var __vue_script__$g = script$g;
 
 /* template */
-var __vue_render__$a = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"container",staticClass:"vts-table",attrs:{"role":"group","aria-labelledby":"caption"}},[_c('table',{class:[_vm.classes.table]},[(_vm.caption)?_c('caption',{class:[_vm.classes.caption],attrs:{"id":"caption"}},[_vm._v("\n      "+_vm._s(_vm.caption)+"\n    ")]):_vm._e(),_vm._v(" "),(_vm.headers.length)?_c('thead',{class:[_vm.classes.thead]},[_c('tr',{class:[_vm.classes.tr]},_vm._l((_vm.cHeaders),function(header,key){return _c('th',{key:key,class:[_vm.classes.th],attrs:{"aria-sort":_vm.ariaSort(header)}},[_vm._v("\n          "+_vm._s(header.text || header.key)+"\n\n          "),(header.sortable)?_c('button',{class:[_vm.classes.sortBtn],attrs:{"aria-label":_vm.ariaLabel(header)},on:{"click":function($event){return _vm.onSort(header.key)}}},[(header.key === _vm.sortBy && _vm.sortOrder === 'ASC')?[_vm._v("\n              ↑\n            ")]:(header.key === _vm.sortBy && _vm.sortOrder === 'DESC')?[_vm._v("\n              ↓\n            ")]:[_vm._v("\n              ↕\n            ")]],2):_vm._e()])}),0)]):_vm._e(),_vm._v(" "),_c('tbody',{class:[_vm.classes.tbody]},[_vm._t("default",_vm._l((_vm.cItems),function(item,index){return _c('tr',{key:item.id,class:[_vm.classes.tr],attrs:{"tabindex":"0"},on:{"click":function($event){return _vm.emitRowClick(item)},"keyup":function($event){return _vm.emitRowClick(item)}}},[_vm._l((item.data),function(value,key){return _vm._t(_vm.items[index].id ? ("row." + (_vm.items[index].id)) : null,[_c('td',{key:key,class:[_vm.classes.td]},[_vm._t(("column." + key),[_vm._v("\n                "+_vm._s(value)+"\n              ")],null,{ cell: value, item: item, column: key, row: index + 1 })],2)],null,{ item: item, column: key, row: index + 1 })})],2)}),null,Object.assign({}, {items: _vm.cItems}, _vm.$data, {perPage: _vm.perPage}))],2)]),_vm._v(" "),_vm._t("pagination",[(_vm.lastPage > 1)?_c('div',{class:[_vm.classes.pagination]},[_c('button',{class:[_vm.classes.previous],attrs:{"disabled":_vm.currentPage === 1,"aria-label":"go to previous page"},on:{"click":function($event){return _vm.goToPage(_vm.currentPage - 1)}}},[_vm._v("\n        Prev\n      ")]),_vm._v(" "),_c('ul',{class:[_vm.classes.pageList]},_vm._l((_vm.lastPage),function(pageNum){return _c('li',{key:pageNum,class:[_vm.classes.pageItem]},[_c('button',{class:[_vm.classes.page],attrs:{"disabled":pageNum === _vm.currentPage,"aria-label":("go to page " + pageNum)},on:{"click":function($event){return _vm.goToPage(pageNum)}}},[_vm._v("\n            "+_vm._s(pageNum)+"\n          ")])])}),0),_vm._v(" "),_c('button',{class:[_vm.classes.next],attrs:{"disabled":_vm.currentPage === _vm.lastPage,"aria-label":"go to next page"},on:{"click":function($event){return _vm.goToPage(_vm.currentPage + 1)}}},[_vm._v("\n        Next\n      ")])]):_vm._e()],null,{ currentPage: _vm.currentPage, lastPage: _vm.lastPage, goToPage: _vm.goToPage })],2)};
+var __vue_render__$a = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"container",class:['vts-table', _vm.classes.root],attrs:{"role":"region","aria-labelledby":"caption","tabindex":_vm.tabindex}},[_c('table',{class:[_vm.classes.table]},[(_vm.caption)?_c('caption',{class:[_vm.classes.caption],attrs:{"id":"caption"}},[_vm._v("\n      "+_vm._s(_vm.caption)+"\n    ")]):_vm._e(),_vm._v(" "),(_vm.headers.length)?_c('thead',{class:[_vm.classes.thead]},[_c('tr',{class:[_vm.classes.tr]},_vm._l((_vm.cHeaders),function(header,key){return _c('th',{key:key,class:[_vm.classes.th],attrs:{"aria-sort":_vm.ariaSort(header)}},[_vm._v("\n          "+_vm._s(header.text || header.key)+"\n\n          "),(header.sortable)?_c('button',{class:[_vm.classes.sortBtn],attrs:{"aria-label":_vm.ariaLabel(header)},on:{"click":function($event){return _vm.onSort(header.key)}}},[(header.key === _vm.sortBy && _vm.sortOrder === 'ASC')?[_vm._v("\n              ↑\n            ")]:(header.key === _vm.sortBy && _vm.sortOrder === 'DESC')?[_vm._v("\n              ↓\n            ")]:[_vm._v("\n              ↕\n            ")]],2):_vm._e()])}),0)]):_vm._e(),_vm._v(" "),_c('tbody',{class:[_vm.classes.tbody]},[_vm._t("default",_vm._l((_vm.cItems),function(item,index){return _c('tr',{key:item.id,class:[_vm.classes.tr],attrs:{"tabindex":"0"},on:{"click":function($event){return _vm.emitRowClick(item)},"keyup":function($event){return _vm.emitRowClick(item)}}},[_vm._l((item.data),function(value,key){return _vm._t(_vm.items[index].id ? ("row." + (_vm.items[index].id)) : null,[_c('td',{key:key,class:[_vm.classes.td]},[_vm._t(("column." + key),[_vm._v("\n                "+_vm._s(value)+"\n              ")],null,{ cell: value, item: item, column: key, row: index + 1 })],2)],null,{ item: item, column: key, row: index + 1 })})],2)}),null,Object.assign({}, {items: _vm.cItems}, _vm.$data, {perPage: _vm.perPage}))],2),_vm._v(" "),(_vm.$slots.tfoot)?_c('tfoot',{class:[_vm.classes.tfoot]},[_vm._t("tfoot")],2):_vm._e()]),_vm._v(" "),_vm._t("pagination",[(_vm.lastPage > 1)?_c('div',{class:[_vm.classes.pagination]},[_c('button',{class:[_vm.classes.previous],attrs:{"disabled":_vm.currentPage === 1,"aria-label":"go to previous page"},on:{"click":function($event){return _vm.goToPage(_vm.currentPage - 1)}}},[_vm._v("\n        Prev\n      ")]),_vm._v(" "),_c('ul',{class:[_vm.classes.pageList]},_vm._l((_vm.lastPage),function(pageNum){return _c('li',{key:pageNum,class:[_vm.classes.pageItem]},[_c('button',{class:[_vm.classes.page],attrs:{"disabled":pageNum === _vm.currentPage,"aria-label":("go to page " + pageNum)},on:{"click":function($event){return _vm.goToPage(pageNum)}}},[_vm._v("\n            "+_vm._s(pageNum)+"\n          ")])])}),0),_vm._v(" "),_c('button',{class:[_vm.classes.next],attrs:{"disabled":_vm.currentPage === _vm.lastPage,"aria-label":"go to next page"},on:{"click":function($event){return _vm.goToPage(_vm.currentPage + 1)}}},[_vm._v("\n        Next\n      ")])]):_vm._e()],null,{ currentPage: _vm.currentPage, lastPage: _vm.lastPage, goToPage: _vm.goToPage })],2)};
 var __vue_staticRenderFns__$a = [];
 
   /* style */
   var __vue_inject_styles__$g = function (inject) {
     if (!inject) { return }
-    inject("data-v-580a3ba3_0", { source: ".vts-table{overflow-x:auto}@media (min-width:400px){.vts-table{display:block}.lists-container{display:none}}", map: undefined, media: undefined });
+    inject("data-v-34e0cf32_0", { source: ".vts-table{overflow-x:auto}@media (min-width:400px){.vts-table{display:block}.lists-container{display:none}}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -3611,17 +3677,20 @@ var __vue_staticRenderFns__$a = [];
 var script$h = {
   name: 'VTabs',
 
+  model: {
+    prop: 'active',
+    event: 'change',
+  },
+
   props: {
-    /**
-     * Support for aria-label attribute
-     */
+    active: {
+      type: Number,
+      default: 0,
+    },
     label: {
       type: String,
       default: undefined,
     },
-    /**
-     * Support for aria-orientation attribute
-     */
     orientation: {
       type: String,
       default: 'horizontal',
@@ -3633,9 +3702,11 @@ var script$h = {
     },
   },
 
-  data: function () { return ({
-    activeIndex: 0,
-  }); },
+  data: function data() {
+    return {
+      activeIndex: this.active,
+    };
+  },
 
   computed: {
     tablist: function tablist() {
@@ -3643,10 +3714,17 @@ var script$h = {
     },
   },
 
+  watch: {
+    active: function active(next) {
+      this.activeIndex = Math.max(0, Math.min(this.tablist.length - 1, next));
+    },
+    activeIndex: function activeIndex(next) {
+      this.$emit('change', next);
+    },
+  },
+
   created: function created() {
-    var ref = this.$attrs;
-    var id = ref.id;
-    this.id = id ? id : ("vts-" + (randomString(4)));
+    this.id = this.$attrs.id || ("vts-" + (randomString(4)));
   },
 
   methods: {
@@ -3728,7 +3806,21 @@ var script$h = {
 var __vue_script__$h = script$h;
 
 /* template */
-var __vue_render__$b = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.tablist.length)?_c('div',{class:['vts-tabs', _vm.classes.root]},[_c('div',{class:['vts-tabs__tablist', _vm.classes.tablist],attrs:{"role":"tablist","aria-label":_vm.label,"aria-orientation":_vm.orientation}},_vm._l((_vm.tablist),function(tab,index){return _c('button',{key:tab,ref:"tab",refInFor:true,class:[("vts-tabs__tab vts-tabs__tab--" + index), _vm.classes.tab],attrs:{"id":(_vm.id + "-tab-" + index),"aria-selected":index === _vm.activeIndex,"tabindex":index === _vm.activeIndex ? false : -1,"aria-controls":(_vm.id + "-panel-" + index),"role":"tab"},on:{"keydown":_vm.onKeydown,"click":function($event){_vm.activeIndex = index;}}},[_vm._v("\n      "+_vm._s(tab)+"\n    ")])}),0),_vm._v(" "),_vm._l((_vm.tablist),function(tab,index){return _c('div',{key:tab,class:[("vts-tabs__panel vts-tabs__panel--" + index), _vm.classes.panel],attrs:{"id":(_vm.id + "-panel-" + index),"aria-labelledby":(_vm.id + "-tab-" + index),"hidden":index !== _vm.activeIndex,"tabindex":"0","role":"tabpanel"}},[_vm._t(tab)],2)})],2):_vm._e()};
+var __vue_render__$b = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.tablist.length)?_c('div',{class:['vts-tabs', _vm.classes.root]},[_c('div',{class:['vts-tabs__tablist', _vm.classes.tablist],attrs:{"role":"tablist","aria-label":_vm.label,"aria-orientation":_vm.orientation}},_vm._l((_vm.tablist),function(tab,index){
+var _obj;
+return _c('button',{key:tab,ref:"tab",refInFor:true,class:[
+        ("vts-tabs__tab vts-tabs__tab--" + index),
+        ( _obj = {
+          'vts-tabs__tab--active': index === _vm.activeIndex
+        }, _obj[_vm.classes.tabActive] = index === _vm.activeIndex, _obj ),
+        _vm.classes.tab ],attrs:{"id":(_vm.id + "-tab-" + index),"aria-selected":index === _vm.activeIndex,"tabindex":index === _vm.activeIndex ? false : -1,"aria-controls":(_vm.id + "-panel-" + index),"role":"tab","type":"button"},on:{"keydown":_vm.onKeydown,"click":function($event){_vm.activeIndex = index;}}},[_vm._v("\n      "+_vm._s(tab)+"\n    ")])}),0),_vm._v(" "),_vm._l((_vm.tablist),function(tab,index){
+      var _obj;
+return _c('div',{key:tab,class:[
+      ("vts-tabs__panel vts-tabs__panel--" + index),
+      ( _obj = {
+        'vts-tabs__panel--active': index === _vm.activeIndex
+      }, _obj[_vm.classes.panelActive] = index === _vm.activeIndex, _obj ),
+      _vm.classes.panel ],attrs:{"id":(_vm.id + "-panel-" + index),"aria-labelledby":(_vm.id + "-tab-" + index),"hidden":index !== _vm.activeIndex,"tabindex":"0","role":"tabpanel"}},[_vm._t(tab)],2)})],2):_vm._e()};
 var __vue_staticRenderFns__$b = [];
 
   /* style */
@@ -4007,16 +4099,16 @@ var script$k = {
     return !this.stopPropagation;
   },
 
-  render: function render(h) {
+  render: function render() {
     var ref = this;
     var error = ref.error;
     var $scopedSlots = ref.$scopedSlots;
 
     if (error && $scopedSlots.catch) {
-      return safeSlot(h, $scopedSlots.catch(error));
+      return $scopedSlots.catch(error);
     }
 
-    return safeSlot(h, $scopedSlots.default(error));
+    return $scopedSlots.default(error);
   },
 };
 
@@ -4179,6 +4271,15 @@ var filters = /*#__PURE__*/Object.freeze({
   plural: plural,
   truncate: truncate
 });
+
+/**
+ * TODO:
+ * Provide config options for library/components
+ * Finish up rebuilding table
+ * Get rid of auto safe slot (breaking)
+ * Create main.css file
+ * Prop warning messages (img alt, input label)
+ */
 
 /**
  * @typedef {Array<'VAction'|'VAlert'|'VAsync'|'VBtn'|'VDate'|'VDialog'|'VDrawer'|'VDropdown'|'VFile'|'VForm'|'VImg'|'VInput'|'VIntersect'|'VResize'|'VSkip'|'VTable'|'VTabs'|'VToggle'|'VTooltip'|'VTry'>} ComponentsList

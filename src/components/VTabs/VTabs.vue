@@ -14,8 +14,16 @@
         :aria-selected="index === activeIndex"
         :tabindex="index === activeIndex ? false : -1"
         :aria-controls="`${id}-panel-${index}`"
-        :class="[`vts-tabs__tab vts-tabs__tab--${index}`, classes.tab]"
+        :class="[
+          `vts-tabs__tab vts-tabs__tab--${index}`,
+          {
+            'vts-tabs__tab--active': index === activeIndex,
+            [classes.tabActive]: index === activeIndex,
+          },
+          classes.tab,
+        ]"
         role="tab"
+        type="button"
         @keydown="onKeydown"
         @click="activeIndex = index"
       >
@@ -29,7 +37,14 @@
       :key="tab"
       :aria-labelledby="`${id}-tab-${index}`"
       :hidden="index !== activeIndex"
-      :class="[`vts-tabs__panel vts-tabs__panel--${index}`, classes.panel]"
+      :class="[
+        `vts-tabs__panel vts-tabs__panel--${index}`,
+        {
+          'vts-tabs__panel--active': index === activeIndex,
+          [classes.panelActive]: index === activeIndex,
+        },
+        classes.panel,
+      ]"
       tabindex="0"
       role="tabpanel"
     >
@@ -54,17 +69,20 @@ import keycodes from '../../data/keycodes';
 export default {
   name: 'VTabs',
 
+  model: {
+    prop: 'active',
+    event: 'change',
+  },
+
   props: {
-    /**
-     * Support for aria-label attribute
-     */
+    active: {
+      type: Number,
+      default: 0,
+    },
     label: {
       type: String,
       default: undefined,
     },
-    /**
-     * Support for aria-orientation attribute
-     */
     orientation: {
       type: String,
       default: 'horizontal',
@@ -76,9 +94,11 @@ export default {
     },
   },
 
-  data: () => ({
-    activeIndex: 0,
-  }),
+  data() {
+    return {
+      activeIndex: this.active,
+    };
+  },
 
   computed: {
     tablist() {
@@ -86,9 +106,17 @@ export default {
     },
   },
 
+  watch: {
+    active(next) {
+      this.activeIndex = Math.max(0, Math.min(this.tablist.length - 1, next));
+    },
+    activeIndex(next) {
+      this.$emit('change', next);
+    },
+  },
+
   created() {
-    const { id } = this.$attrs;
-    this.id = id ? id : `vts-${randomString(4)}`;
+    this.id = this.$attrs.id || `vts-${randomString(4)}`;
   },
 
   methods: {

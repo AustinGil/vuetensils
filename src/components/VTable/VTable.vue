@@ -21,7 +21,7 @@
 
   <div
     ref="container"
-    role="group"
+    role="region"
     aria-labelledby="caption"
     :class="['vts-table', classes.root]"
     :tabindex="tabindex"

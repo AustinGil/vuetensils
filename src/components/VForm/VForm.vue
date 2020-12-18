@@ -13,6 +13,14 @@
     @[event]="onEvent"
     v-on="$listeners"
   >
+    <input
+      v-if="honeypot"
+      :name="typeof honeypot === 'string' ? honeypot : 'vts-honeypot'"
+      class="visually-hidden"
+      tabindex="-1"
+      autocomplete="off"
+    />
+
     <slot v-bind="{ valid, dirty, error, inputs, clear }" />
   </form>
 </template>
@@ -24,6 +32,10 @@ export default {
   name: 'VForm',
   props: {
     lazy: Boolean,
+    honeypot: {
+      type: [Boolean, String],
+      default: false,
+    }
   },
 
   data: () => ({
@@ -122,9 +134,26 @@ export default {
         this.$el.querySelectorAll('input, textarea, select')
       );
       els.forEach(input => {
-        input.value = '';
+        if(['radio', 'checkbox'].includes(input.type)) {
+          input.checked = false;
+        } else {
+          input.value = '';
+        }
       });
     },
   },
 };
 </script>
+
+<style>
+.vts-visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+}
+</style>

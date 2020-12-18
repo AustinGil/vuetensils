@@ -15,7 +15,7 @@
       ref="input"
       v-bind="$attrs"
       type="file"
-      :class="['vts-file__input', classes.input]"
+      :class="['vts-visually-hidden', classes.input]"
       @change="onChange"
       v-on="$listeners"
     />
@@ -126,7 +126,7 @@ export default {
 </script>
 
 <style>
-.vts-file__input {
+.vts-visually-hidden {
   position: absolute;
   overflow: hidden;
   clip: rect(0 0 0 0);
