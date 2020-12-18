@@ -79,6 +79,10 @@ export default {
         </template>
       </template>
     </VInput>
+
+    <button type="submit" :disabled="!form.valid">
+      Submit
+    </button>
   </form>
 </template>
 
@@ -169,6 +173,9 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
       multiple
     />
     <pre>{{ selected }}</pre>
+    <button type="submit" :disabled="!form.valid">
+      Submit
+    </button>
   </form>
 </template>
 
@@ -257,6 +264,10 @@ Note that client-side validation is never a substitute for server-side validatio
         label="yo"
         required
       />
+
+      <button type="submit" :disabled="!form.valid">
+        Submit
+      </button>
     </template>
   </VForm>
 </template>
@@ -272,7 +283,7 @@ export default {
 
 ## Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', fieldset: 'fieldset-class', label: 'label-class', text: 'text-class', input: 'input-class', description: 'description-class' }"

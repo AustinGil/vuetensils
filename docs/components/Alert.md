@@ -6,9 +6,9 @@ A simple component for notifiying users of specific information. Good for inform
 
 Features:
 
-- Includes ARIA `role="alert"` attribute
-- Option for dismiss button
-- Option for timeout
+- Includes ARIA `role="alert"` attribute.
+- Option for dismiss button.
+- Option for timeout.
 
 ## Installation
 
@@ -237,7 +237,7 @@ export default {
 
 ## Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', dismiss: 'dismiss-class' }"

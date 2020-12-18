@@ -113,7 +113,7 @@ Hovering over the target will not do anything, but you can click on it or tab to
 
 ## Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', content: 'content-class' }"

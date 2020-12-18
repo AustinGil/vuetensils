@@ -128,7 +128,7 @@ body .live-preview pre {
   padding: 10px;
   font-size: 18px;
   color: #FFF;
-  background: darkcyan;
+  background: #008484;
   transition: 0.5s ease border-radius;
 }
 
@@ -137,7 +137,7 @@ body .live-preview pre {
 }
 
 .dropdown-content {
-  border: 1px solid darkcyan;
+  border: 1px solid #008484;
   border-radius: 0 0 5px 5px;
   padding: 10px;
   background-color: #FFF;
@@ -346,7 +346,7 @@ body .live-preview pre {
 }
 
 .cookbook input:checked ~ .vts-input__text:before {
-  background-color: darkcyan;
+  background-color: #008484;
 }
 
 .cookbook input:focus ~ .vts-input__text:before {
@@ -354,4 +354,19 @@ body .live-preview pre {
   outline-style: auto;
   outline-color: Highlight;
   outline-color: -webkit-focus-ring-color;
+}
+
+
+
+
+/* PA11Y fixes */
+#app a {
+  /* #3EAF7C was 2.75 ratio */
+  color: #168754;
+}
+
+#app .home .hero .action-button {
+  /* #3EAF7C was 2.75 ratio */
+  background-color:  #2F855F;
+  color: #FFF;
 }
