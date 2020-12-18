@@ -1,6 +1,6 @@
 {
   "name": "vuetensils",
-  "version": "1.0.0-0",
+  "version": "0.7.4",
   "description": "A tasty toolset for Vue.js",
   "author": "Austin Gil <hey@austingil.com>",
   "license": "MIT",
@@ -31,7 +31,8 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "commit": "git add . && git commit",
-    "release": "release-it"
+    "release": "release-it",
+    "deploy": "release-it"
   },
   "husky": {
     "hooks": {
