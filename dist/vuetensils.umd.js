@@ -338,86 +338,8 @@
       undefined
     );
 
-  var FOCUSABLE = [
-    'a[href]:not([tabindex^="-"])',
-    'area[href]:not([tabindex^="-"])',
-    'input:not([disabled]):not([type="hidden"]):not([aria-hidden]):not([tabindex^="-"])',
-    'select:not([disabled]):not([aria-hidden]):not([tabindex^="-"])',
-    'textarea:not([disabled]):not([aria-hidden]):not([tabindex^="-"])',
-    'button:not([disabled]):not([aria-hidden]):not([tabindex^="-"]):not([tabindex^="-"])',
-    'iframe:not([tabindex^="-"])',
-    'object:not([tabindex^="-"])',
-    'embed:not([tabindex^="-"])',
-    '[contenteditable]:not([tabindex^="-"])',
-    '[tabindex]:not([tabindex^="-"])' ];
-
-  /**
-   * Generates a random string of defined length based on
-   * a string of allowed characters.
-   *
-   * @param  {number} length  How many random characters will be in the returned string. Defaults to 10
-   * @param  {string} allowed Which characters can be used when creating the random string. Defaults to A-Z,a-z,0-9
-   * @return {string}         A string of random characters
-   */
-  function randomString(
-    length,
-    allowed
-  ) {
-    if ( length === void 0 ) length = 10;
-    if ( allowed === void 0 ) allowed = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    var result = '';
-    for (var i = 0; i < length; i++) {
-      result += allowed.charAt(Math.floor(Math.random() * allowed.length));
-    }
-    return result;
-  }
-
-  /**
-   * If multiple elements are passed into a slot, this wraps them in a div
-   *
-   * @param  {Function} h     hyperscript markup from Vue render function
-   * @param  {Array}    slot  Array of VDOM nodes passed into component slot
-   * @return {Array}          VDOM node of the original Slot content or it wrapped in a div
-   */
-  function safeSlot(h, slot) {
-    return slot && slot.length > 1 ? h('div', slot) : slot;
-  }
-
-  /**
-   * [applyFocusTrap description]
-   *
-   * @param  {HTMLElement} el    [description]
-   * @param  {Event}       event [description]
-   * @return {undefined}         [description]
-   */
-  function applyFocusTrap(el, event) {
-    var focusable = Array.from(el.querySelectorAll(FOCUSABLE));
-
-    if (!focusable.length) {
-      event.preventDefault();
-      return;
-    }
-
-    if (!el.contains(document.activeElement)) {
-      event.preventDefault();
-      focusable[0].focus();
-    } else {
-      var focusedItemIndex = focusable.indexOf(document.activeElement);
-
-      if (event.shiftKey && focusedItemIndex === 0) {
-        focusable[focusable.length - 1].focus();
-        event.preventDefault();
-      }
-
-      if (!event.shiftKey && focusedItemIndex === focusable.length - 1) {
-        focusable[0].focus();
-        event.preventDefault();
-      }
-    }
-  }
-
   //
+
   /**
    * A renderless component for awaiting promises to resolve;
    * great for making HTTP requests. Supports showing pending,
@@ -527,7 +449,7 @@
       },
     },
 
-    render: function render(h) {
+    render: function render() {
       var ref = this;
       var pending = ref.pending;
       var error = ref.error;
@@ -544,27 +466,27 @@
       var defaultSlot = this.$scopedSlots.default;
 
       if (pending && pendingSlot) {
-        return safeSlot(h, pendingSlot());
+        return pendingSlot();
       }
 
       if (done && error && rejectedSlot) {
-        return safeSlot(h, rejectedSlot(error));
+        return rejectedSlot(error);
       }
 
       if (done && !error && resolvedSlot) {
-        return safeSlot(h, resolvedSlot(results));
+        return resolvedSlot(results);
       }
 
       if (!defaultSlot) { return; }
 
-      return safeSlot(
-        h,
-        defaultSlot({
-          pending: pending,
-          results: results,
-          error: error,
-        })
-      );
+      return defaultSlot({
+        pending: pending,
+        resolved: results,
+        rejected: error,
+        // TODO: update docs
+        results: results,
+        error: error,
+      });
     },
   };
 
@@ -632,7 +554,7 @@
       var tag = getTag$1(props, data);
       var options = Object.assign({}, data,
         {props: props,
-        class: ['vts-action'],
+        class: ['vts-action', data.class],
         on: listeners});
 
       if (tag === 'RouterLink') {
@@ -1379,7 +1301,7 @@
     /* style */
     var __vue_inject_styles__$4 = function (inject) {
       if (!inject) { return }
-      inject("data-v-bfc0b1f4_0", { source: ".vtd-date{position:relative}.vts-date__navigation{display:flex;justify-content:space-around}", map: undefined, media: undefined });
+      inject("data-v-0da59768_0", { source: ".vtd-date{position:relative}.vts-date__navigation{display:flex;justify-content:space-around}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -1675,7 +1597,7 @@
     /* style */
     var __vue_inject_styles__$5 = function (inject) {
       if (!inject) { return }
-      inject("data-v-557b6808_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
+      inject("data-v-0c766f68_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -1970,7 +1892,7 @@
     /* style */
     var __vue_inject_styles__$6 = function (inject) {
       if (!inject) { return }
-      inject("data-v-403e43c1_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-drawer__content{overflow:auto;max-width:300px;height:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-left:auto}", map: undefined, media: undefined });
+      inject("data-v-54968096_0", { source: ".vts-drawer{position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-drawer__content{overflow:auto;max-width:300px;height:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-left:auto}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -2111,7 +2033,7 @@
     /* style */
     var __vue_inject_styles__$7 = function (inject) {
       if (!inject) { return }
-      inject("data-v-3420b45e_0", { source: ".vts-dropdown{display:inline-block;position:relative}.vts-dropdown__content{position:absolute;z-index:5;min-width:100%}.vts-dropdown__content--top{top:0;transform:translateY(-100%)}", map: undefined, media: undefined });
+      inject("data-v-49649a41_0", { source: ".vts-dropdown{display:inline-block;position:relative}.vts-dropdown__content{position:absolute;z-index:5;min-width:100%}.vts-dropdown__content--top{top:0;transform:translateY(-100%)}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -2224,7 +2146,7 @@
     /* style */
     var __vue_inject_styles__$8 = function (inject) {
       if (!inject) { return }
-      inject("data-v-59e1008e_0", { source: ".vts-file__input{position:absolute;overflow:hidden;clip:rect(0 0 0 0);width:1px;height:1px;margin:-1px;border:0;padding:0}.vts-file__dropzone{position:relative}.vts-file__overlay{position:absolute;top:0;right:0;bottom:0;left:0}input:focus~.vts-file__dropzone{outline-width:1px;outline-style:auto;outline-color:Highlight;outline-color:-webkit-focus-ring-color}", map: undefined, media: undefined });
+      inject("data-v-e3c1b43c_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);width:1px;height:1px;margin:-1px;border:0;padding:0}.vts-file__dropzone{position:relative}.vts-file__overlay{position:absolute;top:0;right:0;bottom:0;left:0}input:focus~.vts-file__dropzone{outline-width:1px;outline-style:auto;outline-color:Highlight;outline-color:-webkit-focus-ring-color}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -2258,6 +2180,10 @@
     name: 'VForm',
     props: {
       lazy: Boolean,
+      honeypot: {
+        type: [Boolean, String],
+        default: false,
+      }
     },
 
     data: function () { return ({
@@ -2360,7 +2286,11 @@
           this.$el.querySelectorAll('input, textarea, select')
         );
         els.forEach(function (input) {
-          input.value = '';
+          if(['radio', 'checkbox'].includes(input.type)) {
+            input.checked = false;
+          } else {
+            input.value = '';
+          }
         });
       },
     },
@@ -2598,7 +2528,7 @@
     /* style */
     var __vue_inject_styles__$a = function (inject) {
       if (!inject) { return }
-      inject("data-v-44230ffe_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
+      inject("data-v-3998e4b7_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -2629,6 +2559,12 @@
   //
 
   /**
+   * TODO:
+   * Provide prop for error,invalid classes on input
+   * Remove span from labels (breaking)
+   */
+
+  /**
    * Input component that automatically includes labels, validation, and aria descriptions for any errors.
    */
   var script$b = {
@@ -2649,6 +2585,14 @@
       },
 
       /**
+       * Every input should have a label with the exception of `radio` which supports labels for the `options` prop.
+       */
+      name: {
+        type: String,
+        required: true,
+      },
+
+      /**
        * The input value. Works for all inputs except type `radio`. See `options` prop.
        */
       value: {
@@ -2662,6 +2606,11 @@
       options: {
         type: Array,
         default: function () { return []; },
+      },
+
+      errors: {
+        type: Object,
+        default: undefined,
       },
 
       classes: {
@@ -2693,6 +2642,7 @@
           'aria-describedby': error && (id + "__description")},
           $attrs,
           {id: (id + "__input"),
+          name: name,
           class: ['vts-input__input', classes.input]});
 
         return attrs;
@@ -2708,7 +2658,7 @@
           item = typeof item === 'object' ? item : { value: item };
           return Object.assign(item, $attrs, {
             label: item.label || item.value,
-            name: item.name || id,
+            name: $attrs.name || id,
             value: item.value,
             checked:
               localValue !== undefined ? item.value === localValue : item.checked,
@@ -2724,6 +2674,33 @@
 
       error: function error() {
         return !this.valid && this.dirty;
+      },
+
+      errorMessages: function errorMessages() {
+        var ref = this;
+        var errors = ref.errors;
+        var invalid = ref.invalid;
+        var $attrs = ref.$attrs;
+        if (!errors || !isType(errors, 'object')) { return false; }
+
+        var messages = {};
+
+        [
+          'type',
+          'required',
+          'minlength',
+          'maxlength',
+          'min',
+          'max',
+          'pattern' ].forEach(function (attr) {
+          if (invalid[attr] && errors[attr]) {
+            messages[attr] = isType(errors[attr], 'function')
+              ? errors[attr]($attrs[attr])
+              : errors[attr];
+          }
+        });
+
+        return Object.keys(messages).length ? messages : undefined;
       },
     },
 
@@ -2743,11 +2720,7 @@
     },
 
     created: function created() {
-      var ref = this.$attrs;
-      var id = ref.id;
-      var name = ref.name;
-      this.id = id || 'vts-' + randomString(4);
-      this.name = name || this.id;
+      this.id = this.$attrs.id || 'vts-' + randomString(4);
     },
 
     mounted: function mounted() {
@@ -2759,6 +2732,7 @@
         var input = this.$refs.input;
 
         if (Array.isArray(input)) {
+          if (!input.length) { return; }
           input = input[0];
         }
 
@@ -2919,7 +2893,7 @@
       },
     },
 
-    render: function render(h) {
+    render: function render() {
       /** @slot Content to be tracked with IntersectionObserver */
       var ref = this;
       var entry = ref.entry;
@@ -2929,10 +2903,10 @@
       var scopedSlot = this.$scopedSlots.default;
 
       if (defaultSlot) {
-        return safeSlot(h, defaultSlot);
+        return defaultSlot;
       }
 
-      return safeSlot(h, scopedSlot(entry));
+      return scopedSlot(entry);
     },
   };
 
@@ -3151,7 +3125,7 @@
     /* style */
     var __vue_inject_styles__$d = function (inject) {
       if (!inject) { return }
-      inject("data-v-304964b7_0", { source: ".vts-modal{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.2)}.vts-modal [tabindex=\"-1\"]:focus{outline:0}.vts-modal__content{overflow:auto;max-width:70vw;max-height:80vh;background:#fff}", map: undefined, media: undefined });
+      inject("data-v-561abecc_0", { source: ".vts-modal{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.2)}.vts-modal [tabindex=\"-1\"]:focus{outline:0}.vts-modal__content{overflow:auto;max-width:70vw;max-height:80vh;background:#fff}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -3315,7 +3289,7 @@
     /* style */
     var __vue_inject_styles__$f = function (inject) {
       if (!inject) { return }
-      inject("data-v-f6912da6_0", { source: ".vts-skip{position:fixed;z-index:1000;top:0;left:-10000px;border:3px solid;padding:.5rem;color:#000;background-color:#fff}.vts-skip:focus{left:0}", map: undefined, media: undefined });
+      inject("data-v-54e053f1_0", { source: ".vts-skip{position:fixed;z-index:1000;top:0;left:-10000px;border:3px solid;padding:.5rem;color:#000;background-color:#fff}.vts-skip:focus{left:0}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -3343,6 +3317,7 @@
       undefined
     );
 
+  //
   //
   //
   //
@@ -3506,6 +3481,10 @@
         default: '',
       },
       // TODO: sortable prop
+      classes: {
+        type: Object,
+        default: function () { return ({}); }
+      }
     },
 
     data: function data() {
@@ -3662,7 +3641,7 @@
     /* style */
     var __vue_inject_styles__$g = function (inject) {
       if (!inject) { return }
-      inject("data-v-6cda1470_0", { source: ".vts-table{overflow-x:auto}@media (min-width:400px){.vts-table{display:block}.lists-container{display:none}}", map: undefined, media: undefined });
+      inject("data-v-34e0cf32_0", { source: ".vts-table{overflow-x:auto}@media (min-width:400px){.vts-table{display:block}.lists-container{display:none}}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -3704,17 +3683,20 @@
   var script$h = {
     name: 'VTabs',
 
+    model: {
+      prop: 'active',
+      event: 'change',
+    },
+
     props: {
-      /**
-       * Support for aria-label attribute
-       */
+      active: {
+        type: Number,
+        default: 0,
+      },
       label: {
         type: String,
         default: undefined,
       },
-      /**
-       * Support for aria-orientation attribute
-       */
       orientation: {
         type: String,
         default: 'horizontal',
@@ -3726,9 +3708,11 @@
       },
     },
 
-    data: function () { return ({
-      activeIndex: 0,
-    }); },
+    data: function data() {
+      return {
+        activeIndex: this.active,
+      };
+    },
 
     computed: {
       tablist: function tablist() {
@@ -3736,10 +3720,17 @@
       },
     },
 
+    watch: {
+      active: function active(next) {
+        this.activeIndex = Math.max(0, Math.min(this.tablist.length - 1, next));
+      },
+      activeIndex: function activeIndex(next) {
+        this.$emit('change', next);
+      },
+    },
+
     created: function created() {
-      var ref = this.$attrs;
-      var id = ref.id;
-      this.id = id ? id : ("vts-" + (randomString(4)));
+      this.id = this.$attrs.id || ("vts-" + (randomString(4)));
     },
 
     methods: {
@@ -3940,13 +3931,13 @@
   var __vue_script__$i = script$i;
 
   /* template */
-  var __vue_render__$c = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:['vts-toggle', { 'vts-toggle--open': _vm.isOpen }, _vm.classes.root]},[_c('button',_vm._g({ref:"label",class:['vts-toggle__label', _vm.classes.label],attrs:{"type":"button","id":(_vm.id + "-label"),"disabled":_vm.disabled,"aria-controls":(_vm.id + "-content"),"aria-expanded":String(_vm.isOpen)},on:{"click":function($event){_vm.isOpen = !_vm.isOpen;}}},_vm.$listeners),[_vm._v("\n    "+_vm._s(_vm.label)+"\n\n    "),_vm._t("label",null,null,{ isOpen: _vm.isOpen })],2),_vm._v(" "),_c('transition',{on:{"before-enter":_vm.collapse,"enter":_vm.expand,"after-enter":_vm.resetHeight,"before-leave":_vm.expand,"leave":_vm.collapse}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.isOpen && !_vm.disabled),expression:"isOpen && !disabled"}],class:['vts-toggle__content', _vm.classes.content],attrs:{"id":(_vm.id + "-content"),"aria-labelledby":(_vm.id + "-label"),"aria-hidden":!_vm.isOpen,"role":"region"}},[_vm._t("default",null,null,{ isOpen: _vm.isOpen })],2)])],1)};
+  var __vue_render__$c = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:['vts-toggle', { 'vts-toggle--open': _vm.isOpen }, _vm.classes.root]},[_c('button',_vm._g({ref:"label",class:['vts-toggle__label', _vm.classes.label],attrs:{"id":(_vm.id + "-label"),"type":"button","disabled":_vm.disabled,"aria-controls":(_vm.id + "-content"),"aria-expanded":String(_vm.isOpen)},on:{"click":function($event){_vm.isOpen = !_vm.isOpen;}}},_vm.$listeners),[_vm._v("\n    "+_vm._s(_vm.label)+"\n\n    "),_vm._t("label",null,null,{ isOpen: _vm.isOpen })],2),_vm._v(" "),_c('transition',{on:{"before-enter":_vm.collapse,"enter":_vm.expand,"after-enter":_vm.resetHeight,"before-leave":_vm.expand,"leave":_vm.collapse}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.isOpen && !_vm.disabled),expression:"isOpen && !disabled"}],class:['vts-toggle__content', _vm.classes.content],attrs:{"id":(_vm.id + "-content"),"aria-labelledby":(_vm.id + "-label"),"aria-hidden":!_vm.isOpen,"role":"region"}},[_vm._t("default",null,null,{ isOpen: _vm.isOpen })],2)])],1)};
   var __vue_staticRenderFns__$c = [];
 
     /* style */
     var __vue_inject_styles__$i = function (inject) {
       if (!inject) { return }
-      inject("data-v-59f36666_0", { source: ".vts-toggle__content{transition:.3s ease height}", map: undefined, media: undefined });
+      inject("data-v-5e01b881_0", { source: ".vts-toggle__content{transition:.3s ease height}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -4063,7 +4054,7 @@
     /* style */
     var __vue_inject_styles__$j = function (inject) {
       if (!inject) { return }
-      inject("data-v-3dda4054_0", { source: ".vts-tooltip{position:relative}.vts-tooltip__content{position:absolute;top:0;left:50%;transform:translate(-50%,-100%)}.vts-tooltip__content[aria-hidden=true]{display:none}", map: undefined, media: undefined });
+      inject("data-v-613a7ea8_0", { source: ".vts-tooltip{position:relative}.vts-tooltip__content{position:absolute;top:0;left:50%;transform:translate(-50%,-100%)}.vts-tooltip__content[aria-hidden=true]{display:none}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -4114,16 +4105,16 @@
       return !this.stopPropagation;
     },
 
-    render: function render(h) {
+    render: function render() {
       var ref = this;
       var error = ref.error;
       var $scopedSlots = ref.$scopedSlots;
 
       if (error && $scopedSlots.catch) {
-        return safeSlot(h, $scopedSlots.catch(error));
+        return $scopedSlots.catch(error);
       }
 
-      return safeSlot(h, $scopedSlots.default(error));
+      return $scopedSlots.default(error);
     },
   };
 
@@ -4286,6 +4277,15 @@
     plural: plural,
     truncate: truncate
   });
+
+  /**
+   * TODO:
+   * Provide config options for library/components
+   * Finish up rebuilding table
+   * Get rid of auto safe slot (breaking)
+   * Create main.css file
+   * Prop warning messages (img alt, input label)
+   */
 
   /**
    * @typedef {Array<'VAction'|'VAlert'|'VAsync'|'VBtn'|'VDate'|'VDialog'|'VDrawer'|'VDropdown'|'VFile'|'VForm'|'VImg'|'VInput'|'VIntersect'|'VResize'|'VSkip'|'VTable'|'VTabs'|'VToggle'|'VTooltip'|'VTry'>} ComponentsList
