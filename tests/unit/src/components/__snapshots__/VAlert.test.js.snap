@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VAlert Created Renders correctly 1`] = `
+<transition-stub>
+  <div role="alert" class="vts-alert">
+    <!---->
+  </div>
+</transition-stub>
+`;
+
+exports[`VAlert Created Renders correctly without props 1`] = `
+<transition-stub>
+  <div role="alert" class="vts-alert">
+    <!---->
+  </div>
+</transition-stub>
+`;
+
+exports[`VAlert Created Renders without props 1`] = `
+<transition-stub>
+  <div role="alert" class="vts-alert">
+    <!---->
+  </div>
+</transition-stub>
+`;
+
+exports[`VAlert Created renders correctly without props 1`] = `
+<transition-stub>
+  <div role="alert" class="vts-alert">
+    <!---->
+  </div>
+</transition-stub>
+`;
