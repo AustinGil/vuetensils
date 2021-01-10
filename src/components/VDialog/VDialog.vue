@@ -118,12 +118,14 @@ export default {
       window.addEventListener('keydown', onKeydown);
       noScroll && document.body.style.setProperty('overflow', 'hidden');
       this.$nextTick(() => this.$refs.content.focus());
+      this.$emit('open');
     },
     onClose() {
       const { onClick, onKeydown, noScroll } = this;
       window.removeEventListener('click', onClick);
       window.removeEventListener('keydown', onKeydown);
       noScroll && document.body.style.removeProperty('overflow');
+      this.$emit('close');
     },
     onClick(event) {
       if (event.target.classList.contains('vts-dialog') && this.dismissible) {
