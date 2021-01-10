@@ -2,7 +2,7 @@
   "name": "vuetensils",
   "version": "0.7.6",
   "description": "A tasty toolset for Vue.js",
-  "author": "Austin Gil <hey@austingil.com>",
+  "author": "Austin Gil <hey@austingil.com> (https://austingil.com)",
   "license": "MIT",
   "main": "dist/vuetensils.umd.js",
   "module": "dist/vuetensils.esm.js",
