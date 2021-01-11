@@ -21,6 +21,7 @@ module.exports = {
     'plugin:vue/recommended',
     'plugin:jest/recommended',
     'plugin:vuejs-accessibility/recommended',
+    'plugin:jest-dom/recommended'
   ],
   rules: {
     'array-bracket-newline': ['error', { multiline: true }],

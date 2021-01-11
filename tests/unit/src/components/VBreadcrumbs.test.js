@@ -1,6 +1,6 @@
 import { mount, RouterLinkStub } from '@vue/test-utils';
 
-import VBreadcrumbs from '../../../../src/components/VBreadcrumbs/VBreadcrumbs.vue';
+import VBreadcrumbs from '@components/VBreadcrumbs/VBreadcrumbs.vue';
 
 describe('VBreadcrumbs', () => {
   describe('Created', () => {
@@ -35,10 +35,12 @@ describe('VBreadcrumbs', () => {
 
     test('Renders 1 crumb', () => {
       const props = {
-        breadcrumbs: [{
-          text: 'First',
-          path: '/first'
-        }]
+        breadcrumbs: [
+          {
+            text: 'First',
+            path: '/first'
+          }
+        ]
       };
       const wrapper = mount(VBreadcrumbs, wrapperOptions(props));
 
