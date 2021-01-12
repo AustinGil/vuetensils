@@ -39,11 +39,11 @@ export default {
   },
 
   computed: {
-    routeBreadcrumbs() {
-      if (this.breadcrumbs.length) {
+    routeBreadcrumbs({ $route }) {
+      if (this.breadcrumbs['length']) {
         return this.breadcrumbs;
       }
-      if (this.$route.fullPath === '/dashboard') {
+      if ($route['fullPath'] === '/dashboard') {
         return [{ text: 'Home' }];
       }
 
