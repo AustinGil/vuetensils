@@ -5,7 +5,16 @@
       Internal Link
     </v-action>
     <!-- ANCHOR TAG -->
-    <v-action data-testid="external" :data="data">
+    <!-- TEST WONT PASS -->
+    <v-action data-testid="external-data" :data="data">
+      External Link
+    </v-action>
+    <!-- TEST WONT PASS -->
+    <v-action data-testid="external-attrs" :attrs="attrs">
+      External Link
+    </v-action>
+    <!-- TEST WILL PASS -->
+    <v-action data-testid="external-href" :href="attrs.href">
       External Link
     </v-action>
     <!-- BUTTON -->
@@ -16,11 +25,18 @@
 </template>
 
 <script>
-import VAction from '../../../../src/components/VAction/VAction';
+// TURNS OFF ERROR IN CONSOLE for UNIT TEST
+import { RouterLinkStub } from '@vue/test-utils';
+const RouterLink = RouterLinkStub;
+import VAction from '../../../../src/components/VAction/VAction.vue';
 
 export default {
   name: 'VActionStub',
-  components: { VAction },
+  components: { 
+    VAction, 
+    // eslint-disable-next-line vue/no-unused-components
+    RouterLink
+  },
   data() {
     return {
       attrs: {
