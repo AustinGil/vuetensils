@@ -32,6 +32,14 @@ export default {
     if (tag === 'RouterLink') {
       options.nativeOn = listeners;
     }
+    /**
+     * Supress Vue warnings of .native modifiers
+     * Reference comment and issue #9999 on Vuetify
+     * https://github.com/vuetifyjs/vuetify/issues/9999#issuecomment-579434865
+     */
+    if (tag === 'button') {
+      options.nativeOn = null;
+    }
 
     return h(tag, options, children);
   },

@@ -145,3 +145,6 @@ If I want my projects to follow best practices for semantic markup and accessibi
 <!-- TODO: https://dequeuniversity.com/library/ -->
 <!-- TODO: https://github.com/bdryanovski/logchanges -->
 <!-- TODO: https://codepen.io/Stegosource/pen/mdVRKEq OR https://codepen.io/smhigley/pen/JjoKgxb OR https://codepen.io/smhigley/pen/GRgjRVN -->
+<!-- TODO: https://announcer.vue-a11y.com/ -->
+<!-- TODO: https://github.com/marketplace/actions/changelog-ci -->
+<!-- TODO: progamatic modals https://github.com/buefy/buefy/blob/007065e6c51985782725f0f53421f0f9fa193798/src/components/modal/index.js -->

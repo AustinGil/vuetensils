@@ -11,17 +11,12 @@ module.exports = {
   ],
   moduleNameMapper: {
     '^@@/(.*)$': '<rootDir>/tests/unit/$1',
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@components/(.*)$': '<rootDir>/src/components/$1'
   },
-  setupFilesAfterEnv: [
-    '<rootDir>/tests/unit/setup.js'
-  ],
-  snapshotSerializers: [
-    '<rootDir>/node_modules/jest-serializer-vue-tjw'
-  ],
-  testMatch: [
-    '**/tests/unit/**/*.test.js'
-  ],
+  setupFilesAfterEnv: ['<rootDir>/tests/unit/setup.js'],
+  snapshotSerializers: ['<rootDir>/node_modules/jest-serializer-vue-tjw'],
+  testMatch: ['**/tests/unit/**/*.test.js'],
   testURL: 'http://localhost/',
   transform: {
     '^.+\\.js$': '<rootDir>/node_modules/babel-jest',
