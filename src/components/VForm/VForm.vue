@@ -10,6 +10,8 @@
       },
     ]"
     @[event]="onEvent"
+    @submit="onSubmit"
+    @blur.capture.once="dirty = true"
     v-on="$listeners"
   >
     <input
@@ -39,23 +41,25 @@ export default {
   },
 
   data: () => ({
+    /** @return {boolean} */
     dirty: false,
     localInputs: {},
   }),
 
   computed: {
+    /** @return {string} */
     event() {
       return this.lazy ? 'change' : 'input';
     },
-
+    /** @return {boolean} */
     valid() {
       return !Object.values(this.localInputs).find(input => !input.valid);
     },
-
+    /** @return {boolean} */
     error() {
       return !this.valid && this.dirty;
     },
-
+    /** @return {object} */
     inputs() {
       const inputs = {};
       const { localInputs } = this;
@@ -72,6 +76,7 @@ export default {
   },
 
   mounted() {
+    /** @type {HTMLInputElement[]} */
     const els = Array.from(this.$el.querySelectorAll('input, textarea, select'));
 
     const localInputs = {};
@@ -94,11 +99,6 @@ export default {
           pattern: validity.patternMismatch,
         },
       };
-
-      input.addEventListener('blur', this.onBlur, { once: true });
-      this.$once('hook:beforeDestroy', () => {
-        input.removeEventListener('blur', this.onBlur);
-      });
     });
     this.localInputs = localInputs;
   },
@@ -130,6 +130,7 @@ export default {
     },
 
     clear() {
+      /** @type {HTMLInputElement[]} */
       const els = Array.from(
         this.$el.querySelectorAll('input, textarea, select')
       );
@@ -141,6 +142,14 @@ export default {
         }
       });
     },
+
+    onSubmit(event) {
+      if(!event.target.checkValidity()) {
+        this.$emit('invalid', event);
+        return;
+      }
+      this.$emit('valid', event);
+    }
   },
 };
 </script>
