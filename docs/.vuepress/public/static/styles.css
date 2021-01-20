@@ -362,6 +362,14 @@ body .live-preview pre {
   width: 100% !important;
 }
 
+/* Fixes logo being white on white */
+#app .home .hero img {
+  max-height: 300px;
+  background: #C0EAD7;
+  border-radius: 17px;
+  padding: 20px;
+}
+
 /* PA11Y fixes */
 #app a {
   /* #3EAF7C was 2.75 ratio */
