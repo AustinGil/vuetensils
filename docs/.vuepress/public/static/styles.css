@@ -370,6 +370,13 @@ body .live-preview pre {
   padding: 20px;
 }
 
+/* Fixes top left logo proportions */
+#app .navbar .logo {
+  min-width: auto;
+  width: auto;
+  max-width: 2.2rem
+}
+
 /* PA11Y fixes */
 #app a {
   /* #3EAF7C was 2.75 ratio */
