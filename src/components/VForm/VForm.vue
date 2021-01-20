@@ -1,6 +1,5 @@
 <template>
   <form
-    v-bind="$attrs"
     :method="$attrs.method || 'POST'"
     :class="[
       'vts-form',
@@ -19,6 +18,7 @@
       class="visually-hidden"
       tabindex="-1"
       autocomplete="off"
+      aria-hidden="true"
     />
 
     <slot v-bind="{ valid, dirty, error, inputs, clear }" />
