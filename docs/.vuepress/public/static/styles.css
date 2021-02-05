@@ -357,7 +357,10 @@ body .live-preview pre {
 }
 
 
-
+/* vuepress-plugin-live */
+.preview-code .block {
+  width: 100% !important;
+}
 
 /* PA11Y fixes */
 #app a {

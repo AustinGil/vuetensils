@@ -76,9 +76,11 @@
         @blur.once="dirty = true"
         v-on="$listeners"
       >
-        <option v-for="(option, i) in computedOptions" :key="i" v-bind="option">
-          {{ option.label }}
-        </option>
+        <slot name="options">
+          <option v-for="(option, i) in computedOptions" :key="i" v-bind="option">
+            {{ option.label }}
+          </option>
+        </slot>
       </select>
 
       <textarea
