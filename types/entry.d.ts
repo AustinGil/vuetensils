@@ -1,19 +1,19 @@
 declare var _default: {
     /**
      * @param {*} Vue Vue instance
-     * @param {VuetensilsConfig} config Vuetensils configuration
+     * @param {VuetensilsConfig} pluginConfig Vuetensils configuration
      */
-    install(Vue: any, config: VuetensilsConfig): void;
+    install(Vue: any, pluginConfig: VuetensilsConfig): void;
 };
 export default _default;
 export * from "./components";
 export * from "./directives";
 export * from "./filters";
-export type ComponentsList = ("VAction" | "VAlert" | "VAsync" | "VBtn" | "VDate" | "VDialog" | "VDrawer" | "VDropdown" | "VFile" | "VForm" | "VImg" | "VInput" | "VIntersect" | "VResize" | "VSkip" | "VTable" | "VTabs" | "VToggle" | "VTooltip" | "VTry")[];
-export type DirectivesList = ("copy" | "autofocus" | "clickout" | "intersect")[];
-export type FiltersList = ("number" | "currency" | "capitalize" | "placeholder" | "plural" | "truncate")[];
 export type VuetensilsConfig = {
-    components: ("VAction" | "VAlert" | "VAsync" | "VBtn" | "VDate" | "VDialog" | "VDrawer" | "VDropdown" | "VFile" | "VForm" | "VImg" | "VInput" | "VIntersect" | "VResize" | "VSkip" | "VTable" | "VTabs" | "VToggle" | "VTooltip" | "VTry")[];
-    directives: ("copy" | "autofocus" | "clickout" | "intersect")[];
-    filters: ("number" | "currency" | "capitalize" | "placeholder" | "plural" | "truncate")[];
+    components?: Partial<Record<keyof typeof allComponents, Record<string, any> | boolean>>;
+    directives?: Record<keyof typeof allDirectives, Record<string, any> | boolean>;
+    filters?: Record<keyof typeof allFilters, Record<string, any> | boolean>;
 };
+import * as allComponents from "./components";
+import * as allDirectives from "./directives";
+import * as allFilters from "./filters";

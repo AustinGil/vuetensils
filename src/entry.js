@@ -29,30 +29,33 @@ export default {
     if (!pluginConfig) return;
 
     if (pluginConfig.components) {
-      for (const entry of Object.entries(pluginConfig.components)) {
+      Object.entries(pluginConfig.components).forEach(entry => {
         const [key, options] = entry;
         const component = allComponents[key];
+        // @ts-ignore
         const name = typeof options === 'boolean' ? options.name || key : key;
         Vue.component(name, component);
-      }
+      });
     }
 
     if (pluginConfig.directives) {
-      for (const entry of Object.entries(pluginConfig.directives)) {
+      Object.entries(pluginConfig.directives).forEach(entry => {
         const [key, options] = entry;
         const directive = allDirectives[key];
+        // @ts-ignore
         const name = typeof options === 'boolean' ? options.name || key : key;
         Vue.directive(name, directive);
-      }
+      });
     }
 
     if (pluginConfig.filters) {
-      for (const entry of Object.entries(pluginConfig.filters)) {
+      Object.entries(pluginConfig.filters).forEach(entry => {
         const [key, options] = entry;
         const filter = allFilters[key];
+        // @ts-ignore
         const name = typeof options === 'boolean' ? options.name || key : key;
         Vue.filter(name, filter);
-      }
+      });
     }
   }
 };

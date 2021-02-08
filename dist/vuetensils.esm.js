@@ -34,6 +34,14 @@ var script = {
     if (tag === 'RouterLink') {
       options.nativeOn = listeners;
     }
+    /**
+     * Supress Vue warnings of .native modifiers
+     * Reference comment and issue #9999 on Vuetify
+     * https://github.com/vuetifyjs/vuetify/issues/9999#issuecomment-579434865
+     */
+    if (tag === 'button') {
+      options.nativeOn = null;
+    }
 
     return h(tag, options, children);
   },
@@ -567,7 +575,7 @@ var script$3 = {
       options.nativeOn = listeners;
     }
     if (data.attrs.target === '_blank') {
-      options.attrs.rel = options.attrs.rel || 'noopener';
+      options.attrs.rel = 'noopener';
     }
     if (tag === 'button') {
       options.attrs.type = options.attrs.type || 'button';
@@ -791,7 +799,7 @@ var intersect = {
   unbind: unbind,
 };
 
-var directives = /*#__PURE__*/Object.freeze({
+var allDirectives = /*#__PURE__*/Object.freeze({
   __proto__: null,
   autofocus: autofocus,
   clickout: clickout,
@@ -912,6 +920,7 @@ var keysUsed = [
 
 // Based on https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/datepicker-dialog.html
 var script$4 = {
+  name: 'VDate',
   directives: {
     clickout: clickout,
   },
@@ -1307,7 +1316,7 @@ var __vue_staticRenderFns__$1 = [];
   /* style */
   var __vue_inject_styles__$4 = function (inject) {
     if (!inject) { return }
-    inject("data-v-0da59768_0", { source: ".vtd-date{position:relative}.vts-date__navigation{display:flex;justify-content:space-around}", map: undefined, media: undefined });
+    inject("data-v-5e579ca9_0", { source: ".vtd-date{position:relative}.vts-date__navigation{display:flex;justify-content:space-around}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -1559,6 +1568,7 @@ var script$5 = {
           attrs: {
             tabindex: '-1',
             role: 'dialog',
+            'aria-modal': 'true'
           },
         },
         [this.$slots.default]
@@ -1605,7 +1615,7 @@ var __vue_script__$5 = script$5;
   /* style */
   var __vue_inject_styles__$5 = function (inject) {
     if (!inject) { return }
-    inject("data-v-6b785ed0_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
+    inject("data-v-c3e7165a_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -2965,6 +2975,8 @@ var __vue_script__$c = script$c;
  * A modal/dialogue component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the modal until it is closed. It supports being closed by clicking outside the modal content or pressing the ESC key.
  */
 var script$d = {
+  name: 'VModal',
+  
   model: {
     prop: 'showing',
     event: 'change',
@@ -3140,7 +3152,7 @@ var __vue_staticRenderFns__$7 = [];
   /* style */
   var __vue_inject_styles__$d = function (inject) {
     if (!inject) { return }
-    inject("data-v-561abecc_0", { source: ".vts-modal{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.2)}.vts-modal [tabindex=\"-1\"]:focus{outline:0}.vts-modal__content{overflow:auto;max-width:70vw;max-height:80vh;background:#fff}", map: undefined, media: undefined });
+    inject("data-v-e968daac_0", { source: ".vts-modal{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.2)}.vts-modal [tabindex=\"-1\"]:focus{outline:0}.vts-modal__content{overflow:auto;max-width:70vw;max-height:80vh;background:#fff}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -4167,7 +4179,7 @@ var __vue_script__$k = script$k;
     undefined
   );
 
-var components = /*#__PURE__*/Object.freeze({
+var allComponents = /*#__PURE__*/Object.freeze({
   __proto__: null,
   VAction: __vue_component__,
   VAlert: __vue_component__$1,
@@ -4283,7 +4295,7 @@ function truncate(str, length, append) {
  * mask?
  */
 
-var filters = /*#__PURE__*/Object.freeze({
+var allFilters = /*#__PURE__*/Object.freeze({
   __proto__: null,
   capitalize: capitalize,
   currency: currency,
@@ -4303,14 +4315,10 @@ var filters = /*#__PURE__*/Object.freeze({
  */
 
 /**
- * @typedef {Array<'VAction'|'VAlert'|'VAsync'|'VBtn'|'VDate'|'VDialog'|'VDrawer'|'VDropdown'|'VFile'|'VForm'|'VImg'|'VInput'|'VIntersect'|'VResize'|'VSkip'|'VTable'|'VTabs'|'VToggle'|'VTooltip'|'VTry'>} ComponentsList
- * @typedef {Array<'autofocus'|'clickout'|'copy'|'intersect'>} DirectivesList
- * @typedef {Array<'capitalize'|'currency'|'number'|'placeholder'|'plural'|'truncate'>} FiltersList
- *
  * @typedef {{
- * components: ComponentsList,
- * directives: DirectivesList,
- * filters: FiltersList
+ * components?: Partial<Record<keyof allComponents, Record<string, any> | boolean>>,
+ * directives?: Record<keyof allDirectives, Record<string, any> | boolean>,
+ * filters?: Record<keyof allFilters, Record<string, any> | boolean>
  * }} VuetensilsConfig
  */
 
@@ -4318,26 +4326,41 @@ var filters = /*#__PURE__*/Object.freeze({
 var entry = {
   /**
    * @param {*} Vue Vue instance
-   * @param {VuetensilsConfig} config Vuetensils configuration
+   * @param {VuetensilsConfig} pluginConfig Vuetensils configuration
    */
-  install: function install(Vue, config) {
-    if (!config) { return; }
+  install: function install(Vue, pluginConfig) {
+    if (!pluginConfig) { return; }
 
-    if (config.components) {
-      config.components.forEach(function (item) {
-        Vue.component(item, components[item]);
+    if (pluginConfig.components) {
+      Object.entries(pluginConfig.components).forEach(function (entry) {
+        var key = entry[0];
+        var options = entry[1];
+        var component = allComponents[key];
+        // @ts-ignore
+        var name = typeof options === 'boolean' ? options.name || key : key;
+        Vue.component(name, component);
       });
     }
 
-    if (config.directives) {
-      config.directives.forEach(function (item) {
-        Vue.directive(item, directives[item]);
+    if (pluginConfig.directives) {
+      Object.entries(pluginConfig.directives).forEach(function (entry) {
+        var key = entry[0];
+        var options = entry[1];
+        var directive = allDirectives[key];
+        // @ts-ignore
+        var name = typeof options === 'boolean' ? options.name || key : key;
+        Vue.directive(name, directive);
       });
     }
 
-    if (config.filters) {
-      config.filters.forEach(function (item) {
-        Vue.filter(item, filters[item]);
+    if (pluginConfig.filters) {
+      Object.entries(pluginConfig.filters).forEach(function (entry) {
+        var key = entry[0];
+        var options = entry[1];
+        var filter = allFilters[key];
+        // @ts-ignore
+        var name = typeof options === 'boolean' ? options.name || key : key;
+        Vue.filter(name, filter);
       });
     }
   }
