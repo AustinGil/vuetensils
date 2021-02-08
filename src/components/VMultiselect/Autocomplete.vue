@@ -77,6 +77,7 @@
 // import { mixin as clickaway } from "vue-clickaway"
 
 export default {
+  name: 'VMultiselect',
   // mixins: [clickaway],
   props: {
     value: {
