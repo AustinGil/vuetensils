@@ -212,6 +212,7 @@ export default {
           attrs: {
             tabindex: '-1',
             role: 'dialog',
+            'aria-modal': 'true'
           },
         },
         [this.$slots.default]

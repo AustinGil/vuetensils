@@ -1,6 +1,6 @@
-import * as components from './components/index';
-import * as directives from './directives/index';
-import * as filters from './filters/index';
+import * as allComponents from './components/index';
+import * as allDirectives from './directives/index';
+import * as allFilters from './filters/index';
 
 /**
  * TODO:
@@ -12,14 +12,10 @@ import * as filters from './filters/index';
  */
 
 /**
- * @typedef {Array<'VAction'|'VAlert'|'VAsync'|'VBtn'|'VDate'|'VDialog'|'VDrawer'|'VDropdown'|'VFile'|'VForm'|'VImg'|'VInput'|'VIntersect'|'VResize'|'VSkip'|'VTable'|'VTabs'|'VToggle'|'VTooltip'|'VTry'>} ComponentsList
- * @typedef {Array<'autofocus'|'clickout'|'copy'|'intersect'>} DirectivesList
- * @typedef {Array<'capitalize'|'currency'|'number'|'placeholder'|'plural'|'truncate'>} FiltersList
- *
  * @typedef {{
- * components: ComponentsList,
- * directives: DirectivesList,
- * filters: FiltersList
+ * components?: Partial<Record<keyof allComponents, Record<string, any> | boolean>>,
+ * directives?: Record<keyof allDirectives, Record<string, any> | boolean>,
+ * filters?: Record<keyof allFilters, Record<string, any> | boolean>
  * }} VuetensilsConfig
  */
 
@@ -27,27 +23,36 @@ import * as filters from './filters/index';
 export default {
   /**
    * @param {*} Vue Vue instance
-   * @param {VuetensilsConfig} config Vuetensils configuration
+   * @param {VuetensilsConfig} pluginConfig Vuetensils configuration
    */
-  install(Vue, config) {
-    if (!config) return;
+  install(Vue, pluginConfig) {
+    if (!pluginConfig) return;
 
-    if (config.components) {
-      config.components.forEach(item => {
-        Vue.component(item, components[item]);
-      });
+    if (pluginConfig.components) {
+      for (const entry of Object.entries(pluginConfig.components)) {
+        const [key, options] = entry;
+        const component = allComponents[key];
+        const name = typeof options === 'boolean' ? options.name || key : key;
+        Vue.component(name, component);
+      }
     }
 
-    if (config.directives) {
-      config.directives.forEach(item => {
-        Vue.directive(item, directives[item]);
-      });
+    if (pluginConfig.directives) {
+      for (const entry of Object.entries(pluginConfig.directives)) {
+        const [key, options] = entry;
+        const directive = allDirectives[key];
+        const name = typeof options === 'boolean' ? options.name || key : key;
+        Vue.directive(name, directive);
+      }
     }
 
-    if (config.filters) {
-      config.filters.forEach(item => {
-        Vue.filter(item, filters[item]);
-      });
+    if (pluginConfig.filters) {
+      for (const entry of Object.entries(pluginConfig.filters)) {
+        const [key, options] = entry;
+        const filter = allFilters[key];
+        const name = typeof options === 'boolean' ? options.name || key : key;
+        Vue.filter(name, filter);
+      }
     }
   }
 };

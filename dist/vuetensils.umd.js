@@ -573,7 +573,7 @@
         options.nativeOn = listeners;
       }
       if (data.attrs.target === '_blank') {
-        options.attrs.rel = 'noopener';
+        options.attrs.rel = options.attrs.rel || 'noopener';
       }
       if (tag === 'button') {
         options.attrs.type = options.attrs.type || 'button';

@@ -31,6 +31,8 @@ import FOCUSABLE from '../../data/focusable';
  * A modal/dialogue component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the modal until it is closed. It supports being closed by clicking outside the modal content or pressing the ESC key.
  */
 export default {
+  name: 'VModal',
+  
   model: {
     prop: 'showing',
     event: 'change',

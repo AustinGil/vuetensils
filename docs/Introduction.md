@@ -12,7 +12,7 @@ Links:
 - [Docs](https://vuetensils.stegosource.com/)
 - [NPM](https://www.npmjs.com/package/vuetensils)
 - [GitHub](https://github.com/AustinGil/vuetensils)
-- [Updates](https://3bb5fb5a.sibforms.com/serve/MUIEAAOwgrWtf43Lfv80ES_hibAhazPDEy4w9IxRIda1b8g1GNnmHYkDfvIKG-Ox35EtWkJfMyCMBTQ3nG2msGhc3WnHa7XKfkgBzYdL3ASbIEckbn47QtJDIvpOskWQuRIXYI-7dVuM5F25yKdcJch7VN8aAbrpEn8_PMXWpqENTJ6r9bOZgHj6vnAQwHDsdwXDOZIonAP3x3vx)
+- [Updates](https://austingil.com/newsletter)
 
 ## Naked Components
 
@@ -78,11 +78,11 @@ export default {
 ```
 
 ## Projects Using Vuetensils
-* [https://www.round.com.au/](https://www.round.com.au/)
-* [https://perxapp.com/](https://perxapp.com/)
-* [https://revealbio.com/](https://revealbio.com/)
-* [https://app.matryx.ai/tournaments](https://app.matryx.ai/tournaments)
-* [https://www.lindsaykwardell.com/](https://www.lindsaykwardell.com/)
+* https://www.round.com.au
+* https://perxapp.com
+* https://revealbio.com
+* https://app.matryx.ai/tournaments
+* https://www.lindsaykwardell.com
 
 ## Inspiration
 
@@ -110,26 +110,6 @@ If I want my projects to follow best practices for semantic markup and accessibi
 - ✅ I only include the components I'm actually going to use.
 - ✅ My components will be accessible and semantic.
 - ✅ The bundle size will stay as small as possible.
-
-### Roadmap
-
-- Better a11y range input
-- lazyload directive
-- Tooltip
-- Schema/semantic ratings
-- a11y datetime picker
-- schema/semantic Breadcrumbs
-- finish Datatable
-- Better SSR support
-- `functional` components
-- Add type export for intellisense
-- Add VLink component
-  <!-- https://github.com/chrisvfritz/vue-enterprise-boilerplate/blob/master/src/components/_base-link.vue -->
-- Add active class option to VTabs
-- VToggle support a toggle slot with v-bind and v-on
-- VToggle support for accordion
-- VInput default scoped slot with bindings and listeners for label, input, and description.
-- VTry component for error boundaries
 
 <!-- TODO: change exports to raw source -->
 <!-- Calculator? https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output -->

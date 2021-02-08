@@ -193,6 +193,7 @@ const keysUsed = [
 
 // Based on https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/datepicker-dialog.html
 export default {
+  name: 'VDate',
   directives: {
     clickout,
   },
