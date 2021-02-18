@@ -447,7 +447,7 @@ export default {
 </script>
 
 <style>
-.vts-table {
+/* .vts-table {
   overflow: auto;
   max-width: 100%;
   background: linear-gradient(to right, white 30%, rgba(255, 255, 255, 0)),
@@ -468,10 +468,10 @@ export default {
   background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
   background-position: 0 0, 100%, 0 0, 100%;
   background-attachment: local, local, scroll, scroll;
-}
+} */
 .vts-table table {
   table-layout: fixed;
-  background: transparent;
+  /* background: transparent; */
 }
 .vts-table__pagination,
 .vts-table__pages {
