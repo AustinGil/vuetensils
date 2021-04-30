@@ -204,7 +204,7 @@
 </template>
 
 <script>
-import { randomString } from '@/utils/string-utils';
+import { randomString } from '../../utils.js';
 
 /**
  * @typedef {{ key: string, text: string, sortable: boolean, sort: (a, b, isAscending: boolean) => number }} Header

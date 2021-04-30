@@ -6,9 +6,9 @@ import Vuetensils from "../../src/entry"
 
 export default ({ Vue, options, router, siteData }) => {
   Vue.use(Vuetensils, {
-    components: Object.keys(components),
-    directives: Object.keys(directives),
-    filters: Object.keys(filters),
+    components: components,
+    directives: directives,
+    filters: filters,
   })
 }
 

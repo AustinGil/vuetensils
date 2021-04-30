@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@/utils/string-utils')) :
-  typeof define === 'function' && define.amd ? define(['exports', '@/utils/string-utils'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.Vuetensils = {}, global.stringUtils));
-}(this, (function (exports, stringUtils) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+  typeof define === 'function' && define.amd ? define(['exports'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.Vuetensils = {}));
+}(this, (function (exports) { 'use strict';
 
   /**
    * Detects if a VDOM element is a <RouterLink>, <a>, or <button>
@@ -3397,7 +3397,7 @@
       },
       id: {
         type: String,
-        default: 'vts-' + stringUtils.randomString(4),
+        default: 'vts-' + randomString(4),
       },
       caption: {
         type: String,
@@ -3640,7 +3640,7 @@
     /* style */
     var __vue_inject_styles__$g = function (inject) {
       if (!inject) { return }
-      inject("data-v-e7c64394_0", { source: ".vts-table table{table-layout:fixed}.vts-table__pages,.vts-table__pagination{display:flex}", map: undefined, media: undefined });
+      inject("data-v-1557de72_0", { source: ".vts-table table{table-layout:fixed}.vts-table__pages,.vts-table__pagination{display:flex}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -4303,7 +4303,14 @@
     install: function install(Vue, pluginConfig) {
       if ( pluginConfig === void 0 ) pluginConfig = {};
 
+      console.log(pluginConfig.components);
       if (pluginConfig.components) {
+        if(Array.isArray(pluginConfig.components)) {
+          pluginConfig.components = pluginConfig.components.reduce(function (config, key) {
+            config[key] = true;
+            return config;
+          }, {});
+        }
         Object.entries(pluginConfig.components).forEach(function (entry) {
           var key = entry[0];
           var options = entry[1];
@@ -4315,6 +4322,12 @@
       }
 
       if (pluginConfig.directives) {
+        if(Array.isArray(pluginConfig.directives)) {
+          pluginConfig.directives = pluginConfig.directives.reduce(function (config, key) {
+            config[key] = true;
+            return config;
+          }, {});
+        }
         Object.entries(pluginConfig.directives).forEach(function (entry) {
           var key = entry[0];
           var directive = allDirectives[key];
@@ -4323,6 +4336,12 @@
       }
 
       if (pluginConfig.filters) {
+        if(Array.isArray(pluginConfig.filters)) {
+          pluginConfig.filters = pluginConfig.filters.reduce(function (config, key) {
+            config[key] = true;
+            return config;
+          }, {});
+        }
         Object.entries(pluginConfig.filters).forEach(function (entry) {
           var key = entry[0];
           var filter = allFilters[key];

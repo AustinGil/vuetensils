@@ -26,7 +26,14 @@ export default {
    * @param {VuetensilsConfig} [pluginConfig] Vuetensils configuration
    */
   install(Vue, pluginConfig = {}) {
+    console.log(pluginConfig.components);
     if (pluginConfig.components) {
+      if(Array.isArray(pluginConfig.components)) {
+        pluginConfig.components = pluginConfig.components.reduce((config, key) => {
+          config[key] = true;
+          return config;
+        }, {});
+      }
       Object.entries(pluginConfig.components).forEach(entry => {
         const [key, options] = entry;
         const component = allComponents[key];
@@ -37,6 +44,12 @@ export default {
     }
 
     if (pluginConfig.directives) {
+      if(Array.isArray(pluginConfig.directives)) {
+        pluginConfig.directives = pluginConfig.directives.reduce((config, key) => {
+          config[key] = true;
+          return config;
+        }, {});
+      }
       Object.entries(pluginConfig.directives).forEach(entry => {
         const [key] = entry;
         const directive = allDirectives[key];
@@ -45,6 +58,12 @@ export default {
     }
 
     if (pluginConfig.filters) {
+      if(Array.isArray(pluginConfig.filters)) {
+        pluginConfig.filters = pluginConfig.filters.reduce((config, key) => {
+          config[key] = true;
+          return config;
+        }, {});
+      }
       Object.entries(pluginConfig.filters).forEach(entry => {
         const [key] = entry;
         const filter = allFilters[key];

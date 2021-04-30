@@ -1,5 +1,3 @@
-import { randomString as randomString$1 } from '@/utils/string-utils';
-
 /**
  * Detects if a VDOM element is a <RouterLink>, <a>, or <button>
  *
@@ -3393,7 +3391,7 @@ var script$g = {
     },
     id: {
       type: String,
-      default: 'vts-' + randomString$1(4),
+      default: 'vts-' + randomString(4),
     },
     caption: {
       type: String,
@@ -3636,7 +3634,7 @@ var __vue_staticRenderFns__$a = [];
   /* style */
   var __vue_inject_styles__$g = function (inject) {
     if (!inject) { return }
-    inject("data-v-e7c64394_0", { source: ".vts-table table{table-layout:fixed}.vts-table__pages,.vts-table__pagination{display:flex}", map: undefined, media: undefined });
+    inject("data-v-1557de72_0", { source: ".vts-table table{table-layout:fixed}.vts-table__pages,.vts-table__pagination{display:flex}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -4299,7 +4297,14 @@ var entry = {
   install: function install(Vue, pluginConfig) {
     if ( pluginConfig === void 0 ) pluginConfig = {};
 
+    console.log(pluginConfig.components);
     if (pluginConfig.components) {
+      if(Array.isArray(pluginConfig.components)) {
+        pluginConfig.components = pluginConfig.components.reduce(function (config, key) {
+          config[key] = true;
+          return config;
+        }, {});
+      }
       Object.entries(pluginConfig.components).forEach(function (entry) {
         var key = entry[0];
         var options = entry[1];
@@ -4311,6 +4316,12 @@ var entry = {
     }
 
     if (pluginConfig.directives) {
+      if(Array.isArray(pluginConfig.directives)) {
+        pluginConfig.directives = pluginConfig.directives.reduce(function (config, key) {
+          config[key] = true;
+          return config;
+        }, {});
+      }
       Object.entries(pluginConfig.directives).forEach(function (entry) {
         var key = entry[0];
         var directive = allDirectives[key];
@@ -4319,6 +4330,12 @@ var entry = {
     }
 
     if (pluginConfig.filters) {
+      if(Array.isArray(pluginConfig.filters)) {
+        pluginConfig.filters = pluginConfig.filters.reduce(function (config, key) {
+          config[key] = true;
+          return config;
+        }, {});
+      }
       Object.entries(pluginConfig.filters).forEach(function (entry) {
         var key = entry[0];
         var filter = allFilters[key];
