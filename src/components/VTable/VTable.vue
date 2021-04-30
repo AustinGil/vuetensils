@@ -267,7 +267,7 @@ export default {
   data() {
     return {
       localSortBy: this.sortBy,
-      localSortDirection: this.sortDirection?.toUpperCase(),
+      localSortDirection: this.sortDirection ? this.sortDirection.toUpperCase() : '',
       localPage: Number(this.page),
       localPerPage: Number(this.perPage),
       // tabindex: null,
@@ -280,7 +280,7 @@ export default {
       const { headers, sortable, localSortBy, localSortDirection } = this;
       const computedHeaders = [];
 
-      for (const header of headers) {
+      headers.forEach(header => {
         /** @type {ComputedHeader} */
         const computedHeader = {
           ...header,
@@ -306,7 +306,7 @@ export default {
         }
 
         computedHeaders.push(computedHeader);
-      }
+      });
       return computedHeaders;
     },
 
@@ -363,7 +363,7 @@ export default {
     },
     /** @param {string} value */
     sortDirection(value) {
-      this.localSortDirection = value?.toUpperCase();
+      this.localSortDirection = value && value.toUpperCase() || '';
     },
     localSortDirection(value) {
       this.$emit('update:sort-direction', value);

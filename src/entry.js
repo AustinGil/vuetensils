@@ -1,6 +1,6 @@
-import * as allComponents from './components/index';
-import * as allDirectives from './directives/index';
-import * as allFilters from './filters/index';
+import * as allComponents from './components/index.js';
+import * as allDirectives from './directives/index.js';
+import * as allFilters from './filters/index.js';
 
 /**
  * TODO:
@@ -23,11 +23,9 @@ import * as allFilters from './filters/index';
 export default {
   /**
    * @param {*} Vue Vue instance
-   * @param {VuetensilsConfig} pluginConfig Vuetensils configuration
+   * @param {VuetensilsConfig} [pluginConfig] Vuetensils configuration
    */
-  install(Vue, pluginConfig) {
-    if (!pluginConfig) return;
-
+  install(Vue, pluginConfig = {}) {
     if (pluginConfig.components) {
       Object.entries(pluginConfig.components).forEach(entry => {
         const [key, options] = entry;
@@ -40,26 +38,23 @@ export default {
 
     if (pluginConfig.directives) {
       Object.entries(pluginConfig.directives).forEach(entry => {
-        const [key, options] = entry;
+        const [key] = entry;
         const directive = allDirectives[key];
-        // @ts-ignore
-        const name = typeof options === 'boolean' ? options.name || key : key;
-        Vue.directive(name, directive);
+        Vue.directive(key, directive);
       });
     }
 
     if (pluginConfig.filters) {
       Object.entries(pluginConfig.filters).forEach(entry => {
-        const [key, options] = entry;
+        const [key] = entry;
         const filter = allFilters[key];
-        // @ts-ignore
-        const name = typeof options === 'boolean' ? options.name || key : key;
-        Vue.filter(name, filter);
+        Vue.filter(key, filter);
       });
     }
   }
 };
 
-export * from './components/index';
-export * from './directives/index';
-export * from './filters/index';
+export * from './components/index.js';
+// export * from './composables/index.js';
+export * from './directives/index.js';
+export * from './filters/index.js';
