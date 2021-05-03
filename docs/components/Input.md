@@ -80,7 +80,7 @@ export default {
       </template>
     </VInput>
 
-    <button type="submit" :disabled="!form.valid">
+    <button type="submit">
       Submit
     </button>
   </form>
@@ -173,7 +173,7 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
       multiple
     />
     <pre>{{ selected }}</pre>
-    <button type="submit" :disabled="!form.valid">
+    <button type="submit">
       Submit
     </button>
   </form>
