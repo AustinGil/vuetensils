@@ -26,7 +26,6 @@ export default {
    * @param {VuetensilsConfig} [pluginConfig] Vuetensils configuration
    */
   install(Vue, pluginConfig = {}) {
-    console.log(pluginConfig.components);
     if (pluginConfig.components) {
       if(Array.isArray(pluginConfig.components)) {
         pluginConfig.components = pluginConfig.components.reduce((config, key) => {

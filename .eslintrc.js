@@ -78,6 +78,7 @@ module.exports = {
         definedTags: ['model', 'slot'],
       },
     ],
+    'jsdoc/require-returns-description': 'off',
 
     'vue/no-textarea-mustache': 'off',
     'vue/html-self-closing': [

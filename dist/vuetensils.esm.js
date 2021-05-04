@@ -843,22 +843,6 @@ function randomString(
 }
 
 /**
- * Tells you if a given value matches the type you pass.
- *
- * @param {any} v The value to get the type of
- * @param {string} type The type you are asserting against
- * @return {boolean} Whether the given input matches the type passed
- */
-function isType (v, type) {
-  return (
-    Object.prototype.toString
-      .call(v)
-      .slice(8, -1)
-      .toLowerCase() === type.toLowerCase()
-  );
-}
-
-/**
  * [applyFocusTrap description]
  *
  * @param  {HTMLElement} el    [description]
@@ -2195,6 +2179,34 @@ var __vue_staticRenderFns__$3 = [];
   );
 
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var script$9 = {
   name: 'VForm',
@@ -2207,7 +2219,6 @@ var script$9 = {
   },
 
   data: function () { return ({
-    /** @return {boolean} */
     dirty: false,
     localInputs: {},
   }); },
@@ -2241,54 +2252,47 @@ var script$9 = {
   },
 
   mounted: function mounted() {
-    /** @type {HTMLInputElement[]} */
-    var els = Array.from(this.$el.querySelectorAll('input, textarea, select'));
-
-    var localInputs = {};
-
-    els.forEach(function (input) {
-      var name = input.name || randomString(6);
-      var validity = input.validity;
-
-      localInputs[name] = {
-        value: input.value,
-        valid: input.validity.valid,
-        dirty: false,
-        invalid: {
-          type: validity.typeMismatch,
-          required: validity.valueMissing,
-          minlength: validity.tooShort,
-          maxlength: validity.tooLong,
-          min: validity.rangeOverflow,
-          max: validity.rangeUnderflow,
-          pattern: validity.patternMismatch,
-        },
-      };
+    this.validate();
+    var observer = new MutationObserver(this.validate);
+    observer.observe(this.$el, {
+      childList: true,
+      subtree: true 
     });
-    this.localInputs = localInputs;
+    this.$once('hook:beforeDestroy', function () {
+      observer.disconnect();
+    });
   },
 
   methods: {
-    onEvent: function onEvent(ref) {
-      var target = ref.target;
+    validate: function validate() {
+      /** @type {HTMLInputElement[]} */
+      var els = Array.from(this.$el.querySelectorAll('input, textarea, select'));
 
-      var ref$1 = this;
-      var localInputs = ref$1.localInputs;
-      var validity = target.validity;
+      var localInputs = {};
 
-      localInputs[target.name] = Object.assign({}, localInputs[target.name],
-        {value: target.value,
-        valid: target.validity.valid,
-        invalid: {
-          type: validity.typeMismatch,
-          required: validity.valueMissing,
-          minlength: validity.tooShort,
-          maxlength: validity.tooLong,
-          min: validity.rangeOverflow,
-          max: validity.rangeUnderflow,
-          pattern: validity.patternMismatch,
-        }});
-      this.localInputs = localInputs;
+      els.forEach(function (input) {
+        var name = input.name;
+        var id = input.id;
+        var validity = input.validity;
+        if (!name && !id) { return; }
+
+        localInputs[name || id] = {
+          value: input.value,
+          valid: validity.valid,
+          dirty: false,
+          invalid: {
+            type: validity.typeMismatch,
+            required: validity.valueMissing,
+            minlength: validity.tooShort,
+            maxlength: validity.tooLong,
+            min: validity.rangeOverflow,
+            max: validity.rangeUnderflow,
+            pattern: validity.patternMismatch,
+          },
+        };
+
+      });
+      this.localInputs = localInputs;      
     },
     onBlur: function onBlur(ref) {
       var target = ref.target;
@@ -2331,13 +2335,13 @@ var __vue_render__$4 = function () {var _vm=this;var _h=_vm.$createElement;var _
       'vts-form--invalid': !_vm.valid,
       'vts-form--dirty': _vm.dirty,
       'vts-form--error': _vm.error,
-    } ],attrs:{"method":_vm.$attrs.method || 'POST'},on:_vm._d({"submit":_vm.onSubmit,"~!blur":function($event){_vm.dirty = true;}},[_vm.event,_vm.onEvent])},_vm.$listeners),[(_vm.honeypot)?_c('input',{staticClass:"visually-hidden",attrs:{"name":typeof _vm.honeypot === 'string' ? _vm.honeypot : 'vts-honeypot',"tabindex":"-1","autocomplete":"off","aria-hidden":"true"}}):_vm._e(),_vm._v(" "),_vm._t("default",null,null,{ valid: _vm.valid, dirty: _vm.dirty, error: _vm.error, inputs: _vm.inputs, clear: _vm.clear })],2)};
+    } ],attrs:{"method":_vm.$attrs.method || 'POST'},on:_vm._d({"submit":_vm.onSubmit,"~!blur":function($event){_vm.dirty = true;}},[_vm.event,_vm.validate])},_vm.$listeners),[(_vm.honeypot)?_c('input',{staticClass:"visually-hidden",attrs:{"name":typeof _vm.honeypot === 'string' ? _vm.honeypot : 'vts-honeypot',"tabindex":"-1","autocomplete":"off","aria-hidden":"true"}}):_vm._e(),_vm._v(" "),_vm._t("default",null,null,{ valid: _vm.valid, dirty: _vm.dirty, error: _vm.error, inputs: _vm.inputs, clear: _vm.clear, validate: _vm.validate })],2)};
 var __vue_staticRenderFns__$4 = [];
 
   /* style */
   var __vue_inject_styles__$9 = function (inject) {
     if (!inject) { return }
-    inject("data-v-7096be6d_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);width:1px;height:1px;margin:-1px;border:0;padding:0}", map: undefined, media: undefined });
+    inject("data-v-2bcc29f8_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);width:1px;height:1px;margin:-1px;border:0;padding:0}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -2699,33 +2703,6 @@ var script$b = {
 
     error: function error() {
       return !this.valid && this.dirty;
-    },
-
-    errorMessages: function errorMessages() {
-      var ref = this;
-      var errors = ref.errors;
-      var invalid = ref.invalid;
-      var $attrs = ref.$attrs;
-      if (!errors || !isType(errors, 'object')) { return false; }
-
-      var messages = {};
-
-      [
-        'type',
-        'required',
-        'minlength',
-        'maxlength',
-        'min',
-        'max',
-        'pattern' ].forEach(function (attr) {
-        if (invalid[attr] && errors[attr]) {
-          messages[attr] = isType(errors[attr], 'function')
-            ? errors[attr]($attrs[attr])
-            : errors[attr];
-        }
-      });
-
-      return Object.keys(messages).length ? messages : undefined;
     },
   },
 
@@ -3364,6 +3341,7 @@ var script$g = {
       type: Array,
       default: function () { return []; },
     },
+    /** @type {import('vue').PropOptions<Object[]>} */
     items: {
       type: Array,
       default: function () { return []; },
@@ -3374,7 +3352,7 @@ var script$g = {
     },
     perPage: {
       type: [Number, String],
-      default: 100,
+      default: -1,
     },
     sortBy: {
       type: String,
@@ -3471,7 +3449,6 @@ var script$g = {
           return header.key === localSortBy;
         });
 
-        /** @type {(a, b, isAscending: boolean) => number} */
         var compareFn = this.defaultComparisonFn;
         if (typeof targetColumn.sort === 'function') {
           compareFn = targetColumn.sort;
@@ -3537,16 +3514,17 @@ var script$g = {
     /**
      * @param a
      * @param b
+     * @param {boolean} isAscending
      * @return {number}
      */
-    defaultComparisonFn: function defaultComparisonFn(a, b) {
+    defaultComparisonFn: function defaultComparisonFn(a, b, isAscending) {
       var ref = this;
       var localSortBy = ref.localSortBy;
-      var localSortDirection = ref.localSortDirection;
-      var multiplier = localSortDirection === 'ASC' ? 1 : -1;
+      var multiplier = isAscending ? 1 : -1;
 
       var aVal = a[localSortBy];
       var bVal = b[localSortBy];
+
       var isNumeric = Number.isFinite(aVal) && Number.isFinite(bVal);
 
       if (isNumeric) {
@@ -3597,32 +3575,42 @@ var script$g = {
 var __vue_script__$g = script$g;
 
 /* template */
-var __vue_render__$a = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"container",class:['vts-table', { 'vts-table--sortable': _vm.sortable }, _vm.classes.root],attrs:{"role":"region","aria-labelledby":"caption"}},[_c('table',{class:[_vm.classes.table]},[(_vm.caption)?_c('caption',{class:[_vm.classes.caption],attrs:{"id":(_vm.id + "__caption")}},[_vm._v("\n      "+_vm._s(_vm.caption)+"\n    ")]):_vm._e(),_vm._v(" "),(_vm.computedHeaders.length)?_c('thead',{class:[_vm.classes.thead]},[_c('tr',{class:[_vm.classes.tr]},_vm._l((_vm.computedHeaders),function(header,index){return _c('th',_vm._b({key:header.key,class:[_vm.classes.th]},'th',header.bind,false),[_vm._t(("header." + (header.key)),[_vm._v("\n            "+_vm._s(header.text)+"\n\n            "),(header.sortable)?[(
-                  header.key === _vm.localSortBy && _vm.localSortDirection === 'ASC'
-                )?_vm._t("sort-asc",[_c('button',_vm._g(_vm._b({class:[
-                    'vts-table__sort-btn',
-                    'vts-table__sort-btn--asc',
-                    _vm.classes.sortBtn ]},'button',header.sortBtn.bind,false),header.sortBtn.on),[_vm._v("\n                  ↑\n                ")])],null,header.sortBtn):(
-                  header.key === _vm.localSortBy && _vm.localSortDirection === 'DESC'
-                )?_vm._t("sort-desc",[_c('button',_vm._g(_vm._b({class:[
-                    'vts-table__sort-btn',
-                    'vts-table__sort-btn--desc',
-                    _vm.classes.sortBtn ]},'button',header.sortBtn.bind,false),header.sortBtn.on),[_vm._v("\n                  ↓\n                ")])],null,header.sortBtn):_vm._t("sort-none",[_c('button',_vm._g(_vm._b({class:['vts-table__sort-btn', _vm.classes.sortBtn]},'button',header.sortBtn.bind,false),header.sortBtn.on),[_vm._v("\n                  ↕\n                ")])],null,header.sortBtn)]:_vm._e()],null,{
-              header: header,
-              index: index,
-            })],2)}),0)]):_vm._e(),_vm._v(" "),_c('tbody',{class:[_vm.classes.tbody]},[_vm._t("default",_vm._l((_vm.computedItems),function(item,index){return _c('tr',{key:item.id,class:['vts-table__row', _vm.classes.tr]},[_vm._l((item),function(value,key){return _vm._t(item[key] ? ("item." + key) : null,[_c('td',{key:key,class:[_vm.classes.td]},[_vm._t(("column." + key),[_vm._v("\n                "+_vm._s(value)+"\n              ")],null,{
-                  cell: value,
-                  item: item,
-                  column: key,
-                  index: index,
-                })],2)],null,{ value: value, item: item, column: key, index: index, row: index + 1 })})],2)}),null,{
-          headers: _vm.computedHeaders,
-          items: _vm.computedItems,
-          sortBy: _vm.localSortBy,
-          sortDirection: _vm.localSortDirection,
-          page: _vm.localPage,
-          perPage: _vm.localPerPage,
-        })],2),_vm._v(" "),(_vm.$slots.tfoot)?_c('tfoot',{class:[_vm.classes.tfoot]},[_vm._t("tfoot")],2):_vm._e()]),_vm._v(" "),_vm._t("pagination",[(_vm.lastPage > 1)?_c('div',{class:['vts-table__pagination', _vm.classes.pagination]},[_c('button',{class:['vts-table__prev', _vm.classes.previous],attrs:{"disabled":_vm.localPage === 1,"aria-label":"go to previous page"},on:{"click":function($event){return _vm.goToPage(_vm.localPage - 1)}}},[_vm._v("\n        Prev\n      ")]),_vm._v(" "),_c('ul',{class:['vts-table__pages', _vm.classes.pageList]},_vm._l((_vm.lastPage),function(pageNum){return _c('li',{key:pageNum,class:[
+var __vue_render__$a = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"container",class:['vts-table', { 'vts-table--sortable': _vm.sortable }, _vm.classes.root],attrs:{"role":"region","aria-labelledby":"caption"}},[_c('table',{class:[_vm.classes.table]},[_vm._t("default",[(_vm.caption)?_c('caption',{class:[_vm.classes.caption],attrs:{"id":(_vm.id + "__caption")}},[_vm._v("\n        "+_vm._s(_vm.caption)+"\n      ")]):_vm._e(),_vm._v(" "),(_vm.computedHeaders.length)?_c('thead',{class:[_vm.classes.thead]},[_c('tr',{class:[_vm.classes.tr]},_vm._l((_vm.computedHeaders),function(header,index){return _c('th',_vm._b({key:header.key,class:[_vm.classes.th]},'th',header.bind,false),[_vm._t(("header." + (header.key)),[_vm._v("\n              "+_vm._s(header.text || header.key)+"\n\n              "),(header.sortable)?[(
+                    header.key === _vm.localSortBy && _vm.localSortDirection === 'ASC'
+                  )?_vm._t("sort-asc",[_c('button',_vm._g(_vm._b({class:[
+                      'vts-table__sort-btn',
+                      'vts-table__sort-btn--asc',
+                      _vm.classes.sortBtn ]},'button',header.sortBtn.bind,false),header.sortBtn.on),[_vm._v("\n                    ↑\n                  ")])],null,header.sortBtn):(
+                    header.key === _vm.localSortBy && _vm.localSortDirection === 'DESC'
+                  )?_vm._t("sort-desc",[_c('button',_vm._g(_vm._b({class:[
+                      'vts-table__sort-btn',
+                      'vts-table__sort-btn--desc',
+                      _vm.classes.sortBtn ]},'button',header.sortBtn.bind,false),header.sortBtn.on),[_vm._v("\n                    ↓\n                  ")])],null,header.sortBtn):_vm._t("sort-none",[_c('button',_vm._g(_vm._b({class:['vts-table__sort-btn', _vm.classes.sortBtn]},'button',header.sortBtn.bind,false),header.sortBtn.on),[_vm._v("\n                    ↕\n                  ")])],null,header.sortBtn)]:_vm._e()],null,{
+                header: header,
+                index: index,
+              })],2)}),0)]):_vm._e(),_vm._v(" "),_c('tbody',{class:[_vm.classes.tbody]},[_vm._t("body",_vm._l((_vm.computedItems),function(item,index){return _c('tr',{key:item.id,class:['vts-table__row', _vm.classes.tr]},[_vm._t("row",_vm._l((item),function(value,key){return _c('td',{key:key,class:[_vm.classes.td]},[_vm._t(("column." + key),[_vm._v("\n                  "+_vm._s(value)+"\n                ")],null,{
+                    cell: value,
+                    data: value,
+                    value: value,
+                    item: item,
+                    column: key,
+                    index: index,
+                    row: index + 1,
+                  })],2)}),null,{ item: item, index: index, row: index + 1 })],2)}),null,{
+            items: _vm.computedItems,
+            sortBy: _vm.localSortBy,
+            sortDirection: _vm.localSortDirection,
+            page: _vm.localPage,
+            perPage: _vm.localPerPage,
+          })],2),_vm._v(" "),(_vm.$slots.tfoot)?_c('tfoot',{class:[_vm.classes.tfoot]},[_vm._t("tfoot")],2):_vm._e()],null,{
+        caption: _vm.caption,
+        headers: _vm.computedHeaders,
+        items: _vm.computedItems,
+        sortBy: _vm.localSortBy,
+        sortDirection: _vm.localSortDirection,
+        page: _vm.localPage,
+        perPage: _vm.localPerPage,
+      })],2),_vm._v(" "),_vm._t("pagination",[(_vm.lastPage > 1)?_c('div',{class:['vts-table__pagination', _vm.classes.pagination]},[_c('button',{class:['vts-table__prev', _vm.classes.previous],attrs:{"disabled":_vm.localPage === 1,"aria-label":"go to previous page"},on:{"click":function($event){return _vm.goToPage(_vm.localPage - 1)}}},[_vm._v("\n        Prev\n      ")]),_vm._v(" "),_c('ul',{class:['vts-table__pages', _vm.classes.pageList]},_vm._l((_vm.lastPage),function(pageNum){return _c('li',{key:pageNum,class:[
             'vts-table__page-item',
             { 'vts-table__page-item--current': pageNum === _vm.localPage },
             _vm.classes.pageItem ]},[_c('button',{class:[
@@ -3634,7 +3622,7 @@ var __vue_staticRenderFns__$a = [];
   /* style */
   var __vue_inject_styles__$g = function (inject) {
     if (!inject) { return }
-    inject("data-v-1557de72_0", { source: ".vts-table table{table-layout:fixed}.vts-table__pages,.vts-table__pagination{display:flex}", map: undefined, media: undefined });
+    inject("data-v-67e79f39_0", { source: ".vts-table table{width:100%;table-layout:fixed}.vts-table__pages,.vts-table__pagination{display:flex}.vts-table__pagination{align-items:center;justify-content:center}.vts-table__page-item,.vts-table__pages{display:contents;list-style-type:none}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -4297,7 +4285,6 @@ var entry = {
   install: function install(Vue, pluginConfig) {
     if ( pluginConfig === void 0 ) pluginConfig = {};
 
-    console.log(pluginConfig.components);
     if (pluginConfig.components) {
       if(Array.isArray(pluginConfig.components)) {
         pluginConfig.components = pluginConfig.components.reduce(function (config, key) {

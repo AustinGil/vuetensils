@@ -49,8 +49,14 @@ export default {
       name="name"
       required
       minlength="2"
+      :errors="{
+        minlength(l) {
+          return `Test ` + l
+        }
+      }"
     >
       <template #description="input">
+{{ input }}
         <template v-if="input.error">
           <small v-if="input.invalid.required">
             This field is required.

@@ -9,7 +9,7 @@
         'vts-form--error': error,
       },
     ]"
-    @[event]="onEvent"
+    @[event]="validate"
     @submit="onSubmit"
     @blur.capture.once="dirty = true"
     v-on="$listeners"
@@ -23,13 +23,11 @@
       aria-hidden="true"
     />
 
-    <slot v-bind="{ valid, dirty, error, inputs, clear }" />
+    <slot v-bind="{ valid, dirty, error, inputs, clear, validate }" />
   </form>
 </template>
 
 <script>
-import { randomString } from '../../utils';
-
 export default {
   name: 'VForm',
   props: {
@@ -41,7 +39,6 @@ export default {
   },
 
   data: () => ({
-    /** @return {boolean} */
     dirty: false,
     localInputs: {},
   }),
@@ -76,53 +73,45 @@ export default {
   },
 
   mounted() {
-    /** @type {HTMLInputElement[]} */
-    const els = Array.from(this.$el.querySelectorAll('input, textarea, select'));
-
-    const localInputs = {};
-
-    els.forEach(input => {
-      const name = input.name || randomString(6);
-      const validity = input.validity;
-
-      localInputs[name] = {
-        value: input.value,
-        valid: input.validity.valid,
-        dirty: false,
-        invalid: {
-          type: validity.typeMismatch,
-          required: validity.valueMissing,
-          minlength: validity.tooShort,
-          maxlength: validity.tooLong,
-          min: validity.rangeOverflow,
-          max: validity.rangeUnderflow,
-          pattern: validity.patternMismatch,
-        },
-      };
+    this.validate();
+    const observer = new MutationObserver(this.validate);
+    observer.observe(this.$el, {
+      childList: true,
+      subtree: true 
     });
-    this.localInputs = localInputs;
+    this.$once('hook:beforeDestroy', () => {
+      observer.disconnect();
+    });
   },
 
   methods: {
-    onEvent({ target }) {
-      const { localInputs } = this;
-      const validity = target.validity;
+    validate() {
+      /** @type {HTMLInputElement[]} */
+      const els = Array.from(this.$el.querySelectorAll('input, textarea, select'));
 
-      localInputs[target.name] = {
-        ...localInputs[target.name],
-        value: target.value,
-        valid: target.validity.valid,
-        invalid: {
-          type: validity.typeMismatch,
-          required: validity.valueMissing,
-          minlength: validity.tooShort,
-          maxlength: validity.tooLong,
-          min: validity.rangeOverflow,
-          max: validity.rangeUnderflow,
-          pattern: validity.patternMismatch,
-        },
-      };
-      this.localInputs = localInputs;
+      const localInputs = {};
+
+      els.forEach(input => {
+        const { name, id, validity } = input;
+        if (!name && !id) return;
+
+        localInputs[name || id] = {
+          value: input.value,
+          valid: validity.valid,
+          dirty: false,
+          invalid: {
+            type: validity.typeMismatch,
+            required: validity.valueMissing,
+            minlength: validity.tooShort,
+            maxlength: validity.tooLong,
+            min: validity.rangeOverflow,
+            max: validity.rangeUnderflow,
+            pattern: validity.patternMismatch,
+          },
+        };
+
+      });
+      this.localInputs = localInputs;      
     },
     onBlur({ target }) {
       this.dirty = true;

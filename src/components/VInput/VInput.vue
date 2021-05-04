@@ -119,7 +119,7 @@
 </template>
 
 <script>
-import { randomString, isType } from '../../utils';
+import { randomString } from '../../utils';
 
 /**
  * TODO:
@@ -229,31 +229,6 @@ export default {
 
     error() {
       return !this.valid && this.dirty;
-    },
-
-    errorMessages() {
-      const { errors, invalid, $attrs } = this;
-      if (!errors || !isType(errors, 'object')) return false;
-
-      const messages = {};
-
-      [
-        'type',
-        'required',
-        'minlength',
-        'maxlength',
-        'min',
-        'max',
-        'pattern',
-      ].forEach(attr => {
-        if (invalid[attr] && errors[attr]) {
-          messages[attr] = isType(errors[attr], 'function')
-            ? errors[attr]($attrs[attr])
-            : errors[attr];
-        }
-      });
-
-      return Object.keys(messages).length ? messages : undefined;
     },
   },
 
