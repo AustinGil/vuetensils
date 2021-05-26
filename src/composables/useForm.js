@@ -45,10 +45,9 @@ const useForm = (formRef, options = {}) => {
 
   /**
    * @typedef {object} FormMethods
-   * @prop {Function} clear Assigns all form input values to empty strings
-   * @prop {Function} validate
-   * @prop {Function} reset Resets form dirty state and calls validate()
-   * @prop
+   * @property {Function} clear Assigns all form input values to empty strings
+   * @property {Function} validate
+   * @property {Function} reset Resets form dirty state and calls validate()
    */
 
   /**

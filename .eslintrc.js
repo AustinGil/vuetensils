@@ -118,7 +118,6 @@ module.exports = {
   settings: {
     jsdoc: {
       tagNamePreference: {
-        property: 'prop',
         returns: 'return',
       },
     },
