@@ -164,5 +164,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "@vue/composition-api": "^1.0.0-rc.9"
   }
 }

@@ -2,7 +2,8 @@ import { reactive, watch, computed, nextTick } from '@vue/composition-api';
 
 /**
  * @typedef {import('@vue/composition-api').Ref<HTMLFormElement>} FormRef
- * @typedef {string | (string) => string} ErrorMessage
+ * @typedef {import('@vue/composition-api').ComputedRef} ComputedRef
+ * @typedef {string | ((string) => string)} ErrorMessage
  * @typedef {{
  * value: string
  * valid: boolean
@@ -23,7 +24,7 @@ import { reactive, watch, computed, nextTick } from '@vue/composition-api';
 /**
  * @param {FormRef} formRef
  * @param {{
- * errors:  {
+ * errors?:  {
  *   type?: ErrorMessage
  *   required?: ErrorMessage
  *   minlength?: ErrorMessage
@@ -38,8 +39,9 @@ const useForm = (formRef, options = {}) => {
   const baseState = {
     invalid: false,
     dirty: false,
+    /** @type {boolean | ComputedRef} */
     error: false,
-    /** @type {Record<string, FormInputState} */
+    /** @type {Record<string, FormInputState>} */
     inputs: {},
   };
 
@@ -51,7 +53,7 @@ const useForm = (formRef, options = {}) => {
    */
 
   /**
-   * @type {typeof baseState & FormMethods}
+   * @type {typeof baseState & Partial<FormMethods>}
    */
   const state = reactive(baseState);
 
@@ -66,6 +68,7 @@ const useForm = (formRef, options = {}) => {
 
     /** @type {HTMLInputElement[]} */
     const els = form.querySelectorAll('input, textarea, select');
+    /** @type {typeof baseState.inputs} */
     const inputs = {};
 
     els.forEach(input => {
@@ -161,8 +164,9 @@ const useForm = (formRef, options = {}) => {
   };
   state.clear = () => {
     const form = formRef.value;
-    /** @type {HTMLInputElement[]} */
-    for (const input of form.querySelectorAll('input, textarea, select')) {
+    /** @type {NodeListOf<HTMLInputElement>} */
+    const inputs = form.querySelectorAll('input, textarea, select');
+    for (const input of inputs) {
       input.value = '';
     }
   };

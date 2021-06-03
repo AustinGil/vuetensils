@@ -47,7 +47,7 @@ export default function usePromise(promise, options = {}) {
       } else {
         state.error = error;
       }
-      console.log(error);
+      console.error(error);
       options.onReject?.(state.error);
     } finally {
       state.pending = false;

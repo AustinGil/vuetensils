@@ -77,6 +77,14 @@ module.exports = {
           '/filters/truncate',
         ],
       },
+      {
+        title: 'Composables',
+        collapsable: false,
+        children: [
+          '/composables/useAsync',
+          '/composables/useForm',
+        ],
+      },
       '/Cookbook',
     ],
   },
