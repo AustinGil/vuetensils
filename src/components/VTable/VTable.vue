@@ -130,24 +130,30 @@
               :class="['vts-table__row', classes.tr]"
             >
               <slot name="row" v-bind="{ item, index, row: index + 1 }">
-                <td 
+                <!-- <td 
                   v-for="(value, key) in item"
                   :key="key"
                   :class="[classes.td]"
+                > -->
+                <td 
+                  v-for="(column) in computedHeaders"
+                  :key="column.key"
+                  :class="[classes.td]"
                 >
                   <slot
-                    :name="`column.${key}`"
+                    :name="`column.${column.key}`"
                     v-bind="{
-                      cell: value,
-                      data: value,
-                      value,
                       item,
-                      column: key,
-                      index,
+                      index: (localPage - 1) * localPerPage + index,
                       row: index + 1,
+                      key: column.key,
+                      column: column.key,
+                      value: item[column.key],
+                      cell: item[column.key],
+                      data: item[column.key],
                     }"
                   >
-                    {{ value }}
+                    {{ item[column.key] }}
                   </slot>
                 </td>
               </slot>
