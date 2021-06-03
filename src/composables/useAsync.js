@@ -24,20 +24,28 @@ export default function usePromise(promise, options = {}) {
    */
   const watch = async function watch(promise) {
     promise = typeof promise === 'function' ? promise() : promise;
-    if (!promise?.then) return;
+    if (!promise || !promise.then) return;
 
     state.pending = true;
-    options.onChange?.({
+    options.onChange && options.onChange({
       pending: state.pending,
       results: state.results,
       error: state.error,
     });
-    options.onPending?.(state.pending);
+    options.onPending && options.onPending(state.pending);
 
     try {
       const resolved = await promise;
-      state.results = resolved ?? options.default ?? null;
-      options.onResolve?.(state.results);
+      
+      if (resolved !== undefined) {
+        state.results = resolved;
+      } else if (options.default !== undefined) {
+        state.results = options.default;
+      } else {
+        state.results = null;
+      }
+      
+      options.onResolve && options.onResolve(state.results);
     } catch (error) {
       if (error instanceof Error) {
         state.error = {
@@ -48,15 +56,15 @@ export default function usePromise(promise, options = {}) {
         state.error = error;
       }
       console.error(error);
-      options.onReject?.(state.error);
+      options.onReject && options.onReject(state.error);
     } finally {
       state.pending = false;
-      options.onChange?.({
+      options.onChange && options.onChange({
         pending: state.pending,
         results: state.results,
         error: state.error,
       });
-      options.onPending?.(state.pending);
+      options.onPending && options.onPending(state.pending);
     }
   };
 

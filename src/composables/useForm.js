@@ -166,9 +166,9 @@ const useForm = (formRef, options = {}) => {
     const form = formRef.value;
     /** @type {NodeListOf<HTMLInputElement>} */
     const inputs = form.querySelectorAll('input, textarea, select');
-    for (const input of inputs) {
+    inputs.forEach(input => {
       input.value = '';
-    }
+    });
   };
 
   return state;

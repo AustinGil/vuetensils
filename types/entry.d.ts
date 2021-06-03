@@ -7,6 +7,7 @@ declare var _default: {
 };
 export default _default;
 export * from "./components/index.js";
+export * from "./composables/index.js";
 export * from "./directives/index.js";
 export * from "./filters/index.js";
 export type VuetensilsConfig = {
