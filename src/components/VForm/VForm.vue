@@ -32,6 +32,10 @@ export default {
   name: 'VForm',
   props: {
     lazy: Boolean,
+    errors: {
+      type: Object,
+      default: () => ({})
+    },
     honeypot: {
       type: [Boolean, String],
       default: false,
@@ -59,15 +63,35 @@ export default {
     /** @return {object} */
     inputs() {
       const inputs = {};
-      const { localInputs } = this;
+      const { localInputs, errors } = this;
 
       for (const key in localInputs) {
-        const input = localInputs[key];
-        inputs[key] = {
-          ...input,
-          error: input.dirty && !input.valid,
+        const input = {
+          ...localInputs[key],
+          error: localInputs[key].dirty && !localInputs[key].valid,
+          errors: []
         };
+
+        const errorsMap = new Map(Object.entries(errors || {}));
+
+        errorsMap.forEach((value, key) => {
+          if (!input.invalid[key]) return;
+
+          const errorHandler = errorsMap.get(key);
+          // console.log(errorHandler);
+          const attrName = key.replace('length', 'Length'); // for minLength and maxLength
+
+          const errorMessage =
+            typeof errorHandler === 'string'
+              ? errorHandler
+              : errorHandler(input._inputEl[attrName]);
+
+          input.errors.push(errorMessage);
+        });
+
+        inputs[key] = input;
       }
+
       return inputs;
     },
   },
@@ -86,8 +110,8 @@ export default {
 
   methods: {
     validate() {
-      /** @type {HTMLInputElement[]} */
-      const els = Array.from(this.$el.querySelectorAll('input, textarea, select'));
+      /** @type {NodeListOf<HTMLInputElement>} */
+      const els = this.$el.querySelectorAll('input, textarea, select');
 
       const localInputs = {};
 
@@ -96,6 +120,7 @@ export default {
         if (!name && !id) return;
 
         localInputs[name || id] = {
+          _inputEl: input,
           value: input.value,
           valid: validity.valid,
           dirty: false,
@@ -111,7 +136,7 @@ export default {
         };
 
       });
-      this.localInputs = localInputs;      
+      this.localInputs = localInputs;
     },
     onBlur({ target }) {
       this.dirty = true;

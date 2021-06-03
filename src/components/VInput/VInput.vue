@@ -112,7 +112,7 @@
       <!-- @slot Scoped slot for the input description. Provides the validation state. -->
       <slot
         name="description"
-        v-bind="{ valid, dirty, error, invalid, anyInvalid }"
+        v-bind="{ valid, dirty, error, invalid, anyInvalid, errors: errorMessages }"
       />
     </div>
   </div>
@@ -173,7 +173,7 @@ export default {
 
     errors: {
       type: Object,
-      default: undefined,
+      default: () => ({}),
     },
 
     classes: {
@@ -230,6 +230,29 @@ export default {
     error() {
       return !this.valid && this.dirty;
     },
+
+    errorMessages() {
+      const { invalid, errors, $attrs } = this;
+      const errorMessages = [];
+
+      const errorsMap = new Map(Object.entries(errors || {}));
+
+      errorsMap.forEach((value, key) => {
+        if (!invalid[key]) return;
+
+        const errorHandler = errors.get(key);
+        const attrName = key.replace('length', 'Length'); // for minLength and maxLength
+
+        const errorMessage =
+          typeof errorHandler === 'string'
+            ? errorHandler
+            : errorHandler($attrs[attrName]);
+
+        errorMessages.push(errorMessage);
+      });
+
+      return errorMessages;
+    }
   },
 
   watch: {
