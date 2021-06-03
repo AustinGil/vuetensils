@@ -1,5 +1,6 @@
 ---
 title: clickout
+position: 3
 category: Directives
 ---
 

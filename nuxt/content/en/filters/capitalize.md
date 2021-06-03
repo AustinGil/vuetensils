@@ -1,5 +1,6 @@
 ---
 title: capitalize
+position: 4
 category: Filters
 ---
 

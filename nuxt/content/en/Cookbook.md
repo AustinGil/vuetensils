@@ -1,5 +1,6 @@
 ---
 title: Cookbook
+position: 5
 category: Cookbook
 pageClass: cookbook
 ---
