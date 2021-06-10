@@ -1,8 +1,13 @@
 {
   "name": "vuetensils",
   "version": "0.8.0",
-  "description": "A tasty toolset for Vue.js",
-  "author": "Austin Gil <hey@austingil.com> (https://austingil.com)",
+  "description": "A \"naked\" component library for building accessible, lightweight, on-brand applications.",
+  "author": {
+    "name": "Austin Gil",
+    "email": "hey@austingil.com",
+    "url": "https://austingil.com"
+  },
+  "homepage": "https://vuetensils.stegosource.com",
   "license": "MIT",
   "main": "dist/vuetensils.umd.js",
   "module": "dist/vuetensils.esm.js",
@@ -93,10 +98,12 @@
     "concurrently": "^5.3.0",
     "cz-conventional-changelog": "^3.2.0",
     "eslint": "^7.6.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-jest-dom": "^3.6.5",
     "eslint-plugin-jsdoc": "^30.2.1",
     "eslint-plugin-markdown": "^2.0.0-alpha.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.0.0-beta.2",
     "eslint-plugin-vuejs-accessibility": "^0.3.1",
     "husky": "^4.2.5",

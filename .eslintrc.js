@@ -13,40 +13,45 @@ module.exports = {
     jsdom: true,
     Promise: true,
   },
-  'ignorePatterns': ['dist/**/*', 'types/**/*'],
+  ignorePatterns: ['dist/**/*', 'types/**/*'],
   plugins: ['jest', 'jsdoc', 'markdown', 'vue'],
   extends: [
     'eslint:recommended',
+    'plugin:prettier/recommended',
     'plugin:jsdoc/recommended',
     'plugin:vue/recommended',
     'plugin:jest/recommended',
     'plugin:vuejs-accessibility/recommended',
-    'plugin:jest-dom/recommended'
+    'plugin:jest-dom/recommended',
   ],
   rules: {
     'array-bracket-newline': ['error', { multiline: true }],
     'array-bracket-spacing': ['error', 'never'],
     'array-element-newline': ['error', 'consistent'],
     'comma-spacing': [
-      'error', {
-        'before': false,
-        'after': true
-      }
+      'error',
+      {
+        before: false,
+        after: true,
+      },
     ],
     'comma-dangle': ['error', 'only-multiline'],
     'computed-property-spacing': ['error', 'never'],
     'max-len': [
-      'warn', {
-        'code': 80,
-        'ignoreComments': true
-      }
+      'warn',
+      {
+        code: 80,
+        ignoreComments: true,
+      },
     ],
     indent: ['error', 2, { SwitchCase: 1 }],
     quotes: [
-      'error', 'single', {
+      'error',
+      'single',
+      {
         avoidEscape: true,
-        allowTemplateLiterals: true
-      }
+        allowTemplateLiterals: true,
+      },
     ],
     semi: ['error', 'always'],
     'semi-spacing': ['error'],
@@ -64,10 +69,11 @@ module.exports = {
     'block-spacing': ['error'],
     'brace-style': 'error',
     'object-curly-newline': [
-      'error', {
-        'multiline': true,
-        'consistent': true
-      }
+      'error',
+      {
+        multiline: true,
+        consistent: true,
+      },
     ],
     'object-curly-spacing': ['error', 'always'],
     'object-property-newline': ['error'],
