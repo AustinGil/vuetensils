@@ -34,7 +34,7 @@ Local install:
 ```vue live
 <template>
   <div>
-    {{ text | truncate }}
+    {{ text | truncate(100) }}
   </div>
 </template>
 
