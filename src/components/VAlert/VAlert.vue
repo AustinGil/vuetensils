@@ -26,14 +26,14 @@
 
 <script>
 /**
- * NOTES Concerning :visible prop. 
+ * NOTES Concerning :visible prop.
  * Per W3C specifications:
  * https://www.w3.org/TR/wai-aria-practices/#alert
  * --
- * "It is also important to avoid designing alerts that disappear automatically. 
- * An alert that disappears too quickly can lead to failure to meet WCAG 2.0 success criterion 2.2.3. 
- * Another critical design consideration is the frequency of interruption caused by alerts. 
- * Frequent interruptions inhibit usability for people with visual and cognitive disabilities, 
+ * "It is also important to avoid designing alerts that disappear automatically.
+ * An alert that disappears too quickly can lead to failure to meet WCAG 2.0 success criterion 2.2.3.
+ * Another critical design consideration is the frequency of interruption caused by alerts.
+ * Frequent interruptions inhibit usability for people with visual and cognitive disabilities,
  * which makes meeting the requirements of WCAG 2.0 success criterion 2.2.4 more difficult."
  */
 
@@ -140,6 +140,7 @@ export default {
          * @event update
          * @type { boolean|number }
          */
+        // @ts-ignore
         this.$emit('update', visible - 1);
       }, 1000);
     },
