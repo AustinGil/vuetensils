@@ -6,7 +6,12 @@
       :class="['vts-img__placeholder', classes.placeholder]"
       :style="{ background }"
     >
-      <img :src="placeholder || dataUrl" alt="" v-bind="$attrs" />
+      <img
+        :src="placeholder || dataUrl"
+        alt=""
+        v-bind="$attrs"
+        :decoding="$attrs.async || 'async'"
+      />
     </div>
     <img
       ref="img"
@@ -17,6 +22,7 @@
         transitionDuration: `${transitionDuration}ms`,
       }"
       v-bind="$attrs"
+      :decoding="$attrs.async || 'async'"
       v-on="$listeners"
     />
   </picture>
