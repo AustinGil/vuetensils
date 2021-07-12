@@ -221,7 +221,7 @@ export default {
 ```css
 .fade-enter-active,
 .fade-leave-active {
-  transition: 0.5s ease opacity;
+  transition: opacity 0.5s ease;
 }
 
 .fade-enter,

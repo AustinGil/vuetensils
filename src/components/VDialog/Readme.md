@@ -47,7 +47,7 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: 0.5s ease opacity;
+  transition: opacity 0.5s ease;
 }
 
 .fade-enter,
@@ -58,7 +58,7 @@ export default {
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: 0.5s ease opacity, 0.5s ease transform;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .slide-up-enter,
@@ -173,7 +173,7 @@ export default {
 <style>
 .fade-enter-active,
 .fade-leave-active {
-  transition: 0.5s ease opacity;
+  transition: opacity 0.5s ease;
 }
 
 .fade-enter,
@@ -184,7 +184,7 @@ export default {
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: 0.5s ease opacity, 0.5s ease transform;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .slide-up-enter,
