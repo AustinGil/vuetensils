@@ -78,11 +78,15 @@ export default {
   }),
 
   mounted() {
-    const { onClickout } = this;
-    document.addEventListener('click', onClickout);
-    this.$once('hook:beforeDestroy', () => {
-      document.removeEventListener('click', onClickout);
-    });
+    document.addEventListener('click', this.onClickout);
+  },
+
+  /** @deprecated in Vue 3 */
+  beforeDestroy() {
+    document.removeEventListener('click', this.onClickout);
+  },
+  beforeUnmount() {
+    document.removeEventListener('click', this.onClickout);
   },
 
   methods: {
