@@ -17,7 +17,7 @@
       type="file"
       :class="['vts-visually-hidden', classes.input]"
       @change="onChange"
-      v-on="$listeners"
+      v-on="listeners"
     />
 
     <span :class="['vts-file__text', classes.text]">
@@ -55,7 +55,10 @@
 </template>
 
 <script>
+import { version } from 'vue';
 import { randomString } from '../../utils';
+
+const isVue3 = version && version.startsWith('3');
 
 export default {
   name: 'VFile',
@@ -67,17 +70,17 @@ export default {
   props: {
     label: {
       type: String,
-      required: true
+      required: true,
     },
 
     files: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
 
     classes: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
   },
 
@@ -85,6 +88,15 @@ export default {
     localFiles: [],
     droppable: false,
   }),
+
+  computed: {
+    listeners() {
+      if (isVue3) {
+        return this.$attrs;
+      }
+      return this.$listeners;
+    },
+  },
 
   watch: {
     files(files) {
@@ -156,4 +168,3 @@ input:focus ~ .vts-file__dropzone {
   outline-color: -webkit-focus-ring-color;
 }
 </style>
-
