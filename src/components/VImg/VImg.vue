@@ -17,12 +17,15 @@
         transitionDuration: `${transitionDuration}ms`,
       }"
       v-bind="$attrs"
-      v-on="$listeners"
+      v-on="listeners"
     />
   </picture>
 </template>
 
 <script>
+import { version } from 'vue';
+
+const isVue3 = version && version.startsWith('3');
 const NAME = 'vts-img';
 
 /**
@@ -80,6 +83,15 @@ export default {
     dataUrl: '',
   }),
 
+  computed: {
+    listeners() {
+      if (isVue3) {
+        return this.$attrs;
+      }
+      return this.$listeners;
+    },
+  },
+
   watch: {
     src: {
       handler: 'init',
@@ -92,6 +104,13 @@ export default {
   mounted() {
     this.init();
   },
+  beforeUnmount() {
+    this.observer.disconnect();
+  },
+  /** @deprecated */
+  beforeDestroy() {
+    this.observer.disconnect();
+  },
 
   methods: {
     init() {
@@ -99,10 +118,6 @@ export default {
 
       this.observer = new IntersectionObserver(this.handler);
       this.observer.observe(this.$el);
-
-      this.$once('hook:beforeDestroy', () => {
-        this.observer.disconnect();
-      });
     },
 
     handler([entry]) {

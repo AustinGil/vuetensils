@@ -107,6 +107,10 @@ export default {
     },
   },
 
+  beforeUnmount() {
+    this.clearTimer();
+  },
+  /** @deprecated */
   beforeDestroy() {
     this.clearTimer();
   },
