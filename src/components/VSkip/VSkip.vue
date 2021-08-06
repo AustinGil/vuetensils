@@ -1,12 +1,5 @@
-<template functional>
-  <a
-    :class="['vts-skip', data.class, data.staticClass]"
-    :style="[data.style, data.staticStyle]"
-    v-bind="data.attrs"
-    :href="props.to"
-    v-on="listeners"
-    @click="$options.skipTo(props.to)"
-  >
+<template>
+  <a class="vts-skip" :href="to" @click="skipTo(to)">
     <slot>Skip to main content</slot>
   </a>
 </template>
@@ -32,20 +25,22 @@ export default {
   //     this.skipTo(location.hash.substring(1))
   //   }
   // },
-  skipTo(id) {
-    if (!id) return;
+  methods: {
+    skipTo(id) {
+      if (!id) return;
 
-    const target = window.document.getElementById(id.slice(1));
-    if (!target) return;
+      const target = window.document.getElementById(id.slice(1));
+      if (!target) return;
 
-    if (
-      !['a', 'select', 'input', 'button', 'textarea'].includes(
-        target.tagName.toLowerCase()
-      )
-    ) {
-      target.setAttribute('tabindex', '-1');
-    }
-    target.focus();
+      if (
+        !['a', 'select', 'input', 'button', 'textarea'].includes(
+          target.tagName.toLowerCase()
+        )
+      ) {
+        target.setAttribute('tabindex', '-1');
+      }
+      target.focus();
+    },
   },
 };
 </script>
