@@ -1,5 +1,5 @@
 <template>
-  <div v-if="tablist.length" :class="['vts-tabs', classes.root]">
+  <div :class="['vts-tabs', classes.root]">
     <div
       role="tablist"
       :aria-label="label"
@@ -7,15 +7,15 @@
       :class="['vts-tabs__tablist', classes.tablist]"
     >
       <button
-        v-for="(tab, index) in tablist"
-        :id="`${id}-tab-${index}`"
+        v-for="(tab, index) in tabList"
+        :id="`${id}-${tab}`"
         :key="tab"
-        ref="tab"
+        :ref="tab"
         :aria-selected="index === activeIndex"
         :tabindex="index === activeIndex ? false : -1"
-        :aria-controls="`${id}-panel-${index}`"
+        :aria-controls="`${id}-${tab.replace('tab', 'panel')}`"
         :class="[
-          `vts-tabs__tab vts-tabs__tab--${index}`,
+          `vts-tabs__tab vts-tabs__tab--${tab} vts-tabs__tab--${index}`,
           {
             'vts-tabs__tab--active': index === activeIndex,
             [classes.tabActive]: index === activeIndex,
@@ -27,12 +27,12 @@
         @keydown="onKeydown"
         @click="activeIndex = index"
       >
-        {{ tab }}
+        <slot :name="tab" />
       </button>
     </div>
 
     <div
-      v-for="(tab, index) in tablist"
+      v-for="(tab, index) in panelList"
       :id="`${id}-panel-${index}`"
       :key="tab"
       :aria-labelledby="`${id}-tab-${index}`"
@@ -54,10 +54,15 @@
 </template>
 
 <script>
+import { version } from 'vue';
 import { randomString } from '../../utils';
 import keycodes from '../../data/keycodes';
 
+const isVue3 = version && version.startsWith('3');
+
 // const NAME = "vts-tabs"
+
+// https://codesandbox.io/embed/vue-tabs-pt5lm?codemirror=1
 
 /**
  * Show and hide content based on which tabs are selected.
@@ -97,18 +102,24 @@ export default {
   data() {
     return {
       activeIndex: this.active,
+      activeTab: this.active,
     };
   },
 
   computed: {
-    tablist() {
-      return Object.keys(this.$slots);
+    /** @return {Array} */
+    tabList() {
+      return Object.keys(this.$slots).filter(name => name.startsWith('tab-'));
+    },
+    /** @return {Array} */
+    panelList() {
+      return Object.keys(this.$slots).filter(name => name.startsWith('panel-'));
     },
   },
 
   watch: {
     active(next) {
-      this.activeIndex = Math.max(0, Math.min(this.tablist.length - 1, next));
+      this.activeIndex = Math.max(0, Math.min(this.tabList.length - 1, next));
     },
     activeIndex(next) {
       this.$emit('change', next);
@@ -125,7 +136,7 @@ export default {
       switch (keyCode) {
         case keycodes.END:
           event.preventDefault();
-          this.activeIndex = this.tablist.length - 1;
+          this.activeIndex = this.tabList.length - 1;
           this.setFocus();
           break;
         case keycodes.HOME:
@@ -143,7 +154,7 @@ export default {
       }
     },
 
-    // When a tablist's aria-orientation is set to vertical, only up and down arrow should function. In all other cases only left and right arrow function.
+    // When a tabList's aria-orientation is set to vertical, only up and down arrow should function. In all other cases only left and right arrow function.
     determineOrientation(event) {
       const keyCode = event.keyCode;
       let proceed = false;
@@ -154,6 +165,7 @@ export default {
         }
       } else {
         if (keyCode === keycodes.LEFT || keyCode === keycodes.RIGHT) {
+          event.preventDefault();
           proceed = true;
         }
       }
@@ -177,7 +189,7 @@ export default {
       if (!directions[keyCode]) return;
 
       const activeIndex = this.activeIndex;
-      const tabLength = this.$refs.tab.length;
+      const tabLength = this.tabList.length;
       const nextIndex = activeIndex + directions[keyCode];
 
       if (nextIndex < 0) {
@@ -190,7 +202,13 @@ export default {
     },
 
     setFocus() {
-      this.$refs.tab[this.activeIndex].focus();
+      const { $refs, tabList, activeIndex } = this;
+      const activeTab = tabList[activeIndex];
+
+      if (isVue3) {
+        return $refs[activeTab].focus();
+      }
+      $refs[activeTab][0].focus();
     },
   },
 };
