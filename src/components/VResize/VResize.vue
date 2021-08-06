@@ -1,6 +1,6 @@
 <template>
   <component :is="tag" class="vts-resize">
-    <slot v-bind="{ width, height }" />
+    <slot v-bind="{ width, height, inlineSize: width, blockSize: height }" />
   </component>
 </template>
 
@@ -15,17 +15,21 @@ export default {
   },
 
   data: () => ({
+    observer: undefined,
     width: undefined,
     height: undefined,
   }),
 
   mounted() {
-    const fn = this.updateDimensions;
-    fn();
-    window.addEventListener('resize', fn);
-    this.$once('hook:beforeDestroy', () => {
-      window.removeEventListener('resize', fn);
-    });
+    this.observer = new ResizeObserver(this.updateDimensions);
+    this.observer.observe(this.$el);
+  },
+  beforeUnmount() {
+    this.observer.disconnect();
+  },
+  /** @deprecated */
+  beforeDestroy() {
+    this.observer.disconnect();
   },
 
   methods: {
@@ -33,6 +37,7 @@ export default {
       const el = this.$el;
       this.width = el.offsetWidth;
       this.height = el.offsetHeight;
+      this.$emit('resize', arguments);
     },
   },
 };
