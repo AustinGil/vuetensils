@@ -38,11 +38,13 @@ export default {
 <template>
   <VTry>
     <template #default="error">
-      <ThisWillThrow />
-
-      <div v-if="error">
-        There was an error in the component:
-        <pre>{{ error }}</pre>
+      <div>
+        <ThisWillThrow />
+  
+        <div v-if="error">
+          There was an error in the component:
+          <pre>{{ error }}</pre>
+        </div>
       </div>
     </template>
   </VTry>
@@ -68,11 +70,13 @@ export default {};
 <template>
   <VTry>
     <template #default="error">
-      <ThisWillReject />
-
-      <div v-if="error">
-        There was an error in the component:
-        <pre>{{ error }}</pre>
+      <div>
+        <ThisWillReject />
+  
+        <div v-if="error">
+          There was an error in the component:
+          <pre>{{ error }}</pre>
+        </div>
       </div>
     </template>
   </VTry>
@@ -98,9 +102,11 @@ export default {};
 ```vue live
 <template>
   <VTry @catch="onError">
-    <ThisWillThrow />
-
-    Error was logged to the console.
+    <div>
+      <ThisWillThrow />
+  
+      Error was logged to the console.
+    </div>
   </VTry>
 </template>
 

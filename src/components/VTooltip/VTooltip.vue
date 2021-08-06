@@ -1,5 +1,35 @@
+<template>
+  <component
+    :is="tag"
+    :id="id"
+    tabindex="0"
+    :aria-describedby="`${id}__content`"
+    :class="['vts-tooltip', classes.toggle]"
+    @focus="show = true"
+    @blur="show = false"
+    @mouseenter="onMouseenter"
+    @mouseleave="onMouseleave"
+  >
+    <slot />
+
+    <span
+      :id="`${id}__content`"
+      role="tooltip"
+      :aria-hidden="!show + ''"
+      :class="[
+        'vts-tooltip__content',
+        {
+          'vts-tooltip__content--visible': show,
+        },
+        classes.content,
+      ]"
+    >
+      <slot name="tooltip" />
+    </span>
+  </component>
+</template>
+
 <script>
-// TODO: checkout http://pauljadam.com/demos/tooltip.html
 import { randomString } from '../../utils';
 
 export default {
@@ -24,56 +54,15 @@ export default {
     show: false,
   }),
 
-  render(h) {
-    const { tag, show, id, focus, classes } = this;
-
-    const defaultSlot = this.$scopedSlots.default();
-    const tooltip = this.$scopedSlots.tooltip();
-
-    const content = h(
-      'span',
-      {
-        class: [
-          'vts-tooltip__content',
-          {
-            'vts-tooltip__content--visible': show,
-          },
-          classes.content,
-        ],
-        attrs: {
-          id: `${id}__content`,
-          role: 'tooltip',
-          'aria-hidden': !show + '',
-        },
-      },
-      tooltip
-    );
-
-    const on = {
-      focus: () => (this.show = true),
-      blur: () => (this.show = false), // TODO: this should not run if the next target is inside the tooltip
-    };
-    // add hover events unless focus only
-    if (!focus) {
-      on.mouseenter = () => (this.show = true);
-      on.mouseleave = () => (this.show = false);
-    }
-
-    const parent = h(
-      tag,
-      {
-        class: ['vts-tooltip', classes.toggle],
-        on,
-        attrs: {
-          id,
-          tabindex: 0,
-          'aria-describedby': `${id}__content`
-        },
-      },
-      [defaultSlot, content]
-    );
-
-    return parent;
+  methods: {
+    onMouseenter() {
+      if (this.focus) return;
+      this.show = true;
+    },
+    onMouseleave() {
+      if (this.focus) return;
+      this.show = false;
+    },
   },
 };
 </script>
@@ -88,7 +77,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -100%);
 }
-.vts-tooltip__content[aria-hidden="true"] {
+.vts-tooltip__content[aria-hidden='true'] {
   display: none;
 }
 </style>
