@@ -35,6 +35,7 @@ export default {
       default: () => ({}),
     },
   },
+  emits: ['enter', 'exit', 'change'],
 
   data: () => ({
     entry: {},
