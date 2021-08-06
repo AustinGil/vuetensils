@@ -9,7 +9,7 @@
       :aria-expanded="String(isOpen)"
       :class="['vts-toggle__label', classes.label]"
       @click="isOpen = !isOpen"
-      v-on="$listeners"
+      v-on="listeners"
     >
       <!-- @slot The content that goes inside the button -->
       {{ label }}
@@ -40,7 +40,10 @@
 </template>
 
 <script>
-import { randomString } from '../../utils';
+import { version } from 'vue';
+import { randomString } from '../../utils.js';
+const isVue3 = version && version.startsWith('3');
+
 /**
  * Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
  */
@@ -52,7 +55,7 @@ export default {
   },
 
   props: {
-    open:  Boolean,
+    open: Boolean,
 
     label: {
       type: String,
@@ -71,6 +74,15 @@ export default {
     return {
       isOpen: this.open,
     };
+  },
+
+  computed: {
+    listeners() {
+      if (isVue3) {
+        return this.$attrs;
+      }
+      return this.$listeners;
+    },
   },
 
   watch: {
