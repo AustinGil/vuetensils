@@ -1,6 +1,52 @@
+<template>
+  <span v-if="localShow || slots.toggle">
+    <slot
+      v-if="slots.toggle"
+      name="toggle"
+      v-bind="{
+        on: {
+          click: () => (localShow = !localShow),
+        },
+        bind: {
+          type: 'button',
+          role: 'button',
+          'aria-haspopup': true,
+          'aria-expanded': '' + localShow,
+        },
+      }"
+    />
+    <transition :name="bgTransition || transition" appear>
+      <template v-if="localShow">
+        <div :class="['vts-drawer', classes.root, classes.bg, $attrs.class]">
+          <transition :name="transition" appear>
+            <component
+              :is="tag"
+              v-if="localShow"
+              ref="content"
+              :class="[
+                'vts-drawer__content',
+                { 'vts-drawer__content--right': !!right },
+                classes.content,
+              ]"
+              :style="{ width: width, maxWidth: maxWidth }"
+              tabindex="-1"
+            >
+              <!-- role="dialog" TODO ?? -->
+              <slot />
+            </component>
+          </transition>
+        </div>
+      </template>
+    </transition>
+  </span>
+</template>
+
 <script>
+import { version } from 'vue';
 import KEYCODES from '../../data/keycodes';
 import FOCUSABLE from '../../data/focusable';
+
+const isVue3 = version && version.startsWith('3');
 
 const NAME = 'vts-drawer';
 
@@ -54,6 +100,8 @@ export default {
     },
     /**
      * Vue transition name for the background.
+     *
+     * @deprecated
      */
     bgTransition: {
       type: String,
@@ -71,6 +119,16 @@ export default {
       localShow: this.showing,
       activeElement: null,
     };
+  },
+
+  computed: {
+    slots() {
+      let slots = this.$slots;
+      if (!isVue3) {
+        slots = this.$scopedSlots;
+      }
+      return slots;
+    },
   },
 
   watch: {
@@ -158,95 +216,6 @@ export default {
         }
       }
     },
-  },
-
-  render(h) {
-    const { localShow, $scopedSlots, classes } = this;
-
-    if (!localShow && !$scopedSlots.toggle) {
-      return h(false);
-    }
-
-    const children = [];
-
-    if ($scopedSlots.toggle) {
-      children.push(
-        $scopedSlots.toggle({
-          on: {
-            click: () => (this.localShow = true),
-          },
-          bind: {
-            type: 'button',
-            role: 'button',
-            'aria-haspopup': true,
-            'aria-expanded': '' + localShow,
-          },
-          attrs: {
-            // TODO: deprecated
-            type: 'button',
-            role: 'button',
-            'aria-haspopup': true,
-            'aria-expanded': '' + localShow,
-          },
-        })
-      );
-    }
-
-    if (localShow) {
-      let content = h(
-        this.tag,
-        {
-          ref: 'content',
-          class: [
-            `${NAME}__content`,
-            { 'vts-drawer__content--right': !!this.right },
-            classes.content,
-          ],
-          style: {
-            width: this.width,
-            maxWidth: this.maxWidth,
-          },
-          attrs: {
-            tabindex: '-1',
-            // role: "dialog", // TODO: ?
-          },
-        },
-        [this.$slots.default]
-      );
-      content = h(
-        'transition',
-        {
-          props: {
-            name: this.transition,
-            appear: true 
-          },
-        },
-        [content]
-      );
-
-      const component = h(
-        'div',
-        {
-          class: [NAME, classes.root, classes.bg, this.$attrs.class],
-        },
-        [content]
-      );
-
-      children.push(
-        h(
-          'transition',
-          {
-            props: {
-              name: this.bgTransition,
-              appear: true 
-            },
-          },
-          [component]
-        )
-      );
-    }
-
-    return h('span', children);
   },
 };
 </script>

@@ -1,8 +1,48 @@
+<template>
+  <span v-if="localShow || slots.toggle">
+    <slot
+      v-if="slots.toggle"
+      name="toggle"
+      v-bind="{
+        on: {
+          click: () => (localShow = !localShow),
+        },
+        bind: {
+          type: 'button',
+          role: 'button',
+          'aria-haspopup': true,
+          'aria-expanded': '' + localShow,
+        },
+      }"
+    />
+    <transition :name="bgTransition || transition" :appear="true">
+      <template v-if="localShow">
+        <div :class="['vts-dialog', classes.root, classes.bg, $attrs.class]">
+          <transition :name="contentTransition">
+            <component
+              :is="tag"
+              ref="content"
+              :class="['vts-dialog__content', classes.content]"
+              :style="{ width: width, maxWidth: maxWidth }"
+              tabindex="-1"
+              role="dialog"
+              aria-modal="true"
+            >
+              <slot />
+            </component>
+          </transition>
+        </div>
+      </template>
+    </transition>
+  </span>
+</template>
 <script>
+import { version } from 'vue';
 import KEYCODES from '../../data/keycodes';
 import FOCUSABLE from '../../data/focusable';
 
-const NAME = 'vts-dialog';
+const isVue3 = version && version.startsWith('3');
+
 /**
  * A dialog component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the dialog until it is closed. It supports being closed by clicking outside the dialog content or pressing the ESC key.
  */
@@ -61,8 +101,18 @@ export default {
     },
     /**
      * Transition name to apply to the background.
+     *
+     * @deprecated
      */
     bgTransition: {
+      type: String,
+      default: '',
+    },
+
+    /**
+     * Transition name to apply to the background.
+     */
+    contentTransition: {
       type: String,
       default: '',
     },
@@ -78,6 +128,16 @@ export default {
       localShow: this.showing,
       activeElement: null,
     };
+  },
+
+  computed: {
+    slots() {
+      let slots = this.$slots;
+      if (!isVue3) {
+        slots = this.$scopedSlots;
+      }
+      return slots;
+    },
   },
 
   watch: {
@@ -166,89 +226,6 @@ export default {
       }
     },
   },
-
-  render(h) {
-    const { localShow, $scopedSlots, classes } = this;
-
-    if (!localShow && !$scopedSlots.toggle) {
-      return h(false);
-    }
-
-    const children = [];
-
-    if ($scopedSlots.toggle) {
-      children.push(
-        $scopedSlots.toggle({
-          on: {
-            click: () => (this.localShow = true),
-          },
-          bind: {
-            type: 'button',
-            role: 'button',
-            'aria-haspopup': true,
-            'aria-expanded': '' + localShow,
-          },
-          attrs: {
-            // TODO: deprecated
-            type: 'button',
-            role: 'button',
-            'aria-haspopup': true,
-            'aria-expanded': '' + localShow,
-          },
-        })
-      );
-    }
-
-    if (localShow) {
-      let content = h(
-        this.tag,
-        {
-          ref: 'content',
-          class: [`${NAME}__content`, classes.content],
-          style: {
-            width: this.width,
-            maxWidth: this.maxWidth,
-          },
-          attrs: {
-            tabindex: '-1',
-            role: 'dialog',
-            'aria-modal': 'true'
-          },
-        },
-        [this.$slots.default]
-      );
-      content = h(
-        'transition',
-        {
-          props: { name: this.transition },
-        },
-        [content]
-      );
-
-      const modal = h(
-        'div',
-        {
-          class: [NAME, classes.root, classes.bg, this.$attrs.class],
-        },
-        [content]
-      );
-
-      children.push(
-        h(
-          'transition',
-          {
-            props: {
-              name: this.bgTransition,
-              appear: true
-            },
-          },
-          [modal]
-        )
-      );
-    }
-
-    return h('span', children);
-  },
 };
 </script>
 
@@ -259,10 +236,7 @@ export default {
   justify-content: center;
   position: fixed;
   z-index: 100;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
 }
 
 .vts-dialog__content:focus {
