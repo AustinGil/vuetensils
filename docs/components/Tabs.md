@@ -45,16 +45,19 @@ export default {
 ```vue live
 <template>
   <VTabs class="styled">
-    <template slot="Tab 1">
-      Here's the content for tab 1.
+    <template #tab-1>Tab 1</template>
+    <template #panel-1>
+      Here's the content for tabpanel 1.
     </template>
 
-    <template slot="Tab 2">
-      Here's the content for tab 2.
+    <template #tab-2>Tab 2</template>
+    <template #panel-2>
+      Here's the content for tabpanel 2.
     </template>
 
-    <template slot="Tab 3">
-      Here's the content for tab 3.
+    <template #tab-3>Tab 3</template>
+    <template #panel-3>
+      Here's the content for tabpanel 3.
     </template>
   </VTabs>
 </template>
@@ -89,14 +92,18 @@ export default {
 
 ## Basic Usage
 
+Tabs and panels use slot names with this syntax: `tab-{name}`, `panel-{name}`. The names can be dynamic, but must be prefixed with `tab-` and `panel-`. Order is determined by source order.
+
 ```vue live
 <template>
   <VTabs>
-    <template slot="Tab 1 label">
+    <template #tab-1>Tab 1</template>
+    <template #panel-1>
       This is my content for tab 1
     </template>
 
-    <template slot="Second tab">
+    <template #tab-second>Second Tab</template>
+    <template #panel-second>
       Here's the content for tab 2.
       <p>It supports markup, and any any other components.</p>
     </template>

@@ -78,11 +78,15 @@ export default {
   }),
 
   mounted() {
-    const { onClickout } = this;
-    document.addEventListener('click', onClickout);
-    this.$once('hook:beforeDestroy', () => {
-      document.removeEventListener('click', onClickout);
-    });
+    document.addEventListener('click', this.onClickout);
+  },
+
+  /** @deprecated in Vue 3 */
+  beforeDestroy() {
+    document.removeEventListener('click', this.onClickout);
+  },
+  beforeUnmount() {
+    document.removeEventListener('click', this.onClickout);
   },
 
   methods: {
@@ -110,11 +114,11 @@ export default {
 .vts-dropdown__content {
   position: absolute;
   z-index: 5;
-  min-width: 100%;
+  min-inline-size: 100%;
 }
 
 .vts-dropdown__content--top {
-  top: 0;
+  inset-block-start: 0;
   transform: translateY(-100%);
 }
 </style>

@@ -1,4 +1,8 @@
 <script>
+import { version } from 'vue';
+
+const isVue3 = version && version.startsWith('3');
+
 export default {
   name: 'VTry',
 
@@ -23,13 +27,17 @@ export default {
   },
 
   render() {
-    const { error, $scopedSlots } = this;
+    const { error, $slots } = this;
+    let slots = $slots;
 
-    if (error && $scopedSlots.catch) {
-      return $scopedSlots.catch(error);
+    if (!isVue3) {
+      slots = this.$scopedSlots;
+    }
+    if (error && slots.catch) {
+      return slots.catch(error);
     }
 
-    return $scopedSlots.default(error);
+    return slots.default(error);
   },
 };
 </script>

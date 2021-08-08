@@ -1,4 +1,7 @@
 <script>
+import { version } from 'vue';
+
+const isVue3 = version && version.startsWith('3');
 /**
  * Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
  */
@@ -32,12 +35,18 @@ export default {
       default: () => ({}),
     },
   },
+  emits: ['enter', 'exit', 'change'],
 
   data: () => ({
     entry: {},
   }),
 
   mounted() {
+    let el = this.$el;
+    if (isVue3) {
+      // I'm not really sure why this is necessary
+      el = this.$el.nextElementSibling;
+    }
     const { root, threshold, rootMargin, options, handler } = this;
     const observerOptions = {
       ...options,
@@ -47,11 +56,14 @@ export default {
     };
 
     this.observer = new IntersectionObserver(handler, observerOptions);
-    this.observer.observe(this.$el);
-
-    this.$once('hook:beforeDestroy', () => {
-      this.observer.disconnect();
-    });
+    this.observer.observe(el);
+  },
+  beforeUnmount() {
+    this.observer.disconnect();
+  },
+  /** @deprecated */
+  beforeDestroy() {
+    this.observer.disconnect();
   },
 
   methods: {
@@ -88,6 +100,9 @@ export default {
   render() {
     /** @slot Content to be tracked with IntersectionObserver */
     const { entry } = this;
+    if (isVue3) {
+      return this.$slots.default(entry);
+    }
 
     /** @slot Slot content providing isIntersecting */
     const defaultSlot = this.$slots.default;

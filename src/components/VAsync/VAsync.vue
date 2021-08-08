@@ -1,5 +1,8 @@
-
 <script>
+import { version } from 'vue';
+
+const isVue3 = version && version.startsWith('3');
+
 /**
  * A renderless component for awaiting promises to resolve;
  * great for making HTTP requests. Supports showing pending,
@@ -68,7 +71,8 @@ export default {
 
       return promise
         .then(results => {
-          this.results = typeof results === 'undefined' ? this.default : results;
+          this.results =
+            typeof results === 'undefined' ? this.default : results;
           /**
            * Fired after promise has resolved with the resolved value.
            *
@@ -109,15 +113,20 @@ export default {
 
   render() {
     const { pending, error, results, done } = this;
+    let slots = this.$slots;
+
+    if (!isVue3) {
+      slots = this.$scopedSlots;
+    }
 
     /** @slot Rendered while the promise is in a pending state */
-    const pendingSlot = this.$scopedSlots.pending;
+    const pendingSlot = slots.pending;
     /** @slot Rendered when the promise has rejected. Provides the caught error. */
-    const rejectedSlot = this.$scopedSlots.rejected;
+    const rejectedSlot = slots.rejected;
     /** @slot Rendered when the promise has resolved. Provides the results. */
-    const resolvedSlot = this.$scopedSlots.resolved;
+    const resolvedSlot = slots.resolved;
     /** @slot Provides the status of the component for pending state, error, or results. */
-    const defaultSlot = this.$scopedSlots.default;
+    const defaultSlot = slots.default;
 
     if (pending && pendingSlot) {
       return pendingSlot();

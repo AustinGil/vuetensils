@@ -26,7 +26,7 @@ export function randomString(
  * @param {string} type The type you are asserting against
  * @return {boolean} Whether the given input matches the type passed
  */
-export function isType (v, type) {
+export function isType(v, type) {
   return (
     Object.prototype.toString
       .call(v)

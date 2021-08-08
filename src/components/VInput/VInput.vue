@@ -31,7 +31,7 @@
           v-bind="{ ...bind, ...option }"
           @input="localValue = option.value"
           @blur.once="dirty = true"
-          v-on="$listeners"
+          v-on="listeners"
         />
         <span :class="['vts-input__text', classes.text]">
           {{ option.label }}
@@ -50,7 +50,7 @@
         v-bind="bind"
         @change="localValue = $event.target.checked"
         @blur.once="dirty = true"
-        v-on="$listeners"
+        v-on="listeners"
       />
       <span :class="['vts-input__text', classes.text]">
         {{ label }}
@@ -74,10 +74,14 @@
         @input="localValue = $event.target.value"
         @change="localValue = $event.target.value"
         @blur.once="dirty = true"
-        v-on="$listeners"
+        v-on="listeners"
       >
         <slot name="options">
-          <option v-for="(option, i) in computedOptions" :key="i" v-bind="option">
+          <option
+            v-for="(option, i) in computedOptions"
+            :key="i"
+            v-bind="option"
+          >
             {{ option.label }}
           </option>
         </slot>
@@ -89,7 +93,7 @@
         v-model="localValue"
         v-bind="bind"
         @blur.once="dirty = true"
-        v-on="$listeners"
+        v-on="listeners"
       />
 
       <input
@@ -98,12 +102,12 @@
         v-model="localValue"
         v-bind="bind"
         @blur.once="dirty = true"
-        v-on="$listeners"
+        v-on="listeners"
       />
     </label>
 
     <div
-      v-if="$scopedSlots.description"
+      v-if="slots.description"
       :id="`${id}__description`"
       :class="['vts-input__description', classes.description]"
       role="alert"
@@ -112,19 +116,30 @@
       <!-- @slot Scoped slot for the input description. Provides the validation state. -->
       <slot
         name="description"
-        v-bind="{ valid, dirty, error, invalid, anyInvalid, errors: errorMessages }"
+        v-bind="{
+          valid,
+          dirty,
+          error,
+          invalid,
+          anyInvalid,
+          errors: errorMessages,
+        }"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { randomString } from '../../utils';
+import { version } from 'vue';
+import { randomString } from '../../utils.js';
+
+const isVue3 = version && version.startsWith('3');
 
 /**
  * TODO:
  * Provide prop for error,invalid classes on input
  * Remove span from labels (breaking)
+ * Use validationMessage @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/validationMessage
  */
 
 /**
@@ -206,10 +221,23 @@ export default {
 
       return attrs;
     },
+    listeners() {
+      if (isVue3) {
+        return this.$attrs;
+      }
+      return this.$listeners;
+    },
+    slots() {
+      let slots = this.$slots;
+      if (!isVue3) {
+        slots = this.$scopedSlots;
+      }
+      return slots;
+    },
 
     computedOptions() {
       const { id, $attrs, localValue } = this;
-      return this.options.map((item) => {
+      return this.options.map(item => {
         // Each item should be an object with at least value and label which we can bind to later
         item = typeof item === 'object' ? item : { value: item };
         return Object.assign(item, $attrs, {
@@ -252,7 +280,7 @@ export default {
       });
 
       return errorMessages;
-    }
+    },
   },
 
   watch: {

@@ -9,7 +9,7 @@
       :aria-expanded="String(isOpen)"
       :class="['vts-toggle__label', classes.label]"
       @click="isOpen = !isOpen"
-      v-on="$listeners"
+      v-on="listeners"
     >
       <!-- @slot The content that goes inside the button -->
       {{ label }}
@@ -40,7 +40,10 @@
 </template>
 
 <script>
-import { randomString } from '../../utils';
+import { version } from 'vue';
+import { randomString } from '../../utils.js';
+const isVue3 = version && version.startsWith('3');
+
 /**
  * Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
  */
@@ -52,7 +55,7 @@ export default {
   },
 
   props: {
-    open:  Boolean,
+    open: Boolean,
 
     label: {
       type: String,
@@ -73,6 +76,15 @@ export default {
     };
   },
 
+  computed: {
+    listeners() {
+      if (isVue3) {
+        return this.$attrs;
+      }
+      return this.$listeners;
+    },
+  },
+
   watch: {
     open(next) {
       this.isOpen = next;
@@ -90,20 +102,23 @@ export default {
   },
 
   methods: {
+    /** @param {HTMLElement} el */
     collapse(el) {
-      el.style.height = 0;
+      el.style.blockSize = '0';
     },
 
+    /** @param {HTMLElement} el */
     expand(el) {
       el.style.overflow = 'hidden';
-      el.style.height = `${el.scrollHeight}px`;
+      el.style.blockSize = `${el.scrollHeight}px`;
       // Force repaint to make sure the animation is triggered correctly.
       el.scrollHeight;
     },
 
+    /** @param {HTMLElement} el */
     resetHeight(el) {
       el.style.overflow = 'visible';
-      el.style.height = '';
+      el.style.blockSize = '';
     },
   },
 };
@@ -111,6 +126,6 @@ export default {
 
 <style>
 .vts-toggle__content {
-  transition: 300ms ease height;
+  transition: 300ms ease block-size;
 }
 </style>

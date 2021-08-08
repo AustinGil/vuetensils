@@ -2,7 +2,7 @@
   <transition :name="transition">
     <component
       :is="tag"
-      v-if="!dismissed && !!visible"
+      v-if="!dismissed && !!modelValue"
       role="alert"
       :class="['vts-alert', classes.root]"
     >
@@ -43,8 +43,8 @@
 export default {
   name: 'VAlert',
   model: {
-    prop: 'visible',
-    event: 'update',
+    prop: 'modelValue',
+    event: 'update:modelValue',
   },
 
   props: {
@@ -58,7 +58,7 @@ export default {
     /**
      * Determines whether the alert is visible. Also binds with `v-model`.
      */
-    visible: {
+    modelValue: {
       type: [Boolean, Number],
       default: true,
     },
@@ -93,7 +93,7 @@ export default {
   }),
 
   watch: {
-    visible: {
+    modelValue: {
       handler(visible) {
         if (visible) {
           this.dismissed = false;
@@ -107,6 +107,10 @@ export default {
     },
   },
 
+  beforeUnmount() {
+    this.clearTimer();
+  },
+  /** @deprecated */
   beforeDestroy() {
     this.clearTimer();
   },
@@ -121,18 +125,21 @@ export default {
        */
       this.$emit('dismiss');
       this.dismissed = true;
-      if (typeof this.visible === 'number') {
+      if (typeof this.modelValue === 'number') {
+        this.$emit('update:modelValue', 0);
+        /** @deprecated */
         this.$emit('update', 0);
         this.clearTimer();
       } else {
+        this.$emit('update:modelValue', false);
+        /** @deprecated */
         this.$emit('update', false);
       }
     },
 
     countdown() {
-      const { visible } = this;
-      if (visible <= 0) return;
-
+      const { modelValue } = this;
+      if (modelValue <= 0) return;
       this.timerId = setTimeout(() => {
         /**
          * Fired whenever the visibility changes. Either through user interaction, or a countdown timer
@@ -140,8 +147,9 @@ export default {
          * @event update
          * @type { boolean|number }
          */
-        // @ts-ignore
-        this.$emit('update', visible - 1);
+        this.$emit('update:modelValue', modelValue - 1);
+        /** @deprecated */
+        this.$emit('update', modelValue - 1);
       }, 1000);
     },
 

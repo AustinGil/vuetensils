@@ -19,7 +19,7 @@ export default {
     // document.body.addEventListener('keydown', el._vtsClickout.esc)
     el.addEventListener('click', el._vtsClickout.stop);
   },
-  
+
   /**
    * @param {ClickoutEl} el directive target element
    * @type {import('vue').DirectiveFunction}

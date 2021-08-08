@@ -42,11 +42,13 @@ export default {
 <template>
   <VTry>
     <template #default="error">
-      <ThisWillThrow />
-
-      <div v-if="error">
-        There was an error in the component:
-        <pre>{{ error }}</pre>
+      <div>
+        <ThisWillThrow />
+  
+        <div v-if="error">
+          There was an error in the component:
+          <pre>{{ error }}</pre>
+        </div>
       </div>
     </template>
   </VTry>

@@ -40,7 +40,7 @@ export default {
       // Firefox doesn't properly handle the isIntersecting prop
       const isThresholdArray = Array.isArray(options.threshold);
       const clone = {};
-      for (let key in entry) {
+      for (const key in entry) {
         clone[key] = entry[key];
       }
       clone.isIntersecting = isThresholdArray

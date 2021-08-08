@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" v-bind="attrs" class="vts-action vts-btn'">
+  <component :is="tag" class="vts-btn" :type="type">
     <slot />
   </component>
 </template>
@@ -14,22 +14,22 @@ export default {
     },
   },
   computed: {
+    /** @return {'RouterLink' | 'a' | 'button'} */
     tag() {
-      const { to, $attrs } = this;
-      if (to) {
+      const attrs = this.$attrs;
+      if (attrs && this.to) {
         return 'RouterLink';
       }
-      if ($attrs && $attrs.href) {
+      if (attrs && attrs.href) {
         return 'a';
       }
       return 'button';
     },
-    attrs() {
-      const attrs = { ...this.$attrs };
-      if (this.tag === 'button') {
-        attrs.type = attrs.type || 'button';
-      }
-      return attrs;
+    /** @return {string} */
+    type() {
+      const $attrs = this.$attrs;
+      if (this.tag !== 'button') return;
+      return $attrs.type || 'button';
     },
   },
 };
