@@ -12,10 +12,7 @@
       classes.root,
     ]"
   >
-    <label
-      :for="`${id}__input`"
-      :class="['vts-input__label', classes.label]"
-    >
+    <label :for="`${id}__input`" :class="['vts-input__label', classes.label]">
       <span :class="['vts-input__text', classes.text]">
         {{ label }}
       </span>
@@ -69,7 +66,7 @@
  * https://github.com/primefaces/primevue/blob/master/src/components/autocomplete/AutoComplete.vue
  */
 
-import { randomString } from '../../utils';
+import { randomString } from '../../utils.js';
 
 /**
  * Input component that automatically includes labels, validation, and aria descriptions for any errors.

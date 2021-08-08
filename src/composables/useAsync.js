@@ -27,16 +27,17 @@ export default function usePromise(promise, options = {}) {
     if (!promise || !promise.then) return;
 
     state.pending = true;
-    options.onChange && options.onChange({
-      pending: state.pending,
-      results: state.results,
-      error: state.error,
-    });
+    options.onChange &&
+      options.onChange({
+        pending: state.pending,
+        results: state.results,
+        error: state.error,
+      });
     options.onPending && options.onPending(state.pending);
 
     try {
       const resolved = await promise;
-      
+
       if (resolved !== undefined) {
         state.results = resolved;
       } else if (options.default !== undefined) {
@@ -44,7 +45,7 @@ export default function usePromise(promise, options = {}) {
       } else {
         state.results = null;
       }
-      
+
       options.onResolve && options.onResolve(state.results);
     } catch (error) {
       if (error instanceof Error) {
@@ -59,11 +60,12 @@ export default function usePromise(promise, options = {}) {
       options.onReject && options.onReject(state.error);
     } finally {
       state.pending = false;
-      options.onChange && options.onChange({
-        pending: state.pending,
-        results: state.results,
-        error: state.error,
-      });
+      options.onChange &&
+        options.onChange({
+          pending: state.pending,
+          results: state.results,
+          error: state.error,
+        });
       options.onPending && options.onPending(state.pending);
     }
   };

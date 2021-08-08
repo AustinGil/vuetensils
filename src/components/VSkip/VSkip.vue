@@ -49,8 +49,8 @@ export default {
 .vts-skip {
   position: fixed;
   z-index: 1000;
-  top: 0;
-  left: -10000px;
+  inset-block-start: 0;
+  inset-inline-start: -10000px;
   border: 3px solid;
   padding: 0.5rem;
   color: #000;
@@ -58,6 +58,6 @@ export default {
 }
 
 .vts-skip:focus {
-  left: 0;
+  inset-inline-start: 0;
 }
 </style>

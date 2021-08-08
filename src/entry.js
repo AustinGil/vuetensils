@@ -1,3 +1,4 @@
+/* eslint-disable import/namespace */
 import * as allComponents from './components/index.js';
 import * as allDirectives from './directives/index.js';
 import * as allFilters from './filters/index.js';
@@ -27,11 +28,14 @@ export default {
    */
   install(Vue, pluginConfig = {}) {
     if (pluginConfig.components) {
-      if(Array.isArray(pluginConfig.components)) {
-        pluginConfig.components = pluginConfig.components.reduce((config, key) => {
-          config[key] = true;
-          return config;
-        }, {});
+      if (Array.isArray(pluginConfig.components)) {
+        pluginConfig.components = pluginConfig.components.reduce(
+          (config, key) => {
+            config[key] = true;
+            return config;
+          },
+          {}
+        );
       }
       Object.entries(pluginConfig.components).forEach(entry => {
         const [key, options] = entry;
@@ -43,11 +47,14 @@ export default {
     }
 
     if (pluginConfig.directives) {
-      if(Array.isArray(pluginConfig.directives)) {
-        pluginConfig.directives = pluginConfig.directives.reduce((config, key) => {
-          config[key] = true;
-          return config;
-        }, {});
+      if (Array.isArray(pluginConfig.directives)) {
+        pluginConfig.directives = pluginConfig.directives.reduce(
+          (config, key) => {
+            config[key] = true;
+            return config;
+          },
+          {}
+        );
       }
       Object.entries(pluginConfig.directives).forEach(entry => {
         const [key] = entry;
@@ -57,7 +64,7 @@ export default {
     }
 
     if (pluginConfig.filters) {
-      if(Array.isArray(pluginConfig.filters)) {
+      if (Array.isArray(pluginConfig.filters)) {
         pluginConfig.filters = pluginConfig.filters.reduce((config, key) => {
           config[key] = true;
           return config;
@@ -69,7 +76,7 @@ export default {
         Vue.filter(key, filter);
       });
     }
-  }
+  },
 };
 
 export * from './components/index.js';

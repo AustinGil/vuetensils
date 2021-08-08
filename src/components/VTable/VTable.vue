@@ -34,10 +34,12 @@
           perPage: localPerPage,
         }"
       >
-        <caption v-if="caption" :id="`${id}__caption`" :class="[classes.caption]">
-          {{
-            caption
-          }}
+        <caption
+          v-if="caption"
+          :id="`${id}__caption`"
+          :class="[classes.caption]"
+        >
+          {{ caption }}
         </caption>
 
         <thead v-if="computedHeaders.length" :class="[classes.thead]">
@@ -80,7 +82,8 @@
 
                   <slot
                     v-else-if="
-                      header.key === localSortBy && localSortDirection === 'DESC'
+                      header.key === localSortBy &&
+                        localSortDirection === 'DESC'
                     "
                     name="sort-desc"
                     v-bind="header.sortBtn"
@@ -135,8 +138,8 @@
                   :key="key"
                   :class="[classes.td]"
                 > -->
-                <td 
-                  v-for="(column) in computedHeaders"
+                <td
+                  v-for="column in computedHeaders"
                   :key="column.key"
                   :class="[classes.td]"
                 >
@@ -285,7 +288,9 @@ export default {
   data() {
     return {
       localSortBy: this.sortBy,
-      localSortDirection: this.sortDirection ? this.sortDirection.toUpperCase() : '',
+      localSortDirection: this.sortDirection
+        ? this.sortDirection.toUpperCase()
+        : '',
       localPage: Number(this.page),
       localPerPage: Number(this.perPage),
       // tabindex: null,
@@ -380,7 +385,7 @@ export default {
     },
     /** @param {string} value */
     sortDirection(value) {
-      this.localSortDirection = value && value.toUpperCase() || '';
+      this.localSortDirection = (value && value.toUpperCase()) || '';
     },
     localSortDirection(value) {
       this.$emit('update:sort-direction', value);
@@ -467,7 +472,7 @@ export default {
 
 <style>
 .vts-table table {
-  width: 100%;
+  inline-size: 100%;
   table-layout: fixed;
 }
 

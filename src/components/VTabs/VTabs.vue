@@ -55,8 +55,8 @@
 
 <script>
 import { version } from 'vue';
-import { randomString } from '../../utils';
-import keycodes from '../../data/keycodes';
+import { randomString } from '../../utils.js';
+import keycodes from '../../data/keycodes.js';
 
 const isVue3 = version && version.startsWith('3');
 

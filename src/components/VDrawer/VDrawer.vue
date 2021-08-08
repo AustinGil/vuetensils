@@ -28,7 +28,12 @@
                 { 'vts-drawer__content--right': !!right },
                 classes.content,
               ]"
-              :style="{ width: width, maxWidth: maxWidth }"
+              :style="{
+                width: width,
+                'inline-size': inlineSize,
+                'max-width': maxWidth,
+                'max-inline-size': maxInlineSize,
+              }"
               tabindex="-1"
             >
               <!-- role="dialog" TODO ?? -->
@@ -43,8 +48,8 @@
 
 <script>
 import { version } from 'vue';
-import KEYCODES from '../../data/keycodes';
-import FOCUSABLE from '../../data/focusable';
+import KEYCODES from '../../data/keycodes.js';
+import FOCUSABLE from '../../data/focusable.js';
 
 const isVue3 = version && version.startsWith('3');
 
@@ -81,9 +86,23 @@ export default {
       default: '',
     },
     /**
+     * CSS width to set the dialog to.
+     */
+    inlineSize: {
+      type: String,
+      default: '',
+    },
+    /**
      * CSS max-width value.
      */
     maxWidth: {
+      type: String,
+      default: '',
+    },
+    /**
+     * CSS max-width to set the dialog to.
+     */
+    maxInlineSize: {
       type: String,
       default: '',
     },
@@ -224,16 +243,13 @@ export default {
 .vts-drawer {
   position: fixed;
   z-index: 100;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
 }
 
 .vts-drawer__content {
   overflow: auto;
-  max-width: 300px;
-  height: 100%;
+  max-inline-size: 20rem;
+  block-size: 100%;
 }
 
 .vts-drawer__content:focus {
@@ -241,6 +257,6 @@ export default {
 }
 
 .vts-drawer__content--right {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 </style>

@@ -102,20 +102,23 @@ export default {
   },
 
   methods: {
+    /** @param {HTMLElement} el */
     collapse(el) {
-      el.style.height = 0;
+      el.style.blockSize = '0';
     },
 
+    /** @param {HTMLElement} el */
     expand(el) {
       el.style.overflow = 'hidden';
-      el.style.height = `${el.scrollHeight}px`;
+      el.style.blockSize = `${el.scrollHeight}px`;
       // Force repaint to make sure the animation is triggered correctly.
       el.scrollHeight;
     },
 
+    /** @param {HTMLElement} el */
     resetHeight(el) {
       el.style.overflow = 'visible';
-      el.style.height = '';
+      el.style.blockSize = '';
     },
   },
 };
@@ -123,6 +126,6 @@ export default {
 
 <style>
 .vts-toggle__content {
-  transition: 300ms ease height;
+  transition: 300ms ease block-size;
 }
 </style>

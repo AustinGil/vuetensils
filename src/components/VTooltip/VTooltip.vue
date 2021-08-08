@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { randomString } from '../../utils';
+import { randomString } from '../../utils.js';
 
 export default {
   name: 'VTooltip',
@@ -71,12 +71,14 @@ export default {
 .vts-tooltip {
   position: relative;
 }
+
 .vts-tooltip__content {
   position: absolute;
-  top: 0;
-  left: 50%;
+  inset-block-start: 0;
+  inset-inline-start: 50%;
   transform: translate(-50%, -100%);
 }
+
 .vts-tooltip__content[aria-hidden='true'] {
   display: none;
 }

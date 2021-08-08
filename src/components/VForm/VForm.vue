@@ -187,8 +187,8 @@ export default {
   position: absolute;
   overflow: hidden;
   clip: rect(0 0 0 0);
-  width: 1px;
-  height: 1px;
+  inline-size: 1px;
+  block-size: 1px;
   margin: -1px;
   border: 0;
   padding: 0;

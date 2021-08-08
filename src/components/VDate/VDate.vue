@@ -162,7 +162,7 @@
 
 <script>
 import KEYCODES from '../../data/keycodes.js';
-import { clickout } from '../../directives';
+import { clickout } from '../../directives/index.js';
 import { randomString, applyFocusTrap } from '../../utils.js';
 
 /**
@@ -415,7 +415,7 @@ export default {
       event.preventDefault();
 
       const { focusedDate, min, max } = this;
-      let d = new Date(focusedDate);
+      const d = new Date(focusedDate);
 
       switch (event.keyCode) {
         case KEYCODES.ENTER:

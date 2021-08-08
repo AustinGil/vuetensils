@@ -23,7 +23,12 @@
               :is="tag"
               ref="content"
               :class="['vts-dialog__content', classes.content]"
-              :style="{ width: width, maxWidth: maxWidth }"
+              :style="{
+                width: width,
+                'inline-size': inlineSize,
+                'max-width': maxWidth,
+                'max-inline-size': maxInlineSize,
+              }"
               tabindex="-1"
               role="dialog"
               aria-modal="true"
@@ -38,8 +43,8 @@
 </template>
 <script>
 import { version } from 'vue';
-import KEYCODES from '../../data/keycodes';
-import FOCUSABLE from '../../data/focusable';
+import KEYCODES from '../../data/keycodes.js';
+import FOCUSABLE from '../../data/focusable.js';
 
 const isVue3 = version && version.startsWith('3');
 
@@ -82,9 +87,23 @@ export default {
       default: '',
     },
     /**
+     * CSS width to set the dialog to.
+     */
+    inlineSize: {
+      type: String,
+      default: '',
+    },
+    /**
      * CSS max-width to set the dialog to.
      */
     maxWidth: {
+      type: String,
+      default: '',
+    },
+    /**
+     * CSS max-width to set the dialog to.
+     */
+    maxInlineSize: {
       type: String,
       default: '',
     },
