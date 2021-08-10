@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" class="vts-btn" :type="type">
+  <component :is="tag" class="vts-btn" :type="type" v-bind="$attrs">
     <slot />
   </component>
 </template>
@@ -21,9 +21,8 @@ export default {
     },
     /** @return {string} */
     type() {
-      const $attrs = this.$attrs;
       if (this.tag !== 'button') return;
-      return $attrs.type || 'button';
+      return this.$attrs.type || 'button';
     },
   },
 };
