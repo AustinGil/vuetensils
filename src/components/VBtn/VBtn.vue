@@ -1,5 +1,11 @@
 <template>
-  <component :is="tag" class="vts-btn" :type="type" v-bind="$attrs">
+  <component
+    :is="tag"
+    class="vts-btn"
+    :type="type"
+    v-bind="$attrs"
+    v-on="$listeners"
+  >
     <slot />
   </component>
 </template>
