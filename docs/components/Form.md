@@ -6,10 +6,12 @@ Form wrapper that provides better security practices and automatic input validat
 
 Features:
 
-- Automatic tracking of input validation.
+- Status tracking when inputs losing focus (`dirty`), having changed (`modified`), validation state (`valid`), and having errors.
 - Works with any `<input>` element. Not just Vuetensil's [VInput](https://vuetensils.stegosource.com/components/input.html). Even works with 3rd party libraries as long as the `<input>` element is used in the DOM.
+- Prevent navigation is the form has been changed but has not been submitted.
 - Provides classes to style invalid, dirty, or error states.
 - Provides method for clearing every input.
+- Honeypot support.
 
 **Important**: Every input should have a [`name`](https://www.w3schools.com/TAGS/att_input_name.asp). This is important for HTML forms, in general, but also helps VForm keep track. If none is provided, it will still work though.
 
@@ -173,6 +175,33 @@ Fortunately, VForm provides a `clear()` method.
       <button type="submit" :disabled="!form.valid">
         Submit
       </button>
+    </template>
+  </VForm>
+</template>
+```
+
+
+## Preventing Navigation
+
+Sometimes you may want to prevent user navigation when a form has been modified, but not yet submitted. This can be a user experience improvement, especially on long forms, to avoid losing work.
+
+To do so you can use the `prevent-navigation` prop
+
+```vue live
+<template>
+  <VForm @submit.prevent preventNavigation>
+    <template #default="form">
+      <label>
+        Name:
+        <input name="name" />
+      </label>
+
+      <button type="submit">
+        Submit
+      </button>
+
+      <p v-show="!form.modified">The form has no unsaved changes.</p>
+      <p v-show="form.modified">The form will warn you before navigation unless you submit.</p>
     </template>
   </VForm>
 </template>

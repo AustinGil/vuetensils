@@ -9,9 +9,11 @@
         'vts-form--error': error,
       },
     ]"
-    @[event]="validate"
+    @[event]="onEvent"
+    @keydown="checkModified"
+    @change="checkModified"
     @submit="onSubmit"
-    @blur.capture.once="dirty = true"
+    @blur.capture="onBlur"
     v-on="listeners"
   >
     <input
@@ -23,14 +25,16 @@
       aria-hidden="true"
     />
 
-    <slot v-bind="{ valid, dirty, error, inputs, clear, validate }" />
+    <slot v-bind="{ valid, dirty, modified, error, inputs, clear, validate }" />
   </form>
 </template>
 
 <script>
+// TODO: Sync with localStorage
 import { version } from 'vue';
 
 const isVue3 = version && version.startsWith('3');
+const controlTypes = new Set(['INPUT', 'SELECT', 'TEXTAREA']);
 
 export default {
   name: 'VForm',
@@ -40,6 +44,11 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    preventNavigation: Boolean,
+    // storageKey: {
+    //   type: String,
+    //   default: '',
+    // },
     honeypot: {
       type: [Boolean, String],
       default: false,
@@ -48,10 +57,13 @@ export default {
 
   data: () => ({
     dirty: false,
+    /** This may need more robust checking. @see https://www.sitepoint.com/detect-html-form-changes/ */
+    modified: false,
     localInputs: {},
   }),
 
   computed: {
+    /** @return {object} */
     listeners() {
       if (isVue3) {
         return this.$attrs;
@@ -114,16 +126,35 @@ export default {
       subtree: true,
     });
     this.observer = observer;
+
+    if (this.preventNavigation) {
+      window.addEventListener('beforeunload', this.preventNav);
+    }
+
+    // if (this.storageKey) {
+    //   this.syncFromLocalStorage();
+    // }
+  },
+  // @ts-ignore
+  // eslint-disable-next-line
+  beforeRouteLeave(to, from, next) {
+    if (!this.modified) next();
+    if (window.confirm('Leave without saving?')) next();
   },
   /** @deprecated */
   beforeDestroy() {
     this.observer.disconnect();
+    window.removeEventListener('beforeunload', this.preventNav);
   },
   beforeUnmount() {
     this.observer.disconnect();
   },
 
   methods: {
+    checkModified({ target }) {
+      if (!controlTypes.has(target.tagName)) return;
+      this.modified = true;
+    },
     validate() {
       /** @type {NodeListOf<HTMLInputElement>} */
       const els = this.$el.querySelectorAll('input, textarea, select');
@@ -132,11 +163,11 @@ export default {
 
       els.forEach(input => {
         const { name, id, validity } = input;
-        if (!name && !id) return;
+        const key = name || id;
+        if (!key) return;
 
-        localInputs[name || id] = {
+        localInputs[key] = {
           _inputEl: input,
-          value: input.value,
           valid: validity.valid,
           dirty: false,
           invalid: {
@@ -149,10 +180,31 @@ export default {
             pattern: validity.patternMismatch,
           },
         };
+
+        switch (input.type) {
+          case 'checkbox':
+            localInputs[key].value = input.checked;
+            break;
+          case 'radio':
+            if (input.checked) {
+              localInputs[key].value = input.value;
+            }
+            break;
+          default:
+            localInputs[key].value = input.value;
+        }
       });
       this.localInputs = localInputs;
     },
+    onEvent() {
+      this.validate();
+      // if (this.storageKey) {
+      //   this.syncToLocalStorage();
+      // }
+    },
     onBlur({ target }) {
+      if (!controlTypes.has(target.tagName)) return;
+
       this.dirty = true;
       this.localInputs[target.name].dirty = true;
     },
@@ -171,13 +223,49 @@ export default {
       });
     },
 
+    reset() {
+      this.modified = false;
+      this.dirty = false;
+      this.validate();
+    },
+
     onSubmit(event) {
       if (!event.target.checkValidity()) {
         this.$emit('invalid', event);
         return;
       }
+      this.reset();
       this.$emit('valid', event);
     },
+
+    preventNav(event) {
+      if (!this.modified) return;
+      event.preventDefault();
+      event.returnValue = '';
+    },
+
+    // syncToLocalStorage() {
+    //   localStorage.setItem(this.storageKey, JSON.stringify(this.localInputs));
+    // },
+
+    // syncFromLocalStorage() {
+    //   try {
+    //     const parsed = JSON.parse(localStorage.getItem(this.storageKey));
+    //     if (!parsed) return;
+
+    //     const els = Array.from(
+    //       this.$el.querySelectorAll('input, textarea, select')
+    //     );
+    //     els.forEach(input => {
+    //       const key = input.name || input.id;
+    //       if (!parsed[key]) return;
+
+    //       // TODO:
+    //     });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
   },
 };
 </script>
