@@ -62,10 +62,6 @@
       :for="`${id}__input`"
       :class="['vts-input__label', classes.label]"
     >
-      <span :class="['vts-input__text', classes.text]">
-        {{ label }}
-      </span>
-
       <select
         v-if="'select' === $attrs.type"
         ref="input"
@@ -104,6 +100,10 @@
         @blur.once="dirty = true"
         v-on="listeners"
       />
+
+      <span :class="['vts-input__text', classes.text]">
+        {{ label }}
+      </span>
     </label>
 
     <div
