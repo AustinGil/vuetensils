@@ -36,6 +36,8 @@
         <span :class="['vts-input__text', classes.text]">
           {{ option.label }}
         </span>
+
+        <slot name="label" />
       </label>
     </fieldset>
 
@@ -55,6 +57,8 @@
       <span :class="['vts-input__text', classes.text]">
         {{ label }}
       </span>
+
+      <slot name="label" />
     </label>
 
     <label
@@ -104,6 +108,8 @@
         @blur.once="dirty = true"
         v-on="listeners"
       />
+
+      <slot name="label" />
     </label>
 
     <div
