@@ -18,6 +18,18 @@
     >
       <legend v-if="label" :class="['vts-input__legend', classes.text]">
         {{ label }}
+
+        <slot
+          name="label"
+            v-bind="{
+            valid,
+            dirty,
+            error,
+            invalid,
+            anyInvalid,
+            errors: errorMessages,
+          }"
+        />
       </legend>
       <label
         v-for="(option, index) in computedOptions"
@@ -36,8 +48,6 @@
         <span :class="['vts-input__text', classes.text]">
           {{ option.label }}
         </span>
-
-        <slot name="label" />
       </label>
     </fieldset>
 
@@ -58,7 +68,17 @@
         {{ label }}
       </span>
 
-      <slot name="label" />
+      <slot
+        name="label"
+        v-bind="{
+          valid,
+          dirty,
+          error,
+          invalid,
+          anyInvalid,
+          errors: errorMessages,
+        }"
+      />
     </label>
 
     <label
@@ -109,7 +129,17 @@
         v-on="listeners"
       />
 
-      <slot name="label" />
+      <slot
+        name="label"
+        v-bind="{
+          valid,
+          dirty,
+          error,
+          invalid,
+          anyInvalid,
+          errors: errorMessages,
+        }"
+      />
     </label>
 
     <div
