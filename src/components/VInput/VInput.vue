@@ -90,6 +90,18 @@
         {{ label }}
       </span>
 
+      <slot
+        name="label"
+        v-bind="{
+          valid,
+          dirty,
+          error,
+          invalid,
+          anyInvalid,
+          errors: errorMessages,
+        }"
+      />
+
       <select
         v-if="'select' === $attrs.type"
         ref="input"
@@ -127,18 +139,6 @@
         v-bind="bind"
         @blur.once="dirty = true"
         v-on="listeners"
-      />
-
-      <slot
-        name="label"
-        v-bind="{
-          valid,
-          dirty,
-          error,
-          invalid,
-          anyInvalid,
-          errors: errorMessages,
-        }"
       />
     </label>
 
