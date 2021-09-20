@@ -120,10 +120,10 @@ export default {
           just...a bit...more...
         </p>
         <p v-else-if="promise.error">
-          {{ results }}
+          {{ promise.error }}
         </p>
         <p v-else-if="promise.results">
-          {{ results }}
+          {{ promise.results }}
         </p>
     </VAsync>
   </div>
