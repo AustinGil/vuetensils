@@ -285,8 +285,8 @@
 </template>
 
 <script>
-import { h } from 'vue';
-import * as components from './components.js';
+import { h as importedH } from 'vue';
+import * as components from './components/index.js';
 
 export default {
   name: 'App',
@@ -298,7 +298,8 @@ export default {
           throw new Error('ThisWillThrow...threw...');
         },
       },
-      render() {
+      render(h) {
+        h = typeof h === 'function' ? h : importedH;
         return h('button', { onClick: this.onClick }, 'Throw');
       },
     },

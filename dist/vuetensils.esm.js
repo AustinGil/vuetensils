@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { version } from 'vue';
 import { reactive, watch, nextTick, computed } from '@vue/composition-api';
 
 /**
@@ -364,7 +364,8 @@ var __vue_staticRenderFns__ = [];
     undefined
   );
 
-var isVue2 = Vue && Vue.version.startsWith('2');
+var isVue3 = version && version.startsWith('3');
+
 /**
  * A renderless component for awaiting promises to resolve;
  * great for making HTTP requests. Supports showing pending,
@@ -483,7 +484,7 @@ var script$2 = {
     var done = ref.done;
     var slots = this.$slots;
 
-    if (isVue2) {
+    if (!isVue3) {
       slots = this.$scopedSlots;
     }
 
@@ -567,17 +568,47 @@ var __vue_script__$2 = script$2;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var script$3 = {
   name: 'VBtn',
+  inheritAttrs: false,
+  props: {
+    action: { type: String, default: '' },
+    data: { type: Object, default: function () { return ({}); } },
+  },
   computed: {
     /** @return {'RouterLink' | 'a' | 'button'} */
     tag: function tag() {
-      var attrs = this.$attrs;
-      if (attrs && attrs.to) {
+      var attrs = this.$attrs || {};
+      if (attrs.to) {
         return 'RouterLink';
       }
-      if (attrs && attrs.href) {
+      if (attrs.href) {
         return 'a';
       }
       return 'button';
@@ -588,25 +619,96 @@ var script$3 = {
       return this.$attrs.type || 'button';
     },
   },
+  methods: {
+    onSubmit: async function onSubmit(ref) {
+      var form = ref.target;
+
+      try {
+        var data = new FormData(form);
+        var response = await fetch(form.action, {
+          method: form.method,
+          body: data,
+        });
+        this.$emit('response', response);
+      } catch (error) {
+        this.$emit('error', error);
+      }
+    },
+  },
 };
+
+var isOldIE = typeof navigator !== 'undefined' &&
+    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+function createInjector(context) {
+    return function (id, style) { return addStyle(id, style); };
+}
+var HEAD;
+var styles = {};
+function addStyle(id, css) {
+    var group = isOldIE ? css.media || 'default' : id;
+    var style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
+    if (!style.ids.has(id)) {
+        style.ids.add(id);
+        var code = css.source;
+        if (css.map) {
+            // https://developer.chrome.com/devtools/docs/javascript-debugging
+            // this makes source maps inside style tags work properly in Chrome
+            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
+            // http://stackoverflow.com/a/26603875
+            code +=
+                '\n/*# sourceMappingURL=data:application/json;base64,' +
+                    btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
+                    ' */';
+        }
+        if (!style.element) {
+            style.element = document.createElement('style');
+            style.element.type = 'text/css';
+            if (css.media)
+                { style.element.setAttribute('media', css.media); }
+            if (HEAD === undefined) {
+                HEAD = document.head || document.getElementsByTagName('head')[0];
+            }
+            HEAD.appendChild(style.element);
+        }
+        if ('styleSheet' in style.element) {
+            style.styles.push(code);
+            style.element.styleSheet.cssText = style.styles
+                .filter(Boolean)
+                .join('\n');
+        }
+        else {
+            var index = style.ids.size - 1;
+            var textNode = document.createTextNode(code);
+            var nodes = style.element.childNodes;
+            if (nodes[index])
+                { style.element.removeChild(nodes[index]); }
+            if (nodes.length)
+                { style.element.insertBefore(textNode, nodes[index]); }
+            else
+                { style.element.appendChild(textNode); }
+        }
+    }
+}
 
 /* script */
 var __vue_script__$3 = script$3;
 
 /* template */
-var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c(_vm.tag,_vm._g(_vm._b({tag:"component",staticClass:"vts-btn",attrs:{"type":_vm.type}},'component',_vm.$attrs,false),_vm.$listeners),[_vm._t("default")],2)};
+var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.action && _vm.data)?_c('form',{staticClass:"vts-btn__form",attrs:{"action":_vm.action,"method":"POST"},on:{"submit":function($event){$event.preventDefault();return _vm.onSubmit($event)}}},[_vm._l((_vm.data),function(key,value){return _c('input',{key:key,attrs:{"name":key,"type":"hidden","hidden":"","autocomplete":"off","aria-hidden":"true","tabindex":"-1"},domProps:{"value":value}})}),_vm._v(" "),_c('button',_vm._g(_vm._b({staticClass:"vts-btn",attrs:{"type":"submit"}},'button',_vm.$attrs,false),_vm.$listeners),[_vm._t("default")],2)],2):_c(_vm.tag,_vm._g(_vm._b({tag:"component",staticClass:"vts-btn",attrs:{"type":_vm.type}},'component',_vm.$attrs,false),_vm.$listeners),[_vm._t("default")],2)};
 var __vue_staticRenderFns__$1 = [];
 
   /* style */
-  var __vue_inject_styles__$3 = undefined;
+  var __vue_inject_styles__$3 = function (inject) {
+    if (!inject) { return }
+    inject("data-v-0604b6d6_0", { source: ".vts-btn__form{display:inline}", map: undefined, media: undefined });
+
+  };
   /* scoped */
   var __vue_scope_id__$3 = undefined;
   /* module identifier */
   var __vue_module_identifier__$3 = undefined;
   /* functional template */
   var __vue_is_functional_template__$3 = false;
-  /* style inject */
-  
   /* style inject SSR */
   
   /* style inject shadow dom */
@@ -621,7 +723,7 @@ var __vue_staticRenderFns__$1 = [];
     __vue_is_functional_template__$3,
     __vue_module_identifier__$3,
     false,
-    undefined,
+    createInjector,
     undefined,
     undefined
   );
@@ -1230,59 +1332,6 @@ var script$4 = {
   },
 };
 
-var isOldIE = typeof navigator !== 'undefined' &&
-    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-function createInjector(context) {
-    return function (id, style) { return addStyle(id, style); };
-}
-var HEAD;
-var styles = {};
-function addStyle(id, css) {
-    var group = isOldIE ? css.media || 'default' : id;
-    var style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
-    if (!style.ids.has(id)) {
-        style.ids.add(id);
-        var code = css.source;
-        if (css.map) {
-            // https://developer.chrome.com/devtools/docs/javascript-debugging
-            // this makes source maps inside style tags work properly in Chrome
-            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
-            // http://stackoverflow.com/a/26603875
-            code +=
-                '\n/*# sourceMappingURL=data:application/json;base64,' +
-                    btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
-                    ' */';
-        }
-        if (!style.element) {
-            style.element = document.createElement('style');
-            style.element.type = 'text/css';
-            if (css.media)
-                { style.element.setAttribute('media', css.media); }
-            if (HEAD === undefined) {
-                HEAD = document.head || document.getElementsByTagName('head')[0];
-            }
-            HEAD.appendChild(style.element);
-        }
-        if ('styleSheet' in style.element) {
-            style.styles.push(code);
-            style.element.styleSheet.cssText = style.styles
-                .filter(Boolean)
-                .join('\n');
-        }
-        else {
-            var index = style.ids.size - 1;
-            var textNode = document.createTextNode(code);
-            var nodes = style.element.childNodes;
-            if (nodes[index])
-                { style.element.removeChild(nodes[index]); }
-            if (nodes.length)
-                { style.element.insertBefore(textNode, nodes[index]); }
-            else
-                { style.element.appendChild(textNode); }
-        }
-    }
-}
-
 /* script */
 var __vue_script__$4 = script$4;
 
@@ -1337,7 +1386,7 @@ var __vue_staticRenderFns__$2 = [];
 
 //
 
-var isVue2$1 = Vue && Vue.version.startsWith('2');
+var isVue3$1 = version && version.startsWith('3');
 
 /**
  * A dialog component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the dialog until it is closed. It supports being closed by clicking outside the dialog content or pressing the ESC key.
@@ -1442,7 +1491,7 @@ var script$5 = {
 
   computed: {
     slots: function slots() {
-      if (isVue2$1) {
+      if (!isVue3$1) {
         return this.$scopedSlots;
       }
       return this.$slots;
@@ -1571,7 +1620,7 @@ var __vue_staticRenderFns__$3 = [];
   /* style */
   var __vue_inject_styles__$5 = function (inject) {
     if (!inject) { return }
-    inject("data-v-46b3cd71_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;inset:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
+    inject("data-v-602faab6_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;inset:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -1601,7 +1650,7 @@ var __vue_staticRenderFns__$3 = [];
 
 //
 
-var isVue2$2 = Vue && Vue.version.startsWith('2');
+var isVue3$2 = version && version.startsWith('3');
 
 var NAME = 'vts-drawer';
 
@@ -1692,7 +1741,7 @@ var script$6 = {
 
   computed: {
     slots: function slots() {
-      if (isVue2$2) {
+      if (!isVue3$2) {
         return this.$scopedSlots;
       }
       return this.$slots;
@@ -1824,7 +1873,7 @@ var __vue_staticRenderFns__$4 = [];
   /* style */
   var __vue_inject_styles__$6 = function (inject) {
     if (!inject) { return }
-    inject("data-v-abc426b0_0", { source: ".vts-drawer{position:fixed;z-index:100;inset:0}.vts-drawer__content{overflow:auto;max-inline-size:20rem;block-size:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-inline-start:auto}", map: undefined, media: undefined });
+    inject("data-v-3687f658_0", { source: ".vts-drawer{position:fixed;z-index:100;inset:0}.vts-drawer__content{overflow:auto;max-inline-size:20rem;block-size:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-inline-start:auto}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -1998,7 +2047,7 @@ var __vue_staticRenderFns__$5 = [];
 
 //
 
-var isVue2$3 = Vue && Vue.version.startsWith('2');
+var isVue3$3 = version && version.startsWith('3');
 
 var script$8 = {
   name: 'VFile',
@@ -2031,10 +2080,10 @@ var script$8 = {
 
   computed: {
     listeners: function listeners() {
-      if (isVue2$3) {
-        return this.$listeners;
+      if (isVue3$3) {
+        return this.$attrs;
       }
-      return this.$attrs;
+      return this.$listeners;
     },
   },
 
@@ -2092,7 +2141,7 @@ var __vue_staticRenderFns__$6 = [];
   /* style */
   var __vue_inject_styles__$8 = function (inject) {
     if (!inject) { return }
-    inject("data-v-64d32d38_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}.vts-file__dropzone{position:relative}.vts-file__overlay{position:absolute;inset:0}input:focus~.vts-file__dropzone{outline-width:1px;outline-style:auto;outline-color:Highlight;outline-color:-webkit-focus-ring-color}", map: undefined, media: undefined });
+    inject("data-v-7d651585_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}.vts-file__dropzone{position:relative}.vts-file__overlay{position:absolute;inset:0}input:focus~.vts-file__dropzone{outline-width:1px;outline-style:auto;outline-color:Highlight;outline-color:-webkit-focus-ring-color}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -2122,7 +2171,7 @@ var __vue_staticRenderFns__$6 = [];
 
 //
 
-var isVue2$4 = Vue && Vue.version.startsWith('2');
+var isVue3$4 = version && version.startsWith('3');
 var controlTypes = new Set(['INPUT', 'SELECT', 'TEXTAREA']);
 
 var script$9 = {
@@ -2154,10 +2203,10 @@ var script$9 = {
   computed: {
     /** @return {object} */
     listeners: function listeners() {
-      if (isVue2$4) {
-        return this.$listeners;
+      if (isVue3$4) {
+        return this.$attrs;
       }
-      return this.$attrs;
+      return this.$listeners;
     },
     /** @return {string} */
     event: function event() {
@@ -2382,7 +2431,7 @@ var __vue_staticRenderFns__$7 = [];
   /* style */
   var __vue_inject_styles__$9 = function (inject) {
     if (!inject) { return }
-    inject("data-v-73d536d2_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}", map: undefined, media: undefined });
+    inject("data-v-5b3fb76a_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -2412,8 +2461,7 @@ var __vue_staticRenderFns__$7 = [];
 
 //
 
-var isVue2$5 = Vue && Vue.version.startsWith('2');
-
+var isVue3$5 = version && version.startsWith('3');
 var NAME$1 = 'vts-img';
 
 /**
@@ -2473,10 +2521,10 @@ var script$a = {
 
   computed: {
     listeners: function listeners() {
-      if (isVue2$5) {
-        return this.$listeners;
+      if (isVue3$5) {
+        return this.$attrs;
       }
-      return this.$attrs;
+      return this.$listeners;
     },
   },
 
@@ -2587,7 +2635,7 @@ var __vue_staticRenderFns__$8 = [];
   /* style */
   var __vue_inject_styles__$a = function (inject) {
     if (!inject) { return }
-    inject("data-v-c2702b34_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
+    inject("data-v-5e68d4da_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -2617,7 +2665,7 @@ var __vue_staticRenderFns__$8 = [];
 
 //
 
-var isVue2$6 = Vue && Vue.version && Vue.version.startsWith('2');
+var isVue3$6 = version && version.startsWith('3');
 
 /**
  * TODO:
@@ -2710,13 +2758,13 @@ var script$b = {
       return attrs;
     },
     listeners: function listeners() {
-      if (isVue2$6) {
-        return this.$listeners;
+      if (isVue3$6) {
+        return this.$attrs;
       }
-      return this.$attrs;
+      return this.$listeners;
     },
     slots: function slots() {
-      if (isVue2$6) {
+      if (!isVue3$6) {
         return this.$scopedSlots;
       }
       return this.$slots;
@@ -2880,8 +2928,7 @@ var __vue_staticRenderFns__$9 = [];
     undefined
   );
 
-var isVue2$7 = Vue && Vue.version.startsWith('2');
-
+var isVue3$7 = version && version.startsWith('3');
 /**
  * Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
  */
@@ -2923,7 +2970,7 @@ var script$c = {
 
   mounted: function mounted() {
     var el = this.$el;
-    if (!isVue2$7) {
+    if (isVue3$7) {
       // I'm not really sure why this is necessary
       el = this.$el.nextElementSibling;
     }
@@ -2986,7 +3033,7 @@ var script$c = {
     /** @slot Content to be tracked with IntersectionObserver */
     var ref = this;
     var entry = ref.entry;
-    if (!isVue2$7) {
+    if (isVue3$7) {
       return this.$slots.default(entry);
     }
 
@@ -3746,7 +3793,7 @@ var __vue_staticRenderFns__$d = [];
 
 //
 
-var isVue2$8 = Vue && Vue.version.startsWith('2');
+var isVue3$8 = version && version.startsWith('3');
 
 // const NAME = "vts-tabs"
 
@@ -3895,7 +3942,7 @@ var script$h = {
       var activeIndex = ref.activeIndex;
       var activeTab = tabList[activeIndex];
 
-      if (!isVue2$8) {
+      if (isVue3$8) {
         return $refs[activeTab].focus();
       }
       $refs[activeTab][0].focus();
@@ -3954,8 +4001,7 @@ var __vue_staticRenderFns__$e = [];
   );
 
 //
-
-var isVue2$9 = Vue && Vue.version.startsWith('2');
+var isVue3$9 = version && version.startsWith('3');
 
 /**
  * Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
@@ -3991,10 +4037,10 @@ var script$i = {
 
   computed: {
     listeners: function listeners() {
-      if (isVue2$9) {
-        return this.$listeners;
+      if (isVue3$9) {
+        return this.$attrs;
       }
-      return this.$attrs;
+      return this.$listeners;
     },
   },
 
@@ -4047,7 +4093,7 @@ var __vue_staticRenderFns__$f = [];
   /* style */
   var __vue_inject_styles__$i = function (inject) {
     if (!inject) { return }
-    inject("data-v-238621b6_0", { source: ".vts-toggle__content{transition:.3s ease block-size}", map: undefined, media: undefined });
+    inject("data-v-4c06c120_0", { source: ".vts-toggle__content{transition:.3s ease block-size}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -4154,7 +4200,7 @@ var __vue_staticRenderFns__$g = [];
     undefined
   );
 
-var isVue2$a = Vue && Vue.version.startsWith('2');
+var isVue3$a = version && version.startsWith('3');
 
 var script$k = {
   name: 'VTry',
@@ -4185,7 +4231,7 @@ var script$k = {
     var $slots = ref.$slots;
     var slots = $slots;
 
-    if (isVue2$a) {
+    if (!isVue3$a) {
       slots = this.$scopedSlots;
     }
     if (error && slots.catch) {

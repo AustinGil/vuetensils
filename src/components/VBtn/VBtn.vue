@@ -1,6 +1,31 @@
 <template>
+  <form
+    v-if="action && data"
+    :action="action"
+    method="POST"
+    class="vts-btn__form"
+    @submit.prevent="onSubmit"
+  >
+    <!-- target="_blank" ? -->
+    <input
+      v-for="(key, value) in data"
+      :key="key"
+      :value="value"
+      :name="key"
+      type="hidden"
+      hidden
+      autocomplete="off"
+      aria-hidden="true"
+      tabindex="-1"
+    />
+    <button type="submit" v-bind="$attrs" class="vts-btn" v-on="$listeners">
+      <slot />
+    </button>
+  </form>
+
   <component
     :is="tag"
+    v-else
     class="vts-btn"
     :type="type"
     v-bind="$attrs"
@@ -13,14 +38,19 @@
 <script>
 export default {
   name: 'VBtn',
+  inheritAttrs: false,
+  props: {
+    action: { type: String, default: '' },
+    data: { type: Object, default: () => ({}) },
+  },
   computed: {
     /** @return {'RouterLink' | 'a' | 'button'} */
     tag() {
-      const attrs = this.$attrs;
-      if (attrs && attrs.to) {
+      const attrs = this.$attrs || {};
+      if (attrs.to) {
         return 'RouterLink';
       }
-      if (attrs && attrs.href) {
+      if (attrs.href) {
         return 'a';
       }
       return 'button';
@@ -31,5 +61,25 @@ export default {
       return this.$attrs.type || 'button';
     },
   },
+  methods: {
+    async onSubmit({ target: form }) {
+      try {
+        const data = new FormData(form);
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: data,
+        });
+        this.$emit('response', response);
+      } catch (error) {
+        this.$emit('error', error);
+      }
+    },
+  },
 };
 </script>
+
+<style>
+.vts-btn__form {
+  display: inline;
+}
+</style>

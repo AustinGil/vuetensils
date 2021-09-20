@@ -3,6 +3,10 @@ import * as allComponents from './components/index.js';
 import * as allDirectives from './directives/index.js';
 import * as allFilters from './filters/index.js';
 
+export const components = allComponents;
+export const directives = allDirectives;
+export const filters = allFilters;
+
 /**
  * TODO:
  * Provide config options for library/components
