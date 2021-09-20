@@ -31,6 +31,7 @@
 
 <script>
 // TODO: Sync with localStorage
+// TODO: Scroll to errors
 import { version } from 'vue';
 
 const isVue3 = version && version.startsWith('3');

@@ -1,3 +1,6 @@
+export const components: typeof allComponents;
+export const directives: typeof allDirectives;
+export const filters: typeof allFilters;
 declare var _default: {
     /**
      * @param {*} Vue Vue instance

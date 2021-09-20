@@ -151,11 +151,10 @@ export default {
 
   computed: {
     slots() {
-      let slots = this.$slots;
       if (!isVue3) {
-        slots = this.$scopedSlots;
+        return this.$scopedSlots;
       }
-      return slots;
+      return this.$slots;
     },
   },
 

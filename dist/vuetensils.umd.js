@@ -1,8 +1,10 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('vue'), require('@vue/composition-api')) :
   typeof define === 'function' && define.amd ? define(['exports', 'vue', '@vue/composition-api'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.Vuetensils = {}, global.vue, global.compositionApi));
-}(this, (function (exports, vue, compositionApi) { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.Vuetensils = {}, global.Vue, global.compositionApi));
+}(this, (function (exports, Vue, compositionApi) { 'use strict';
+
+  Vue = Vue && Object.prototype.hasOwnProperty.call(Vue, 'default') ? Vue['default'] : Vue;
 
   /**
    * Detects if a VDOM element is a <RouterLink>, <a>, or <button>
@@ -367,8 +369,7 @@
       undefined
     );
 
-  var isVue3 = vue.version && vue.version.startsWith('3');
-
+  var isVue2 = Vue && Vue.version.startsWith('2');
   /**
    * A renderless component for awaiting promises to resolve;
    * great for making HTTP requests. Supports showing pending,
@@ -487,7 +488,7 @@
       var done = ref.done;
       var slots = this.$slots;
 
-      if (!isVue3) {
+      if (isVue2) {
         slots = this.$scopedSlots;
       }
 
@@ -559,6 +560,12 @@
       undefined
     );
 
+  //
+  //
+  //
+  //
+  //
+  //
   //
   //
   //
@@ -1335,7 +1342,7 @@
 
   //
 
-  var isVue3$1 = vue.version && vue.version.startsWith('3');
+  var isVue2$1 = Vue && Vue.version.startsWith('2');
 
   /**
    * A dialog component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the dialog until it is closed. It supports being closed by clicking outside the dialog content or pressing the ESC key.
@@ -1440,11 +1447,10 @@
 
     computed: {
       slots: function slots() {
-        var slots = this.$slots;
-        if (!isVue3$1) {
-          slots = this.$scopedSlots;
+        if (isVue2$1) {
+          return this.$scopedSlots;
         }
-        return slots;
+        return this.$slots;
       },
     },
 
@@ -1570,7 +1576,7 @@
     /* style */
     var __vue_inject_styles__$5 = function (inject) {
       if (!inject) { return }
-      inject("data-v-52784b38_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;inset:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
+      inject("data-v-46b3cd71_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;inset:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -1600,7 +1606,7 @@
 
   //
 
-  var isVue3$2 = vue.version && vue.version.startsWith('3');
+  var isVue2$2 = Vue && Vue.version.startsWith('2');
 
   var NAME = 'vts-drawer';
 
@@ -1691,11 +1697,10 @@
 
     computed: {
       slots: function slots() {
-        var slots = this.$slots;
-        if (!isVue3$2) {
-          slots = this.$scopedSlots;
+        if (isVue2$2) {
+          return this.$scopedSlots;
         }
-        return slots;
+        return this.$slots;
       },
     },
 
@@ -1824,7 +1829,7 @@
     /* style */
     var __vue_inject_styles__$6 = function (inject) {
       if (!inject) { return }
-      inject("data-v-3c5caf79_0", { source: ".vts-drawer{position:fixed;z-index:100;inset:0}.vts-drawer__content{overflow:auto;max-inline-size:20rem;block-size:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-inline-start:auto}", map: undefined, media: undefined });
+      inject("data-v-abc426b0_0", { source: ".vts-drawer{position:fixed;z-index:100;inset:0}.vts-drawer__content{overflow:auto;max-inline-size:20rem;block-size:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-inline-start:auto}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -1998,7 +2003,7 @@
 
   //
 
-  var isVue3$3 = vue.version && vue.version.startsWith('3');
+  var isVue2$3 = Vue && Vue.version.startsWith('2');
 
   var script$8 = {
     name: 'VFile',
@@ -2031,10 +2036,10 @@
 
     computed: {
       listeners: function listeners() {
-        if (isVue3$3) {
-          return this.$attrs;
+        if (isVue2$3) {
+          return this.$listeners;
         }
-        return this.$listeners;
+        return this.$attrs;
       },
     },
 
@@ -2092,7 +2097,7 @@
     /* style */
     var __vue_inject_styles__$8 = function (inject) {
       if (!inject) { return }
-      inject("data-v-7d651585_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}.vts-file__dropzone{position:relative}.vts-file__overlay{position:absolute;inset:0}input:focus~.vts-file__dropzone{outline-width:1px;outline-style:auto;outline-color:Highlight;outline-color:-webkit-focus-ring-color}", map: undefined, media: undefined });
+      inject("data-v-64d32d38_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}.vts-file__dropzone{position:relative}.vts-file__overlay{position:absolute;inset:0}input:focus~.vts-file__dropzone{outline-width:1px;outline-style:auto;outline-color:Highlight;outline-color:-webkit-focus-ring-color}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -2122,7 +2127,8 @@
 
   //
 
-  var isVue3$4 = vue.version && vue.version.startsWith('3');
+  var isVue2$4 = Vue && Vue.version.startsWith('2');
+  var controlTypes = new Set(['INPUT', 'SELECT', 'TEXTAREA']);
 
   var script$9 = {
     name: 'VForm',
@@ -2132,6 +2138,11 @@
         type: Object,
         default: function () { return ({}); },
       },
+      preventNavigation: Boolean,
+      // storageKey: {
+      //   type: String,
+      //   default: '',
+      // },
       honeypot: {
         type: [Boolean, String],
         default: false,
@@ -2140,15 +2151,18 @@
 
     data: function () { return ({
       dirty: false,
+      /** This may need more robust checking. @see https://www.sitepoint.com/detect-html-form-changes/ */
+      modified: false,
       localInputs: {},
     }); },
 
     computed: {
+      /** @return {object} */
       listeners: function listeners() {
-        if (isVue3$4) {
-          return this.$attrs;
+        if (isVue2$4) {
+          return this.$listeners;
         }
-        return this.$listeners;
+        return this.$attrs;
       },
       /** @return {string} */
       event: function event() {
@@ -2208,16 +2222,37 @@
         subtree: true,
       });
       this.observer = observer;
+
+      if (this.preventNavigation) {
+        window.addEventListener('beforeunload', this.preventNav);
+      }
+
+      // if (this.storageKey) {
+      //   this.syncFromLocalStorage();
+      // }
+    },
+    // @ts-ignore
+    // eslint-disable-next-line
+    beforeRouteLeave: function beforeRouteLeave(to, from, next) {
+      if (!this.modified) { next(); }
+      if (window.confirm('Leave without saving?')) { next(); }
     },
     /** @deprecated */
     beforeDestroy: function beforeDestroy() {
       this.observer.disconnect();
+      window.removeEventListener('beforeunload', this.preventNav);
     },
     beforeUnmount: function beforeUnmount() {
       this.observer.disconnect();
     },
 
     methods: {
+      checkModified: function checkModified(ref) {
+        var target = ref.target;
+
+        if (!controlTypes.has(target.tagName)) { return; }
+        this.modified = true;
+      },
       validate: function validate() {
         /** @type {NodeListOf<HTMLInputElement>} */
         var els = this.$el.querySelectorAll('input, textarea, select');
@@ -2228,11 +2263,11 @@
           var name = input.name;
           var id = input.id;
           var validity = input.validity;
-          if (!name && !id) { return; }
+          var key = name || id;
+          if (!key) { return; }
 
-          localInputs[name || id] = {
+          localInputs[key] = {
             _inputEl: input,
-            value: input.value,
             valid: validity.valid,
             dirty: false,
             invalid: {
@@ -2245,11 +2280,32 @@
               pattern: validity.patternMismatch,
             },
           };
+
+          switch (input.type) {
+            case 'checkbox':
+              localInputs[key].value = input.checked;
+              break;
+            case 'radio':
+              if (input.checked) {
+                localInputs[key].value = input.value;
+              }
+              break;
+            default:
+              localInputs[key].value = input.value;
+          }
         });
         this.localInputs = localInputs;
       },
+      onEvent: function onEvent() {
+        this.validate();
+        // if (this.storageKey) {
+        //   this.syncToLocalStorage();
+        // }
+      },
       onBlur: function onBlur(ref) {
         var target = ref.target;
+
+        if (!controlTypes.has(target.tagName)) { return; }
 
         this.dirty = true;
         this.localInputs[target.name].dirty = true;
@@ -2269,13 +2325,49 @@
         });
       },
 
+      reset: function reset() {
+        this.modified = false;
+        this.dirty = false;
+        this.validate();
+      },
+
       onSubmit: function onSubmit(event) {
         if (!event.target.checkValidity()) {
           this.$emit('invalid', event);
           return;
         }
+        this.reset();
         this.$emit('valid', event);
       },
+
+      preventNav: function preventNav(event) {
+        if (!this.modified) { return; }
+        event.preventDefault();
+        event.returnValue = '';
+      },
+
+      // syncToLocalStorage() {
+      //   localStorage.setItem(this.storageKey, JSON.stringify(this.localInputs));
+      // },
+
+      // syncFromLocalStorage() {
+      //   try {
+      //     const parsed = JSON.parse(localStorage.getItem(this.storageKey));
+      //     if (!parsed) return;
+
+      //     const els = Array.from(
+      //       this.$el.querySelectorAll('input, textarea, select')
+      //     );
+      //     els.forEach(input => {
+      //       const key = input.name || input.id;
+      //       if (!parsed[key]) return;
+
+      //       // TODO:
+      //     });
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // },
     },
   };
 
@@ -2289,13 +2381,13 @@
         'vts-form--invalid': !_vm.valid,
         'vts-form--dirty': _vm.dirty,
         'vts-form--error': _vm.error,
-      } ],attrs:{"method":_vm.$attrs.method || 'POST'},on:_vm._d({"submit":_vm.onSubmit,"~!blur":function($event){_vm.dirty = true;}},[_vm.event,_vm.validate])},_vm.listeners),[(_vm.honeypot)?_c('input',{staticClass:"visually-hidden",attrs:{"name":typeof _vm.honeypot === 'string' ? _vm.honeypot : 'vts-honeypot',"tabindex":"-1","autocomplete":"off","aria-hidden":"true"}}):_vm._e(),_vm._v(" "),_vm._t("default",null,null,{ valid: _vm.valid, dirty: _vm.dirty, error: _vm.error, inputs: _vm.inputs, clear: _vm.clear, validate: _vm.validate })],2)};
+      } ],attrs:{"method":_vm.$attrs.method || 'POST'},on:_vm._d({"keydown":_vm.checkModified,"change":_vm.checkModified,"submit":_vm.onSubmit,"!blur":function($event){return _vm.onBlur($event)}},[_vm.event,_vm.onEvent])},_vm.listeners),[(_vm.honeypot)?_c('input',{staticClass:"visually-hidden",attrs:{"name":typeof _vm.honeypot === 'string' ? _vm.honeypot : 'vts-honeypot',"tabindex":"-1","autocomplete":"off","aria-hidden":"true"}}):_vm._e(),_vm._v(" "),_vm._t("default",null,null,{ valid: _vm.valid, dirty: _vm.dirty, modified: _vm.modified, error: _vm.error, inputs: _vm.inputs, clear: _vm.clear, validate: _vm.validate })],2)};
   var __vue_staticRenderFns__$7 = [];
 
     /* style */
     var __vue_inject_styles__$9 = function (inject) {
       if (!inject) { return }
-      inject("data-v-5ed9abcb_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}", map: undefined, media: undefined });
+      inject("data-v-73d536d2_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -2325,7 +2417,8 @@
 
   //
 
-  var isVue3$5 = vue.version && vue.version.startsWith('3');
+  var isVue2$5 = Vue && Vue.version.startsWith('2');
+
   var NAME$1 = 'vts-img';
 
   /**
@@ -2385,10 +2478,10 @@
 
     computed: {
       listeners: function listeners() {
-        if (isVue3$5) {
-          return this.$attrs;
+        if (isVue2$5) {
+          return this.$listeners;
         }
-        return this.$listeners;
+        return this.$attrs;
       },
     },
 
@@ -2499,7 +2592,7 @@
     /* style */
     var __vue_inject_styles__$a = function (inject) {
       if (!inject) { return }
-      inject("data-v-5e68d4da_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
+      inject("data-v-c2702b34_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -2529,7 +2622,7 @@
 
   //
 
-  var isVue3$6 = vue.version && vue.version.startsWith('3');
+  var isVue2$6 = Vue && Vue.version && Vue.version.startsWith('2');
 
   /**
    * TODO:
@@ -2622,17 +2715,16 @@
         return attrs;
       },
       listeners: function listeners() {
-        if (isVue3$6) {
-          return this.$attrs;
+        if (isVue2$6) {
+          return this.$listeners;
         }
-        return this.$listeners;
+        return this.$attrs;
       },
       slots: function slots() {
-        var slots = this.$slots;
-        if (!isVue3$6) {
-          slots = this.$scopedSlots;
+        if (isVue2$6) {
+          return this.$scopedSlots;
         }
-        return slots;
+        return this.$slots;
       },
 
       computedOptions: function computedOptions() {
@@ -2793,7 +2885,8 @@
       undefined
     );
 
-  var isVue3$7 = vue.version && vue.version.startsWith('3');
+  var isVue2$7 = Vue && Vue.version.startsWith('2');
+
   /**
    * Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
    */
@@ -2835,7 +2928,7 @@
 
     mounted: function mounted() {
       var el = this.$el;
-      if (isVue3$7) {
+      if (!isVue2$7) {
         // I'm not really sure why this is necessary
         el = this.$el.nextElementSibling;
       }
@@ -2898,7 +2991,7 @@
       /** @slot Content to be tracked with IntersectionObserver */
       var ref = this;
       var entry = ref.entry;
-      if (isVue3$7) {
+      if (!isVue2$7) {
         return this.$slots.default(entry);
       }
 
@@ -3658,7 +3751,7 @@
 
   //
 
-  var isVue3$8 = vue.version && vue.version.startsWith('3');
+  var isVue2$8 = Vue && Vue.version.startsWith('2');
 
   // const NAME = "vts-tabs"
 
@@ -3807,7 +3900,7 @@
         var activeIndex = ref.activeIndex;
         var activeTab = tabList[activeIndex];
 
-        if (isVue3$8) {
+        if (!isVue2$8) {
           return $refs[activeTab].focus();
         }
         $refs[activeTab][0].focus();
@@ -3866,7 +3959,8 @@
     );
 
   //
-  var isVue3$9 = vue.version && vue.version.startsWith('3');
+
+  var isVue2$9 = Vue && Vue.version.startsWith('2');
 
   /**
    * Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
@@ -3902,10 +3996,10 @@
 
     computed: {
       listeners: function listeners() {
-        if (isVue3$9) {
-          return this.$attrs;
+        if (isVue2$9) {
+          return this.$listeners;
         }
-        return this.$listeners;
+        return this.$attrs;
       },
     },
 
@@ -3958,7 +4052,7 @@
     /* style */
     var __vue_inject_styles__$i = function (inject) {
       if (!inject) { return }
-      inject("data-v-4c06c120_0", { source: ".vts-toggle__content{transition:.3s ease block-size}", map: undefined, media: undefined });
+      inject("data-v-238621b6_0", { source: ".vts-toggle__content{transition:.3s ease block-size}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -4065,7 +4159,7 @@
       undefined
     );
 
-  var isVue3$a = vue.version && vue.version.startsWith('3');
+  var isVue2$a = Vue && Vue.version.startsWith('2');
 
   var script$k = {
     name: 'VTry',
@@ -4096,7 +4190,7 @@
       var $slots = ref.$slots;
       var slots = $slots;
 
-      if (!isVue3$a) {
+      if (isVue2$a) {
         slots = this.$scopedSlots;
       }
       if (error && slots.catch) {
@@ -4526,6 +4620,10 @@
 
   /* eslint-disable import/namespace */
 
+  var components = allComponents;
+  var directives = allDirectives;
+  var filters = allFilters;
+
   /**
    * TODO:
    * Provide config options for library/components
@@ -4629,9 +4727,12 @@
   exports.autofocus = autofocus;
   exports.capitalize = capitalize;
   exports.clickout = clickout;
+  exports.components = components;
   exports.copy = copy;
   exports.currency = currency;
   exports.default = entry;
+  exports.directives = directives;
+  exports.filters = filters;
   exports.intersect = intersect;
   exports.number = number;
   exports.placeholder = placeholder;
