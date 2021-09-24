@@ -18,6 +18,18 @@
     >
       <legend v-if="label" :class="['vts-input__legend', classes.text]">
         {{ label }}
+
+        <slot
+          name="label"
+            v-bind="{
+            valid,
+            dirty,
+            error,
+            invalid,
+            anyInvalid,
+            errors: errorMessages,
+          }"
+        />
       </legend>
       <label
         v-for="(option, index) in computedOptions"
@@ -55,6 +67,18 @@
       <span :class="['vts-input__text', classes.text]">
         {{ label }}
       </span>
+
+      <slot
+        name="label"
+        v-bind="{
+          valid,
+          dirty,
+          error,
+          invalid,
+          anyInvalid,
+          errors: errorMessages,
+        }"
+      />
     </label>
 
     <label
@@ -65,6 +89,18 @@
       <span :class="['vts-input__text', classes.text]">
         {{ label }}
       </span>
+
+      <slot
+        name="label"
+        v-bind="{
+          valid,
+          dirty,
+          error,
+          invalid,
+          anyInvalid,
+          errors: errorMessages,
+        }"
+      />
 
       <select
         v-if="'select' === $attrs.type"
