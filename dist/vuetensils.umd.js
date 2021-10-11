@@ -2783,7 +2783,6 @@
           item = typeof item === 'object' ? item : { value: item };
           return Object.assign(item, $attrs, {
             label: item.label || item.value,
-            name: $attrs.name || id,
             value: item.value,
             checked:
               localValue !== undefined ? item.value === localValue : item.checked,
