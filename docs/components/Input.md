@@ -50,22 +50,10 @@ export default {
       required
       minlength="2"
       :errors="{
-        minlength(l) {
-          return `Test ` + l
-        }
+        required: 'This field is required.',
+        minlength: 'Must be greater than 2 characters.'
       }"
     >
-      <template #description="input">
-{{ input }}
-        <template v-if="input.error">
-          <small v-if="input.invalid.required">
-            This field is required.
-          </small>
-          <small v-if="input.invalid.minlength">
-            Must be more than 2 characters
-          </small>
-        </template>
-      </template>
     </VInput>
 
     <VInput
@@ -76,12 +64,12 @@ export default {
     >
       <template #description="input">
         <template v-if="input.error">
-          <small v-if="input.invalid.required">
+          <span v-if="input.invalid.required" class="error">
             This field is required.
-          </small>
-          <small v-if="input.invalid.type">
+          </span>
+          <span v-if="input.invalid.type" class="error">
             Must be an email
-          </small>
+          </span>
         </template>
       </template>
     </VInput>
@@ -111,7 +99,8 @@ export default {
 .vts-input--error .vts-input__input {
   border-color: red;
 }
-.vts-input__description small {
+.vts-input__error,
+.vts-input__description .error {
   color: red;
 }
 </style>
@@ -236,9 +225,33 @@ If you want to add a description to your input, the best practice is to include 
 
 ## Validation
 
-This component supports [HTML5 input validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation). The input's `invalid` status is provided to the description slot.
+This component supports [HTML5 input validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation). 
 
 Note that client-side validation is never a substitute for server-side validation.
+
+The simplest validation method is to pass an object to the `errors` prop. The object keys should match valitaion attributes, and the values should either be strings or functions returning strings. In the case of functions, there is a single parameter with the value of the respective attribute.
+
+```vue live
+<template>
+  <VInput
+    label="Pick a number between 1 and 10"
+    name="one-to-ten"
+    type="number"
+    required
+    min="1"
+    max="10"
+    :errors="{
+      required: 'This field is required',
+      type: 'Must be an email',
+      min: 'Too low',
+      max: 'Too high',
+    }"
+  >
+  </VInput>
+</template>
+```
+
+For more advanced needs, the input's `invalid` status is provided to the `description` slot.
 
 ```vue live
 <template>

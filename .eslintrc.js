@@ -52,6 +52,12 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/order': 'error',
 
+    'jsdoc/check-tag-names': [
+      'error',
+      {
+        definedTags: ['model', 'slot'],
+      },
+    ],
     'jsdoc/no-undefined-types': [
       'error',
       {
@@ -68,14 +74,9 @@ module.exports = {
       },
     ],
     'jsdoc/require-jsdoc': 'off',
+    'jsdoc/require-return': 'off',
     'jsdoc/require-param-description': 'off',
     'jsdoc/require-returns-description': 'off',
-    // "jsdoc/check-tag-names": [
-    //   "error",
-    //   {
-    //     definedTags: ["model", "slot"]
-    //   }
-    // ],
     'jsdoc/valid-types': 'off',
 
     // 'vue/require-prop-types': ['error']
@@ -106,13 +107,6 @@ module.exports = {
         },
       },
     ],
-  },
-  settings: {
-    jsdoc: {
-      tagNamePreference: {
-        returns: 'return',
-      },
-    },
   },
   // overrides: [
   //   {

@@ -1,8 +1,8 @@
-import { reactive, watch, computed, nextTick } from '@vue/composition-api';
+import { reactive, watch, computed, nextTick } from 'vue-demi';
 
 /**
- * @typedef {import('@vue/composition-api').Ref<HTMLFormElement>} FormRef
- * @typedef {import('@vue/composition-api').ComputedRef} ComputedRef
+ * @typedef {import('vue-demi').Ref<HTMLFormElement>} FormRef
+ * @typedef {import('vue-demi').ComputedRef} ComputedRef
  * @typedef {string | ((string) => string)} ErrorMessage
  * @typedef {{
  * value: string

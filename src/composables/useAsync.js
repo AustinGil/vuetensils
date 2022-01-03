@@ -1,4 +1,4 @@
-import { reactive } from '@vue/composition-api';
+import { reactive } from 'vue-demi';
 
 /**
  * @param {Promise | (() => Promise)} [promise]
@@ -9,7 +9,7 @@ import { reactive } from '@vue/composition-api';
  * @param {Function} [options.onPending]
  * @param {Function} [options.onResolve]
  * @param {Function} [options.onReject]
- * @return { typeof state & { watch: typeof watch} }
+ * @returns { typeof state & { watch: typeof watch} }
  */
 export default function usePromise(promise, options = {}) {
   const state = reactive({
@@ -20,7 +20,7 @@ export default function usePromise(promise, options = {}) {
 
   /**
    * @param {Promise | (() => Promise)} promise
-   * @return {Promise<void>}
+   * @returns {Promise<void>}
    */
   const watch = async function watch(promise) {
     promise = typeof promise === 'function' ? promise() : promise;

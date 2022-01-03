@@ -47,11 +47,9 @@
 </template>
 
 <script>
-import { version } from 'vue';
+import { isVue3 } from 'vue-demi';
 import KEYCODES from '../../data/keycodes.js';
 import FOCUSABLE from '../../data/focusable.js';
-
-const isVue3 = version && version.startsWith('3');
 
 const NAME = 'vts-drawer';
 

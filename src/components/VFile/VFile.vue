@@ -55,10 +55,8 @@
 </template>
 
 <script>
-import { version } from 'vue';
+import { isVue3 } from 'vue-demi';
 import { randomString } from '../../utils.js';
-
-const isVue3 = version && version.startsWith('3');
 
 export default {
   name: 'VFile',

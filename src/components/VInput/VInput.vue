@@ -110,7 +110,6 @@
       v-if="slots.description"
       :id="`${id}__description`"
       :class="['vts-input__description', classes.description]"
-      role="alert"
     >
       <!-- TODO: Test aria live region updates -->
       <!-- @slot Scoped slot for the input description. Provides the validation state. -->
@@ -126,14 +125,25 @@
         }"
       />
     </div>
+    <div
+      v-if="dirty && errorMessages.length"
+      :id="`${id}__errors`"
+      :class="['vts-input__errors', classes.errors]"
+    >
+      <span
+        v-for="error of errorMessages"
+        :key="error"
+        :class="['vts-input__error', classes.error]"
+      >
+        {{ error }}
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
-import { version } from 'vue';
+import { isVue3 } from 'vue-demi';
 import { randomString } from '../../utils.js';
-
-const isVue3 = version && version.startsWith('3');
 
 /**
  * TODO:
@@ -208,11 +218,27 @@ export default {
   },
 
   computed: {
+    /** @returns {any} */
     bind() {
-      const { id, name, valid, error, classes, $attrs } = this;
+      const {
+        id,
+        name,
+        valid,
+        dirty,
+        error,
+        errorMessages,
+        classes,
+        $attrs,
+      } = this;
+
+      const describedby = [];
+      if (error) describedby.push(`${id}__description`);
+      if (errorMessages.length) describedby.push(`${id}__errors`);
+
       const attrs = {
         'aria-invalid': !valid,
-        'aria-describedby': error && `${id}__description`,
+        'aria-describedby':
+          dirty && describedby.length ? describedby.join(' ') : false,
         ...$attrs,
         id: `${id}__input`,
         name: name,
@@ -221,6 +247,7 @@ export default {
 
       return attrs;
     },
+    /** @returns {Record<string, string> | Record<string, Function | Function[]>} */
     listeners() {
       if (isVue3) {
         return this.$attrs;
@@ -235,7 +262,7 @@ export default {
     },
 
     computedOptions() {
-      const { id, $attrs, localValue } = this;
+      const { $attrs, localValue } = this;
       return this.options.map(item => {
         // Each item should be an object with at least value and label which we can bind to later
         item = typeof item === 'object' ? item : { value: item };
@@ -247,12 +274,12 @@ export default {
         });
       });
     },
-
+    /** @returns {boolean} */
     isMultiple() {
       const { multiple } = this.$attrs;
       return multiple != null && multiple != 'false';
     },
-
+    /** @returns {boolean} */
     error() {
       return !this.valid && this.dirty;
     },
@@ -261,18 +288,15 @@ export default {
       const { invalid, errors, $attrs } = this;
       const errorMessages = [];
 
-      const errorsMap = new Map(Object.entries(errors || {}));
-
-      errorsMap.forEach((value, key) => {
+      Object.keys(errors || {}).forEach(key => {
         if (!invalid[key]) return;
 
-        const errorHandler = errors.get(key);
-        const attrName = key.replace('length', 'Length'); // for minLength and maxLength
+        const errorHandlerOrMessage = errors[key];
 
         const errorMessage =
-          typeof errorHandler === 'string'
-            ? errorHandler
-            : errorHandler($attrs[attrName]);
+          typeof errorHandlerOrMessage === 'function'
+            ? errorHandlerOrMessage($attrs[key])
+            : errorHandlerOrMessage;
 
         errorMessages.push(errorMessage);
       });
@@ -285,6 +309,8 @@ export default {
     value(value, previousValue) {
       if (value === previousValue) return;
       this.localValue = value;
+      // TODO: Do we want to do this to trigger event listeners?
+      // inputEl.dispatchEvent(new Event('input', { bubbles: true }));
     },
     localValue(value) {
       /**
@@ -324,8 +350,8 @@ export default {
         required: validity.valueMissing,
         minlength: validity.tooShort,
         maxlength: validity.tooLong,
-        min: validity.rangeOverflow,
-        max: validity.rangeUnderflow,
+        min: validity.rangeUnderflow,
+        max: validity.rangeOverflow,
         pattern: validity.patternMismatch,
       };
     },

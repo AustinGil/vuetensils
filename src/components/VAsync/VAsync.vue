@@ -1,7 +1,5 @@
 <script>
-import { version } from 'vue';
-
-const isVue3 = version && version.startsWith('3');
+import { isVue3 } from 'vue-demi';
 
 /**
  * A renderless component for awaiting promises to resolve;

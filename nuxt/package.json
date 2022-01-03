@@ -15,9 +15,9 @@
     "@nuxt/content-theme-docs": "^0.8.2",
     "@nuxtjs/google-analytics": "^2.4.0",
     "core-js": "^3.8.2",
-    "nuxt": "^2.14.12",
+    "nuxt": "^2.15.7",
     "vue-codemirror": "^4.0.6",
-    "vue-live": "^1.16.0",
+    "vue-live": "^1.16.1",
     "vuep": "^0.8.1"
   },
   "devDependencies": {

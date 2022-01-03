@@ -1,7 +1,5 @@
 <script>
-import { version } from 'vue';
-
-const isVue3 = version && version.startsWith('3');
+import { isVue3 } from 'vue-demi';
 
 export default {
   name: 'VTry',

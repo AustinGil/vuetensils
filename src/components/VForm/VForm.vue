@@ -32,9 +32,8 @@
 <script>
 // TODO: Sync with localStorage
 // TODO: Scroll to errors
-import { version } from 'vue';
+import { isVue3 } from 'vue-demi';
 
-const isVue3 = version && version.startsWith('3');
 const controlTypes = new Set(['INPUT', 'SELECT', 'TEXTAREA']);
 
 export default {
@@ -64,26 +63,26 @@ export default {
   }),
 
   computed: {
-    /** @return {object} */
+    /** @returns {object} */
     listeners() {
       if (isVue3) {
         return this.$attrs;
       }
       return this.$listeners;
     },
-    /** @return {string} */
+    /** @returns {string} */
     event() {
       return this.lazy ? 'change' : 'input';
     },
-    /** @return {boolean} */
+    /** @returns {boolean} */
     valid() {
       return !Object.values(this.localInputs).find(input => !input.valid);
     },
-    /** @return {boolean} */
+    /** @returns {boolean} */
     error() {
       return !this.valid && this.dirty;
     },
-    /** @return {object} */
+    /** @returns {object} */
     inputs() {
       const inputs = {};
       const { localInputs, errors } = this;

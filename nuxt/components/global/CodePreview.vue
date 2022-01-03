@@ -1,5 +1,7 @@
 <template>
-  <VueLive :code="code" :layout="layout" />
+  <client-only>
+    <VueLive :code="code" :layout="layout" />
+  </client-only>
 </template>
 
 <script>
@@ -12,8 +14,8 @@ export default {
   props: {
     code: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   data: () => ({
     layout: {
@@ -25,9 +27,9 @@ export default {
   <div class="rounded-b-md bg-gray-900">
     <slot name="editor" />
   </div>
-</div>`
-    }
-  })
+</div>`,
+    },
+  }),
 };
 </script>
 

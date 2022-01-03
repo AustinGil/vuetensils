@@ -40,9 +40,8 @@
 </template>
 
 <script>
-import { version } from 'vue';
+import { isVue3 } from 'vue-demi';
 import { randomString } from '../../utils.js';
-const isVue3 = version && version.startsWith('3');
 
 /**
  * Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.

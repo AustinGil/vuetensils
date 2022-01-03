@@ -54,11 +54,9 @@
 </template>
 
 <script>
-import { version } from 'vue';
+import { isVue3 } from 'vue-demi';
 import { randomString } from '../../utils.js';
 import keycodes from '../../data/keycodes.js';
-
-const isVue3 = version && version.startsWith('3');
 
 // const NAME = "vts-tabs"
 
@@ -107,11 +105,11 @@ export default {
   },
 
   computed: {
-    /** @return {Array} */
+    /** @returns {Array} */
     tabList() {
       return Object.keys(this.$slots).filter(name => name.startsWith('tab-'));
     },
-    /** @return {Array} */
+    /** @returns {Array} */
     panelList() {
       return Object.keys(this.$slots).filter(name => name.startsWith('panel-'));
     },

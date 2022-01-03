@@ -29,9 +29,8 @@
 </template>
 
 <script>
-import { version } from 'vue';
+import { isVue3 } from 'vue-demi';
 
-const isVue3 = version && version.startsWith('3');
 const NAME = 'vts-img';
 
 /**
