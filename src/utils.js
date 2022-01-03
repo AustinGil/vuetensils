@@ -6,7 +6,7 @@ import FOCUSABLE from './data/focusable.js';
  *
  * @param  {number} length  How many random characters will be in the returned string. Defaults to 10
  * @param  {string} allowed Which characters can be used when creating the random string. Defaults to A-Z,a-z,0-9
- * @return {string}         A string of random characters
+ * @returns {string}         A string of random characters
  */
 export function randomString(
   length = 10,
@@ -24,7 +24,7 @@ export function randomString(
  *
  * @param {any} v The value to get the type of
  * @param {string} type The type you are asserting against
- * @return {boolean} Whether the given input matches the type passed
+ * @returns {boolean} Whether the given input matches the type passed
  */
 export function isType(v, type) {
   return (
@@ -40,7 +40,7 @@ export function isType(v, type) {
  *
  * @param  {HTMLElement} el    [description]
  * @param  {Event}       event [description]
- * @return {undefined}         [description]
+ * @returns {undefined}         [description]
  */
 export function applyFocusTrap(el, event) {
   const focusable = Array.from(el.querySelectorAll(FOCUSABLE));

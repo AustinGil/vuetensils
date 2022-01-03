@@ -2,7 +2,7 @@
  * Uppercase the first character of a string.
  *
  * @param  {string} str String to uppercase the first letter of
- * @return {string}     Original string with the first letter in uppercase
+ * @returns {string}     Original string with the first letter in uppercase
  */
 export const capitalize = str => str[0].toUpperCase() + str.slice(1);
 
@@ -12,7 +12,7 @@ export const capitalize = str => str[0].toUpperCase() + str.slice(1);
  * @param  {number} num      The number to be formatted
  * @param  {string} currency The type of currency, such as 'USD' or 'JPY'
  * @param  {string} locale   The locale for formatting the number, such as 'en-US'. Defaults to navigator.language
- * @return {string}          The number as a string formatted in the locale of the user
+ * @returns {string}          The number as a string formatted in the locale of the user
  */
 export function currency(num, currency, locale = navigator.language) {
   // Alternative: (73.57).toLocaleString('de-DE',{style:'currency',currency:'EUR'});
@@ -27,7 +27,7 @@ export function currency(num, currency, locale = navigator.language) {
  *
  * @param  {number} num    The number to be formatted
  * @param  {string} locale Culture-code for formatting the number, such as 'en-US'. Defaults to navigator.language
- * @return {string}        A formmated number based on a culture code
+ * @returns {string}        A formmated number based on a culture code
  */
 export function number(num, locale = navigator.language) {
   return new Intl.NumberFormat(locale).format(num);
@@ -38,7 +38,7 @@ export function number(num, locale = navigator.language) {
  *
  * @param  {string} str         Desired text to display
  * @param  {string} placeholder Fallback text
- * @return {string}             Shows desired text unless falsy, then shows fallback
+ * @returns {string}             Shows desired text unless falsy, then shows fallback
  */
 export const placeholder = (str, placeholder) => str || placeholder;
 
@@ -48,7 +48,7 @@ export const placeholder = (str, placeholder) => str || placeholder;
  * @param  {string} singular The singular form of a noun, like "entity"
  * @param  {string} plural   The plural form of a noun, like "entities"
  * @param  {number} amount   The amount of the item the noun represents
- * @return {string}          The correct plurality
+ * @returns {string}          The correct plurality
  */
 export function plural(singular, plural, amount) {
   return amount !== 1 ? plural : singular;
@@ -60,7 +60,7 @@ export function plural(singular, plural, amount) {
  * @param  {string} str    String of text to be truncated
  * @param  {number} length Amount of characters to allow before truncating. Defaults to 100
  * @param  {string} append Text to append to the end of a truncated string. Defaults to '...'
- * @return {string}        The original string, or a truncated version if it exceed the allowed limit.
+ * @returns {string}        The original string, or a truncated version if it exceed the allowed limit.
  */
 export function truncate(str, length = 100, append = '...') {
   // TODO: dont split last word
