@@ -7,9 +7,10 @@ Input component that simplifies accessibility and validation.
 **Features:**
 
 - Enforces including labels.
-- Build in validation using [HTML5 form validation API](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation).
+- Built in validation using [HTML5 form validation API](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation).
 - Automatic [aria-invalid](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute) attribute.
 - Automatic [aria-describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute) attribute.
+- Supports all input types including `radio`, `checkbox`, `select`, and `textarea`.
 
 ## Installation
 

@@ -6,12 +6,12 @@ Form wrapper that provides better security practices and automatic input validat
 
 Features:
 
-- Status tracking when inputs losing focus (`dirty`), having changed (`modified`), validation state (`valid`), and having errors.
+- Status tracking for inputs losing focus (`dirty`), having changes (`modified`), validation states (`valid`), and having errors.
 - Works with any `<input>` element. Not just Vuetensil's [VInput](https://vuetensils.stegosource.com/components/input.html). Even works with 3rd party libraries as long as the `<input>` element is used in the DOM.
-- Prevent navigation is the form has been changed but has not been submitted.
+- Prevent navigation if the form has been changed but has not been submitted.
 - Provides classes to style invalid, dirty, or error states.
 - Provides method for clearing every input.
-- Honeypot support.
+- Supports honeypots to help reduce spam.
 
 **Important**: Every input should have a [`name`](https://www.w3schools.com/TAGS/att_input_name.asp). This is important for HTML forms, in general, but also helps VForm keep track. If none is provided, it will still work though.
 
