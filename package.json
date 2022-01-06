@@ -100,6 +100,7 @@
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/user-event": "^12.6.0",
     "@testing-library/vue": "^5.6.1",
+    "@vue/composition-api": "^1.4.3",
     "@vue/server-test-utils": "^1.1.2",
     "@vue/test-utils": "^1.0.3",
     "@vuepress/plugin-google-analytics": "^1.5.3",
