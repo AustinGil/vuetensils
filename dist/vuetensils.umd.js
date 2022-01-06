@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('vue'), require('@vue/composition-api')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'vue', '@vue/composition-api'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.Vuetensils = {}, global.vue, global.compositionApi));
-}(this, (function (exports, vue, compositionApi) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('vue-demi')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'vue-demi'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.Vuetensils = {}, global.vueDemi));
+}(this, (function (exports, vueDemi) { 'use strict';
 
   /**
    * Detects if a VDOM element is a <RouterLink>, <a>, or <button>
@@ -367,8 +367,6 @@
       undefined
     );
 
-  var isVue3 = vue.version && vue.version.startsWith('3');
-
   /**
    * A renderless component for awaiting promises to resolve;
    * great for making HTTP requests. Supports showing pending,
@@ -487,7 +485,7 @@
       var done = ref.done;
       var slots = this.$slots;
 
-      if (!isVue3) {
+      if (!vueDemi.isVue3) {
         slots = this.$scopedSlots;
       }
 
@@ -938,7 +936,7 @@
    *
    * @param  {number} length  How many random characters will be in the returned string. Defaults to 10
    * @param  {string} allowed Which characters can be used when creating the random string. Defaults to A-Z,a-z,0-9
-   * @return {string}         A string of random characters
+   * @returns {string}         A string of random characters
    */
   function randomString(
     length,
@@ -959,7 +957,7 @@
    *
    * @param  {HTMLElement} el    [description]
    * @param  {Event}       event [description]
-   * @return {undefined}         [description]
+   * @returns {undefined}         [description]
    */
   function applyFocusTrap(el, event) {
     var focusable = Array.from(el.querySelectorAll(FOCUSABLE));
@@ -1389,8 +1387,6 @@
 
   //
 
-  var isVue3$1 = vue.version && vue.version.startsWith('3');
-
   /**
    * A dialog component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the dialog until it is closed. It supports being closed by clicking outside the dialog content or pressing the ESC key.
    */
@@ -1494,7 +1490,7 @@
 
     computed: {
       slots: function slots() {
-        if (!isVue3$1) {
+        if (!vueDemi.isVue3) {
           return this.$scopedSlots;
         }
         return this.$slots;
@@ -1623,7 +1619,7 @@
     /* style */
     var __vue_inject_styles__$5 = function (inject) {
       if (!inject) { return }
-      inject("data-v-602faab6_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;inset:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
+      inject("data-v-cc63d82e_0", { source: ".vts-dialog{display:flex;align-items:center;justify-content:center;position:fixed;z-index:100;inset:0}.vts-dialog__content:focus{outline:0}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -1652,8 +1648,6 @@
     );
 
   //
-
-  var isVue3$2 = vue.version && vue.version.startsWith('3');
 
   var NAME = 'vts-drawer';
 
@@ -1744,7 +1738,7 @@
 
     computed: {
       slots: function slots() {
-        if (!isVue3$2) {
+        if (!vueDemi.isVue3) {
           return this.$scopedSlots;
         }
         return this.$slots;
@@ -1876,7 +1870,7 @@
     /* style */
     var __vue_inject_styles__$6 = function (inject) {
       if (!inject) { return }
-      inject("data-v-3687f658_0", { source: ".vts-drawer{position:fixed;z-index:100;inset:0}.vts-drawer__content{overflow:auto;max-inline-size:20rem;block-size:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-inline-start:auto}", map: undefined, media: undefined });
+      inject("data-v-9e6964d8_0", { source: ".vts-drawer{position:fixed;z-index:100;inset:0}.vts-drawer__content{overflow:auto;max-inline-size:20rem;block-size:100%}.vts-drawer__content:focus{outline:0}.vts-drawer__content--right{margin-inline-start:auto}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -2050,8 +2044,6 @@
 
   //
 
-  var isVue3$3 = vue.version && vue.version.startsWith('3');
-
   var script$8 = {
     name: 'VFile',
     model: {
@@ -2083,7 +2075,7 @@
 
     computed: {
       listeners: function listeners() {
-        if (isVue3$3) {
+        if (vueDemi.isVue3) {
           return this.$attrs;
         }
         return this.$listeners;
@@ -2144,7 +2136,7 @@
     /* style */
     var __vue_inject_styles__$8 = function (inject) {
       if (!inject) { return }
-      inject("data-v-7d651585_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}.vts-file__dropzone{position:relative}.vts-file__overlay{position:absolute;inset:0}input:focus~.vts-file__dropzone{outline-width:1px;outline-style:auto;outline-color:Highlight;outline-color:-webkit-focus-ring-color}", map: undefined, media: undefined });
+      inject("data-v-6be6f352_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}.vts-file__dropzone{position:relative}.vts-file__overlay{position:absolute;inset:0}input:focus~.vts-file__dropzone{outline-width:1px;outline-style:auto;outline-color:Highlight;outline-color:-webkit-focus-ring-color}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -2174,7 +2166,6 @@
 
   //
 
-  var isVue3$4 = vue.version && vue.version.startsWith('3');
   var controlTypes = new Set(['INPUT', 'SELECT', 'TEXTAREA']);
 
   var script$9 = {
@@ -2204,26 +2195,26 @@
     }); },
 
     computed: {
-      /** @return {object} */
+      /** @returns {object} */
       listeners: function listeners() {
-        if (isVue3$4) {
+        if (vueDemi.isVue3) {
           return this.$attrs;
         }
         return this.$listeners;
       },
-      /** @return {string} */
+      /** @returns {string} */
       event: function event() {
         return this.lazy ? 'change' : 'input';
       },
-      /** @return {boolean} */
+      /** @returns {boolean} */
       valid: function valid() {
         return !Object.values(this.localInputs).find(function (input) { return !input.valid; });
       },
-      /** @return {boolean} */
+      /** @returns {boolean} */
       error: function error() {
         return !this.valid && this.dirty;
       },
-      /** @return {object} */
+      /** @returns {object} */
       inputs: function inputs() {
         var inputs = {};
         var ref = this;
@@ -2434,7 +2425,7 @@
     /* style */
     var __vue_inject_styles__$9 = function (inject) {
       if (!inject) { return }
-      inject("data-v-5b3fb76a_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}", map: undefined, media: undefined });
+      inject("data-v-81c29f42_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -2464,7 +2455,6 @@
 
   //
 
-  var isVue3$5 = vue.version && vue.version.startsWith('3');
   var NAME$1 = 'vts-img';
 
   /**
@@ -2524,7 +2514,7 @@
 
     computed: {
       listeners: function listeners() {
-        if (isVue3$5) {
+        if (vueDemi.isVue3) {
           return this.$attrs;
         }
         return this.$listeners;
@@ -2638,7 +2628,7 @@
     /* style */
     var __vue_inject_styles__$a = function (inject) {
       if (!inject) { return }
-      inject("data-v-5e68d4da_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
+      inject("data-v-166cc415_0", { source: ".vts-img{display:inline-block;position:relative}.vts-img img{vertical-align:top}.vts-img__placeholder{position:absolute;overflow:hidden}.vts-img__placeholder img{transform:scale(1.05);filter:blur(10px)}.vts-img__img{opacity:0;transition-property:opacity;transition-timing-function:ease}.vts-img--loaded .vts-img__img{opacity:1}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -2667,8 +2657,6 @@
     );
 
   //
-
-  var isVue3$6 = vue.version && vue.version.startsWith('3');
 
   /**
    * TODO:
@@ -2743,16 +2731,25 @@
     },
 
     computed: {
+      /** @returns {any} */
       bind: function bind() {
         var ref = this;
         var id = ref.id;
         var name = ref.name;
         var valid = ref.valid;
+        var dirty = ref.dirty;
         var error = ref.error;
+        var errorMessages = ref.errorMessages;
         var classes = ref.classes;
         var $attrs = ref.$attrs;
+
+        var describedby = [];
+        if (error) { describedby.push((id + "__description")); }
+        if (errorMessages.length) { describedby.push((id + "__errors")); }
+
         var attrs = Object.assign({}, {'aria-invalid': !valid,
-          'aria-describedby': error && (id + "__description")},
+          'aria-describedby':
+            dirty && describedby.length ? describedby.join(' ') : false},
           $attrs,
           {id: (id + "__input"),
           name: name,
@@ -2760,14 +2757,15 @@
 
         return attrs;
       },
+      /** @returns {Record<string, string> | Record<string, Function | Function[]>} */
       listeners: function listeners() {
-        if (isVue3$6) {
+        if (vueDemi.isVue3) {
           return this.$attrs;
         }
         return this.$listeners;
       },
       slots: function slots() {
-        if (!isVue3$6) {
+        if (!vueDemi.isVue3) {
           return this.$scopedSlots;
         }
         return this.$slots;
@@ -2775,7 +2773,6 @@
 
       computedOptions: function computedOptions() {
         var ref = this;
-        var id = ref.id;
         var $attrs = ref.$attrs;
         var localValue = ref.localValue;
         return this.options.map(function (item) {
@@ -2789,13 +2786,13 @@
           });
         });
       },
-
+      /** @returns {boolean} */
       isMultiple: function isMultiple() {
         var ref = this.$attrs;
         var multiple = ref.multiple;
         return multiple != null && multiple != 'false';
       },
-
+      /** @returns {boolean} */
       error: function error() {
         return !this.valid && this.dirty;
       },
@@ -2807,18 +2804,15 @@
         var $attrs = ref.$attrs;
         var errorMessages = [];
 
-        var errorsMap = new Map(Object.entries(errors || {}));
-
-        errorsMap.forEach(function (value, key) {
+        Object.keys(errors || {}).forEach(function (key) {
           if (!invalid[key]) { return; }
 
-          var errorHandler = errors.get(key);
-          var attrName = key.replace('length', 'Length'); // for minLength and maxLength
+          var errorHandlerOrMessage = errors[key];
 
           var errorMessage =
-            typeof errorHandler === 'string'
-              ? errorHandler
-              : errorHandler($attrs[attrName]);
+            typeof errorHandlerOrMessage === 'function'
+              ? errorHandlerOrMessage($attrs[key])
+              : errorHandlerOrMessage;
 
           errorMessages.push(errorMessage);
         });
@@ -2831,6 +2825,8 @@
       value: function value(value$1, previousValue) {
         if (value$1 === previousValue) { return; }
         this.localValue = value$1;
+        // TODO: Do we want to do this to trigger event listeners?
+        // inputEl.dispatchEvent(new Event('input', { bubbles: true }));
       },
       localValue: function localValue(value) {
         /**
@@ -2870,8 +2866,8 @@
           required: validity.valueMissing,
           minlength: validity.tooShort,
           maxlength: validity.tooLong,
-          min: validity.rangeOverflow,
-          max: validity.rangeUnderflow,
+          min: validity.rangeUnderflow,
+          max: validity.rangeOverflow,
           pattern: validity.patternMismatch,
         };
       },
@@ -2891,14 +2887,14 @@
         'vts-input--dirty': _vm.dirty,
         'vts-input--error': _vm.error,
       },
-      _vm.classes.root ]},[('radio' === _vm.$attrs.type)?_c('fieldset',{class:['vts-input__fieldset', _vm.classes.fieldset]},[(_vm.label)?_c('legend',{class:['vts-input__legend', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e(),_vm._v(" "),_vm._l((_vm.computedOptions),function(option,index){return _c('label',{key:option.value,class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input-" + index)}},[_c('input',_vm._g(_vm._b({ref:"input",refInFor:true,attrs:{"id":(_vm.id + "__input-" + index)},on:{"input":function($event){_vm.localValue = option.value;},"~blur":function($event){_vm.dirty = true;}}},'input',Object.assign({}, _vm.bind, option),false),_vm.listeners)),_vm._v(" "),_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])])})],2):('checkbox' === _vm.$attrs.type)?_c('label',{class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input")}},[_c('input',_vm._g(_vm._b({ref:"input",domProps:{"checked":_vm.localValue === undefined ? _vm.$attrs.checked : _vm.localValue},on:{"change":function($event){_vm.localValue = $event.target.checked;},"~blur":function($event){_vm.dirty = true;}}},'input',_vm.bind,false),_vm.listeners)),_vm._v(" "),_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")])]):_c('label',{class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input")}},[_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]),_vm._v(" "),('select' === _vm.$attrs.type)?_c('select',_vm._g(_vm._b({ref:"input",domProps:{"value":_vm.localValue},on:{"input":function($event){_vm.localValue = $event.target.value;},"change":function($event){_vm.localValue = $event.target.value;},"~blur":function($event){_vm.dirty = true;}}},'select',_vm.bind,false),_vm.listeners),[_vm._t("options",_vm._l((_vm.computedOptions),function(option,i){return _c('option',_vm._b({key:i},'option',option,false),[_vm._v("\n          "+_vm._s(option.label)+"\n        ")])}))],2):('textarea' === _vm.$attrs.type)?_c('textarea',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",domProps:{"value":(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"input":function($event){if($event.target.composing){ return; }_vm.localValue=$event.target.value;}}},'textarea',_vm.bind,false),_vm.listeners)):(((_vm.bind).type)==='checkbox')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":"checkbox"},domProps:{"checked":Array.isArray(_vm.localValue)?_vm._i(_vm.localValue,null)>-1:(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"change":function($event){var $$a=_vm.localValue,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=null,$$i=_vm._i($$a,$$v);if($$el.checked){$$i<0&&(_vm.localValue=$$a.concat([$$v]));}else {$$i>-1&&(_vm.localValue=$$a.slice(0,$$i).concat($$a.slice($$i+1)));}}else {_vm.localValue=$$c;}}}},'input',_vm.bind,false),_vm.listeners)):(((_vm.bind).type)==='radio')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":"radio"},domProps:{"checked":_vm._q(_vm.localValue,null)},on:{"~blur":function($event){_vm.dirty = true;},"change":function($event){_vm.localValue=null;}}},'input',_vm.bind,false),_vm.listeners)):_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":(_vm.bind).type},domProps:{"value":(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"input":function($event){if($event.target.composing){ return; }_vm.localValue=$event.target.value;}}},'input',_vm.bind,false),_vm.listeners))]),_vm._v(" "),(_vm.slots.description)?_c('div',{class:['vts-input__description', _vm.classes.description],attrs:{"id":(_vm.id + "__description"),"role":"alert"}},[_vm._t("description",null,null,{
+      _vm.classes.root ]},[('radio' === _vm.$attrs.type)?_c('fieldset',{class:['vts-input__fieldset', _vm.classes.fieldset]},[(_vm.label)?_c('legend',{class:['vts-input__legend', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]):_vm._e(),_vm._v(" "),_vm._l((_vm.computedOptions),function(option,index){return _c('label',{key:option.value,class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input-" + index)}},[_c('input',_vm._g(_vm._b({ref:"input",refInFor:true,attrs:{"id":(_vm.id + "__input-" + index)},on:{"input":function($event){_vm.localValue = option.value;},"~blur":function($event){_vm.dirty = true;}}},'input',Object.assign({}, _vm.bind, option),false),_vm.listeners)),_vm._v(" "),_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n        "+_vm._s(option.label)+"\n      ")])])})],2):('checkbox' === _vm.$attrs.type)?_c('label',{class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input")}},[_c('input',_vm._g(_vm._b({ref:"input",domProps:{"checked":_vm.localValue === undefined ? _vm.$attrs.checked : _vm.localValue},on:{"change":function($event){_vm.localValue = $event.target.checked;},"~blur":function($event){_vm.dirty = true;}}},'input',_vm.bind,false),_vm.listeners)),_vm._v(" "),_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")])]):_c('label',{class:['vts-input__label', _vm.classes.label],attrs:{"for":(_vm.id + "__input")}},[_c('span',{class:['vts-input__text', _vm.classes.text]},[_vm._v("\n      "+_vm._s(_vm.label)+"\n    ")]),_vm._v(" "),('select' === _vm.$attrs.type)?_c('select',_vm._g(_vm._b({ref:"input",domProps:{"value":_vm.localValue},on:{"input":function($event){_vm.localValue = $event.target.value;},"change":function($event){_vm.localValue = $event.target.value;},"~blur":function($event){_vm.dirty = true;}}},'select',_vm.bind,false),_vm.listeners),[_vm._t("options",_vm._l((_vm.computedOptions),function(option,i){return _c('option',_vm._b({key:i},'option',option,false),[_vm._v("\n          "+_vm._s(option.label)+"\n        ")])}))],2):('textarea' === _vm.$attrs.type)?_c('textarea',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",domProps:{"value":(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"input":function($event){if($event.target.composing){ return; }_vm.localValue=$event.target.value;}}},'textarea',_vm.bind,false),_vm.listeners)):(((_vm.bind).type)==='checkbox')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":"checkbox"},domProps:{"checked":Array.isArray(_vm.localValue)?_vm._i(_vm.localValue,null)>-1:(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"change":function($event){var $$a=_vm.localValue,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=null,$$i=_vm._i($$a,$$v);if($$el.checked){$$i<0&&(_vm.localValue=$$a.concat([$$v]));}else {$$i>-1&&(_vm.localValue=$$a.slice(0,$$i).concat($$a.slice($$i+1)));}}else {_vm.localValue=$$c;}}}},'input',_vm.bind,false),_vm.listeners)):(((_vm.bind).type)==='radio')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":"radio"},domProps:{"checked":_vm._q(_vm.localValue,null)},on:{"~blur":function($event){_vm.dirty = true;},"change":function($event){_vm.localValue=null;}}},'input',_vm.bind,false),_vm.listeners)):_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.localValue),expression:"localValue"}],ref:"input",attrs:{"type":(_vm.bind).type},domProps:{"value":(_vm.localValue)},on:{"~blur":function($event){_vm.dirty = true;},"input":function($event){if($event.target.composing){ return; }_vm.localValue=$event.target.value;}}},'input',_vm.bind,false),_vm.listeners))]),_vm._v(" "),(_vm.slots.description)?_c('div',{class:['vts-input__description', _vm.classes.description],attrs:{"id":(_vm.id + "__description")}},[_vm._t("description",null,null,{
           valid: _vm.valid,
           dirty: _vm.dirty,
           error: _vm.error,
           invalid: _vm.invalid,
           anyInvalid: _vm.anyInvalid,
           errors: _vm.errorMessages,
-        })],2):_vm._e()])};
+        })],2):_vm._e(),_vm._v(" "),(_vm.dirty && _vm.errorMessages.length)?_c('div',{class:['vts-input__errors', _vm.classes.errors],attrs:{"id":(_vm.id + "__errors")}},_vm._l((_vm.errorMessages),function(error){return _c('span',{key:error,class:['vts-input__error', _vm.classes.error]},[_vm._v("\n      "+_vm._s(error)+"\n    ")])}),0):_vm._e()])};
   var __vue_staticRenderFns__$9 = [];
 
     /* style */
@@ -2930,7 +2926,6 @@
       undefined
     );
 
-  var isVue3$7 = vue.version && vue.version.startsWith('3');
   /**
    * Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
    */
@@ -2972,7 +2967,7 @@
 
     mounted: function mounted() {
       var el = this.$el;
-      if (isVue3$7) {
+      if (vueDemi.isVue3) {
         // I'm not really sure why this is necessary
         el = this.$el.nextElementSibling;
       }
@@ -3035,7 +3030,7 @@
       /** @slot Content to be tracked with IntersectionObserver */
       var ref = this;
       var entry = ref.entry;
-      if (isVue3$7) {
+      if (vueDemi.isVue3) {
         return this.$slots.default(entry);
       }
 
@@ -3795,8 +3790,6 @@
 
   //
 
-  var isVue3$8 = vue.version && vue.version.startsWith('3');
-
   // const NAME = "vts-tabs"
 
   // https://codesandbox.io/embed/vue-tabs-pt5lm?codemirror=1
@@ -3844,11 +3837,11 @@
     },
 
     computed: {
-      /** @return {Array} */
+      /** @returns {Array} */
       tabList: function tabList() {
         return Object.keys(this.$slots).filter(function (name) { return name.startsWith('tab-'); });
       },
-      /** @return {Array} */
+      /** @returns {Array} */
       panelList: function panelList() {
         return Object.keys(this.$slots).filter(function (name) { return name.startsWith('panel-'); });
       },
@@ -3944,7 +3937,7 @@
         var activeIndex = ref.activeIndex;
         var activeTab = tabList[activeIndex];
 
-        if (isVue3$8) {
+        if (vueDemi.isVue3) {
           return $refs[activeTab].focus();
         }
         $refs[activeTab][0].focus();
@@ -4003,7 +3996,6 @@
     );
 
   //
-  var isVue3$9 = vue.version && vue.version.startsWith('3');
 
   /**
    * Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
@@ -4039,7 +4031,7 @@
 
     computed: {
       listeners: function listeners() {
-        if (isVue3$9) {
+        if (vueDemi.isVue3) {
           return this.$attrs;
         }
         return this.$listeners;
@@ -4095,7 +4087,7 @@
     /* style */
     var __vue_inject_styles__$i = function (inject) {
       if (!inject) { return }
-      inject("data-v-4c06c120_0", { source: ".vts-toggle__content{transition:.3s ease block-size}", map: undefined, media: undefined });
+      inject("data-v-69ec4312_0", { source: ".vts-toggle__content{transition:.3s ease block-size}", map: undefined, media: undefined });
 
     };
     /* scoped */
@@ -4202,8 +4194,6 @@
       undefined
     );
 
-  var isVue3$a = vue.version && vue.version.startsWith('3');
-
   var script$k = {
     name: 'VTry',
 
@@ -4233,7 +4223,7 @@
       var $slots = ref.$slots;
       var slots = $slots;
 
-      if (!isVue3$a) {
+      if (!vueDemi.isVue3) {
         slots = this.$scopedSlots;
       }
       if (error && slots.catch) {
@@ -4307,7 +4297,7 @@
    * Uppercase the first character of a string.
    *
    * @param  {string} str String to uppercase the first letter of
-   * @return {string}     Original string with the first letter in uppercase
+   * @returns {string}     Original string with the first letter in uppercase
    */
   var capitalize = function (str) { return str[0].toUpperCase() + str.slice(1); };
 
@@ -4317,7 +4307,7 @@
    * @param  {number} num      The number to be formatted
    * @param  {string} currency The type of currency, such as 'USD' or 'JPY'
    * @param  {string} locale   The locale for formatting the number, such as 'en-US'. Defaults to navigator.language
-   * @return {string}          The number as a string formatted in the locale of the user
+   * @returns {string}          The number as a string formatted in the locale of the user
    */
   function currency(num, currency, locale) {
     if ( locale === void 0 ) locale = navigator.language;
@@ -4334,7 +4324,7 @@
    *
    * @param  {number} num    The number to be formatted
    * @param  {string} locale Culture-code for formatting the number, such as 'en-US'. Defaults to navigator.language
-   * @return {string}        A formmated number based on a culture code
+   * @returns {string}        A formmated number based on a culture code
    */
   function number(num, locale) {
     if ( locale === void 0 ) locale = navigator.language;
@@ -4347,7 +4337,7 @@
    *
    * @param  {string} str         Desired text to display
    * @param  {string} placeholder Fallback text
-   * @return {string}             Shows desired text unless falsy, then shows fallback
+   * @returns {string}             Shows desired text unless falsy, then shows fallback
    */
   var placeholder = function (str, placeholder) { return str || placeholder; };
 
@@ -4357,7 +4347,7 @@
    * @param  {string} singular The singular form of a noun, like "entity"
    * @param  {string} plural   The plural form of a noun, like "entities"
    * @param  {number} amount   The amount of the item the noun represents
-   * @return {string}          The correct plurality
+   * @returns {string}          The correct plurality
    */
   function plural(singular, plural, amount) {
     return amount !== 1 ? plural : singular;
@@ -4369,7 +4359,7 @@
    * @param  {string} str    String of text to be truncated
    * @param  {number} length Amount of characters to allow before truncating. Defaults to 100
    * @param  {string} append Text to append to the end of a truncated string. Defaults to '...'
-   * @return {string}        The original string, or a truncated version if it exceed the allowed limit.
+   * @returns {string}        The original string, or a truncated version if it exceed the allowed limit.
    */
   function truncate(str, length, append) {
     if ( length === void 0 ) length = 100;
@@ -4413,12 +4403,12 @@
    * @param {Function} [options.onPending]
    * @param {Function} [options.onResolve]
    * @param {Function} [options.onReject]
-   * @return { typeof state & { watch: typeof watch} }
+   * @returns { typeof state & { watch: typeof watch} }
    */
   function usePromise(promise, options) {
     if ( options === void 0 ) options = {};
 
-    var state = compositionApi.reactive({
+    var state = vueDemi.reactive({
       pending: false,
       results: options.placeholder || null,
       error: null,
@@ -4426,7 +4416,7 @@
 
     /**
      * @param {Promise | (() => Promise)} promise
-     * @return {Promise<void>}
+     * @returns {Promise<void>}
      */
     var watch = async function watch(promise) {
       promise = typeof promise === 'function' ? promise() : promise;
@@ -4484,8 +4474,8 @@
   }
 
   /**
-   * @typedef {import('@vue/composition-api').Ref<HTMLFormElement>} FormRef
-   * @typedef {import('@vue/composition-api').ComputedRef} ComputedRef
+   * @typedef {import('vue-demi').Ref<HTMLFormElement>} FormRef
+   * @typedef {import('vue-demi').ComputedRef} ComputedRef
    * @typedef {string | ((string) => string)} ErrorMessage
    * @typedef {{
    * value: string
@@ -4540,14 +4530,14 @@
     /**
      * @type {typeof baseState & Partial<FormMethods>}
      */
-    var state = compositionApi.reactive(baseState);
+    var state = vueDemi.reactive(baseState);
 
     var errors = new Map(Object.entries(options.errors || {}));
 
     var validate = async function (form) {
       if (!form) { return; }
 
-      await compositionApi.nextTick();
+      await vueDemi.nextTick();
 
       state.invalid = !form.checkValidity();
 
@@ -4619,9 +4609,9 @@
     };
     var observer = new MutationObserver(onInput);
 
-    compositionApi.watch(formRef, async function (form, prev, onInvalidate) {
+    vueDemi.watch(formRef, async function (form, prev, onInvalidate) {
       if (!form) { return; }
-      await compositionApi.nextTick();
+      await vueDemi.nextTick();
 
       validate(form);
 
@@ -4643,7 +4633,7 @@
       });
     });
 
-    state.error = compositionApi.computed(function () { return state.invalid && state.dirty; });
+    state.error = vueDemi.computed(function () { return state.invalid && state.dirty; });
     state.validate = function () { return validate(formRef.value); };
     state.reset = function () {
       state.dirty = false;
