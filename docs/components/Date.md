@@ -106,6 +106,58 @@ export default {
 </template>
 ```
 
+## Localization
+
+```vue live
+<template>
+  <VDate
+    :days-of-week="daysOfWeek"
+    :month-labels="monthLabels"
+    :button-labels="buttonLabels"
+  />
+</template>
+
+<script>
+export default {
+  data: () => ({
+    daysOfWeek: Object.freeze({
+      Dim: 'Dimanche',
+      Lun: 'Lundi',
+      Mar: 'Mardi',
+      Mer: 'Mercredi',
+      Jeu: 'Jeudi',
+      Ven: 'Vendredi',
+      Sam: 'Samedi',
+    }),
+
+    monthLabels: [
+      'Janvier',
+      'Février',
+      'Mars',
+      'Avril',
+      'Mai',
+      'Juin',
+      'Juillet',
+      'Août',
+      'Septembre',
+      'Octobre',
+      'Novembre',
+      'Décembre',
+    ],
+
+    buttonLabels: Object.freeze({
+      selectDate: 'Sélectionner la date',
+      showCalendar: 'montrer le calendrier',
+      previousMonth: 'mois précédent',
+      nextMonth: 'mois suivant',
+      previousYear: 'année précédente',
+      nextYear: 'année suivante',
+    })
+  }),
+}
+</script>
+```
+
 
 
 <!-- ## Custom Classes
