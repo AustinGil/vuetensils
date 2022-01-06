@@ -220,7 +220,7 @@ body .live-preview pre {
   border-color: red;
 }
 
-.vts-input__error,
+.styled .vts-input__error,
 .styled .vts-input__description .error {
   color: red;
 }
