@@ -7,7 +7,7 @@
         :class="['vtd-date__toggle', classes.toggle]"
         v-on="toggle.on"
       >
-        <span role="img" aria-label="show calendar">&#x1F4C5;</span>
+        <span role="img" :aria-label="buttonLabels.showCalendar">&#x1F4C5;</span>
       </button>
     </slot>
 
@@ -27,7 +27,7 @@
       <div class="vts-date__navigation">
         <button
           :class="['vtd-date__prev-year', classes.prevYear]"
-          aria-label="previous year"
+          :aria-label="buttonLabels.previousYear"
           type="button"
           :disabled="disableNav.prevYear"
           @click="incrementYearBy(-1)"
@@ -38,7 +38,7 @@
         </button>
         <button
           :class="['vtd-date__prev-month', classes.prevMonth]"
-          aria-label="previous month"
+          :aria-label="buttonLabels.previousMonth"
           type="button"
           :disabled="disableNav.prevMonth"
           @click="incrementMonthBy(-1)"
@@ -56,7 +56,7 @@
         </h4>
         <button
           :class="['vtd-date__next-month', classes.nextMonth]"
-          aria-label="next month"
+          :aria-label="buttonLabels.nextMonth"
           type="button"
           :disabled="disableNav.nextMonth"
           @click="incrementMonthBy(1)"
@@ -67,7 +67,7 @@
         </button>
         <button
           :class="['vtd-date__next-year', classes.nextYear]"
-          aria-label="next year"
+          :aria-label="buttonLabels.nextYear"
           type="button"
           :disabled="disableNav.nextYear"
           @click="incrementYearBy(1)"
@@ -258,6 +258,20 @@ export default {
       ],
     },
 
+    buttonLabels: {
+      type: Object,
+      default: () => {
+        return Object.freeze({
+          selectDate: 'Select Date',
+          showCalendar: 'show calendar',
+          previousMonth: 'previous month',
+          nextMonth: 'next month',
+          previousYear: 'previous year',
+          nextYear: 'next year',
+        });
+      },
+    },
+
     classes: {
       type: Object,
       default: () => ({}),
@@ -348,7 +362,7 @@ export default {
       const { show } = this;
       return {
         bind: {
-          'aria-label': 'Select Date',
+          'aria-label': this.buttonLabels.selectDate,
           'aria-expanded': '' + show,
         },
         on: {
