@@ -7,7 +7,9 @@
         :class="['vtd-date__toggle', classes.toggle]"
         v-on="toggle.on"
       >
-        <span role="img" :aria-label="buttonLabels.showCalendar">&#x1F4C5;</span>
+        <span role="img" :aria-label="buttonLabels.showCalendar">
+          &#x1F4C5;
+        </span>
       </button>
     </slot>
 
@@ -32,9 +34,7 @@
           :disabled="disableNav.prevYear"
           @click="incrementYearBy(-1)"
         >
-          <slot name="prevYearLabel">
-            &#8606;
-          </slot>
+          <slot name="prevYearLabel">&#8606;</slot>
         </button>
         <button
           :class="['vtd-date__prev-month', classes.prevMonth]"
@@ -43,9 +43,7 @@
           :disabled="disableNav.prevMonth"
           @click="incrementMonthBy(-1)"
         >
-          <slot name="prevMonthLabel">
-            &#8592;
-          </slot>
+          <slot name="prevMonthLabel">&#8592;</slot>
         </button>
         <h4
           :id="`${id}-dialog-label`"
@@ -61,9 +59,7 @@
           :disabled="disableNav.nextMonth"
           @click="incrementMonthBy(1)"
         >
-          <slot name="nextMonthLabel">
-            &#8594;
-          </slot>
+          <slot name="nextMonthLabel">&#8594;</slot>
         </button>
         <button
           :class="['vtd-date__next-year', classes.nextYear]"
@@ -72,9 +68,7 @@
           :disabled="disableNav.nextYear"
           @click="incrementYearBy(1)"
         >
-          <slot name="nextYearLabel">
-            &#8608;
-          </slot>
+          <slot name="nextYearLabel">&#8608;</slot>
         </button>
       </div>
       <!-- eslint-disable-next-line vuejs-accessibility/no-redundant-roles -->
@@ -168,9 +162,9 @@ import { randomString, applyFocusTrap } from '../../utils.js';
 /**
  * Compares the year, month, and day of two dates to confirm if they match.
  *
- * @param  {object}  first   Date object
- * @param  {object}  second  Date object
- * @return {boolean}         True if dates match
+ * @param   {object}  first   Date object
+ * @param   {object}  second  Date object
+ * @returns {boolean}         True if dates match
  */
 function sameDays(first, second) {
   return (

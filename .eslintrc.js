@@ -25,13 +25,13 @@ module.exports = {
   ],
   extends: [
     'eslint:recommended',
-    'plugin:prettier/recommended',
     'plugin:import/recommended',
     'plugin:jsdoc/recommended',
     'plugin:jest/recommended',
     'plugin:jest-dom/recommended',
     'plugin:vue/recommended',
     'plugin:vuejs-accessibility/recommended',
+    'plugin:prettier/recommended',
   ],
 
   rules: {
