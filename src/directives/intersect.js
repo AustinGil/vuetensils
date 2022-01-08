@@ -1,6 +1,5 @@
 /**
  * @typedef {HTMLElement & { _vtsIntersect?: IntersectionObserver}} IntersectEl
- *
  * @param {IntersectEl} el
  */
 function unbind(el) {

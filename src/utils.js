@@ -28,10 +28,8 @@ export function randomString(
  */
 export function isType(v, type) {
   return (
-    Object.prototype.toString
-      .call(v)
-      .slice(8, -1)
-      .toLowerCase() === type.toLowerCase()
+    Object.prototype.toString.call(v).slice(8, -1).toLowerCase() ===
+    type.toLowerCase()
   );
 }
 

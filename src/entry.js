@@ -41,7 +41,7 @@ export default {
           {}
         );
       }
-      Object.entries(pluginConfig.components).forEach(entry => {
+      Object.entries(pluginConfig.components).forEach((entry) => {
         const [key, options] = entry;
         const component = allComponents[key];
         // @ts-ignore
@@ -60,7 +60,7 @@ export default {
           {}
         );
       }
-      Object.entries(pluginConfig.directives).forEach(entry => {
+      Object.entries(pluginConfig.directives).forEach((entry) => {
         const [key] = entry;
         const directive = allDirectives[key];
         Vue.directive(key, directive);
@@ -74,7 +74,7 @@ export default {
           return config;
         }, {});
       }
-      Object.entries(pluginConfig.filters).forEach(entry => {
+      Object.entries(pluginConfig.filters).forEach((entry) => {
         const [key] = entry;
         const filter = allFilters[key];
         Vue.filter(key, filter);
