@@ -7,7 +7,7 @@
  * @param {Function} [options.onPending]
  * @param {Function} [options.onResolve]
  * @param {Function} [options.onReject]
- * @return { typeof state & { watch: typeof watch} }
+ * @returns { typeof state & { watch: typeof watch} }
  */
 export default function usePromise(promise?: Promise | (() => Promise), options?: {
     placeholder: any;
@@ -17,9 +17,5 @@ export default function usePromise(promise?: Promise | (() => Promise), options?
     onResolve: Function;
     onReject: Function;
 }): {
-    pending: boolean;
-    results: any;
-    error: any;
-} & {
     watch: (promise: Promise | (() => Promise)) => Promise<void>;
 };
