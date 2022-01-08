@@ -4,7 +4,7 @@
  * @param  {string} str String to uppercase the first letter of
  * @returns {string}     Original string with the first letter in uppercase
  */
-export const capitalize = str => str[0].toUpperCase() + str.slice(1);
+export const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
 
 /**
  * Formats a number as currency using the user's locale. 1234.56 => '$1,234.56'

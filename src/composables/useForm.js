@@ -59,7 +59,7 @@ const useForm = (formRef, options = {}) => {
 
   const errors = new Map(Object.entries(options.errors || {}));
 
-  const validate = async form => {
+  const validate = async (form) => {
     if (!form) return;
 
     await nextTick();
@@ -71,7 +71,7 @@ const useForm = (formRef, options = {}) => {
     /** @type {typeof baseState.inputs} */
     const inputs = {};
 
-    els.forEach(input => {
+    els.forEach((input) => {
       const { name, id, validity } = input;
       const inputId = name || id;
 
@@ -118,7 +118,7 @@ const useForm = (formRef, options = {}) => {
   };
 
   const onInput = () => validate(formRef.value);
-  const onBlur = event => {
+  const onBlur = (event) => {
     validate(formRef.value);
     const input = event.target;
     const inputId = input.name || input.id;
@@ -166,7 +166,7 @@ const useForm = (formRef, options = {}) => {
     const form = formRef.value;
     /** @type {NodeListOf<HTMLInputElement>} */
     const inputs = form.querySelectorAll('input, textarea, select');
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       input.value = '';
     });
   };

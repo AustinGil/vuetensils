@@ -18,6 +18,7 @@ module.exports = {
   },
   ignorePatterns: ['dist/**/*', 'types/**/*', '**/TestAll.vue'],
   plugins: [
+    '@typescript-eslint',
     'jsdoc',
     // "jest",
     'vue',
@@ -35,8 +36,12 @@ module.exports = {
   ],
 
   rules: {
-    camelcase: 'error',
     'comma-dangle': ['error', 'only-multiline'],
+    quotes: [
+      'error',
+      'single',
+      { avoidEscape: true, allowTemplateLiterals: true },
+    ],
     'no-console': 'off',
     'prefer-const': 'error',
 
