@@ -8,7 +8,6 @@ export type IntersectEl = HTMLElement & {
 };
 /**
  * @typedef {HTMLElement & { _vtsIntersect?: IntersectionObserver}} IntersectEl
- *
  * @param {IntersectEl} el
  */
 declare function unbind(el: IntersectEl): void;
