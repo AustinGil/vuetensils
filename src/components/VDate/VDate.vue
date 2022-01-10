@@ -2,6 +2,7 @@
   <div :id="id" v-clickout="onClickout" :class="['vtd-date', classes.root]">
     <slot v-bind="toggle">
       <button
+        v-if="!inline"
         v-bind="toggle.bind"
         type="button"
         :class="['vtd-date__toggle', classes.toggle]"
@@ -17,14 +18,14 @@
       v-show="show"
       ref="calendar"
       class=""
-      role="dialog"
-      aria-modal="true"
+      :role="inline ? false : 'dialog'"
+      :aria-modal="!inline"
       :aria-labelledby="`${id}-dialog-label`"
       :class="['vtd-date__wrapper', classes.wrapper]"
       @click="onClick"
       @keydown="onKeydown"
       @keydown.tab="onTab"
-      @keydown.esc="show = false"
+      @keydown.esc="onEsc"
     >
       <div class="vts-date__navigation">
         <button
@@ -219,6 +220,11 @@ export default {
       default: () => `vts-${randomString(4)}`,
     },
 
+    inline: {
+      type: Boolean,
+      default: false,
+    },
+
     daysOfWeek: {
       type: Object,
       default: () => {
@@ -274,7 +280,7 @@ export default {
 
   data() {
     return {
-      show: false,
+      show: this.inline,
       previousActiveEl: null,
       focusedDate: new Date(this.date),
       selectedDate: new Date(this.date),
@@ -361,6 +367,8 @@ export default {
         },
         on: {
           click: () => {
+            if (this.inline) return;
+
             this.show = !show;
           },
         },
@@ -384,6 +392,9 @@ export default {
 
     selectedDate(date) {
       this.$emit('update', date);
+
+      if (this.inline) return;
+
       this.show = false;
     },
   },
@@ -484,11 +495,21 @@ export default {
       });
     },
 
+    onEsc() {
+      if (this.inline) return;
+
+      this.show = false;
+    },
+
     onTab(event) {
+      if (this.inline) return;
+
       applyFocusTrap(this.$refs.calendar, event);
     },
 
     onClickout(event) {
+      if (this.inline) return;
+
       const { show } = this;
       event.preventDefault();
       if (show) {

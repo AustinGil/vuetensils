@@ -158,7 +158,13 @@ export default {
 </script>
 ```
 
+## Inline
 
+```vue live
+<template>
+  <VDate inline />
+</template>
+```
 
 <!-- ## Custom Classes
 
