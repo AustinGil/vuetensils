@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <div>
     <ClientOnly>
       <div class="live-preview">
