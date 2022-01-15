@@ -15,6 +15,8 @@
 <script>
 import "prismjs/themes/prism-okaidia.css";
 import "vue-prism-editor/dist/prismeditor.min.css";
+// Required for build to work
+export default {}
 </script>
 
 <style>
