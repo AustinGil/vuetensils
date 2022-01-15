@@ -115,9 +115,6 @@ module.exports = {
     ],
     [
       'live',
-      {
-        layout: path.resolve(__dirname, './LivePreview'),
-      },
     ],
     // [
     //   'docgen',
