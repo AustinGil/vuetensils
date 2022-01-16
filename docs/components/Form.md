@@ -189,7 +189,7 @@ To do so you can use the `prevent-navigation` prop
 
 ```vue live
 <template>
-  <VForm @submit.prevent preventNavigation>
+  <VForm @submit.prevent prevent-navigation>
     <template #default="form">
       <label>
         Name:
