@@ -142,6 +142,72 @@ The form provides the following status:
 </template>
 ```
 
+## Valid And Invalid Events
+
+You probably want to run different logic in the event of an invalid form submission and a valid form submission. Most of this logic must happen within the [`submit`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event) event and you need to do some conditional logic.
+
+To avoid that, VForm provides `valid` and `invalid` events that you can hook into for convenience. The events both receive the form's `submit` event and can therefore be treated like a standard submit. The main difference is that they only run at their appropriate times.
+
+Note that custom events do not allow for [modifiers](https://v3.vuejs.org/guide/events.html#event-modifiers) such as `.prevent`, therefore if you want to prevent the browser from reloading (native behavior), you will want to call the [`event.preventDefault()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault) method.
+
+```vue live
+<template>
+  <VForm @valid="onValid" @invalid="onInvalid">
+    <label>
+      Name:
+      <input name="name" required />
+    </label>
+
+    <button type="submit">
+      Submit
+    </button>
+  </VForm>
+</template>
+
+<script>
+export default {
+  methods: {
+    onValid(event) {
+      event.preventDefault()
+      console.log('Everything looks good', event)
+    },
+    onInvalid(event) {
+      event.preventDefault()
+      console.log('Please fix the errors and try again', event)
+    },
+  }
+}
+</script>
+```
+
+Important: If you provide the `invalid` listener, the form will also append the `novalidate` attribtue which means the default HTML validation logic will not run. So you will want to handle showing the user the errors gracefully (which is kind of the intention of this event anyway).
+
+## Preventing Navigation
+
+Sometimes you may want to prevent user navigation when a form has been modified, but not yet submitted. This can be a user experience improvement, especially on long forms, to avoid losing work.
+
+To do so you can use the `prevent-navigation` prop
+
+```vue live
+<template>
+  <VForm @submit.prevent prevent-navigation>
+    <template #default="form">
+      <label>
+        Name:
+        <input name="name" />
+      </label>
+
+      <button type="submit">
+        Submit
+      </button>
+
+      <p v-show="!form.modified">The form has no unsaved changes.</p>
+      <p v-show="form.modified">The form will warn you before navigation unless you submit.</p>
+    </template>
+  </VForm>
+</template>
+```
+
 ## Clearing Inputs
 
 Sometimes we need to clear our forms. HTML provides us with a [`reset input`](https://www.w3schools.com/tags/att_input_type_reset.asp) and a reset button, but those only clear the form if the form was originally cleared to begin with.
@@ -175,33 +241,6 @@ Fortunately, VForm provides a `clear()` method.
       <button type="submit" :disabled="!form.valid">
         Submit
       </button>
-    </template>
-  </VForm>
-</template>
-```
-
-
-## Preventing Navigation
-
-Sometimes you may want to prevent user navigation when a form has been modified, but not yet submitted. This can be a user experience improvement, especially on long forms, to avoid losing work.
-
-To do so you can use the `prevent-navigation` prop
-
-```vue live
-<template>
-  <VForm @submit.prevent prevent-navigation>
-    <template #default="form">
-      <label>
-        Name:
-        <input name="name" />
-      </label>
-
-      <button type="submit">
-        Submit
-      </button>
-
-      <p v-show="!form.modified">The form has no unsaved changes.</p>
-      <p v-show="form.modified">The form will warn you before navigation unless you submit.</p>
     </template>
   </VForm>
 </template>

@@ -39,12 +39,19 @@ const controlTypes = new Set(['INPUT', 'SELECT', 'TEXTAREA']);
 export default {
   name: 'VForm',
   props: {
-    lazy: Boolean,
+    lazy: {
+      type: Boolean,
+      default: false,
+    },
+    /** @type {import('vue').PropOptions<Object>} */
     errors: {
       type: Object,
       default: () => ({}),
     },
-    preventNavigation: Boolean,
+    preventNavigation: {
+      type: Boolean,
+      default: false,
+    },
     // storageKey: {
     //   type: String,
     //   default: '',
@@ -76,7 +83,7 @@ export default {
     },
     /** @returns {boolean} */
     valid() {
-      return !Object.values(this.localInputs).find(input => !input.valid);
+      return !Object.values(this.localInputs).find((input) => !input.valid);
     },
     /** @returns {boolean} */
     error() {
@@ -131,6 +138,10 @@ export default {
       window.addEventListener('beforeunload', this.preventNav);
     }
 
+    if (this.$listeners.invalid) {
+      this.$el.novalidate = true;
+    }
+
     // if (this.storageKey) {
     //   this.syncFromLocalStorage();
     // }
@@ -161,7 +172,7 @@ export default {
 
       const localInputs = {};
 
-      els.forEach(input => {
+      els.forEach((input) => {
         const { name, id, validity } = input;
         const key = name || id;
         if (!key) return;
@@ -214,7 +225,7 @@ export default {
       const els = Array.from(
         this.$el.querySelectorAll('input, textarea, select')
       );
-      els.forEach(input => {
+      els.forEach((input) => {
         if (['radio', 'checkbox'].includes(input.type)) {
           input.checked = false;
         } else {
