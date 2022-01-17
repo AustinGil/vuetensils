@@ -139,7 +139,7 @@ export default {
     }
 
     if (this.$listeners.invalid) {
-      this.$el.novalidate = true;
+      this.$el.noValidate = true;
     }
 
     // if (this.storageKey) {
