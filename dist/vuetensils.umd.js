@@ -2184,12 +2184,19 @@
   var script$b = {
     name: 'VForm',
     props: {
-      lazy: Boolean,
+      lazy: {
+        type: Boolean,
+        default: false,
+      },
+      /** @type {import('vue').PropOptions<Object>} */
       errors: {
         type: Object,
         default: function () { return ({}); },
       },
-      preventNavigation: Boolean,
+      preventNavigation: {
+        type: Boolean,
+        default: false,
+      },
       // storageKey: {
       //   type: String,
       //   default: '',
@@ -2276,6 +2283,10 @@
 
       if (this.preventNavigation) {
         window.addEventListener('beforeunload', this.preventNav);
+      }
+
+      if (this.$listeners.invalid) {
+        this.$el.noValidate = true;
       }
 
       // if (this.storageKey) {
@@ -2438,7 +2449,7 @@
     /* style */
     var __vue_inject_styles__$b = function (inject) {
       if (!inject) { return }
-      inject("data-v-81c29f42_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}", map: undefined, media: undefined });
+      inject("data-v-b00e4b04_0", { source: ".vts-visually-hidden{position:absolute;overflow:hidden;clip:rect(0 0 0 0);inline-size:1px;block-size:1px;margin:-1px;border:0;padding:0}", map: undefined, media: undefined });
 
     };
     /* scoped */

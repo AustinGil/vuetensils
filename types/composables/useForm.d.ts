@@ -1,6 +1,6 @@
 export default useForm;
-export type FormRef = any;
-export type ComputedRef = import("@vue/composition-api").ComputedRef<any>;
+export type FormRef = import('vue-demi').Ref<HTMLFormElement>;
+export type ComputedRef = import('vue-demi').ComputedRef;
 export type ErrorMessage = string | ((string: any) => string);
 export type FormInputState = {
     value: string;
@@ -51,7 +51,7 @@ export type FormInputState = {
  * }
  * }} options
  */
-declare function useForm(formRef: any, options?: {
+declare function useForm(formRef: FormRef, options?: {
     errors?: {
         type?: ErrorMessage;
         required?: ErrorMessage;

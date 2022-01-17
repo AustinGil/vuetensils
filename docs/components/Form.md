@@ -152,7 +152,7 @@ Note that custom events do not allow for [modifiers](https://v3.vuejs.org/guide/
 
 ```vue live
 <template>
-  <VForm @valid="onValid" @invalid="onInvalid" novalidate>
+  <VForm @valid="onValid" @invalid="onInvalid">
     <label>
       Name:
       <input name="name" required />
@@ -183,7 +183,7 @@ export default {
 </script>
 ```
 
-<!-- Important: If you provide the `invalid` listener, the form will also append the `novalidate` attribtue which means the default HTML validation logic will not run. So you will want to handle showing the user the errors gracefully (which is kind of the intention of this event anyway). -->
+Important: If you provide the `invalid` listener, the form will also append the `novalidate` attribtue which means the default HTML validation logic will not run. So you will want to handle showing the user the errors gracefully (which is kind of the intention of this event anyway).
 
 ## Preventing Navigation
 

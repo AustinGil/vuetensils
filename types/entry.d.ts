@@ -1,13 +1,7 @@
 export const components: typeof allComponents;
 export const directives: typeof allDirectives;
 export const filters: typeof allFilters;
-declare var _default: {
-    /**
-     * @param {*} Vue Vue instance
-     * @param {VuetensilsConfig} [pluginConfig] Vuetensils configuration
-     */
-    install(Vue: any, pluginConfig?: VuetensilsConfig): void;
-};
+declare var _default: import("vue").PluginObject<any>;
 export default _default;
 export * from "./components/index.js";
 export * from "./composables/index.js";
