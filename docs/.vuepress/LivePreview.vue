@@ -21,8 +21,11 @@ export default {}
 
 <style>
 .live-preview,
-.language-vue .prism-editor__editor {
+.language-vue {
   padding: 1rem;
+  color: #fff;
+  caret-color: currentColor;
+  outline: 0;
 }
 .live-preview {
   border: 1px solid #CCC;
@@ -30,7 +33,7 @@ export default {}
   font: initial;
   color: initial;
 }
-.language-vue .prism-editor__editor {
-  color: #fff;
+.prism-editor__textarea {
+  outline: 0;
 }
 </style>
