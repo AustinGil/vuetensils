@@ -1,8 +1,10 @@
 ---
 home: true
 heroImage: /static/logo.png
-actionText: Get Started →
-actionLink: /Introduction.html#introduction
+actions:
+  - text: Get Started →
+    link: /Introduction.html#introduction
+    type: primary
 features:
   - title: A11y Focused
     details: Follows WAI-ARIA authoring practices for accessibility baked in; semantics, ARIA attributes, roles, etc.
@@ -15,7 +17,8 @@ features:
   # - title: Adaptible
   # - title: Opt-in
   # - title: Easy to learn
-footer: MIT Licensed | Copyright © 2018-present | Made with ❤️️ by Austin Gil
+footer: MIT Licensed | Copyright © 2018-present | Made with ❤️️ by <a href="https://austingil.com">Austin Gil</a>
+footerHtml: true
 ---
 
 <h3 class="text-center">

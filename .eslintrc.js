@@ -8,14 +8,11 @@ module.exports = {
     jest: true,
   },
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
     // "ecmaVersion": 6,
     sourceType: 'module',
   },
-  globals: {
-    jsdom: true,
-    Promise: true,
-  },
+  globals: {},
   ignorePatterns: ['dist/**/*', 'types/**/*', '**/TestAll.vue'],
   plugins: [
     '@typescript-eslint',
@@ -28,8 +25,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:import/recommended',
     'plugin:jsdoc/recommended',
-    'plugin:jest/recommended',
-    'plugin:jest-dom/recommended',
     'plugin:vue/recommended',
     'plugin:vuejs-accessibility/recommended',
     'plugin:prettier/recommended',
