@@ -1,6 +1,8 @@
 // const fs = require('fs');
 const path = require('path');
 const pkg = require('../../package.json')
+const VueExamplePlugin = require('vuepress-plugin-vue-example')
+
 // const vueDocs = require("vue-docgen-api")
 
 const title = 'Vuetensils'
@@ -38,18 +40,16 @@ module.exports = {
     ['meta', { itemprop: 'image', content: `https://api.microlink.io/?adblock=false&waitForTimeout=2000&meta=false&screenshot&element=%23screenshot&embed=screenshot.url&url=https%3A%2F%2Fcards.microlink.io%2F%3Fpreset%3Dpaco%26logo%3Dhttps%253A%252F%252Faustingil.com%252Fwp-content%252Fuploads%252Flogo-austin-gil-white.svg%26p%3D2gIfPD4KICA8TGluawogICAgaHJlZj0naHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3MyP2ZhbWlseT1JbnRlcjp3Z2h0QDcwMCZkaXNwbGF5PWJsb2NrJwogICAgcmVsPSdzdHlsZXNoZWV0JwogIC8-CiAgPEZsZXgKICAgIHN4PXt7CiAgICAgIGFsaWduSXRlbXM6ICdmbGV4LWVuZCcsCiAgICAgIGJnOiBxdWVyeS5iZywKICAgICAgY29sb3I6IHF1ZXJ5LmNvbG9yLAogICAgICBwYWRkaW5nOiA4MCwKICAgICAgICBqdXN0aWZ5Q29udGVudDogJ3NwYWNlLWJldHdlZW4nLAogICAgfX0KICA-CiAgICA8VGV4dAogICAgICBzeD17ewogICAgICAgIGZvbnRGYW1pbHk6ICdJbnRlcicsCiAgICAgICAgZm9udFNpemU6IDY0LAogICAgICAgIGZvbnRXZWlnaHQ6IDcwMCwKICAgICAgICBsaW5lSGVpZ2h0OiAnMTAwJScsCiAgICAgICAgbGV0dGVyU3BhY2luZzogJy00cHgnLAogICAgICB9fQogICAgPgogICAgICB7cXVlcnkudGl0bGV9CiAgICA8L1RleHQ-CiAgICA8SW1hZ2Ugd2lkdGg9IjI0MCIgc3JjPXtxdWVyeS5sb2dvfSAvPgogIDwvRmxleD4KPC8-%26title%3D${encodeURI(title)}` }],
   ],
   themeConfig: {
-    home: true,
     logo: '/static/logo.png',
     repo: 'austingil/vuetensils',
-    lastUpdated: 'Last Updated',
-    nav: [
+    navbar: [
       { text: 'Home', link: '/' },
       { text: 'Docs', link: '/introduction' },
     ],
     sidebar: [
       '/Introduction',
       {
-        title: 'Components',
+        text: 'Components',
         collapsable: false,
         children: [
           '/components/Alert',
@@ -74,7 +74,7 @@ module.exports = {
         ],
       },
       {
-        title: 'Directives',
+        text: 'Directives',
         collapsable: false,
         children: [
           '/directives/autofocus',
@@ -84,7 +84,7 @@ module.exports = {
         ],
       },
       {
-        title: 'Filters',
+        text: 'Filters',
         collapsable: false,
         children: [
           '/filters/capitalize',
@@ -96,7 +96,7 @@ module.exports = {
         ],
       },
       {
-        title: 'Composables',
+        text: 'Composables',
         collapsable: false,
         children: [
           '/composables/useAsync',
@@ -107,18 +107,23 @@ module.exports = {
     ],
   },
   plugins: [
-    [
-      '@vuepress/google-analytics',
-      {
-        ga: 'UA-32074770-16',
-      },
-    ],
-    [
-      'live',
-      {
-        layout: path.resolve(__dirname, './LivePreview'),
-      },
-    ],
+    VueExamplePlugin({
+      // You need to provide a directory that all the example .vue files will be stored.
+      // You can use sub-directories to separate examples into categories.
+      componentsPath: '/docs/examples/'
+    }),
+    // [
+    //   '@vuepress/google-analytics',
+    //   {
+    //     ga: 'UA-32074770-16',
+    //   },
+    // ],
+    // [
+    //   'live',
+    //   {
+    //     layout: path.resolve(__dirname, './LivePreview'),
+    //   },
+    // ],
     // [
     //   'docgen',
     //   {
