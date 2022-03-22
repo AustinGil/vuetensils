@@ -1,5 +1,5 @@
 /* eslint-disable */
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { mount } from '@cypress/vue';
 import IdxBtn from './IdxBtn.vue';
 

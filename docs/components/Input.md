@@ -40,6 +40,13 @@ export default {
 </script>
 ```
 
+<VInput
+  label="Name"
+  name="name"
+  required
+  minlength="2"
+/>
+
 ## Styled Example
 
 ```vue live

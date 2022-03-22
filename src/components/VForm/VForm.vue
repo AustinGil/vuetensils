@@ -138,7 +138,7 @@ export default {
       window.addEventListener('beforeunload', this.preventNav);
     }
 
-    if (this.$listeners.invalid) {
+    if (this.listeners.invalid) {
       this.$el.noValidate = true;
     }
 

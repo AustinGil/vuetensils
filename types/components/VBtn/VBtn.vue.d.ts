@@ -16,6 +16,8 @@ declare const _default: {
         tag(): "a" | "button" | "RouterLink";
         /** @return {string} */
         type(): any;
+        /** @returns {Record<string, string> | Record<string, Function | Function[]>} */
+        listeners(): any;
     };
     methods: {
         onSubmit({ target: form }: {

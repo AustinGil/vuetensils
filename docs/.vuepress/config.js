@@ -1,7 +1,6 @@
 // const fs = require('fs');
 const path = require('path');
 const pkg = require('../../package.json')
-const VueExamplePlugin = require('vuepress-plugin-vue-example')
 
 // const vueDocs = require("vue-docgen-api")
 
@@ -107,11 +106,6 @@ module.exports = {
     ],
   },
   plugins: [
-    VueExamplePlugin({
-      // You need to provide a directory that all the example .vue files will be stored.
-      // You can use sub-directories to separate examples into categories.
-      componentsPath: '/docs/examples/'
-    }),
     // [
     //   '@vuepress/google-analytics',
     //   {

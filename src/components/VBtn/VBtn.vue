@@ -29,13 +29,15 @@
     class="vts-btn"
     :type="type"
     v-bind="$attrs"
-    v-on="$listeners"
+    v-on="listeners"
   >
     <slot />
   </component>
 </template>
 
 <script>
+import { isVue3 } from 'vue-demi';
+
 export default {
   name: 'VBtn',
   inheritAttrs: false,
@@ -59,6 +61,13 @@ export default {
     type() {
       if (this.tag !== 'button') return;
       return this.$attrs.type || 'button';
+    },
+    /** @returns {Record<string, string> | Record<string, Function | Function[]>} */
+    listeners() {
+      if (isVue3) {
+        return this.$attrs;
+      }
+      return this.$listeners;
     },
   },
   methods: {
