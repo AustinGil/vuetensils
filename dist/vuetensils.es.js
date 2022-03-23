@@ -1842,6 +1842,15 @@ function _sfc_render$8(_ctx, _cache, $props, $setup, $data, $options) {
   ], 2);
 }
 var VImg = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$8]]);
+const valuePropDef = {
+  type: [String, Number, Boolean, Array],
+  default: void 0
+};
+function updateLocalValue(value, previousValue) {
+  if (value === previousValue)
+    return;
+  this.localValue = value;
+}
 const _sfc_main$9 = {
   name: "VInput",
   inheritAttrs: false,
@@ -1857,10 +1866,8 @@ const _sfc_main$9 = {
       type: String,
       required: true
     },
-    value: {
-      type: [String, Number, Boolean, Array],
-      default: void 0
-    },
+    value: valuePropDef,
+    modelValue: valuePropDef,
     options: {
       type: Array,
       default: () => []
@@ -1876,7 +1883,7 @@ const _sfc_main$9 = {
   },
   data() {
     return {
-      localValue: this.value,
+      localValue: this.modelValue || this.value,
       valid: true,
       anyInvalid: false,
       dirty: false,
@@ -1950,11 +1957,8 @@ const _sfc_main$9 = {
     }
   },
   watch: {
-    value(value, previousValue) {
-      if (value === previousValue)
-        return;
-      this.localValue = value;
-    },
+    modelValue: updateLocalValue,
+    value: updateLocalValue,
     localValue(value) {
       this.$emit("update", value);
       this.validate();

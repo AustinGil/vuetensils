@@ -1,3 +1,4 @@
+declare function updateLocalValue(value: any, previousValue: any): void;
 declare const _default: {
     name: string;
     inheritAttrs: boolean;
@@ -23,6 +24,10 @@ declare const _default: {
          * The input value. Works for all inputs except type `radio`. See `options` prop.
          */
         value: {
+            type: (StringConstructor | BooleanConstructor | NumberConstructor | ArrayConstructor)[];
+            default: any;
+        };
+        modelValue: {
             type: (StringConstructor | BooleanConstructor | NumberConstructor | ArrayConstructor)[];
             default: any;
         };
@@ -63,7 +68,8 @@ declare const _default: {
         errorMessages(): any[];
     };
     watch: {
-        value(value: any, previousValue: any): void;
+        modelValue: typeof updateLocalValue;
+        value: typeof updateLocalValue;
         localValue(value: any): void;
     };
     created(): void;
@@ -72,12 +78,6 @@ declare const _default: {
         validate(): void;
     };
 };
-/**
- * TODO:
- * Provide prop for error,invalid classes on input
- * Remove span from labels (breaking)
- * Use validationMessage @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/validationMessage
- */
 /**
  * Input component that automatically includes labels, validation, and aria descriptions for any errors.
  */

@@ -152,6 +152,17 @@ import { randomString } from '../../utils.js';
  * Use validationMessage @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/validationMessage
  */
 
+const valuePropDef = {
+  type: [String, Number, Boolean, Array],
+  default: undefined,
+}
+function updateLocalValue(value, previousValue) {
+  if (value === previousValue) return;
+  this.localValue = value;
+  // TODO: Do we want to do this to trigger event listeners?
+  // inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+}
+
 /**
  * Input component that automatically includes labels, validation, and aria descriptions for any errors.
  */
@@ -183,10 +194,8 @@ export default {
     /**
      * The input value. Works for all inputs except type `radio`. See `options` prop.
      */
-    value: {
-      type: [String, Number, Boolean, Array],
-      default: undefined,
-    },
+    value: valuePropDef,
+    modelValue: valuePropDef,
 
     /**
      * An array of options used for inputs of type `radio` or type `select`
@@ -209,7 +218,7 @@ export default {
 
   data() {
     return {
-      localValue: this.value, // Required for weird bug when nested in VForm
+      localValue: this.modelValue || this.value, // Required for weird bug when nested in VForm
       valid: true,
       anyInvalid: false, // TODO: deprecate
       dirty: false,
@@ -263,7 +272,7 @@ export default {
 
     computedOptions() {
       const { $attrs, localValue } = this;
-      return this.options.map(item => {
+      return this.options.map((item) => {
         // Each item should be an object with at least value and label which we can bind to later
         item = typeof item === 'object' ? item : { value: item };
         return Object.assign(item, $attrs, {
@@ -288,7 +297,7 @@ export default {
       const { invalid, errors, $attrs } = this;
       const errorMessages = [];
 
-      Object.keys(errors || {}).forEach(key => {
+      Object.keys(errors || {}).forEach((key) => {
         if (!invalid[key]) return;
 
         const errorHandlerOrMessage = errors[key];
@@ -306,12 +315,8 @@ export default {
   },
 
   watch: {
-    value(value, previousValue) {
-      if (value === previousValue) return;
-      this.localValue = value;
-      // TODO: Do we want to do this to trigger event listeners?
-      // inputEl.dispatchEvent(new Event('input', { bubbles: true }));
-    },
+    modelValue: updateLocalValue,
+    value: updateLocalValue,
     localValue(value) {
       /**
        * @event update
