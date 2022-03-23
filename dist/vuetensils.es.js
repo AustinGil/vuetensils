@@ -2012,6 +2012,7 @@ function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
         "vts-input--dirty": $data.dirty,
         "vts-input--error": $options.error
       },
+      _ctx.$attrs.class,
       $props.classes.root
     ])
   }, [

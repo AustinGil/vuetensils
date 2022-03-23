@@ -9,6 +9,7 @@
         'vts-input--dirty': dirty,
         'vts-input--error': error,
       },
+      $attrs.class,
       classes.root,
     ]"
   >
