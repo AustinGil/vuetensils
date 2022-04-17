@@ -24,7 +24,10 @@
       <slot name="label">{{ label }}</slot>
     </span>
 
-    <div class="vts-file__dropzone" @dragenter.prevent="droppable = true">
+    <div
+      :class="['vts-file__dropzone', classes.dropzone]"
+      @dragenter.prevent="droppable = true"
+    >
       <slot v-bind="{ files: localFiles, droppable }">
         <span v-if="localFiles.length" aria-hidden="true">
           <template v-if="localFiles.length > 1">
@@ -35,14 +38,12 @@
           </template>
         </span>
 
-        <span v-else aria-hidden="true">
-          Choose files or drop here
-        </span>
+        <span v-else aria-hidden="true"> Choose files or drop here </span>
       </slot>
 
       <span
         v-if="droppable"
-        class="vts-file__overlay"
+        :class="['vts-file__overlay', classes.overlay]"
         @drop.prevent="onDrop"
         @dragenter.stop="droppable = true"
         @dragleave.stop="droppable = false"

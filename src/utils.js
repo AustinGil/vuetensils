@@ -4,8 +4,8 @@ import FOCUSABLE from './data/focusable.js';
  * Generates a random string of defined length based on
  * a string of allowed characters.
  *
- * @param  {number} length  How many random characters will be in the returned string. Defaults to 10
- * @param  {string} allowed Which characters can be used when creating the random string. Defaults to A-Z,a-z,0-9
+ * @param  {number} [length]  How many random characters will be in the returned string. Defaults to 10
+ * @param  {string} [allowed] Which characters can be used when creating the random string. Defaults to A-Z,a-z,0-9
  * @returns {string}         A string of random characters
  */
 export function randomString(

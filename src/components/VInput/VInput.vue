@@ -2,7 +2,7 @@
   <div
     :class="[
       'vts-input',
-      `vts-input--${$attrs.type || 'text'}`,
+      `vts-input--${type}`,
       {
         'vts-input--required': $attrs.hasOwnProperty('required'),
         'vts-input--invalid': !valid,
@@ -14,40 +14,47 @@
     ]"
   >
     <fieldset
-      v-if="'radio' === $attrs.type"
+      v-if="'radio' === type || ('checkbox' === type && computedOptions.length)"
       :class="['vts-input__fieldset', classes.fieldset]"
     >
       <legend v-if="label" :class="['vts-input__legend', classes.text]">
         {{ label }}
       </legend>
-      <label
-        v-for="(option, index) in computedOptions"
-        :key="option.value"
-        :for="`${id}__input-${index}`"
-        :class="['vts-input__label', classes.label]"
-      >
-        <input
-          :id="`${id}__input-${index}`"
-          ref="input"
-          v-bind="{ ...bind, ...option }"
-          @input="localValue = option.value"
-          @blur.once="dirty = true"
-          v-on="listeners"
-        />
-        <span :class="['vts-input__text', classes.text]">
-          {{ option.label }}
-        </span>
-      </label>
+
+      <div :class="['vts-input__fieldset-items', classes.fieldsetItems]">
+        <div
+          v-for="(option, index) in computedOptions"
+          :key="option.value"
+          :class="['vts-input__fieldset-item', classes.fieldsetItem]"
+        >
+          <input
+            v-bind="{ ...bind, ...option }"
+            :id="`${id}__input-${index}`"
+            ref="input"
+            :type="type"
+            @input="onFieldsetInput"
+            @blur.once="dirty = true"
+            v-on="listeners"
+          />
+          <label
+            :for="`${id}__input-${index}`"
+            :class="['vts-input__label', classes.label]"
+          >
+            {{ option.label }}
+          </label>
+        </div>
+      </div>
     </fieldset>
 
     <label
-      v-else-if="'checkbox' === $attrs.type"
+      v-else-if="'checkbox' === type"
       :for="`${id}__input`"
       :class="['vts-input__label', classes.label]"
     >
       <input
         ref="input"
         :checked="localValue === undefined ? $attrs.checked : localValue"
+        type="checkbox"
         v-bind="bind"
         @change="localValue = $event.target.checked"
         @blur.once="dirty = true"
@@ -58,17 +65,13 @@
       </span>
     </label>
 
-    <label
-      v-else
-      :for="`${id}__input`"
-      :class="['vts-input__label', classes.label]"
-    >
-      <span :class="['vts-input__text', classes.text]">
+    <template v-else>
+      <label :for="`${id}__input`" :class="['vts-input__label', classes.label]">
         {{ label }}
-      </span>
+      </label>
 
       <select
-        v-if="'select' === $attrs.type"
+        v-if="'select' === type"
         ref="input"
         :value="localValue"
         v-bind="bind"
@@ -89,7 +92,7 @@
       </select>
 
       <textarea
-        v-else-if="'textarea' === $attrs.type"
+        v-else-if="'textarea' === type"
         ref="input"
         v-model="localValue"
         v-bind="bind"
@@ -101,11 +104,12 @@
         v-else
         ref="input"
         v-model="localValue"
+        :type="type"
         v-bind="bind"
         @blur.once="dirty = true"
         v-on="listeners"
       />
-    </label>
+    </template>
 
     <div
       v-if="slots.description"
@@ -144,7 +148,7 @@
 
 <script>
 import { isVue3 } from 'vue-demi';
-import { randomString } from '../../utils.js';
+import { randomString, isType } from '../../utils.js';
 
 /**
  * TODO:
@@ -156,7 +160,7 @@ import { randomString } from '../../utils.js';
 const valuePropDef = {
   type: [String, Number, Boolean, Array],
   default: undefined,
-}
+};
 function updateLocalValue(value, previousValue) {
   if (value === previousValue) return;
   this.localValue = value;
@@ -172,7 +176,7 @@ export default {
   inheritAttrs: false,
 
   model: {
-    event: 'update',
+    event: 'update:modelValue',
   },
 
   props: {
@@ -198,11 +202,16 @@ export default {
     value: valuePropDef,
     modelValue: valuePropDef,
 
+    type: {
+      type: String,
+      default: 'text',
+    },
+
     /**
      * An array of options used for inputs of type `radio` or type `select`
      */
     options: {
-      type: Array,
+      type: [Array, Object],
       default: () => [],
     },
 
@@ -230,32 +239,26 @@ export default {
   computed: {
     /** @returns {any} */
     bind() {
-      const {
-        id,
-        name,
-        valid,
-        dirty,
-        error,
-        errorMessages,
-        classes,
-        $attrs,
-      } = this;
+      const { id, name, valid, dirty, error, errorMessages, classes, $attrs } =
+        this;
+      // eslint-disable-next-line no-unused-vars
+      const { class: _, attrs } = $attrs;
 
       const describedby = [];
       if (error) describedby.push(`${id}__description`);
       if (errorMessages.length) describedby.push(`${id}__errors`);
 
-      const attrs = {
+      const bindings = {
         'aria-invalid': !valid,
         'aria-describedby':
           dirty && describedby.length ? describedby.join(' ') : false,
-        ...$attrs,
+        ...attrs,
         id: `${id}__input`,
         name: name,
         class: ['vts-input__input', classes.input],
       };
 
-      return attrs;
+      return bindings;
     },
     /** @returns {Record<string, string> | Record<string, Function | Function[]>} */
     listeners() {
@@ -272,23 +275,38 @@ export default {
     },
 
     computedOptions() {
-      const { $attrs, localValue } = this;
-      return this.options.map((item) => {
+      const { $attrs, localValue, type } = this;
+      let options = this.options;
+      if (isType(options, 'object')) {
+        options = Object.entries(options).map(([key, value]) => ({
+          value: key,
+          label: value,
+        }));
+      }
+      return options.map((item) => {
         // Each item should be an object with at least value and label which we can bind to later
-        item = typeof item === 'object' ? item : { value: item };
-        return Object.assign(item, $attrs, {
+        item = isType(item, 'object') ? item : { value: item };
+        Object.assign(item, $attrs, {
           label: item.label || item.value,
           value: item.value,
-          checked:
-            localValue !== undefined ? item.value === localValue : item.checked,
         });
+
+        if (localValue !== undefined) {
+          if ('checkbox' === type) {
+            item.checked = localValue.includes(item.value) || item.checked;
+          } else {
+            item.checked = item.value === localValue || item.checked;
+          }
+        }
+
+        return item;
       });
     },
     /** @returns {boolean} */
-    isMultiple() {
-      const { multiple } = this.$attrs;
-      return multiple != null && multiple != 'false';
-    },
+    // isMultiple() {
+    //   const { multiple } = this.$attrs;
+    //   return multiple != null && multiple != 'false';
+    // },
     /** @returns {boolean} */
     error() {
       return !this.valid && this.dirty;
@@ -303,10 +321,9 @@ export default {
 
         const errorHandlerOrMessage = errors[key];
 
-        const errorMessage =
-          typeof errorHandlerOrMessage === 'function'
-            ? errorHandlerOrMessage($attrs[key])
-            : errorHandlerOrMessage;
+        const errorMessage = isType(errorHandlerOrMessage, 'function')
+          ? errorHandlerOrMessage($attrs[key])
+          : errorHandlerOrMessage;
 
         errorMessages.push(errorMessage);
       });
@@ -323,7 +340,7 @@ export default {
        * @event update
        * @type { any }
        */
-      this.$emit('update', value);
+      this.$emit('update:modelValue', value);
       this.validate();
     },
   },
@@ -337,6 +354,25 @@ export default {
   },
 
   methods: {
+    onFieldsetInput(event) {
+      const input = event.target;
+      const value = input.value;
+      if (input.type === 'radio') {
+        this.localValue = value;
+        return;
+      }
+
+      const newValue = [...(this.localValue || [])];
+      const index = newValue.indexOf(value);
+
+      if (index === -1) {
+        newValue.push(value);
+      } else {
+        newValue.splice(index, 1);
+      }
+
+      this.localValue = newValue;
+    },
     validate() {
       let input = this.$refs.input;
 

@@ -114,6 +114,7 @@
     "husky": "^4.3.8",
     "lint-staged": "^12.3.7",
     "pa11y-ci": "^3.0.1",
+    "prettier": "^2.6.2",
     "release-it": "^14.12.5",
     "stylelint": "^14.6.0",
     "stylelint-config-sass-guidelines": "^9.0.1",

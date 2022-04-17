@@ -8,7 +8,6 @@ module.exports = {
     jest: true,
   },
   parserOptions: {
-    parser: '@babel/eslint-parser',
     // "ecmaVersion": 6,
     sourceType: 'module',
   },
