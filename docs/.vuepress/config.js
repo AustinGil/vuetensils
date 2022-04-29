@@ -1,5 +1,6 @@
 // const fs = require('fs');
-const path = require('path');
+// const path = require('path');
+const vuepressPluginLive = require('./vuepress-plugin-live/index.js')
 const pkg = require('../../package.json')
 
 // const vueDocs = require("vue-docgen-api")
@@ -106,6 +107,7 @@ module.exports = {
     ],
   },
   plugins: [
+    vuepressPluginLive,
     // [
     //   '@vuepress/google-analytics',
     //   {

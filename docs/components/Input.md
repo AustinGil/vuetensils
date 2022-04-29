@@ -40,13 +40,6 @@ export default {
 </script>
 ```
 
-<VInput
-  label="Name"
-  name="name"
-  required
-  minlength="2"
-/>
-
 ## Styled Example
 
 ```vue live
@@ -139,6 +132,17 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
 ```vue live
 <template>
   <VInput label="checkbox" name="checkbox" type="checkbox" />
+</template>
+```
+
+```vue live
+<template>
+  <VInput
+    label="checkbox"
+    name="checkbox"
+    type="checkbox"
+    :options="['option 1', 'option 2', 'option 3', 'option 4']"
+  />
 </template>
 ```
 
