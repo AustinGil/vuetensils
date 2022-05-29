@@ -438,6 +438,9 @@ function randomString(length = 10, allowed = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefgh
   }
   return result;
 }
+function isType(v, type) {
+  return Object.prototype.toString.call(v).slice(8, -1).toLowerCase() === type.toLowerCase();
+}
 function applyFocusTrap(el, event) {
   const focusable = Array.from(el.querySelectorAll(FOCUSABLE));
   if (!focusable.length) {
@@ -737,7 +740,7 @@ const _hoisted_5$1 = ["aria-label", "disabled"];
 const _hoisted_6$1 = /* @__PURE__ */ createTextVNode("\u219E");
 const _hoisted_7$1 = ["aria-label", "disabled"];
 const _hoisted_8$1 = /* @__PURE__ */ createTextVNode("\u2190");
-const _hoisted_9 = ["id"];
+const _hoisted_9$1 = ["id"];
 const _hoisted_10 = ["aria-label", "disabled"];
 const _hoisted_11 = /* @__PURE__ */ createTextVNode("\u2192");
 const _hoisted_12 = ["aria-label", "disabled"];
@@ -802,7 +805,7 @@ function _sfc_render$e(_ctx, _cache, $props, $setup, $data, $options) {
           id: `${$props.id}-dialog-label`,
           class: normalizeClass(["vtd-date__title", $props.classes.title]),
           "aria-live": "polite"
-        }, toDisplayString($options.monthYear), 11, _hoisted_9),
+        }, toDisplayString($options.monthYear), 11, _hoisted_9$1),
         createElementVNode("button", {
           class: normalizeClass(["vtd-date__next-month", $props.classes.nextMonth]),
           "aria-label": $props.buttonLabels.nextMonth,
@@ -1469,7 +1472,7 @@ function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
       ])
     ], 2),
     createElementVNode("div", {
-      class: "vts-file__dropzone",
+      class: normalizeClass(["vts-file__dropzone", $props.classes.dropzone]),
       onDragenter: _cache[5] || (_cache[5] = withModifiers(($event) => _ctx.droppable = true, ["prevent"]))
     }, [
       renderSlot(_ctx.$slots, "default", normalizeProps(guardReactiveProps({ files: _ctx.localFiles, droppable: _ctx.droppable })), () => [
@@ -1483,7 +1486,7 @@ function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
       ]),
       _ctx.droppable ? (openBlock(), createElementBlock("span", {
         key: 0,
-        class: "vts-file__overlay",
+        class: normalizeClass(["vts-file__overlay", $props.classes.overlay]),
         onDrop: _cache[1] || (_cache[1] = withModifiers((...args) => $options.onDrop && $options.onDrop(...args), ["prevent"])),
         onDragenter: _cache[2] || (_cache[2] = withModifiers(($event) => _ctx.droppable = true, ["stop"])),
         onDragleave: _cache[3] || (_cache[3] = withModifiers(($event) => _ctx.droppable = false, ["stop"])),
@@ -1491,8 +1494,8 @@ function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
         }, ["prevent"]))
       }, [
         renderSlot(_ctx.$slots, "overlay")
-      ], 32)) : createCommentVNode("", true)
-    ], 32)
+      ], 34)) : createCommentVNode("", true)
+    ], 34)
   ], 10, _hoisted_1$8);
 }
 var VFile = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$a]]);
@@ -1855,7 +1858,7 @@ const _sfc_main$9 = {
   name: "VInput",
   inheritAttrs: false,
   model: {
-    event: "update"
+    event: "update:modelValue"
   },
   props: {
     label: {
@@ -1868,8 +1871,12 @@ const _sfc_main$9 = {
     },
     value: valuePropDef,
     modelValue: valuePropDef,
+    type: {
+      type: String,
+      default: "text"
+    },
     options: {
-      type: Array,
+      type: [Array, Object],
       default: () => []
     },
     errors: {
@@ -1892,30 +1899,22 @@ const _sfc_main$9 = {
   },
   computed: {
     bind() {
-      const {
-        id,
-        name,
-        valid,
-        dirty,
-        error,
-        errorMessages,
-        classes,
-        $attrs
-      } = this;
+      const { id, name, valid, dirty, error, errorMessages, classes, $attrs } = this;
+      const { class: _, attrs } = $attrs;
       const describedby = [];
       if (error)
         describedby.push(`${id}__description`);
       if (errorMessages.length)
         describedby.push(`${id}__errors`);
-      const attrs = __spreadProps(__spreadValues({
+      const bindings = __spreadProps(__spreadValues({
         "aria-invalid": !valid,
         "aria-describedby": dirty && describedby.length ? describedby.join(" ") : false
-      }, $attrs), {
+      }, attrs), {
         id: `${id}__input`,
         name,
         class: ["vts-input__input", classes.input]
       });
-      return attrs;
+      return bindings;
     },
     listeners() {
       {
@@ -1926,19 +1925,29 @@ const _sfc_main$9 = {
       return this.$slots;
     },
     computedOptions() {
-      const { $attrs, localValue } = this;
-      return this.options.map((item) => {
-        item = typeof item === "object" ? item : { value: item };
-        return Object.assign(item, $attrs, {
+      const { $attrs, localValue, type } = this;
+      let options = this.options;
+      if (isType(options, "object")) {
+        options = Object.entries(options).map(([key, value]) => ({
+          value: key,
+          label: value
+        }));
+      }
+      return options.map((item) => {
+        item = isType(item, "object") ? item : { value: item };
+        Object.assign(item, $attrs, {
           label: item.label || item.value,
-          value: item.value,
-          checked: localValue !== void 0 ? item.value === localValue : item.checked
+          value: item.value
         });
+        if (localValue !== void 0) {
+          if (type === "checkbox") {
+            item.checked = localValue.includes(item.value) || item.checked;
+          } else {
+            item.checked = item.value === localValue || item.checked;
+          }
+        }
+        return item;
       });
-    },
-    isMultiple() {
-      const { multiple } = this.$attrs;
-      return multiple != null && multiple != "false";
     },
     error() {
       return !this.valid && this.dirty;
@@ -1950,7 +1959,7 @@ const _sfc_main$9 = {
         if (!invalid[key])
           return;
         const errorHandlerOrMessage = errors[key];
-        const errorMessage = typeof errorHandlerOrMessage === "function" ? errorHandlerOrMessage($attrs[key]) : errorHandlerOrMessage;
+        const errorMessage = isType(errorHandlerOrMessage, "function") ? errorHandlerOrMessage($attrs[key]) : errorHandlerOrMessage;
         errorMessages.push(errorMessage);
       });
       return errorMessages;
@@ -1960,7 +1969,7 @@ const _sfc_main$9 = {
     modelValue: updateLocalValue,
     value: updateLocalValue,
     localValue(value) {
-      this.$emit("update", value);
+      this.$emit("update:modelValue", value);
       this.validate();
     }
   },
@@ -1971,6 +1980,22 @@ const _sfc_main$9 = {
     this.validate();
   },
   methods: {
+    onFieldsetInput(event) {
+      const input = event.target;
+      const value = input.value;
+      if (input.type === "radio") {
+        this.localValue = value;
+        return;
+      }
+      const newValue = [...this.localValue || []];
+      const index2 = newValue.indexOf(value);
+      if (index2 === -1) {
+        newValue.push(value);
+      } else {
+        newValue.splice(index2, 1);
+      }
+      this.localValue = newValue;
+    },
     validate() {
       let input = this.$refs.input;
       if (Array.isArray(input)) {
@@ -1993,19 +2018,20 @@ const _sfc_main$9 = {
     }
   }
 };
-const _hoisted_1$5 = ["for"];
-const _hoisted_2$4 = ["id", "onInput"];
+const _hoisted_1$5 = ["id", "type"];
+const _hoisted_2$4 = ["for"];
 const _hoisted_3$2 = ["for"];
 const _hoisted_4$1 = ["checked"];
 const _hoisted_5 = ["for"];
 const _hoisted_6 = ["value"];
-const _hoisted_7 = ["id"];
+const _hoisted_7 = ["type"];
 const _hoisted_8 = ["id"];
+const _hoisted_9 = ["id"];
 function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: normalizeClass([
       "vts-input",
-      `vts-input--${_ctx.$attrs.type || "text"}`,
+      `vts-input--${$props.type}`,
       {
         "vts-input--required": _ctx.$attrs.hasOwnProperty("required"),
         "vts-input--invalid": !$data.valid,
@@ -2016,7 +2042,7 @@ function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
       $props.classes.root
     ])
   }, [
-    _ctx.$attrs.type === "radio" ? (openBlock(), createElementBlock("fieldset", {
+    $props.type === "radio" || $props.type === "checkbox" && $options.computedOptions.length ? (openBlock(), createElementBlock("fieldset", {
       key: 0,
       class: normalizeClass(["vts-input__fieldset", $props.classes.fieldset])
     }, [
@@ -2024,80 +2050,83 @@ function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
         key: 0,
         class: normalizeClass(["vts-input__legend", $props.classes.text])
       }, toDisplayString($props.label), 3)) : createCommentVNode("", true),
-      (openBlock(true), createElementBlock(Fragment, null, renderList($options.computedOptions, (option, index2) => {
-        return openBlock(), createElementBlock("label", {
-          key: option.value,
-          for: `${_ctx.id}__input-${index2}`,
-          class: normalizeClass(["vts-input__label", $props.classes.label])
-        }, [
-          createElementVNode("input", mergeProps({
-            id: `${_ctx.id}__input-${index2}`,
-            ref_for: true,
-            ref: "input"
-          }, __spreadValues(__spreadValues({}, $options.bind), option), {
-            onInput: ($event) => $data.localValue = option.value,
-            onBlurOnce: _cache[0] || (_cache[0] = ($event) => $data.dirty = true)
-          }, toHandlers($options.listeners)), null, 16, _hoisted_2$4),
-          createElementVNode("span", {
-            class: normalizeClass(["vts-input__text", $props.classes.text])
-          }, toDisplayString(option.label), 3)
-        ], 10, _hoisted_1$5);
-      }), 128))
-    ], 2)) : _ctx.$attrs.type === "checkbox" ? (openBlock(), createElementBlock("label", {
+      createElementVNode("div", {
+        class: normalizeClass(["vts-input__fieldset-items", $props.classes.fieldsetItems])
+      }, [
+        (openBlock(true), createElementBlock(Fragment, null, renderList($options.computedOptions, (option, index2) => {
+          return openBlock(), createElementBlock("div", {
+            key: option.value,
+            class: normalizeClass(["vts-input__fieldset-item", $props.classes.fieldsetItem])
+          }, [
+            createElementVNode("input", mergeProps(__spreadValues(__spreadValues({}, $options.bind), option), {
+              id: `${_ctx.id}__input-${index2}`,
+              ref_for: true,
+              ref: "input",
+              type: $props.type,
+              onInput: _cache[0] || (_cache[0] = (...args) => $options.onFieldsetInput && $options.onFieldsetInput(...args)),
+              onBlurOnce: _cache[1] || (_cache[1] = ($event) => $data.dirty = true)
+            }, toHandlers($options.listeners)), null, 16, _hoisted_1$5),
+            createElementVNode("label", {
+              for: `${_ctx.id}__input-${index2}`,
+              class: normalizeClass(["vts-input__label", $props.classes.label])
+            }, toDisplayString(option.label), 11, _hoisted_2$4)
+          ], 2);
+        }), 128))
+      ], 2)
+    ], 2)) : $props.type === "checkbox" ? (openBlock(), createElementBlock("label", {
       key: 1,
       for: `${_ctx.id}__input`,
       class: normalizeClass(["vts-input__label", $props.classes.label])
     }, [
       createElementVNode("input", mergeProps({
         ref: "input",
-        checked: $data.localValue === void 0 ? _ctx.$attrs.checked : $data.localValue
+        checked: $data.localValue === void 0 ? _ctx.$attrs.checked : $data.localValue,
+        type: "checkbox"
       }, $options.bind, {
-        onChange: _cache[1] || (_cache[1] = ($event) => $data.localValue = $event.target.checked),
-        onBlurOnce: _cache[2] || (_cache[2] = ($event) => $data.dirty = true)
+        onChange: _cache[2] || (_cache[2] = ($event) => $data.localValue = $event.target.checked),
+        onBlurOnce: _cache[3] || (_cache[3] = ($event) => $data.dirty = true)
       }, toHandlers($options.listeners)), null, 16, _hoisted_4$1),
       createElementVNode("span", {
         class: normalizeClass(["vts-input__text", $props.classes.text])
       }, toDisplayString($props.label), 3)
-    ], 10, _hoisted_3$2)) : (openBlock(), createElementBlock("label", {
-      key: 2,
-      for: `${_ctx.id}__input`,
-      class: normalizeClass(["vts-input__label", $props.classes.label])
-    }, [
-      createElementVNode("span", {
-        class: normalizeClass(["vts-input__text", $props.classes.text])
-      }, toDisplayString($props.label), 3),
-      _ctx.$attrs.type === "select" ? (openBlock(), createElementBlock("select", mergeProps({
+    ], 10, _hoisted_3$2)) : (openBlock(), createElementBlock(Fragment, { key: 2 }, [
+      createElementVNode("label", {
+        for: `${_ctx.id}__input`,
+        class: normalizeClass(["vts-input__label", $props.classes.label])
+      }, toDisplayString($props.label), 11, _hoisted_5),
+      $props.type === "select" ? (openBlock(), createElementBlock("select", mergeProps({
         key: 0,
         ref: "input",
         value: $data.localValue
       }, $options.bind, {
-        onInput: _cache[3] || (_cache[3] = ($event) => $data.localValue = $event.target.value),
-        onChange: _cache[4] || (_cache[4] = ($event) => $data.localValue = $event.target.value),
-        onBlurOnce: _cache[5] || (_cache[5] = ($event) => $data.dirty = true)
+        onInput: _cache[4] || (_cache[4] = ($event) => $data.localValue = $event.target.value),
+        onChange: _cache[5] || (_cache[5] = ($event) => $data.localValue = $event.target.value),
+        onBlurOnce: _cache[6] || (_cache[6] = ($event) => $data.dirty = true)
       }, toHandlers($options.listeners)), [
         renderSlot(_ctx.$slots, "options", {}, () => [
           (openBlock(true), createElementBlock(Fragment, null, renderList($options.computedOptions, (option, i) => {
             return openBlock(), createElementBlock("option", mergeProps({ key: i }, option), toDisplayString(option.label), 17);
           }), 128))
         ])
-      ], 16, _hoisted_6)) : _ctx.$attrs.type === "textarea" ? withDirectives((openBlock(), createElementBlock("textarea", mergeProps({
+      ], 16, _hoisted_6)) : $props.type === "textarea" ? withDirectives((openBlock(), createElementBlock("textarea", mergeProps({
         key: 1,
         ref: "input",
-        "onUpdate:modelValue": _cache[6] || (_cache[6] = ($event) => $data.localValue = $event)
+        "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event) => $data.localValue = $event)
       }, $options.bind, {
-        onBlurOnce: _cache[7] || (_cache[7] = ($event) => $data.dirty = true)
+        onBlurOnce: _cache[8] || (_cache[8] = ($event) => $data.dirty = true)
       }, toHandlers($options.listeners)), null, 16)), [
         [vModelText, $data.localValue]
       ]) : withDirectives((openBlock(), createElementBlock("input", mergeProps({
         key: 2,
         ref: "input",
-        "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => $data.localValue = $event)
+        "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => $data.localValue = $event),
+        type: $props.type
       }, $options.bind, {
-        onBlurOnce: _cache[9] || (_cache[9] = ($event) => $data.dirty = true)
-      }, toHandlers($options.listeners)), null, 16)), [
+        onBlurOnce: _cache[10] || (_cache[10] = ($event) => $data.dirty = true)
+      }, toHandlers($options.listeners)), null, 16, _hoisted_7)), [
         [vModelDynamic, $data.localValue]
       ])
-    ], 10, _hoisted_5)),
+    ], 64)),
     $options.slots.description ? (openBlock(), createElementBlock("div", {
       key: 3,
       id: `${_ctx.id}__description`,
@@ -2111,7 +2140,7 @@ function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
         anyInvalid: $data.anyInvalid,
         errors: $options.errorMessages
       })))
-    ], 10, _hoisted_7)) : createCommentVNode("", true),
+    ], 10, _hoisted_8)) : createCommentVNode("", true),
     $data.dirty && $options.errorMessages.length ? (openBlock(), createElementBlock("div", {
       key: 4,
       id: `${_ctx.id}__errors`,
@@ -2123,7 +2152,7 @@ function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
           class: normalizeClass(["vts-input__error", $props.classes.error])
         }, toDisplayString(error), 3);
       }), 128))
-    ], 10, _hoisted_8)) : createCommentVNode("", true)
+    ], 10, _hoisted_9)) : createCommentVNode("", true)
   ], 2);
 }
 var VInput = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$7]]);

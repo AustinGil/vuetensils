@@ -55,7 +55,7 @@ export default {
 
   model: {
     prop: 'showing',
-    event: 'update',
+    event: 'update:showing',
   },
 
   props: {
@@ -139,6 +139,7 @@ export default {
       default: () => ({}),
     },
   },
+  emits: ['update', 'update:showing'],
 
   data() {
     return {
@@ -179,6 +180,7 @@ export default {
         }
 
         this.$emit('update', next);
+        this.$emit('update:showing', next);
       },
     },
   },

@@ -31,11 +31,15 @@ declare const _default: {
             type: (StringConstructor | BooleanConstructor | NumberConstructor | ArrayConstructor)[];
             default: any;
         };
+        type: {
+            type: StringConstructor;
+            default: string;
+        };
         /**
          * An array of options used for inputs of type `radio` or type `select`
          */
         options: {
-            type: ArrayConstructor;
+            type: (ObjectConstructor | ArrayConstructor)[];
             default: () => any[];
         };
         errors: {
@@ -62,7 +66,6 @@ declare const _default: {
         slots(): any;
         computedOptions(): any;
         /** @returns {boolean} */
-        isMultiple(): boolean;
         /** @returns {boolean} */
         error(): any;
         errorMessages(): any[];
@@ -75,6 +78,7 @@ declare const _default: {
     created(): void;
     mounted(): void;
     methods: {
+        onFieldsetInput(event: any): void;
         validate(): void;
     };
 };

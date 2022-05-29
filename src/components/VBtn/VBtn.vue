@@ -18,7 +18,7 @@
       aria-hidden="true"
       tabindex="-1"
     />
-    <button type="submit" v-bind="$attrs" class="vts-btn" v-on="$listeners">
+    <button type="submit" v-bind="$attrs" class="vts-btn" v-on="listeners">
       <slot />
     </button>
   </form>
@@ -46,7 +46,7 @@ export default {
     data: { type: Object, default: () => ({}) },
   },
   computed: {
-    /** @return {'RouterLink' | 'a' | 'button'} */
+    /** @returns {'RouterLink' | 'a' | 'button'} */
     tag() {
       const attrs = this.$attrs || {};
       if (attrs.to) {
@@ -57,7 +57,7 @@ export default {
       }
       return 'button';
     },
-    /** @return {string} */
+    /** @returns {string} */
     type() {
       if (this.tag !== 'button') return;
       return this.$attrs.type || 'button';

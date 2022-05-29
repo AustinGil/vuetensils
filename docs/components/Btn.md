@@ -84,7 +84,7 @@ export default {
 <template>
   <ul>
     <li v-for="item in items" :key="item.text">
-      <VBtn v-bind="item.bind" v-on="item.on">
+      <VBtn v-bind="item.bind" v-on="item.on || {}">
         {{ item.text }}
       </VBtn>
     </li>
