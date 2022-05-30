@@ -1,4 +1,9 @@
+// https://github.com/vue-styleguidist/vuepress-plugin-live/blob/master/markDownPlugin.js
 const { path } = require('@vuepress/utils')
+// const { parseComponent } = require("vue-template-compiler");
+// const { isCodeVueSfc } = require("vue-inbrowser-compiler");
+// const getImports = require("./getImports");
+
 
 const LivePlugin = (app) => {
   return {
@@ -27,17 +32,17 @@ const LivePlugin = (app) => {
           return originalFence(...args);
         }
 
-        // const getScript = (code) => {
-        //   // script is at the beginning of a line after a return
-        //   // In case we are loading a vue component as an example, extract script tag
-        //   if (isCodeVueSfc(code)) {
-        //     const parts = parseComponent(code);
-        //     return parts && parts.script ? parts.script.content : "";
-        //   }
+        const getScript = (code) => {
+          // script is at the beginning of a line after a return
+          // In case we are loading a vue component as an example, extract script tag
+          // if (isCodeVueSfc(code)) {
+          //   const parts = parseComponent(code);
+          //   return parts && parts.script ? parts.script.content : "";
+          // }
 
-        //   //else it could be the weird almost jsx of vue-styleguidist
-        //   return code.split(/\n[\t ]*</)[0];
-        // };
+          //else it could be the weird almost jsx of vue-styleguidist
+          return code.split(/\n[\t ]*</)[0];
+        };
 
         const code = token.content;
 
@@ -66,9 +71,9 @@ const LivePlugin = (app) => {
           :layoutProps="{lang:'${langClean}'}" 
           :code="\`${codeClean}\`" 
           ${editorProps ? ` :editorProps="${editorProps}"` : ""}
-          ></vue-live>`;
+           />`;
         // return noSsr ? `<no-ssr>${markdownGenerated}</no-ssr>` : markdownGenerated;
-        return markdownGenerated;
+        return `<ClientOnly>${markdownGenerated}</ClientOnly>`;
       }
       // md.use(plugin1)
       // md.linkify.set({ fuzzyEmail: false })
