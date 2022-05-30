@@ -84,6 +84,7 @@ declare const _default: {
             default: () => {};
         };
     };
+    emits: string[];
     data(): {
         localShow: any;
         activeElement: any;

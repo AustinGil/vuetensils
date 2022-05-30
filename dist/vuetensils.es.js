@@ -294,7 +294,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
         tabindex: "-1"
       }, null, 8, _hoisted_2$9);
     }), 128)),
-    createElementVNode("button", mergeProps({ type: "submit" }, _ctx.$attrs, { class: "vts-btn" }, toHandlers(_ctx.$listeners)), [
+    createElementVNode("button", mergeProps({ type: "submit" }, _ctx.$attrs, { class: "vts-btn" }, toHandlers($options.listeners)), [
       renderSlot(_ctx.$slots, "default")
     ], 16)
   ], 40, _hoisted_1$d)) : (openBlock(), createBlock(resolveDynamicComponent($options.tag), mergeProps({
@@ -907,7 +907,7 @@ const _sfc_main$f = {
   inheritAttrs: false,
   model: {
     prop: "showing",
-    event: "update"
+    event: "update:showing"
   },
   props: {
     showing: Boolean,
@@ -953,6 +953,7 @@ const _sfc_main$f = {
       default: () => ({})
     }
   },
+  emits: ["update", "update:showing"],
   data() {
     return {
       localShow: this.showing,
@@ -985,6 +986,7 @@ const _sfc_main$f = {
           }
         }
         this.$emit("update", next);
+        this.$emit("update:showing", next);
       }
     }
   },

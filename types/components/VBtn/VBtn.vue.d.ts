@@ -12,9 +12,9 @@ declare const _default: {
         };
     };
     computed: {
-        /** @return {'RouterLink' | 'a' | 'button'} */
+        /** @returns {'RouterLink' | 'a' | 'button'} */
         tag(): "a" | "button" | "RouterLink";
-        /** @return {string} */
+        /** @returns {string} */
         type(): any;
         /** @returns {Record<string, string> | Record<string, Function | Function[]>} */
         listeners(): any;
