@@ -49,9 +49,8 @@ export default {
     </VAlert>
   </div>
 </template>
-```
 
-```css
+<style>
 .vts-alert.error {
   border: 1px solid currentColor;
   border-radius: 4px;
@@ -59,6 +58,7 @@ export default {
   color: #900;
   background: #FDD;
 }
+</style>
 ```
 
 ```vue live
@@ -69,9 +69,8 @@ export default {
     </VAlert>
   </div>
 </template>
-```
 
-```css
+<style>
 .vts-alert.info {
   display: flex;
   align-items: center;
@@ -88,6 +87,7 @@ export default {
   font: inherit;
   background: transparent;
 }
+</style>
 ```
 
 ## Unstyled Examples

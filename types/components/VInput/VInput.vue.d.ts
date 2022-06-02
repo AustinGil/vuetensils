@@ -1,4 +1,7 @@
 declare function updateLocalValue(value: any, previousValue: any): void;
+/**
+ * Input component that automatically includes labels, validation, and aria descriptions for any errors.
+ */
 declare const _default: {
     name: string;
     inheritAttrs: boolean;
@@ -82,7 +85,4 @@ declare const _default: {
         validate(): void;
     };
 };
-/**
- * Input component that automatically includes labels, validation, and aria descriptions for any errors.
- */
 export default _default;

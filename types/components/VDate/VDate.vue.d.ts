@@ -27,13 +27,13 @@ declare const _default: {
         daysOfWeek: {
             type: ObjectConstructor;
             default: () => Readonly<{
-                Su: string;
-                Mo: string;
-                Tu: string;
-                We: string;
-                Th: string;
-                Fr: string;
-                Sa: string;
+                Su: "Sunday";
+                Mo: "Monday";
+                Tu: "Tuesday";
+                We: "Wednesday";
+                Th: "Thursday";
+                Fr: "Friday";
+                Sa: "Saturday";
             }>;
         };
         monthLabels: {
@@ -43,12 +43,12 @@ declare const _default: {
         buttonLabels: {
             type: ObjectConstructor;
             default: () => Readonly<{
-                selectDate: string;
-                showCalendar: string;
-                previousMonth: string;
-                nextMonth: string;
-                previousYear: string;
-                nextYear: string;
+                selectDate: "Select Date";
+                showCalendar: "show calendar";
+                previousMonth: "previous month";
+                nextMonth: "next month";
+                previousYear: "previous year";
+                nextYear: "next year";
             }>;
         };
         classes: {

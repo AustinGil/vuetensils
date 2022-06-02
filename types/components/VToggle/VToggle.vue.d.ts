@@ -1,3 +1,6 @@
+/**
+ * Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
+ */
 declare const _default: {
     name: string;
     model: {
@@ -36,7 +39,4 @@ declare const _default: {
         resetHeight(el: any): void;
     };
 };
-/**
- * Toggle the visibility of content. Useful for something like an FAQ page, for example. Includes ARIA attributes for expandable content and is keyboard friendly.
- */
 export default _default;

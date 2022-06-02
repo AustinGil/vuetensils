@@ -9,6 +9,9 @@
  * Frequent interruptions inhibit usability for people with visual and cognitive disabilities,
  * which makes meeting the requirements of WCAG 2.0 success criterion 2.2.4 more difficult."
  */
+/**
+ * A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
+ */
 declare const _default: {
     name: string;
     model: {
@@ -72,7 +75,4 @@ declare const _default: {
         clearTimer(): void;
     };
 };
-/**
- * A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
- */
 export default _default;

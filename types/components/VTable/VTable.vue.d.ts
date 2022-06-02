@@ -1,3 +1,7 @@
+/**
+ * @typedef {{ key: string, text: string, sortable: boolean, sort: (a, b, isAscending: boolean) => number }} Header
+ * @typedef {Header & { bind: object, sortBtn: object }} ComputedHeader
+ */
 declare const _default: {
     name: string;
     provide(): {
@@ -90,8 +94,4 @@ declare const _default: {
         goToPage(page: any): void;
     };
 };
-/**
- * @typedef {{ key: string, text: string, sortable: boolean, sort: (a, b, isAscending: boolean) => number }} Header
- * @typedef {Header & { bind: object, sortBtn: object }} ComputedHeader
- */
 export default _default;
