@@ -39,6 +39,8 @@ module.exports = {
     ['meta', { itemprop: 'name', content: `${title} - by ${pkg.author.name}` }],
     ['meta', { itemprop: 'description', content: pkg.description }],
     ['meta', { itemprop: 'image', content: `https://api.microlink.io/?adblock=false&waitForTimeout=2000&meta=false&screenshot&element=%23screenshot&embed=screenshot.url&url=https%3A%2F%2Fcards.microlink.io%2F%3Fpreset%3Dpaco%26logo%3Dhttps%253A%252F%252Faustingil.com%252Fwp-content%252Fuploads%252Flogo-austin-gil-white.svg%26p%3D2gIfPD4KICA8TGluawogICAgaHJlZj0naHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3MyP2ZhbWlseT1JbnRlcjp3Z2h0QDcwMCZkaXNwbGF5PWJsb2NrJwogICAgcmVsPSdzdHlsZXNoZWV0JwogIC8-CiAgPEZsZXgKICAgIHN4PXt7CiAgICAgIGFsaWduSXRlbXM6ICdmbGV4LWVuZCcsCiAgICAgIGJnOiBxdWVyeS5iZywKICAgICAgY29sb3I6IHF1ZXJ5LmNvbG9yLAogICAgICBwYWRkaW5nOiA4MCwKICAgICAgICBqdXN0aWZ5Q29udGVudDogJ3NwYWNlLWJldHdlZW4nLAogICAgfX0KICA-CiAgICA8VGV4dAogICAgICBzeD17ewogICAgICAgIGZvbnRGYW1pbHk6ICdJbnRlcicsCiAgICAgICAgZm9udFNpemU6IDY0LAogICAgICAgIGZvbnRXZWlnaHQ6IDcwMCwKICAgICAgICBsaW5lSGVpZ2h0OiAnMTAwJScsCiAgICAgICAgbGV0dGVyU3BhY2luZzogJy00cHgnLAogICAgICB9fQogICAgPgogICAgICB7cXVlcnkudGl0bGV9CiAgICA8L1RleHQ-CiAgICA8SW1hZ2Ugd2lkdGg9IjI0MCIgc3JjPXtxdWVyeS5sb2dvfSAvPgogIDwvRmxleD4KPC8-%26title%3D${encodeURI(title)}` }],
+    // ['script', { src: "https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js" }],
+
   ],
   theme: defaultTheme({
   // themeConfig: {
