@@ -6,6 +6,9 @@
  * https://www.digitala11y.com/listbox-role/
  * https://github.com/primefaces/primevue/blob/master/src/components/autocomplete/AutoComplete.vue
  */
+/**
+ * Input component that automatically includes labels, validation, and aria descriptions for any errors.
+ */
 declare const _default: {
     inheritAttrs: boolean;
     model: {
@@ -66,7 +69,4 @@ declare const _default: {
         validate(): void;
     };
 };
-/**
- * Input component that automatically includes labels, validation, and aria descriptions for any errors.
- */
 export default _default;

@@ -1,3 +1,8 @@
+/**
+ * A renderless component for awaiting promises to resolve;
+ * great for making HTTP requests. Supports showing pending,
+ * resolved, or rejected promises.
+ */
 declare const _default: {
     name: string;
     props: {
@@ -38,9 +43,4 @@ declare const _default: {
     };
     render(): any;
 };
-/**
- * A renderless component for awaiting promises to resolve;
- * great for making HTTP requests. Supports showing pending,
- * resolved, or rejected promises.
- */
 export default _default;

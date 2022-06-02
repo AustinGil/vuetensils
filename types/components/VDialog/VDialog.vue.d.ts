@@ -1,3 +1,6 @@
+/**
+ * A dialog component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the dialog until it is closed. It supports being closed by clicking outside the dialog content or pressing the ESC key.
+ */
 declare const _default: {
     name: string;
     inheritAttrs: boolean;
@@ -106,7 +109,4 @@ declare const _default: {
         onKeydown(event: any): void;
     };
 };
-/**
- * A dialog component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the dialog until it is closed. It supports being closed by clicking outside the dialog content or pressing the ESC key.
- */
 export default _default;

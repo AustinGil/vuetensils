@@ -431,7 +431,7 @@ var FOCUSABLE = [
   '[contenteditable]:not([tabindex^="-"])',
   '[tabindex]:not([tabindex^="-"])'
 ];
-function randomString(length = 10, allowed = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789") {
+function randomString(length, allowed = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789") {
   let result = "";
   for (let i = 0; i < length; i++) {
     result += allowed.charAt(Math.floor(Math.random() * allowed.length));
@@ -3147,7 +3147,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       ], 10, _hoisted_1)
     ]),
     _: 3
-  }, 8, ["id", "aria-describedby", "class", "onMouseenter", "onMouseleave"]);
+  }, 40, ["id", "aria-describedby", "class", "onMouseenter", "onMouseleave"]);
 }
 var VTooltip = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render]]);
 const _sfc_main = {

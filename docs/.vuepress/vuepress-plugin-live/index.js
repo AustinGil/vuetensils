@@ -11,7 +11,7 @@ const LivePlugin = (app) => {
     alias: {
       vue: 'vue/dist/vue.esm-bundler.js',
     },
-    clientAppEnhanceFiles: path.resolve(
+    clientConfigFile: path.resolve(
       __dirname,
       './clientAppEnhance.js'
     ),

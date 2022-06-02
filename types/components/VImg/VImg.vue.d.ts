@@ -1,3 +1,8 @@
+/**
+ * Drop in replacement for the HTML `<img>` tag which supports lazy-loading. Improves load times by waiting for the image to scroll into view before actually downloading it.
+ *
+ Note: This component uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) which is not supported by Internet Explorer.
+ */
 declare const _default: {
     name: string;
     inheritAttrs: boolean;
@@ -65,9 +70,4 @@ declare const _default: {
         onLoad(): void;
     };
 };
-/**
- * Drop in replacement for the HTML `<img>` tag which supports lazy-loading. Improves load times by waiting for the image to scroll into view before actually downloading it.
- *
- Note: This component uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) which is not supported by Internet Explorer.
- */
 export default _default;
