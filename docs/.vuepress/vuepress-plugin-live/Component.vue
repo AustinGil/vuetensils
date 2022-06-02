@@ -51,10 +51,10 @@ export default {
 </script>
 
 <template>
-  <div>
+  <ClientOnly>
     <!-- <Repl :store="store" /> -->
     <component :is="preview" />
     <!-- <pre class="language-vue"><code v-html="editor"></code></pre> -->
     <textarea ref="editor">{{ code }}</textarea>
-  </div>
+  </ClientOnly>
 </template>
