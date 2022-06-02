@@ -385,3 +385,8 @@ body .live-preview pre {
   background-color:  #2F855F;
   color: #FFF;
 }
+
+.CodeMirror {
+  border: 1px solid #eee;
+  height: auto;
+}
