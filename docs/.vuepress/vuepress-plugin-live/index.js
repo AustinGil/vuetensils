@@ -1,7 +1,7 @@
 // https://github.com/vue-styleguidist/vuepress-plugin-live/blob/master/markDownPlugin.js
 const { path } = require('@vuepress/utils')
 // const { parseComponent } = require("vue-template-compiler");
-// const { isCodeVueSfc } = require("vue-inbrowser-compiler");
+// const { isCodeVueSfc, compile } = require("vue-inbrowser-compiler");
 // const getImports = require("./getImports");
 
 
@@ -71,7 +71,8 @@ const LivePlugin = (app) => {
           :layoutProps="{lang:'${langClean}'}" 
           :code="\`${codeClean}\`" 
           ${editorProps ? ` :editorProps="${editorProps}"` : ""}
-           />`;
+           />
+           ${originalFence(...args)}`;
         // return noSsr ? `<no-ssr>${markdownGenerated}</no-ssr>` : markdownGenerated;
         return `<ClientOnly>${markdownGenerated}</ClientOnly>`;
       }
