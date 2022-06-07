@@ -13,7 +13,7 @@ Global install:
 
 ```js
 import Vue from 'vue';
-import { plural } from 'vuetensils/src/filters';
+import { plural } from 'vuetensils'';
 
 Vue.filter('plural', plural);
 ```
@@ -22,7 +22,7 @@ Local install:
 
 ```html
 <script>
-  import { plural } from 'vuetensils/src/filters';
+  import { plural } from 'vuetensils'';
 
   export default {
     filters: {

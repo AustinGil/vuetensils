@@ -10,34 +10,6 @@ Features:
 - Built on native file input for accessibility.
 - Works with keyboard-only navigation.
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VFile } from 'vuetensils/src/components';
-
-Vue.component('VFile', VFile);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VFile } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VFile,
-  },
-  // ...
-};
-</script>
-```
-
 ## Styled Example
 
 ```vue live

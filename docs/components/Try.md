@@ -4,34 +4,6 @@ A utillity component to wrap around components that may or may not throw and err
 
 - [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VTry/VTry.vue)
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VTry } from 'vuetensils/src/components';
-
-Vue.component('VTry', VTry);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VTry } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VTry,
-  },
-  // ...
-};
-</script>
-```
-
 ## Default Example
 
 ```vue live

@@ -15,8 +15,11 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VToggle } from 'vuetensils/src/components';
+import { VToggle } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VToggle', VToggle);
 ```
 
@@ -25,7 +28,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VToggle } from 'vuetensils/src/components';
+import { VToggle } from 'vuetensils';
 
 export default {
   components: {

@@ -20,8 +20,11 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VAsync } from 'vuetensils/src/components';
+import { VAsync } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VAsync', VAsync);
 ```
 
@@ -30,7 +33,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VAsync } from 'vuetensils/src/components';
+import { VAsync } from 'vuetensils';
 
 export default {
   components: {

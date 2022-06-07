@@ -18,7 +18,7 @@ Global install:
 
 ```js
 import Vue from 'vue';
-import { intersect } from 'vuetensils/src/directives';
+import { intersect } from 'vuetensils';
 
 Vue.directive('intersect', intersect);
 ```
@@ -27,7 +27,7 @@ Local install:
 
 ```html
 <script>
-  import { intersect } from 'vuetensils/src/directives';
+  import { intersect } from 'vuetensils';
 
   export default {
     directives: {

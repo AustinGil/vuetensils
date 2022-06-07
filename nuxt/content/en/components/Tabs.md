@@ -22,8 +22,11 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VTabs } from 'vuetensils/src/components';
+import { VTabs } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VTabs', VTabs);
 ```
 
@@ -32,7 +35,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VTabs } from 'vuetensils/src/components';
+import { VTabs } from 'vuetensils';
 
 export default {
   components: {

@@ -19,34 +19,6 @@ img {
 }
 ```
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VImg } from 'vuetensils/src/components';
-
-Vue.component('VImg', VImg);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VImg } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VImg,
-  },
-  // ...
-};
-</script>
-```
-
 For IE 11 support, you may want to add the following polyfill:
 
 `<script src='https://cdn.polyfill.io/v2/polyfill.js?features=IntersectionObserver'></script>`

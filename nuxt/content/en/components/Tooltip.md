@@ -22,8 +22,11 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VTooltip } from 'vuetensils/src/components';
+import { VTooltip } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VTooltip', VTooltip);
 ```
 
@@ -32,7 +35,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VTooltip } from 'vuetensils/src/components';
+import { VTooltip } from 'vuetensils';
 
 export default {
   components: {

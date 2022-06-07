@@ -12,35 +12,6 @@ Features:
 - Supports table sorting.
 - Supports pagination.
 
-
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VTable } from 'vuetensils/src/components';
-
-Vue.component('VTable', VTable);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VTable } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VTable,
-  },
-  // ...
-};
-</script>
-```
-
 ## Styled Example
 
 ```vue live

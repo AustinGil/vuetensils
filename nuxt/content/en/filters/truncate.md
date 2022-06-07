@@ -13,7 +13,7 @@ Global install:
 
 ```js
 import Vue from 'vue';
-import { truncate } from 'vuetensils/src/filters';
+import { truncate } from 'vuetensils'';
 
 Vue.filter('truncate', truncate);
 ```
@@ -22,7 +22,7 @@ Local install:
 
 ```html
 <script>
-  import { truncate } from 'vuetensils/src/filters';
+  import { truncate } from 'vuetensils'';
 
   export default {
     filters: {

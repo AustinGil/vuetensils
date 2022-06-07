@@ -13,7 +13,7 @@ Global install:
 
 ```js
 import Vue from 'vue';
-import { currency } from 'vuetensils/src/filters';
+import { currency } from 'vuetensils'';
 
 Vue.filter('currency', currency);
 ```
@@ -22,7 +22,7 @@ Local install:
 
 ```html
 <script>
-  import { currency } from 'vuetensils/src/filters';
+  import { currency } from 'vuetensils'';
 
   export default {
     filters: {
@@ -60,7 +60,7 @@ You can specify your own default currency and/or locale formatting by extending 
 
 ```js
 import Vue from 'vue';
-import { currency } from 'vuetensils/src/filters';
+import { currency } from 'vuetensils'';
 
 const usd = str => currency(str, 'USD');
 const euro = str => currency(str, 'EUR', 'de-DE');

@@ -15,8 +15,11 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VTry } from 'vuetensils/src/components';
+import { VTry } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VTry', VTry);
 ```
 
@@ -25,7 +28,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VTry } from 'vuetensils/src/components';
+import { VTry } from 'vuetensils';
 
 export default {
   components: {
@@ -56,6 +59,9 @@ export default {
 
 <script>
 import Vue from 'vue';
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('ThisWillThrow', {
   methods: {
     onClick() {
@@ -86,6 +92,9 @@ export default {};
 
 <script>
 import Vue from 'vue';
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('ThisWillReject', {
   methods: {
     onClick() {
@@ -112,6 +121,9 @@ export default {};
 
 <script>
 import Vue from 'vue';
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('ThisWillThrow', {
   /* eslint-disable-next-line vue/require-render-return */
   render() {
@@ -146,6 +158,9 @@ If you want to only show the error handling template on errors, then the catch s
 
 <script>
 import Vue from 'vue';
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('ThisWillThrow', {
   methods: {
     onClick() {

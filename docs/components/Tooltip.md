@@ -12,34 +12,6 @@ Features:
 - Includes `role="tooltip"` attribute for tooltip content.
 - Manages `aria-hidden` and `aria-describedby` attributes.
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VTooltip } from 'vuetensils/src/components';
-
-Vue.component('VTooltip', VTooltip);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VTooltip } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VTooltip,
-  },
-  // ...
-};
-</script>
-```
-
 ## Default Example
 
 Try tabbing through these elements.

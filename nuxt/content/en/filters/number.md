@@ -13,7 +13,7 @@ Global install:
 
 ```js
 import Vue from 'vue';
-import { number } from 'vuetensils/src/filters';
+import { number } from 'vuetensils'';
 
 Vue.filter('number', number);
 ```
@@ -22,7 +22,7 @@ Local install:
 
 ```html
 <script>
-  import { number } from 'vuetensils/src/filters';
+  import { number } from 'vuetensils'';
 
   export default {
     filters: {
@@ -60,7 +60,7 @@ You can specify your own default locale formatting by extending the filter and p
 
 ```js
 import Vue from 'vue';
-import { number } from 'vuetensils/src/filters';
+import { number } from 'vuetensils'';
 
 const customNumber = str => number(str, 'de-DE');
 

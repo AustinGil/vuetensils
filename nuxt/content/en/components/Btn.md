@@ -23,8 +23,11 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VBtn } from 'vuetensils/src/components';
+import { VBtn } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VBtn', VBtn);
 ```
 
@@ -33,7 +36,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VBtn } from 'vuetensils/src/components';
+import { VBtn } from 'vuetensils';
 
 export default {
   components: {

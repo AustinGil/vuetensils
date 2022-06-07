@@ -10,9 +10,6 @@ export const filters = allFilters;
 /**
  * TODO:
  * Provide config options for library/components
- * Finish up rebuilding table
- * Get rid of auto safe slot (breaking)
- * Create main.css file
  * Prop warning messages (img alt, input label)
  */
 
@@ -24,13 +21,13 @@ export const filters = allFilters;
  * }} VuetensilsConfig
  */
 
-/** @type {import('vue').PluginObject} */
+/** @type {import('vue').Plugin} */
 export default {
   /**
-   * @param {*} Vue Vue instance
+   * @param {*} app app instance
    * @param {VuetensilsConfig} [pluginConfig] Vuetensils configuration
    */
-  install(Vue, pluginConfig = {}) {
+  install(app, pluginConfig = {}) {
     if (pluginConfig.components) {
       if (Array.isArray(pluginConfig.components)) {
         pluginConfig.components = pluginConfig.components.reduce(
@@ -46,7 +43,7 @@ export default {
         const component = allComponents[key];
         // @ts-ignore
         const name = typeof options === 'boolean' ? options.name || key : key;
-        Vue.component(name, component);
+        app.component(name, component);
       });
     }
 
@@ -63,7 +60,7 @@ export default {
       Object.entries(pluginConfig.directives).forEach((entry) => {
         const [key] = entry;
         const directive = allDirectives[key];
-        Vue.directive(key, directive);
+        app.directive(key, directive);
       });
     }
 
@@ -77,7 +74,7 @@ export default {
       Object.entries(pluginConfig.filters).forEach((entry) => {
         const [key] = entry;
         const filter = allFilters[key];
-        Vue.filter(key, filter);
+        app.filter(key, filter);
       });
     }
   },

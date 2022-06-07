@@ -88,7 +88,7 @@ module.exports = {
         ],
       },
       {
-        text: 'Filters',
+        text: 'Filters (Vue 2)',
         collapsable: false,
         children: [
           '/filters/capitalize',

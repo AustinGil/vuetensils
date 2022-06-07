@@ -21,8 +21,11 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VInput } from 'vuetensils/src/components';
+import { VInput } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VInput', VInput);
 ```
 
@@ -31,7 +34,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VInput } from 'vuetensils/src/components';
+import { VInput } from 'vuetensils';
 
 export default {
   components: {

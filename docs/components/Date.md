@@ -31,34 +31,6 @@ Esc              | Hide the calendar without selecting a date.
 
 **NOTE:** I would probably recommend using the browser's [built in date picker](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date) (`<input type="date">`) because it's simpler, consistent across website, and it's less code. However, it does not support custom styling.
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VDate } from 'vuetensils/src/components';
-
-Vue.component('VDate', VDate);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VDate } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VDate,
-  },
-  // ...
-};
-</script>
-```
-
 ## Default Example
 
 ```vue live

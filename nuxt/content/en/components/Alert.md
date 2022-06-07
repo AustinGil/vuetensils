@@ -20,8 +20,11 @@ Globally:
 
 ```js [main.js]
 import Vue from 'vue';
-import { VAlert } from 'vuetensils/src/components';
+import { VAlert } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VAlert', VAlert);
 ```
 
@@ -29,7 +32,7 @@ Locally:
 
 ```vue [SomeComponent.vue]
 <script>
-import { VAlert } from 'vuetensils/src/components';
+import { VAlert } from 'vuetensils';
 
 export default {
   components: {

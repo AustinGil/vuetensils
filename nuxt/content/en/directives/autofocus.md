@@ -14,7 +14,7 @@ Global install:
 
 ```js
 import Vue from 'vue';
-import { autofocus } from 'vuetensils/src/directives';
+import { autofocus } from 'vuetensils';
 
 Vue.directive('autofocus', autofocus);
 ```
@@ -23,7 +23,7 @@ Local install:
 
 ```html
 <script>
-  import { autofocus } from 'vuetensils/src/directives';
+  import { autofocus } from 'vuetensils';
 
   export default {
     directives: {

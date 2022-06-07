@@ -12,34 +12,6 @@ Features:
 - Adds event listener to close dialog on the `esc` key.
 - Supports preventing page scroll while open.
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VDialog } from 'vuetensils/src/components';
-
-Vue.component('VDialog', VDialog);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VDialog } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VDialog,
-  },
-  // ...
-};
-</script>
-```
-
 ## Styled Example
 
 ```vue live

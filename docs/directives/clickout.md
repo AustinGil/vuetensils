@@ -4,31 +4,6 @@ Vue directive to fire a function when the user clicks anywhere outside the targe
 
 - [Source](https://github.com/AustinGil/vuetensils/blob/master/src/directives/clickout.js)
 
-## Installation
-
-Global install:
-
-```js
-import Vue from 'vue';
-import { clickout } from 'vuetensils/src/directives';
-
-Vue.directive('clickout', clickout);
-```
-
-Local install:
-
-```html
-<script>
-  import { clickout } from 'vuetensils/src/directives';
-
-  export default {
-    directives: {
-      clickout,
-    },
-  };
-</script>
-```
-
 ## Usage
 
 Open your console to see the results

@@ -20,8 +20,11 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VFile } from 'vuetensils/src/components';
+import { VFile } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VFile', VFile);
 ```
 
@@ -30,7 +33,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VFile } from 'vuetensils/src/components';
+import { VFile } from 'vuetensils';
 
 export default {
   components: {

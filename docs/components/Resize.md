@@ -4,34 +4,6 @@ Component which provides the calculated width and height to its default scoped s
 
 - [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VResize/VResize.vue)
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VResize } from 'vuetensils/src/components';
-
-Vue.component('VResize', VResize);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VResize } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VResize,
-  },
-  // ...
-};
-</script>
-```
-
 ## Styled Example
 
 Try resizing your browser to see it in action.

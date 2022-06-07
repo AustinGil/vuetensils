@@ -23,8 +23,11 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VTable } from 'vuetensils/src/components';
+import { VTable } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VTable', VTable);
 ```
 
@@ -33,7 +36,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VTable } from 'vuetensils/src/components';
+import { VTable } from 'vuetensils';
 
 export default {
   components: {

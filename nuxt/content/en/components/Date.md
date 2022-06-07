@@ -41,8 +41,11 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VDate } from 'vuetensils/src/components';
+import { VDate } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VDate', VDate);
 ```
 
@@ -51,7 +54,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VDate } from 'vuetensils/src/components';
+import { VDate } from 'vuetensils';
 
 export default {
   components: {

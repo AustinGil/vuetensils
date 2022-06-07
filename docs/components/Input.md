@@ -12,34 +12,6 @@ Input component that simplifies accessibility and validation.
 - Automatic [aria-describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute) attribute.
 - Supports all input types including `radio`, `checkbox`, `select`, and `textarea`.
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VInput } from 'vuetensils/src/components';
-
-Vue.component('VInput', VInput);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VInput } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VInput,
-  },
-  // ...
-};
-</script>
-```
-
 ## Styled Example
 
 ```vue live

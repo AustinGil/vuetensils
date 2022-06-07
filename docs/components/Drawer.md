@@ -12,34 +12,6 @@ Features:
 - Adds event listener to close drawer on the `esc` key.
 - Supports preventing page scroll while open.
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VDrawer } from 'vuetensils/src/components';
-
-Vue.component('VDrawer', VDrawer);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VDrawer } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VDrawer,
-  },
-  // ...
-};
-</script>
-```
-
 ## Styled Examples
 
 ```vue live

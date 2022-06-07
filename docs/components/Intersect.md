@@ -6,34 +6,6 @@ The components accepts four props: `root`, `rootMargin`, `threshold`, and `optio
 
 - [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VIntersect/VIntersect.vue)
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VIntersect } from 'vuetensils/src/components';
-
-Vue.component('VIntersect', VIntersect);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VIntersect } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VIntersect,
-  },
-  // ...
-};
-</script>
-```
-
 For IE 11 support, you may want to add the following polyfill:
 
 `<script src='https://cdn.polyfill.io/v2/polyfill.js?features=IntersectionObserver'></script>`

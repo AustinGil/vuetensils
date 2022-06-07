@@ -22,8 +22,11 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VDrawer } from 'vuetensils/src/components';
+import { VDrawer } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VDrawer', VDrawer);
 ```
 
@@ -32,7 +35,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VDrawer } from 'vuetensils/src/components';
+import { VDrawer } from 'vuetensils';
 
 export default {
   components: {

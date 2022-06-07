@@ -22,8 +22,11 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VDialog } from 'vuetensils/src/components';
+import { VDialog } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VDialog', VDialog);
 ```
 
@@ -32,7 +35,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VDialog } from 'vuetensils/src/components';
+import { VDialog } from 'vuetensils';
 
 export default {
   components: {

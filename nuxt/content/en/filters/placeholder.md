@@ -13,7 +13,7 @@ Global install:
 
 ```js
 import Vue from 'vue';
-import { placeholder } from 'vuetensils/src/filters';
+import { placeholder } from 'vuetensils'';
 
 Vue.filter('placeholder', placeholder);
 ```
@@ -22,7 +22,7 @@ Local install:
 
 ```html
 <script>
-  import { placeholder } from 'vuetensils/src/filters';
+  import { placeholder } from 'vuetensils'';
 
   export default {
     filters: {

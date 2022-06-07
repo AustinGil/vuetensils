@@ -12,34 +12,6 @@ Features:
 - Adds `type="button"` to `<button>` elements.
 - Adds `rel="noopener"` to links with `target="blank"`
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VBtn } from 'vuetensils/src/components';
-
-Vue.component('VBtn', VBtn);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VBtn } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VBtn,
-  },
-  // ...
-};
-</script>
-```
-
 ## Button Example (Default)
 
 ```vue live

@@ -4,34 +4,6 @@ Adds a button that can show/hide dropdown content when it is hovered over, or cl
 
 - [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VDropdown/VDropdown.vue)
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VDropdown } from 'vuetensils/src/components';
-
-Vue.component('VDropdown', VDropdown);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VDropdown } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VDropdown,
-  },
-  // ...
-};
-</script>
-```
-
 ## Styled Examples
 
 ```vue live

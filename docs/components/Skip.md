@@ -8,34 +8,6 @@ Features:
 - Visually hidden by default but visible on focus.
 - Sets `tabindex` on target when clicked (for focus ring).
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VSkip } from 'vuetensils/src/components';
-
-Vue.component('VSkip', VSkip);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VSkip } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VSkip,
-  },
-  // ...
-};
-</script>
-```
-
 ## Skip Example Nav
 
 Start by clicking on <button>this button</button> to set the focus there. Then use the keyboard to navigate to the VSkip component. You will then be able to click the link to skip past the long list of links, to the main content.

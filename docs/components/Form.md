@@ -15,34 +15,6 @@ Features:
 
 **Important**: Every input should have a [`name`](https://www.w3schools.com/TAGS/att_input_name.asp). This is important for HTML forms, in general, but also helps VForm keep track. If none is provided, it will still work though.
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VForm } from 'vuetensils/src/components';
-
-Vue.component('VForm', VForm);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VForm } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VForm,
-  },
-  // ...
-};
-</script>
-```
-
 ## Styled Example
 
 ```vue live

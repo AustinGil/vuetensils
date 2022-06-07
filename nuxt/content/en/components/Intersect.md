@@ -16,8 +16,11 @@ Globally:
 ```js
 // main.js
 import Vue from 'vue';
-import { VIntersect } from 'vuetensils/src/components';
+import { VIntersect } from 'vuetensils';
 
+// Vue 3
+app.component(
+// Vue 2
 Vue.component('VIntersect', VIntersect);
 ```
 
@@ -26,7 +29,7 @@ Locally:
 ```vue
 <script>
 // SomeComponent.vue
-import { VIntersect } from 'vuetensils/src/components';
+import { VIntersect } from 'vuetensils';
 
 export default {
   components: {

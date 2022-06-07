@@ -4,34 +4,6 @@ Toggle the visibility of content. Useful for something like an FAQ page, for exa
 
 - [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VToggle/VToggle.vue)
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VToggle } from 'vuetensils/src/components';
-
-Vue.component('VToggle', VToggle);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VToggle } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VToggle,
-  },
-  // ...
-};
-</script>
-```
-
 ## Styled Example
 
 ```vue live

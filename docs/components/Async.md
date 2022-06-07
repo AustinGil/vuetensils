@@ -9,33 +9,7 @@ Features:
 - Provides abstraction for `pending`, `error`, and `results` logic for Promises.
 - Scoped slots for `pending`, `rejected`, and `resolved` states.
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VAsync } from 'vuetensils/src/components';
-
-Vue.component('VAsync', VAsync);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VAsync } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VAsync,
-  },
-  // ...
-};
-</script>
-```
+## Example
 
 This component is great for handling any asynchronous tasks that involve promises. For example, HTTP requests:
 

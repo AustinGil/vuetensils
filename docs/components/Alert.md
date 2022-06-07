@@ -10,34 +10,6 @@ Features:
 - Option for dismiss button.
 - Option for timeout.
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VAlert } from 'vuetensils/src/components';
-
-Vue.component('VAlert', VAlert);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VAlert } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VAlert,
-  },
-  // ...
-};
-</script>
-```
-
 ## Styled Examples
 
 ```vue live
