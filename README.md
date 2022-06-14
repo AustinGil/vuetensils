@@ -28,28 +28,32 @@ Import just the features you need (like a [WCAG-friendly dialog](https://vuetens
 
 #### 2. Register just the things you need
 
-Globally with the plugin:
+Globally:
 
 ```js
 // main.js
-import Vuetensils from 'vuetensils';
+import { VAlert } from 'vuetensils/src/components';
+import { autofocus } from 'vuetensils/src/directives';
 
 // With your previously created app
-app.use(Vuetensils, {
-  components: ['VAlert'],
-});
+app.component('VAlert', VAlert);
+app.directive('autofocus', autofocus);
 ```
 
-Locally in comopnents:
+Locally:
 
 ```vue
 <script>
 // SomeComponent.vue
-import { VAlert } from 'vuetensils';
+import { VAlert } from 'vuetensils/src/components';
+import { autofocus } from 'vuetensils/src/directives';
 
 export default {
   components: {
     VAlert,
+  },
+  directives: {
+    autofocus,
   },
   // ...
 };
