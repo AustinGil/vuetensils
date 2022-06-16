@@ -71,8 +71,7 @@ const LivePlugin = (app) => {
           :layoutProps="{lang:'${langClean}'}" 
           :code="\`${codeClean}\`" 
           ${editorProps ? ` :editorProps="${editorProps}"` : ""}
-           />
-           ${originalFence(...args)}`;
+           />`;
         // return noSsr ? `<no-ssr>${markdownGenerated}</no-ssr>` : markdownGenerated;
         return `<ClientOnly>${markdownGenerated}</ClientOnly>`;
       }

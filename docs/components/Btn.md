@@ -9,6 +9,7 @@ Features:
 - Renders a `<button>` by default.
 - Renders a [`<RouterLink>`](https://router.vuejs.org/api/#router-link) when provided a `to` prop.
 - Renders an `<a>` link when provided a `href` prop.
+- Renders an `<form>` link when provided an `action` and `data` prop.
 - Adds `type="button"` to `<button>` elements.
 - Adds `rel="noopener"` to links with `target="blank"`
 
@@ -45,6 +46,37 @@ export default {
 ```vue live
 <template>
   <VBtn href="/components/Btn.html">
+    Vuetensils
+  </VBtn>
+</template>
+```
+
+## Form Example
+
+```vue live
+<script>
+export default {
+  methods: {
+    async onSubmit(event) {
+      console.log(event); // a standard form submit event
+      event.preventDefault();
+      const form = event.target
+      const data = new FormData(form);
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: data,
+      });
+    },
+  },
+}
+</script>
+
+<template>
+  <VBtn
+    action="https://jsonplaceholder.typicode.com/posts"
+    :data="{ name: 'value', other: 'value 2' }"
+    @submit="onSubmit"
+  >
     Vuetensils
   </VBtn>
 </template>

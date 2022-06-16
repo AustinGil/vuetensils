@@ -4,7 +4,7 @@
     :action="action"
     method="POST"
     class="vts-btn__form"
-    @submit.prevent="onSubmit"
+    @submit.prevent="$emit('submit', $event)"
   >
     <!-- target="_blank" ? -->
     <input
@@ -45,6 +45,7 @@ export default {
     action: { type: String, default: '' },
     data: { type: Object, default: () => ({}) },
   },
+  emits: ['submit'],
   computed: {
     /** @returns {'RouterLink' | 'a' | 'button'} */
     tag() {
@@ -68,20 +69,6 @@ export default {
         return this.$attrs;
       }
       return this.$listeners;
-    },
-  },
-  methods: {
-    async onSubmit({ target: form }) {
-      try {
-        const data = new FormData(form);
-        const response = await fetch(form.action, {
-          method: form.method,
-          body: data,
-        });
-        this.$emit('response', response);
-      } catch (error) {
-        this.$emit('error', error);
-      }
     },
   },
 };

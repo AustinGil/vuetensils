@@ -16,9 +16,7 @@
         @click="dismiss"
       >
         <!-- @slot The dismiss button content -->
-        <slot name="dismiss">
-          &times;
-        </slot>
+        <slot name="dismiss">&times;</slot>
       </button>
     </component>
   </transition>

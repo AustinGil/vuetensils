@@ -139,7 +139,7 @@ You can provide your own content for the dismiss button with the `dismiss` slot.
   <VAlert dismissible>
     Click that button to make me go away
 
-    <template slot="dismiss">
+    <template #dismiss>
       Hide
     </template>
   </VAlert>

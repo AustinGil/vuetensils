@@ -363,6 +363,29 @@ body .live-preview pre {
   width: 100% !important;
 }
 
+.VueLive-container {
+  flex-direction: column-reverse;
+}
+
+.VueLive-editor,
+.VueLivePreview {
+  width: 100%;
+  padding: 1rem;
+}
+
+.VueLive-editor {
+  border-end-start-radius: 0.5rem;
+  border-end-end-radius: 0.5rem;
+  color: #fff;
+  background-color: #222;
+}
+
+.VueLivePreview {
+  border: 1px solid #222;
+  border-start-start-radius: 0.5rem;
+  border-start-end-radius: 0.5rem;
+}
+
 /* Fixes top left logo proportions */
 #app .navbar .logo {
   min-width: auto;
@@ -384,9 +407,4 @@ body .live-preview pre {
   /* #3EAF7C was 2.75 ratio */
   background-color:  #2F855F;
   color: #FFF;
-}
-
-.CodeMirror {
-  border: 1px solid #eee;
-  height: auto;
 }
