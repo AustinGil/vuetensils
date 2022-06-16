@@ -74,7 +74,7 @@ export default {
 <template>
   <VBtn
     action="https://jsonplaceholder.typicode.com/posts"
-    :data="{ name: 'value', other: 'value 2' }"
+    :data="{ key: 'example', key2: 'value 2' }"
     @submit="onSubmit"
   >
     Vuetensils
@@ -114,7 +114,20 @@ export default {
       {
         text: 'Third (button)',
         on: {
-          click: () => console.log('click')
+          click: console.log
+        }
+      },
+      {
+        text: 'Fourth (form)',
+        bind: {
+          action: "https://jsonplaceholder.typicode.com/posts",
+          data: { key: 'example', key2: 'value 2' }
+        },
+        on: {
+          submit(e) {
+            e.preventDefault()
+            console.log(e)
+          }
         }
       }
     ]

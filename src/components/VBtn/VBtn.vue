@@ -8,7 +8,7 @@
   >
     <!-- target="_blank" ? -->
     <input
-      v-for="(key, value) in data"
+      v-for="(value, key) in data"
       :key="key"
       :value="value"
       :name="key"

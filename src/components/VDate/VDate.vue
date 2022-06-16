@@ -199,6 +199,10 @@ export default {
 
   props: {
     // TODO: include, exclude
+    modelValue: {
+      type: [Date, String],
+      default: () => new Date(),
+    },
     date: {
       type: [Date, String],
       default: () => new Date(),
@@ -271,13 +275,14 @@ export default {
       default: () => ({}),
     },
   },
+  emits: ['update', 'update:modelValue'],
 
   data() {
     return {
       show: false,
       previousActiveEl: null,
-      focusedDate: new Date(this.date),
-      selectedDate: new Date(this.date),
+      focusedDate: new Date(this.modelValue || this.date),
+      selectedDate: new Date(this.modelValue || this.date),
     };
   },
 
@@ -384,6 +389,7 @@ export default {
 
     selectedDate(date) {
       this.$emit('update', date);
+      this.$emit('update:modelValue', date);
       this.show = false;
     },
   },
