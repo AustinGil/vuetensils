@@ -8,10 +8,6 @@ Check your JavaScript console and scroll around to see what's going on.
 
 - [Source](https://github.com/AustinGil/vuetensils/blob/master/src/directives/intersect.js)
 
-For IE 11 support, you may want to add the following polyfill:
-
-`<script src='https://cdn.polyfill.io/v2/polyfill.js?features=IntersectionObserver'></script>`
-
 **Note: This site adds styles for the .intersect-example class**
 
 ## Default Behavior

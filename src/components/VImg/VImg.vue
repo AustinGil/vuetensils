@@ -1,5 +1,18 @@
 <template>
   <picture :class="['vts-img', classes.root]">
+    <noscript>
+      <img
+        :src="dataUrl"
+        :class="['vts-img__img', classes.img]"
+        :alt="alt"
+        :style="{
+          transitionDuration: `${transitionDuration}ms`,
+        }"
+        :decoding="$attrs.decoding || 'async'"
+        :role="$attrs.role || alt ? null : 'presentation'"
+        v-bind="$attrs"
+      />
+    </noscript>
     <div
       v-if="dataUrl"
       ref="placeholder"
@@ -17,11 +30,12 @@
       ref="img"
       :src="dataUrl"
       :class="['vts-img__img', classes.img]"
-      :alt="$attrs.alt || ''"
+      :alt="alt"
       :style="{
         transitionDuration: `${transitionDuration}ms`,
       }"
       :decoding="$attrs.decoding || 'async'"
+      :role="$attrs.role || alt ? null : 'presentation'"
       v-bind="$attrs"
       v-on="listeners"
     />
@@ -48,6 +62,10 @@ export default {
      * Same as the HTML attribute
      */
     src: {
+      type: String,
+      required: true,
+    },
+    alt: {
       type: String,
       required: true,
     },
