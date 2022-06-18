@@ -33,6 +33,7 @@
 // TODO: Sync with localStorage
 // TODO: Scroll to errors
 import { isVue3 } from 'vue-demi';
+import '../../shared.css';
 
 const controlTypes = new Set(['INPUT', 'SELECT', 'TEXTAREA']);
 
@@ -280,16 +281,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.vts-visually-hidden {
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  inline-size: 1px;
-  block-size: 1px;
-  margin: -1px;
-  border: 0;
-  padding: 0;
-}
-</style>

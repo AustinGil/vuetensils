@@ -120,11 +120,11 @@ You probably want to run different logic in the event of an invalid form submiss
 
 To avoid that, VForm provides `valid` and `invalid` events that you can hook into for convenience. The events both receive the form's `submit` event and can therefore be treated like a standard submit. The main difference is that they only run at their appropriate times.
 
-Note that custom events do not allow for [modifiers](https://v3.vuejs.org/guide/events.html#event-modifiers) such as `.prevent`, therefore if you want to prevent the browser from reloading (native behavior), you will want to call the [`event.preventDefault()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault) method.
+Note that custom events do not allow for [modifiers](https://v3.vuejs.org/guide/events.html#event-modifiers) such as `.prevent`, therefore if you want to prevent the browser from reloading (native behavior), you will want to call the [`event.preventDefault()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault) method. We also use `novalidate` here to prevent the native validation from running.
 
 ```vue live
 <template>
-  <VForm @valid="onValid" @invalid="onInvalid">
+  <VForm novalidate @valid="onValid" @invalid="onInvalid">
     <label>
       Name:
       <input name="name" required />

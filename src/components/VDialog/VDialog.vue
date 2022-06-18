@@ -33,7 +33,7 @@
               role="dialog"
               aria-modal="true"
             >
-              <slot />
+              <slot v-bind="{ close: () => (localShow = !localShow) }" />
             </component>
           </transition>
         </div>
@@ -55,10 +55,11 @@ export default {
 
   model: {
     prop: 'showing',
-    event: 'update:showing',
+    event: 'update:modelValue',
   },
 
   props: {
+    modelValue: Boolean,
     /**
      * @model
      */
@@ -139,11 +140,11 @@ export default {
       default: () => ({}),
     },
   },
-  emits: ['update', 'update:showing'],
+  emits: ['update', 'update:modelValue', 'open', 'close'],
 
   data() {
     return {
-      localShow: this.showing,
+      localShow: this.modelValue || this.showing,
       activeElement: null,
     };
   },
@@ -159,6 +160,9 @@ export default {
 
   watch: {
     showing(next) {
+      this.localShow = next;
+    },
+    modelValue(next) {
       this.localShow = next;
     },
     localShow: {
@@ -180,7 +184,7 @@ export default {
         }
 
         this.$emit('update', next);
-        this.$emit('update:showing', next);
+        this.$emit('update:modelValue', next);
       },
     },
   },

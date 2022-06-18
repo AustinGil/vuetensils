@@ -17,7 +17,6 @@ Features:
 ```vue live
 <template>
   <VDialog
-    v-model="dialog"
     bg-transition="fade"
     class="my-dialog"
     @change="log"
@@ -28,23 +27,22 @@ Features:
       </button>
     </template>
 
-    This is the dialog content.<br />
-    It traps the user's focus.<br />
-    <button
-      aria-label="close"
-      class="my-dialog__close"
-      @click="dialog = false"
-    >
-      &times;
-    </button>
+    <template #default="{ close }">
+      This is the dialog content.<br />
+      It traps the user's focus.<br />
+      <button
+        aria-label="close"
+        class="my-dialog__close"
+        @click="close"
+      >
+        &times;
+      </button>
+    </template>
   </VDialog>
 </template>
 
 <script>
 export default {
-  data: () => ({
-    dialog: false,
-  }),
   methods: {
     log: console.log
   }
@@ -133,14 +131,6 @@ Dialog background colors have been removed. The following styles have been added
     </div>
   </VDialog>
 </template>
-
-<script>
-export default {
-  data: () => ({
-    dialog: false,
-  }),
-};
-</script>
 ```
 
 ## Using v-model
@@ -173,27 +163,24 @@ export default {
 ```vue live
 <template>
   <div>
-    <VDialog v-model="dialog" :classes="{ bg: 'bg-black-alpha' }">
-      <div class="bg-white">
-        This is the dialog content.<br />
-        <button @click="dialog = false">
-          Close
+    <VDialog :classes="{ bg: 'bg-black-alpha' }">
+      <template #default="{ close }">
+        <div class="bg-white">
+          This is the dialog content.<br />
+          <button @click="close">
+            Close
+          </button>
+        </div>
+      </template>
+
+      <template #toggle="{ bind, on }">
+        <button v-bind="bind" v-on="on">
+          Show the dialog
         </button>
-      </div>
+      </template>
     </VDialog>
-    <button @click="dialog = !dialog">
-      Show the dialog
-    </button>
   </div>
 </template>
-
-<script>
-export default {
-  data: () => ({
-    dialog: false,
-  }),
-};
-</script>
 ```
 
 ## Prevent scrolling

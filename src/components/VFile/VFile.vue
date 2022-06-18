@@ -58,6 +58,7 @@
 <script>
 import { isVue3 } from 'vue-demi';
 import { randomString } from '../../utils.js';
+import '../../shared.css';
 
 export default {
   name: 'VFile',
@@ -71,7 +72,15 @@ export default {
       type: String,
       required: true,
     },
+    id: {
+      type: String,
+      default: () => 'vts-' + randomString(4),
+    },
 
+    modelValue: {
+      type: Array,
+      default: () => [],
+    },
     files: {
       type: Array,
       default: () => [],
@@ -101,13 +110,12 @@ export default {
     files(files) {
       this.localFiles = files;
     },
+    modelValue(files) {
+      this.localFiles = files;
+    },
     localFiles() {
       this.droppable = false;
     },
-  },
-
-  created() {
-    this.id = this.$attrs.id || 'vts-' + randomString(4);
   },
 
   methods: {
@@ -115,6 +123,7 @@ export default {
       const files = Array.from(event.target.files);
       this.localFiles = files;
       this.$emit('update', files);
+      this.$emit('update:modelValue', files);
     },
 
     onDrop(event) {
@@ -125,6 +134,7 @@ export default {
       }
       this.localFiles = files;
       this.$emit('update', files);
+      this.$emit('update:modelValue', files);
     },
 
     // clear() {
@@ -137,17 +147,6 @@ export default {
 </script>
 
 <style>
-.vts-visually-hidden {
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  inline-size: 1px;
-  block-size: 1px;
-  margin: -1px;
-  border: 0;
-  padding: 0;
-}
-
 .vts-file__dropzone {
   position: relative;
 }

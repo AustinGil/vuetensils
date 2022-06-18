@@ -37,7 +37,7 @@
               tabindex="-1"
             >
               <!-- role="dialog" TODO ?? -->
-              <slot />
+              <slot v-bind="{ close: () => (localShow = !localShow) }" />
             </component>
           </transition>
         </div>
@@ -60,10 +60,11 @@ export default {
   name: 'VDrawer',
   model: {
     prop: 'showing',
-    event: 'update',
+    event: 'update:modelValue',
   },
 
   props: {
+    modelValue: Boolean,
     /**
      * @model
      */
@@ -130,10 +131,11 @@ export default {
       default: () => ({}),
     },
   },
+  emits: ['update', 'update:modelValue', 'open', 'close'],
 
   data() {
     return {
-      localShow: this.showing,
+      localShow: this.modelValue || this.showing,
       activeElement: null,
     };
   },
@@ -149,6 +151,9 @@ export default {
 
   watch: {
     showing(next) {
+      this.localShow = next;
+    },
+    modelValue(next) {
       this.localShow = next;
     },
     localShow: {
@@ -170,6 +175,7 @@ export default {
         }
 
         this.$emit('update', next);
+        this.$emit('update:modelValue', next);
       },
     },
   },
