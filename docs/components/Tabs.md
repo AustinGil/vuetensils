@@ -88,5 +88,12 @@ Tabs and panels use slot names with this syntax: `tab-{name}`, `panel-{name}`. T
 This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
-:classes="{ root: 'root-class', tablist: 'tablist-class', tab: 'tab-class' }"
+:classes="{ 
+  root: 'root-class', 
+  tablist: 'tablist-class', 
+  tab: 'tab-class'
+  tabActive: 'tabActive-class'
+  panel: 'panel-class'
+  panelActive: 'panelActive-class'
+}"
 ```

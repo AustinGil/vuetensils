@@ -10,15 +10,17 @@ Features:
 
 ## Skip Example Nav
 
-Start by clicking on <button>this button</button> to set the focus there. Then use the keyboard to navigate to the VSkip component. You will then be able to click the link to skip past the long list of links, to the main content.
+Start by clicking on the button to set the focus there. Then use the keyboard to navigate to the VSkip component. You will then be able to click the link to skip past the long list of links, to the main content.
 
 Your implementation will vary, but it basically just relies on receiving the hash link to the ID of the main content element.
-
-(Note: this site has a floating header that blocks the main content)
 
 ```vue live
 <template>
   <div>
+    <button>click here to focus</button>
+
+    <p>Tab to get to the skip component then press enter to skip to main content</p>
+
     <VSkip to="#main">
       Skip To Main Content
     </VSkip>

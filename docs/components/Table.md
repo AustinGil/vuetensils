@@ -8,7 +8,7 @@ Takes a list of objects and a list of table headers and creates an HTML table wi
 
 Features:
 
-- Manages accessibility attributes for `tabindex`, `role`, `aria-labelledby`, `aria-sort`.
+- Manages accessibility attributes for `role`, `aria-labelledby`, `aria-sort`.
 - Supports table sorting.
 - Supports pagination.
 

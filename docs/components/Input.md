@@ -24,7 +24,7 @@ Input component that simplifies accessibility and validation.
       minlength="2"
       :errors="{
         required: 'This field is required.',
-        minlength: 'Must be greater than 2 characters.'
+        minlength: (min) => `Must be greater than ${min} characters.`
       }"
     >
     </VInput>
@@ -89,11 +89,15 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
 </template>
 ```
 
+<br>
+
 ```vue live
 <template>
   <VInput label="email:" name="email" type="email" />
 </template>
 ```
+
+<br>
 
 ```vue live
 <template>
@@ -101,22 +105,28 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
 </template>
 ```
 
+<br>
+
 ```vue live
 <template>
   <VInput label="checkbox" name="checkbox" type="checkbox" />
 </template>
 ```
 
+<br>
+
 ```vue live
 <template>
   <VInput
-    label="checkbox"
-    name="checkbox"
+    label="checkbox group"
+    name="checkbox-group"
     type="checkbox"
     :options="['option 1', 'option 2', 'option 3', 'option 4']"
   />
 </template>
 ```
+
+<br>
 
 ```vue live
 <template>
@@ -129,6 +139,8 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
 </template>
 ```
 
+<br>
+
 ```vue live
 <template>
   <VInput
@@ -139,6 +151,8 @@ Supports all HTML [input types](https://developer.mozilla.org/en-US/docs/Web/HTM
   />
 </template>
 ```
+
+<br>
 
 ```vue live
 <template>
@@ -167,6 +181,105 @@ export default {
 </script>
 ```
 
+## Validation
+
+This component supports [HTML5 input validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation). 
+
+Note that client-side validation is never a substitute for server-side validation.
+
+The simplest validation method is to pass an object to the `errors` prop. The object keys should match valitaion attributes, and the values should either be strings or functions returning strings. In the case of functions, there is a single parameter with the value of the respective attribute.
+
+```vue live
+<template>
+  <VInput
+    label="Pick a number between 1 and 10"
+    name="one-to-ten"
+    type="number"
+    required
+    min="1"
+    max="10"
+    :errors="{
+      required: 'This field is required.',
+      type: 'Must be an email.',
+      min: (min) => `Must be greater than ${min}.`,
+      max: (max) => `Must be less than ${max}.`,
+    }"
+  >
+  </VInput>
+</template>
+```
+
+For more advanced needs, the input's `invalid` status is provided to the `description` slot.
+
+```vue live
+<template>
+  <VInput
+    label="Username"
+    name="username"
+    required
+    minlength="6"
+    class="mb-3"
+  >
+    <template #description="input">
+      <pre>{{ input }}</pre>
+    </template>
+  </VInput>
+</template>
+```
+
+## Custom Options
+
+Some input support multiple options: `radio`, `checkbox`, `select`. In the case of `radio` and `checkbox`, input will be placed withing a `fieldset` element and each option will be represented by an input, all with the same name.
+
+You can provide a list of options as an array of strings or objects to explicitly specify the label, value, and any other attributes you want on the element.
+
+```vue live
+<template>
+  <div>
+    <VInput
+      type="radio"
+      :options="options"
+      label="Radio Options"
+      name="options-1"
+    />
+    <VInput
+      type="checkbox"
+      :options="options"
+      label="Checkbox Options"
+      name="options-2"
+    />
+    <VInput
+      type="select"
+      :options="options"
+      label="Select Options"
+      name="options-3"
+    />
+    <select>
+      <template v-for="o in options">
+        <option v-if="typeof o === 'object'" :value="o.value" selected>{{ o.label }}</option>
+        <option v-else>{{ o }}</option>
+      </template>
+    </select>
+  </div>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    options: [
+      'first',
+      2,
+      {
+        label: "Third",
+        value: 3,
+        checked: true,
+      }
+    ]
+  })
+}
+</script>
+```
+
 ## Hidden Label
 
 Sometimes you may want to hide your label and only show the input. Excluding the label causes an accessibility issue, but you can [visually hide the label text with CSS](https://a11yproject.com/posts/how-to-hide-content/). Note that you will need to add the styles to your project.
@@ -176,7 +289,7 @@ Sometimes you may want to hide your label and only show the input. Excluding the
   <VInput
     label="Input Label"
     name="features"
-    :classes="{ text: 'visually-hidden' }"
+    :classes="{ label: 'visually-hidden' }"
   />
 </template>
 
@@ -207,87 +320,20 @@ If you want to add a description to your input, the best practice is to include 
 </template>
 ```
 
-## Validation
-
-This component supports [HTML5 input validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation). 
-
-Note that client-side validation is never a substitute for server-side validation.
-
-The simplest validation method is to pass an object to the `errors` prop. The object keys should match valitaion attributes, and the values should either be strings or functions returning strings. In the case of functions, there is a single parameter with the value of the respective attribute.
-
-```vue live
-<template>
-  <VInput
-    label="Pick a number between 1 and 10"
-    name="one-to-ten"
-    type="number"
-    required
-    min="1"
-    max="10"
-    :errors="{
-      required: 'This field is required',
-      type: 'Must be an email',
-      min: 'Too low',
-      max: 'Too high',
-    }"
-  >
-  </VInput>
-</template>
-```
-
-For more advanced needs, the input's `invalid` status is provided to the `description` slot.
-
-```vue live
-<template>
-  <VForm>
-    <template #default="form">
-      <pre>{{ form }}</pre>
-
-      <VInput
-        v-model="input"
-        label="Username"
-        name="username"
-        required
-        minlength="6"
-        class="mb-3"
-      >
-        <template #description="input">
-          <pre>{{ input }}</pre>
-        </template>
-      </VInput>
-
-      <label>
-        Second
-        <input name="second" required minlength="6" />
-      </label>
-
-      <VInput
-        value="start?"
-        name="third"
-        label="yo"
-        required
-      />
-
-      <button type="submit" :disabled="!form.valid">
-        Submit
-      </button>
-    </template>
-  </VForm>
-</template>
-
-<script>
-export default {
-  data: () => ({
-    input: 'init',
-  }),
-};
-</script>
-```
-
 ## Custom Classes
 
 This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
-:classes="{ root: 'root-class', fieldset: 'fieldset-class', label: 'label-class', text: 'text-class', input: 'input-class', description: 'description-class' }"
+:classes="{ 
+  root: 'root-class', 
+  fieldset: 'fieldset-class', 
+  fieldsetItem: 'fieldsetItem-class', 
+  legend: 'legend-class', 
+  label: 'label-class', 
+  input: 'input-class', 
+  description: 'description-class', 
+  errors: 'errors-class', 
+  error: 'error-class'
+}"
 ```

@@ -5,23 +5,19 @@ export default {
   name: 'VTry',
 
   props: {
-    stopPropagation: Boolean,
+    propagate: Boolean,
   },
 
   data: () => ({
     error: null,
-    // vm: null,
-    // info: null,
   }),
 
-  errorCaptured(error /* vm, info */) {
+  errorCaptured(error) {
     this.error = error;
-    // this.vm = vm
-    // this.info = info
 
     this.$emit('catch', error);
 
-    return !this.stopPropagation;
+    return this.propagate;
   },
 
   render() {

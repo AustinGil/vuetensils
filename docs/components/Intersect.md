@@ -62,18 +62,20 @@ By using scoped slots, you can access the current [`IntersectionObserverEntry`](
 
 ```vue live
 <template>
-  <VIntersect :threshold="1">
-    <template #default="entry">
-      <div
-        class="intersection-content"
-        :style="{
-          background: entry.isIntersecting ? 'lightgreen' : 'lightcoral',
-        }"
-      >
-        isIntersecting: {{ entry.isIntersecting }}
-      </div>
-    </template>
-  </VIntersect>
+  <div>
+    <VIntersect :threshold="1">
+      <template #default="entry">
+        <div
+          class="intersection-content"
+          :style="{
+            background: entry.isIntersecting ? 'lightgreen' : 'lightcoral',
+          }"
+        >
+          isIntersecting: {{ entry.isIntersecting }}
+        </div>
+      </template>
+    </VIntersect>
+  </div>
 </template>
 
 <script>

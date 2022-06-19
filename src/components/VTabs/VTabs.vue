@@ -12,7 +12,7 @@
         :key="tab"
         :ref="tab"
         :aria-selected="index === activeIndex"
-        :tabindex="index === activeIndex ? false : -1"
+        :tabindex="index === activeIndex ? null : -1"
         :aria-controls="`${id}-${tab.replace('tab', 'panel')}`"
         :class="[
           `vts-tabs__tab vts-tabs__tab--${tab} vts-tabs__tab--${index}`,
@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import { isVue3 } from 'vue-demi';
 import { randomString } from '../../utils.js';
 import keycodes from '../../data/keycodes.js';
 
@@ -107,11 +106,13 @@ export default {
   computed: {
     /** @returns {Array} */
     tabList() {
-      return Object.keys(this.$slots).filter(name => name.startsWith('tab-'));
+      return Object.keys(this.$slots).filter((name) => name.startsWith('tab-'));
     },
     /** @returns {Array} */
     panelList() {
-      return Object.keys(this.$slots).filter(name => name.startsWith('panel-'));
+      return Object.keys(this.$slots).filter((name) =>
+        name.startsWith('panel-')
+      );
     },
   },
 
@@ -203,10 +204,7 @@ export default {
       const { $refs, tabList, activeIndex } = this;
       const activeTab = tabList[activeIndex];
 
-      if (isVue3) {
-        return $refs[activeTab].focus();
-      }
-      $refs[activeTab][0].focus();
+      return $refs[activeTab][0].focus();
     },
   },
 };

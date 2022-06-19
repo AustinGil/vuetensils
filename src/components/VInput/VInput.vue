@@ -17,7 +17,7 @@
       v-if="'radio' === type || ('checkbox' === type && computedOptions.length)"
       :class="['vts-input__fieldset', classes.fieldset]"
     >
-      <legend v-if="label" :class="['vts-input__legend', classes.text]">
+      <legend v-if="label" :class="['vts-input__legend', classes.legend]">
         {{ label }}
       </legend>
 
@@ -46,11 +46,7 @@
       </div>
     </fieldset>
 
-    <label
-      v-else-if="'checkbox' === type"
-      :for="`${id}__input`"
-      :class="['vts-input__label', classes.label]"
-    >
+    <template v-else-if="'checkbox' === type">
       <input
         ref="input"
         :checked="localValue === undefined ? $attrs.checked : localValue"
@@ -60,10 +56,10 @@
         @blur.once="dirty = true"
         v-on="listeners"
       />
-      <span :class="['vts-input__text', classes.text]">
+      <label :for="`${id}__input`" :class="['vts-input__label', classes.label]">
         {{ label }}
-      </span>
-    </label>
+      </label>
+    </template>
 
     <template v-else>
       <label :for="`${id}__input`" :class="['vts-input__label', classes.label]">
@@ -82,9 +78,10 @@
       >
         <slot name="options">
           <option
-            v-for="(option, i) in computedOptions"
-            :key="i"
+            v-for="option in computedOptions"
+            :key="option.value"
             v-bind="option"
+            :label="null"
           >
             {{ option.label }}
           </option>
@@ -220,6 +217,19 @@ export default {
       default: () => ({}),
     },
 
+    /**
+     * @type {import('vue').PropOptions<{
+     * root: string,
+     * fieldset: string,
+     * fieldsetItem: string,
+     * legend: string,
+     * label: string,
+     * input: string,
+     * description: string,
+     * errors: string,
+     * error: string
+     * }>}
+     */
     classes: {
       type: Object,
       default: () => ({}),
@@ -242,7 +252,7 @@ export default {
       const { id, name, valid, dirty, error, errorMessages, classes, $attrs } =
         this;
       // eslint-disable-next-line no-unused-vars
-      const { class: _, attrs } = $attrs;
+      const { class: _, ...attrs } = $attrs;
 
       const describedby = [];
       if (error) describedby.push(`${id}__description`);
@@ -251,7 +261,7 @@ export default {
       const bindings = {
         'aria-invalid': !valid,
         'aria-describedby':
-          dirty && describedby.length ? describedby.join(' ') : false,
+          dirty && describedby.length ? describedby.join(' ') : null,
         ...attrs,
         id: `${id}__input`,
         name: name,

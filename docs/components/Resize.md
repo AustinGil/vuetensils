@@ -53,3 +53,17 @@ Try resizing your browser to see it in action.
 }
 </style>
 ```
+
+## Custom wrapper tag
+
+By default, the component uses a `div` element. You can the `tag` prop to change it to whatever you like.
+
+```vue live
+<template>
+  <VResize tag="section">
+    <template #default="{ width, height } ">
+      <p>This content is {{ width }}px wide and {{ height }}px tall.</p>
+    </template>
+  </VResize>
+</template>
+```
