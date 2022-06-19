@@ -8,6 +8,10 @@ declare const _default: {
         event: string;
     };
     props: {
+        modelValue: {
+            type: (StringConstructor | DateConstructor)[];
+            default: () => Date;
+        };
         date: {
             type: (StringConstructor | DateConstructor)[];
             default: () => Date;
@@ -56,6 +60,7 @@ declare const _default: {
             default: () => {};
         };
     };
+    emits: string[];
     data(): {
         show: boolean;
         previousActiveEl: any;

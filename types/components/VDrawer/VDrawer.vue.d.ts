@@ -8,6 +8,7 @@ declare const _default: {
         event: string;
     };
     props: {
+        modelValue: BooleanConstructor;
         /**
          * @model
          */
@@ -73,6 +74,7 @@ declare const _default: {
             default: () => {};
         };
     };
+    emits: string[];
     data(): {
         localShow: any;
         activeElement: any;
@@ -82,6 +84,7 @@ declare const _default: {
     };
     watch: {
         showing(next: any): void;
+        modelValue(next: any): void;
         localShow: {
             handler(next: any, prev: any): void;
         };

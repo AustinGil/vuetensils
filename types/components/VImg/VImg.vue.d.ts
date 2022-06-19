@@ -14,6 +14,10 @@ declare const _default: {
             type: StringConstructor;
             required: boolean;
         };
+        alt: {
+            type: StringConstructor;
+            required: boolean;
+        };
         /**
          * Same as the HTML attribute
          */

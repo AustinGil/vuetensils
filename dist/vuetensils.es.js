@@ -17,6 +17,18 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+var __objRest = (source, exclude) => {
+  var target = {};
+  for (var prop in source)
+    if (__hasOwnProp.call(source, prop) && exclude.indexOf(prop) < 0)
+      target[prop] = source[prop];
+  if (source != null && __getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(source)) {
+      if (exclude.indexOf(prop) < 0 && __propIsEnum.call(source, prop))
+        target[prop] = source[prop];
+    }
+  return target;
+};
 import { openBlock, createBlock, Transition, withCtx, resolveDynamicComponent, normalizeClass, renderSlot, createElementBlock, createCommentVNode, createTextVNode, withModifiers, Fragment, renderList, createElementVNode, mergeProps, toHandlers, resolveDirective, withDirectives, normalizeProps, guardReactiveProps, withKeys, toDisplayString, vShow, createVNode, normalizeStyle, toHandlerKey, vModelText, vModelDynamic, reactive, watch, nextTick, computed } from "vue";
 var _export_sfc = (sfc, props) => {
   const target = sfc.__vccOpts || sfc;
@@ -110,7 +122,7 @@ const _sfc_main$j = {
   }
 };
 const _hoisted_1$e = ["aria-label"];
-const _hoisted_2$a = /* @__PURE__ */ createTextVNode(" \xD7 ");
+const _hoisted_2$a = /* @__PURE__ */ createTextVNode("\xD7");
 function _sfc_render$g(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createBlock(Transition, { name: $props.transition }, {
     default: withCtx(() => [
@@ -235,6 +247,7 @@ const _sfc_main$h = {
     action: { type: String, default: "" },
     data: { type: Object, default: () => ({}) }
   },
+  emits: ["submit"],
   computed: {
     tag() {
       const attrs = this.$attrs || {};
@@ -256,20 +269,6 @@ const _sfc_main$h = {
         return this.$attrs;
       }
     }
-  },
-  methods: {
-    async onSubmit({ target: form }) {
-      try {
-        const data = new FormData(form);
-        const response = await fetch(form.action, {
-          method: form.method,
-          body: data
-        });
-        this.$emit("response", response);
-      } catch (error) {
-        this.$emit("error", error);
-      }
-    }
   }
 };
 const _hoisted_1$d = ["action"];
@@ -280,9 +279,9 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
     action: $props.action,
     method: "POST",
     class: "vts-btn__form",
-    onSubmit: _cache[0] || (_cache[0] = withModifiers((...args) => $options.onSubmit && $options.onSubmit(...args), ["prevent"]))
+    onSubmit: _cache[0] || (_cache[0] = withModifiers(($event) => _ctx.$emit("submit", $event), ["prevent"]))
   }, [
-    (openBlock(true), createElementBlock(Fragment, null, renderList($props.data, (key, value) => {
+    (openBlock(true), createElementBlock(Fragment, null, renderList($props.data, (value, key) => {
       return openBlock(), createElementBlock("input", {
         key,
         value,
@@ -486,6 +485,10 @@ const _sfc_main$g = {
     event: "update"
   },
   props: {
+    modelValue: {
+      type: [Date, String],
+      default: () => new Date()
+    },
     date: {
       type: [Date, String],
       default: () => new Date()
@@ -551,12 +554,13 @@ const _sfc_main$g = {
       default: () => ({})
     }
   },
+  emits: ["update", "update:modelValue"],
   data() {
     return {
       show: false,
       previousActiveEl: null,
-      focusedDate: new Date(this.date),
-      selectedDate: new Date(this.date)
+      focusedDate: new Date(this.modelValue || this.date),
+      selectedDate: new Date(this.modelValue || this.date)
     };
   },
   computed: {
@@ -640,6 +644,7 @@ const _sfc_main$g = {
     },
     selectedDate(date) {
       this.$emit("update", date);
+      this.$emit("update:modelValue", date);
       this.show = false;
     }
   },
@@ -734,7 +739,7 @@ const _sfc_main$g = {
 };
 const _hoisted_1$c = ["id"];
 const _hoisted_2$8 = ["aria-label"];
-const _hoisted_3$4 = ["aria-labelledby"];
+const _hoisted_3$5 = ["aria-labelledby"];
 const _hoisted_4$3 = { class: "vts-date__navigation" };
 const _hoisted_5$1 = ["aria-label", "disabled"];
 const _hoisted_6$1 = /* @__PURE__ */ createTextVNode("\u219E");
@@ -893,7 +898,7 @@ function _sfc_render$e(_ctx, _cache, $props, $setup, $data, $options) {
           }), 64))
         ], 2)
       ], 10, _hoisted_14)
-    ], 42, _hoisted_3$4), [
+    ], 42, _hoisted_3$5), [
       [vShow, $data.show]
     ])
   ], 10, _hoisted_1$c)), [
@@ -907,9 +912,10 @@ const _sfc_main$f = {
   inheritAttrs: false,
   model: {
     prop: "showing",
-    event: "update:showing"
+    event: "update:modelValue"
   },
   props: {
+    modelValue: Boolean,
     showing: Boolean,
     tag: {
       type: String,
@@ -953,10 +959,10 @@ const _sfc_main$f = {
       default: () => ({})
     }
   },
-  emits: ["update", "update:showing"],
+  emits: ["update", "update:modelValue", "open", "close"],
   data() {
     return {
-      localShow: this.showing,
+      localShow: this.modelValue || this.showing,
       activeElement: null
     };
   },
@@ -967,6 +973,9 @@ const _sfc_main$f = {
   },
   watch: {
     showing(next) {
+      this.localShow = next;
+    },
+    modelValue(next) {
       this.localShow = next;
     },
     localShow: {
@@ -986,7 +995,7 @@ const _sfc_main$f = {
           }
         }
         this.$emit("update", next);
-        this.$emit("update:showing", next);
+        this.$emit("update:modelValue", next);
       }
     }
   },
@@ -1084,7 +1093,7 @@ function _sfc_render$d(_ctx, _cache, $props, $setup, $data, $options) {
                 "aria-modal": "true"
               }, {
                 default: withCtx(() => [
-                  renderSlot(_ctx.$slots, "default")
+                  renderSlot(_ctx.$slots, "default", normalizeProps(guardReactiveProps({ close: () => $data.localShow = !$data.localShow })))
                 ]),
                 _: 3
               }, 8, ["class", "style"]))
@@ -1104,9 +1113,10 @@ const _sfc_main$e = {
   name: "VDrawer",
   model: {
     prop: "showing",
-    event: "update"
+    event: "update:modelValue"
   },
   props: {
+    modelValue: Boolean,
     showing: Boolean,
     tag: {
       type: String,
@@ -1143,9 +1153,10 @@ const _sfc_main$e = {
       default: () => ({})
     }
   },
+  emits: ["update", "update:modelValue", "open", "close"],
   data() {
     return {
-      localShow: this.showing,
+      localShow: this.modelValue || this.showing,
       activeElement: null
     };
   },
@@ -1156,6 +1167,9 @@ const _sfc_main$e = {
   },
   watch: {
     showing(next) {
+      this.localShow = next;
+    },
+    modelValue(next) {
       this.localShow = next;
     },
     localShow: {
@@ -1175,6 +1189,7 @@ const _sfc_main$e = {
           }
         }
         this.$emit("update", next);
+        this.$emit("update:modelValue", next);
       }
     }
   },
@@ -1278,7 +1293,7 @@ function _sfc_render$c(_ctx, _cache, $props, $setup, $data, $options) {
                 tabindex: "-1"
               }, {
                 default: withCtx(() => [
-                  renderSlot(_ctx.$slots, "default")
+                  renderSlot(_ctx.$slots, "default", normalizeProps(guardReactiveProps({ close: () => $data.localShow = !$data.localShow })))
                 ]),
                 _: 3
               }, 8, ["class", "style"])) : createCommentVNode("", true)
@@ -1376,6 +1391,7 @@ function _sfc_render$b(_ctx, _cache, $props, $setup, $data, $options) {
   ], 34);
 }
 var VDropdown = /* @__PURE__ */ _export_sfc(_sfc_main$d, [["render", _sfc_render$b]]);
+var shared = "";
 var VFile_vue_vue_type_style_index_0_lang = "";
 const _sfc_main$c = {
   name: "VFile",
@@ -1387,6 +1403,14 @@ const _sfc_main$c = {
     label: {
       type: String,
       required: true
+    },
+    id: {
+      type: String,
+      default: () => "vts-" + randomString(4)
+    },
+    modelValue: {
+      type: Array,
+      default: () => []
     },
     files: {
       type: Array,
@@ -1412,18 +1436,19 @@ const _sfc_main$c = {
     files(files) {
       this.localFiles = files;
     },
+    modelValue(files) {
+      this.localFiles = files;
+    },
     localFiles() {
       this.droppable = false;
     }
-  },
-  created() {
-    this.id = this.$attrs.id || "vts-" + randomString(4);
   },
   methods: {
     onChange(event) {
       const files = Array.from(event.target.files);
       this.localFiles = files;
       this.$emit("update", files);
+      this.$emit("update:modelValue", files);
     },
     onDrop(event) {
       const files = Array.from(event.dataTransfer.files);
@@ -1433,12 +1458,13 @@ const _sfc_main$c = {
       }
       this.localFiles = files;
       this.$emit("update", files);
+      this.$emit("update:modelValue", files);
     }
   }
 };
 const _hoisted_1$8 = ["for"];
 const _hoisted_2$7 = ["id"];
-const _hoisted_3$3 = {
+const _hoisted_3$4 = {
   key: 0,
   "aria-hidden": "true"
 };
@@ -1448,7 +1474,7 @@ const _hoisted_4$2 = {
 };
 function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("label", {
-    for: _ctx.id,
+    for: $props.id,
     class: normalizeClass([
       "vts-file",
       {
@@ -1459,7 +1485,7 @@ function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   }, [
     createElementVNode("input", mergeProps({
-      id: _ctx.id,
+      id: $props.id,
       ref: "input"
     }, _ctx.$attrs, {
       type: "file",
@@ -1478,7 +1504,7 @@ function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
       onDragenter: _cache[5] || (_cache[5] = withModifiers(($event) => _ctx.droppable = true, ["prevent"]))
     }, [
       renderSlot(_ctx.$slots, "default", normalizeProps(guardReactiveProps({ files: _ctx.localFiles, droppable: _ctx.droppable })), () => [
-        _ctx.localFiles.length ? (openBlock(), createElementBlock("span", _hoisted_3$3, [
+        _ctx.localFiles.length ? (openBlock(), createElementBlock("span", _hoisted_3$4, [
           _ctx.localFiles.length > 1 ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
             createTextVNode(toDisplayString(_ctx.localFiles.length) + " files selected ", 1)
           ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
@@ -1501,7 +1527,6 @@ function _sfc_render$a(_ctx, _cache, $props, $setup, $data, $options) {
   ], 10, _hoisted_1$8);
 }
 var VFile = /* @__PURE__ */ _export_sfc(_sfc_main$c, [["render", _sfc_render$a]]);
-var VForm_vue_vue_type_style_index_0_lang = "";
 const controlTypes = /* @__PURE__ */ new Set(["INPUT", "SELECT", "TEXTAREA"]);
 const _sfc_main$b = {
   name: "VForm",
@@ -1717,6 +1742,10 @@ const _sfc_main$a = {
       type: String,
       required: true
     },
+    alt: {
+      type: String,
+      required: true
+    },
     srcset: {
       type: String,
       default: ""
@@ -1815,12 +1844,26 @@ const _sfc_main$a = {
     }
   }
 };
-const _hoisted_1$6 = ["src", "decoding"];
-const _hoisted_2$5 = ["src", "alt", "decoding"];
+const _hoisted_1$6 = /* @__PURE__ */ createElementVNode("noscript", null, `
+      <img
+        :src="dataUrl"
+        :class="['vts-img__img', classes.img]"
+        :alt="alt"
+        :style="{
+          transitionDuration: \`\${transitionDuration}ms\`,
+        }"
+        :decoding="$attrs.decoding || 'async'"
+        :role="$attrs.role || alt ? null : 'presentation'"
+        v-bind="$attrs"
+      />
+    `, -1);
+const _hoisted_2$5 = ["src", "decoding"];
+const _hoisted_3$3 = ["src", "alt", "decoding", "role"];
 function _sfc_render$8(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("picture", {
     class: normalizeClass(["vts-img", $props.classes.root])
   }, [
+    _hoisted_1$6,
     _ctx.dataUrl ? (openBlock(), createElementBlock("div", {
       key: 0,
       ref: "placeholder",
@@ -1832,18 +1875,19 @@ function _sfc_render$8(_ctx, _cache, $props, $setup, $data, $options) {
         alt: ""
       }, _ctx.$attrs, {
         decoding: _ctx.$attrs.decoding || "async"
-      }), null, 16, _hoisted_1$6)
+      }), null, 16, _hoisted_2$5)
     ], 6)) : createCommentVNode("", true),
     createElementVNode("img", mergeProps({
       ref: "img",
       src: _ctx.dataUrl,
       class: ["vts-img__img", $props.classes.img],
-      alt: _ctx.$attrs.alt || "",
+      alt: $props.alt,
       style: {
         transitionDuration: `${$props.transitionDuration}ms`
       },
-      decoding: _ctx.$attrs.decoding || "async"
-    }, _ctx.$attrs, toHandlers($options.listeners)), null, 16, _hoisted_2$5)
+      decoding: _ctx.$attrs.decoding || "async",
+      role: _ctx.$attrs.role || $props.alt ? null : "presentation"
+    }, _ctx.$attrs, toHandlers($options.listeners)), null, 16, _hoisted_3$3)
   ], 2);
 }
 var VImg = /* @__PURE__ */ _export_sfc(_sfc_main$a, [["render", _sfc_render$8]]);
@@ -1902,7 +1946,7 @@ const _sfc_main$9 = {
   computed: {
     bind() {
       const { id, name, valid, dirty, error, errorMessages, classes, $attrs } = this;
-      const { class: _, attrs } = $attrs;
+      const _a = $attrs, { class: _ } = _a, attrs = __objRest(_a, ["class"]);
       const describedby = [];
       if (error)
         describedby.push(`${id}__description`);
@@ -1910,7 +1954,7 @@ const _sfc_main$9 = {
         describedby.push(`${id}__errors`);
       const bindings = __spreadProps(__spreadValues({
         "aria-invalid": !valid,
-        "aria-describedby": dirty && describedby.length ? describedby.join(" ") : false
+        "aria-describedby": dirty && describedby.length ? describedby.join(" ") : null
       }, attrs), {
         id: `${id}__input`,
         name,
@@ -2022,8 +2066,8 @@ const _sfc_main$9 = {
 };
 const _hoisted_1$5 = ["id", "type"];
 const _hoisted_2$4 = ["for"];
-const _hoisted_3$2 = ["for"];
-const _hoisted_4$1 = ["checked"];
+const _hoisted_3$2 = ["checked"];
+const _hoisted_4$1 = ["for"];
 const _hoisted_5 = ["for"];
 const _hoisted_6 = ["value"];
 const _hoisted_7 = ["type"];
@@ -2050,7 +2094,7 @@ function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
     }, [
       $props.label ? (openBlock(), createElementBlock("legend", {
         key: 0,
-        class: normalizeClass(["vts-input__legend", $props.classes.text])
+        class: normalizeClass(["vts-input__legend", $props.classes.legend])
       }, toDisplayString($props.label), 3)) : createCommentVNode("", true),
       createElementVNode("div", {
         class: normalizeClass(["vts-input__fieldset-items", $props.classes.fieldsetItems])
@@ -2075,11 +2119,7 @@ function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
           ], 2);
         }), 128))
       ], 2)
-    ], 2)) : $props.type === "checkbox" ? (openBlock(), createElementBlock("label", {
-      key: 1,
-      for: `${_ctx.id}__input`,
-      class: normalizeClass(["vts-input__label", $props.classes.label])
-    }, [
+    ], 2)) : $props.type === "checkbox" ? (openBlock(), createElementBlock(Fragment, { key: 1 }, [
       createElementVNode("input", mergeProps({
         ref: "input",
         checked: $data.localValue === void 0 ? _ctx.$attrs.checked : $data.localValue,
@@ -2087,11 +2127,12 @@ function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
       }, $options.bind, {
         onChange: _cache[2] || (_cache[2] = ($event) => $data.localValue = $event.target.checked),
         onBlurOnce: _cache[3] || (_cache[3] = ($event) => $data.dirty = true)
-      }, toHandlers($options.listeners)), null, 16, _hoisted_4$1),
-      createElementVNode("span", {
-        class: normalizeClass(["vts-input__text", $props.classes.text])
-      }, toDisplayString($props.label), 3)
-    ], 10, _hoisted_3$2)) : (openBlock(), createElementBlock(Fragment, { key: 2 }, [
+      }, toHandlers($options.listeners)), null, 16, _hoisted_3$2),
+      createElementVNode("label", {
+        for: `${_ctx.id}__input`,
+        class: normalizeClass(["vts-input__label", $props.classes.label])
+      }, toDisplayString($props.label), 11, _hoisted_4$1)
+    ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 2 }, [
       createElementVNode("label", {
         for: `${_ctx.id}__input`,
         class: normalizeClass(["vts-input__label", $props.classes.label])
@@ -2106,8 +2147,10 @@ function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
         onBlurOnce: _cache[6] || (_cache[6] = ($event) => $data.dirty = true)
       }, toHandlers($options.listeners)), [
         renderSlot(_ctx.$slots, "options", {}, () => [
-          (openBlock(true), createElementBlock(Fragment, null, renderList($options.computedOptions, (option, i) => {
-            return openBlock(), createElementBlock("option", mergeProps({ key: i }, option), toDisplayString(option.label), 17);
+          (openBlock(true), createElementBlock(Fragment, null, renderList($options.computedOptions, (option) => {
+            return openBlock(), createElementBlock("option", mergeProps({
+              key: option.value
+            }, option, { label: null }), toDisplayString(option.label), 17);
           }), 128))
         ])
       ], 16, _hoisted_6)) : $props.type === "textarea" ? withDirectives((openBlock(), createElementBlock("textarea", mergeProps({
@@ -2910,9 +2953,7 @@ const _sfc_main$3 = {
     setFocus() {
       const { $refs, tabList, activeIndex } = this;
       const activeTab = tabList[activeIndex];
-      {
-        return $refs[activeTab].focus();
-      }
+      return $refs[activeTab][0].focus();
     }
   }
 };
@@ -2936,7 +2977,7 @@ function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
           ref_for: true,
           ref: tab,
           "aria-selected": index2 === $data.activeIndex,
-          tabindex: index2 === $data.activeIndex ? false : -1,
+          tabindex: index2 === $data.activeIndex ? null : -1,
           "aria-controls": `${_ctx.id}-${tab.replace("tab", "panel")}`,
           class: normalizeClass([
             `vts-tabs__tab vts-tabs__tab--${tab} vts-tabs__tab--${index2}`,
@@ -3153,7 +3194,7 @@ var VTooltip = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render]
 const _sfc_main = {
   name: "VTry",
   props: {
-    stopPropagation: Boolean
+    propagate: Boolean
   },
   data: () => ({
     error: null
@@ -3161,7 +3202,7 @@ const _sfc_main = {
   errorCaptured(error) {
     this.error = error;
     this.$emit("catch", error);
-    return !this.stopPropagation;
+    return this.propagate;
   },
   render() {
     const { error, $slots } = this;
@@ -3378,7 +3419,7 @@ const components = allComponents;
 const directives = allDirectives;
 const filters = allFilters;
 var index = {
-  install(Vue, pluginConfig = {}) {
+  install(app, pluginConfig = {}) {
     if (pluginConfig.components) {
       if (Array.isArray(pluginConfig.components)) {
         pluginConfig.components = pluginConfig.components.reduce((config, key) => {
@@ -3390,7 +3431,7 @@ var index = {
         const [key, options] = entry;
         const component = allComponents[key];
         const name = typeof options === "boolean" ? options.name || key : key;
-        Vue.component(name, component);
+        app.component(name, component);
       });
     }
     if (pluginConfig.directives) {
@@ -3403,7 +3444,7 @@ var index = {
       Object.entries(pluginConfig.directives).forEach((entry) => {
         const [key] = entry;
         const directive = allDirectives[key];
-        Vue.directive(key, directive);
+        app.directive(key, directive);
       });
     }
     if (pluginConfig.filters) {
@@ -3416,7 +3457,7 @@ var index = {
       Object.entries(pluginConfig.filters).forEach((entry) => {
         const [key] = entry;
         const filter = allFilters[key];
-        Vue.filter(key, filter);
+        app.filter(key, filter);
       });
     }
   }

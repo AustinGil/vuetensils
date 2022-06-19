@@ -1,12 +1,12 @@
 declare const _default: {
     name: string;
     props: {
-        stopPropagation: BooleanConstructor;
+        propagate: BooleanConstructor;
     };
     data: () => {
         error: any;
     };
-    errorCaptured(error: any): boolean;
+    errorCaptured(error: any): any;
     render(): any;
 };
 export default _default;

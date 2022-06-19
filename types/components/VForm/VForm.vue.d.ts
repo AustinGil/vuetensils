@@ -1,3 +1,4 @@
+import '../../shared.css';
 declare const _default: {
     name: string;
     props: {

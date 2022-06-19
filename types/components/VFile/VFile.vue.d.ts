@@ -1,3 +1,4 @@
+import '../../shared.css';
 declare const _default: {
     name: string;
     model: {
@@ -8,6 +9,14 @@ declare const _default: {
         label: {
             type: StringConstructor;
             required: boolean;
+        };
+        id: {
+            type: StringConstructor;
+            default: () => string;
+        };
+        modelValue: {
+            type: ArrayConstructor;
+            default: () => any[];
         };
         files: {
             type: ArrayConstructor;
@@ -27,9 +36,9 @@ declare const _default: {
     };
     watch: {
         files(files: any): void;
+        modelValue(files: any): void;
         localFiles(): void;
     };
-    created(): void;
     methods: {
         onChange(event: any): void;
         onDrop(event: any): void;

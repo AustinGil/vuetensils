@@ -49,6 +49,19 @@ declare const _default: {
             type: ObjectConstructor;
             default: () => {};
         };
+        /**
+         * @type {import('vue').PropOptions<{
+         * root: string,
+         * fieldset: string,
+         * fieldsetItem: string,
+         * legend: string,
+         * label: string,
+         * input: string,
+         * description: string,
+         * errors: string,
+         * error: string
+         * }>}
+         */
         classes: {
             type: ObjectConstructor;
             default: () => {};
