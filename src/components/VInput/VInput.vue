@@ -69,10 +69,10 @@
       <select
         v-if="'select' === type"
         ref="input"
-        :value="localValue"
+        v-model="localValue"
         v-bind="bind"
-        @input="localValue = $event.target.value"
-        @change="localValue = $event.target.value"
+        @input="onSelect"
+        @change="onSelect"
         @blur.once="dirty = true"
         v-on="listeners"
       >
@@ -313,10 +313,10 @@ export default {
       });
     },
     /** @returns {boolean} */
-    // isMultiple() {
-    //   const { multiple } = this.$attrs;
-    //   return multiple != null && multiple != 'false';
-    // },
+    isMultiple() {
+      const { multiple } = this.$attrs;
+      return multiple != null && multiple != 'false';
+    },
     /** @returns {boolean} */
     error() {
       return !this.valid && this.dirty;
@@ -364,6 +364,18 @@ export default {
   },
 
   methods: {
+    onSelect(event) {
+      const select = event.target;
+      if (this.isMultiple) {
+        const values = [];
+        for (const option of select.selectedOptions) {
+          values.push(option.value);
+        }
+        this.localValue = [...(values || [])];
+      } else {
+        this.localValue = select.value;
+      }
+    },
     onFieldsetInput(event) {
       const input = event.target;
       const value = input.value;
