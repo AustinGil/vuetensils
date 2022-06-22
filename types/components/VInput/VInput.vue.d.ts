@@ -82,6 +82,7 @@ declare const _default: {
         slots(): any;
         computedOptions(): any;
         /** @returns {boolean} */
+        isMultiple(): boolean;
         /** @returns {boolean} */
         error(): any;
         errorMessages(): any[];
@@ -94,6 +95,7 @@ declare const _default: {
     created(): void;
     mounted(): void;
     methods: {
+        onSelect(event: any): void;
         onFieldsetInput(event: any): void;
         validate(): void;
     };

@@ -29,7 +29,7 @@ var __objRest = (source, exclude) => {
     }
   return target;
 };
-import { openBlock, createBlock, Transition, withCtx, resolveDynamicComponent, normalizeClass, renderSlot, createElementBlock, createCommentVNode, createTextVNode, withModifiers, Fragment, renderList, createElementVNode, mergeProps, toHandlers, resolveDirective, withDirectives, normalizeProps, guardReactiveProps, withKeys, toDisplayString, vShow, createVNode, normalizeStyle, toHandlerKey, vModelText, vModelDynamic, reactive, watch, nextTick, computed } from "vue";
+import { openBlock, createBlock, Transition, withCtx, resolveDynamicComponent, normalizeClass, renderSlot, createElementBlock, createCommentVNode, createTextVNode, withModifiers, Fragment, renderList, createElementVNode, mergeProps, toHandlers, resolveDirective, withDirectives, normalizeProps, guardReactiveProps, withKeys, toDisplayString, vShow, createVNode, normalizeStyle, toHandlerKey, vModelSelect, vModelText, vModelDynamic, reactive, watch, nextTick, computed } from "vue";
 var _export_sfc = (sfc, props) => {
   const target = sfc.__vccOpts || sfc;
   for (const [key, val] of props) {
@@ -745,7 +745,7 @@ const _hoisted_5$1 = ["aria-label", "disabled"];
 const _hoisted_6$1 = /* @__PURE__ */ createTextVNode("\u219E");
 const _hoisted_7$1 = ["aria-label", "disabled"];
 const _hoisted_8$1 = /* @__PURE__ */ createTextVNode("\u2190");
-const _hoisted_9$1 = ["id"];
+const _hoisted_9 = ["id"];
 const _hoisted_10 = ["aria-label", "disabled"];
 const _hoisted_11 = /* @__PURE__ */ createTextVNode("\u2192");
 const _hoisted_12 = ["aria-label", "disabled"];
@@ -810,7 +810,7 @@ function _sfc_render$e(_ctx, _cache, $props, $setup, $data, $options) {
           id: `${$props.id}-dialog-label`,
           class: normalizeClass(["vtd-date__title", $props.classes.title]),
           "aria-live": "polite"
-        }, toDisplayString($options.monthYear), 11, _hoisted_9$1),
+        }, toDisplayString($options.monthYear), 11, _hoisted_9),
         createElementVNode("button", {
           class: normalizeClass(["vtd-date__next-month", $props.classes.nextMonth]),
           "aria-label": $props.buttonLabels.nextMonth,
@@ -1995,6 +1995,10 @@ const _sfc_main$9 = {
         return item;
       });
     },
+    isMultiple() {
+      const { multiple } = this.$attrs;
+      return multiple != null && multiple != "false";
+    },
     error() {
       return !this.valid && this.dirty;
     },
@@ -2026,6 +2030,18 @@ const _sfc_main$9 = {
     this.validate();
   },
   methods: {
+    onSelect(event) {
+      const select = event.target;
+      if (this.isMultiple) {
+        const values = [];
+        for (const option of select.selectedOptions) {
+          values.push(option.value);
+        }
+        this.localValue = [...values || []];
+      } else {
+        this.localValue = select.value;
+      }
+    },
     onFieldsetInput(event) {
       const input = event.target;
       const value = input.value;
@@ -2069,10 +2085,9 @@ const _hoisted_2$4 = ["for"];
 const _hoisted_3$2 = ["checked"];
 const _hoisted_4$1 = ["for"];
 const _hoisted_5 = ["for"];
-const _hoisted_6 = ["value"];
-const _hoisted_7 = ["type"];
+const _hoisted_6 = ["type"];
+const _hoisted_7 = ["id"];
 const _hoisted_8 = ["id"];
-const _hoisted_9 = ["id"];
 function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", {
     class: normalizeClass([
@@ -2137,14 +2152,14 @@ function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
         for: `${_ctx.id}__input`,
         class: normalizeClass(["vts-input__label", $props.classes.label])
       }, toDisplayString($props.label), 11, _hoisted_5),
-      $props.type === "select" ? (openBlock(), createElementBlock("select", mergeProps({
+      $props.type === "select" ? withDirectives((openBlock(), createElementBlock("select", mergeProps({
         key: 0,
         ref: "input",
-        value: $data.localValue
+        "onUpdate:modelValue": _cache[4] || (_cache[4] = ($event) => $data.localValue = $event)
       }, $options.bind, {
-        onInput: _cache[4] || (_cache[4] = ($event) => $data.localValue = $event.target.value),
-        onChange: _cache[5] || (_cache[5] = ($event) => $data.localValue = $event.target.value),
-        onBlurOnce: _cache[6] || (_cache[6] = ($event) => $data.dirty = true)
+        onInput: _cache[5] || (_cache[5] = (...args) => $options.onSelect && $options.onSelect(...args)),
+        onChange: _cache[6] || (_cache[6] = (...args) => $options.onSelect && $options.onSelect(...args)),
+        onBlurOnce: _cache[7] || (_cache[7] = ($event) => $data.dirty = true)
       }, toHandlers($options.listeners)), [
         renderSlot(_ctx.$slots, "options", {}, () => [
           (openBlock(true), createElementBlock(Fragment, null, renderList($options.computedOptions, (option) => {
@@ -2153,22 +2168,24 @@ function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
             }, option, { label: null }), toDisplayString(option.label), 17);
           }), 128))
         ])
-      ], 16, _hoisted_6)) : $props.type === "textarea" ? withDirectives((openBlock(), createElementBlock("textarea", mergeProps({
+      ], 16)), [
+        [vModelSelect, $data.localValue]
+      ]) : $props.type === "textarea" ? withDirectives((openBlock(), createElementBlock("textarea", mergeProps({
         key: 1,
         ref: "input",
-        "onUpdate:modelValue": _cache[7] || (_cache[7] = ($event) => $data.localValue = $event)
+        "onUpdate:modelValue": _cache[8] || (_cache[8] = ($event) => $data.localValue = $event)
       }, $options.bind, {
-        onBlurOnce: _cache[8] || (_cache[8] = ($event) => $data.dirty = true)
+        onBlurOnce: _cache[9] || (_cache[9] = ($event) => $data.dirty = true)
       }, toHandlers($options.listeners)), null, 16)), [
         [vModelText, $data.localValue]
       ]) : withDirectives((openBlock(), createElementBlock("input", mergeProps({
         key: 2,
         ref: "input",
-        "onUpdate:modelValue": _cache[9] || (_cache[9] = ($event) => $data.localValue = $event),
+        "onUpdate:modelValue": _cache[10] || (_cache[10] = ($event) => $data.localValue = $event),
         type: $props.type
       }, $options.bind, {
-        onBlurOnce: _cache[10] || (_cache[10] = ($event) => $data.dirty = true)
-      }, toHandlers($options.listeners)), null, 16, _hoisted_7)), [
+        onBlurOnce: _cache[11] || (_cache[11] = ($event) => $data.dirty = true)
+      }, toHandlers($options.listeners)), null, 16, _hoisted_6)), [
         [vModelDynamic, $data.localValue]
       ])
     ], 64)),
@@ -2185,7 +2202,7 @@ function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
         anyInvalid: $data.anyInvalid,
         errors: $options.errorMessages
       })))
-    ], 10, _hoisted_8)) : createCommentVNode("", true),
+    ], 10, _hoisted_7)) : createCommentVNode("", true),
     $data.dirty && $options.errorMessages.length ? (openBlock(), createElementBlock("div", {
       key: 4,
       id: `${_ctx.id}__errors`,
@@ -2197,7 +2214,7 @@ function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
           class: normalizeClass(["vts-input__error", $props.classes.error])
         }, toDisplayString(error), 3);
       }), 128))
-    ], 10, _hoisted_9)) : createCommentVNode("", true)
+    ], 10, _hoisted_8)) : createCommentVNode("", true)
   ], 2);
 }
 var VInput = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["render", _sfc_render$7]]);
