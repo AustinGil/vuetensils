@@ -381,9 +381,10 @@ body .live-preview pre {
 }
 
 .VueLivePreview {
-  border: 1px solid #222;
+  border: 1px solid #666;
   border-start-start-radius: 0.5rem;
   border-start-end-radius: 0.5rem;
+  background: Canvas;
 }
 
 /* Fixes top left logo proportions */
