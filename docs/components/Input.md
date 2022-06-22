@@ -200,7 +200,6 @@ The simplest validation method is to pass an object to the `errors` prop. The ob
     max="10"
     :errors="{
       required: 'This field is required.',
-      type: 'Must be an email.',
       min: (min) => `Must be greater than ${min}.`,
       max: (max) => `Must be less than ${max}.`,
     }"
