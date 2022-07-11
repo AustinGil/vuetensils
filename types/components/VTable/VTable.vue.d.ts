@@ -57,11 +57,11 @@ declare const _default: {
         localPerPage: number;
     };
     computed: {
-        /** @return {ComputedHeader[]} */
+        /** @returns {ComputedHeader[]} */
         computedHeaders(): any[];
-        /** @return {Array} */
+        /** @returns {Array} */
         computedItems(): any[];
-        /** @return {number} */
+        /** @returns {number} */
         lastPage(): number;
     };
     watch: {
@@ -83,13 +83,13 @@ declare const _default: {
          * @param a
          * @param b
          * @param {boolean} isAscending
-         * @return {number}
+         * @returns {number}
          */
         defaultComparisonFn(a: any, b: any, isAscending: any): number;
         onSort(key: any): void;
         /**
          * @param page
-         * @return {void}
+         * @returns {void}
          */
         goToPage(page: any): void;
     };

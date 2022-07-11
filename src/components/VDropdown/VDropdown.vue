@@ -11,6 +11,7 @@
       :aria-expanded="!!isHovered || !!isFocused"
       aria-haspopup="true"
       :class="['vts-dropdown__trigger', classes.trigger]"
+      type="button"
       @click="isFocused = !isFocused"
     >
       <!-- @slot The content within the trigger button -->

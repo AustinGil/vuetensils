@@ -137,7 +137,8 @@ function _sfc_render$g(_ctx, _cache, $props, $setup, $data, $options) {
             key: 0,
             "aria-label": $props.dismissLabel,
             class: normalizeClass(["vts-alert__dismiss", $props.classes.dismiss]),
-            onClick: _cache[0] || (_cache[0] = (...args) => $options.dismiss && $options.dismiss(...args))
+            onClick: _cache[0] || (_cache[0] = (...args) => $options.dismiss && $options.dismiss(...args)),
+            type: "button"
           }, [
             renderSlot(_ctx.$slots, "dismiss", {}, () => [
               _hoisted_2$a
@@ -1371,7 +1372,8 @@ function _sfc_render$b(_ctx, _cache, $props, $setup, $data, $options) {
       "aria-expanded": !!_ctx.isHovered || !!_ctx.isFocused,
       "aria-haspopup": "true",
       class: normalizeClass(["vts-dropdown__trigger", $props.classes.trigger]),
-      onClick: _cache[0] || (_cache[0] = ($event) => _ctx.isFocused = !_ctx.isFocused)
+      onClick: _cache[0] || (_cache[0] = ($event) => _ctx.isFocused = !_ctx.isFocused),
+      type: "button"
     }, [
       renderSlot(_ctx.$slots, "trigger", {}, () => [
         createTextVNode(toDisplayString($props.text), 1)
@@ -2741,7 +2743,7 @@ function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
                           "vts-table__sort-btn--asc",
                           $props.classes.sortBtn
                         ]
-                      }, header.sortBtn.bind, toHandlers(header.sortBtn.on)), " \u2191 ", 16)
+                      }, header.sortBtn.bind, { type: "button" }, toHandlers(header.sortBtn.on)), " \u2191 ", 16)
                     ]) : header.key === $data.localSortBy && $data.localSortDirection === "DESC" ? renderSlot(_ctx.$slots, "sort-desc", normalizeProps(mergeProps({ key: 1 }, header.sortBtn)), () => [
                       createElementVNode("button", mergeProps({
                         class: [
@@ -2749,11 +2751,11 @@ function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
                           "vts-table__sort-btn--desc",
                           $props.classes.sortBtn
                         ]
-                      }, header.sortBtn.bind, toHandlers(header.sortBtn.on)), " \u2193 ", 16)
+                      }, header.sortBtn.bind, { type: "button" }, toHandlers(header.sortBtn.on)), " \u2193 ", 16)
                     ]) : renderSlot(_ctx.$slots, "sort-none", normalizeProps(mergeProps({ key: 2 }, header.sortBtn)), () => [
                       createElementVNode("button", mergeProps({
                         class: ["vts-table__sort-btn", $props.classes.sortBtn]
-                      }, header.sortBtn.bind, toHandlers(header.sortBtn.on)), " \u2195 ", 16)
+                      }, header.sortBtn.bind, { type: "button" }, toHandlers(header.sortBtn.on)), " \u2195 ", 16)
                     ])
                   ], 64)) : createCommentVNode("", true)
                 ])
@@ -2818,6 +2820,7 @@ function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
           disabled: $data.localPage === 1,
           "aria-label": "go to previous page",
           class: normalizeClass(["vts-table__prev", $props.classes.previous]),
+          type: "button",
           onClick: _cache[0] || (_cache[0] = ($event) => $options.goToPage($data.localPage - 1))
         }, " Prev ", 10, _hoisted_2$2),
         createElementVNode("ul", {
@@ -2840,6 +2843,7 @@ function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
                   { "vts-table__page--current": pageNum === $data.localPage },
                   $props.classes.page
                 ]),
+                type: "button",
                 onClick: ($event) => $options.goToPage(pageNum)
               }, toDisplayString(pageNum), 11, _hoisted_3$1)
             ], 2);
@@ -2849,6 +2853,7 @@ function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
           disabled: $data.localPage === $options.lastPage,
           "aria-label": "go to next page",
           class: normalizeClass(["vts-table__next", $props.classes.next]),
+          type: "button",
           onClick: _cache[1] || (_cache[1] = ($event) => $options.goToPage($data.localPage + 1))
         }, " Next ", 10, _hoisted_4)
       ], 2)) : createCommentVNode("", true)

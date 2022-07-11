@@ -39,7 +39,9 @@
           :id="`${id}__caption`"
           :class="[classes.caption]"
         >
-          {{ caption }}
+          {{
+            caption
+          }}
         </caption>
 
         <thead v-if="computedHeaders.length" :class="[classes.thead]">
@@ -74,6 +76,7 @@
                         classes.sortBtn,
                       ]"
                       v-bind="header.sortBtn.bind"
+                      type="button"
                       v-on="header.sortBtn.on"
                     >
                       &uarr;
@@ -83,7 +86,7 @@
                   <slot
                     v-else-if="
                       header.key === localSortBy &&
-                        localSortDirection === 'DESC'
+                      localSortDirection === 'DESC'
                     "
                     name="sort-desc"
                     v-bind="header.sortBtn"
@@ -95,6 +98,7 @@
                         classes.sortBtn,
                       ]"
                       v-bind="header.sortBtn.bind"
+                      type="button"
                       v-on="header.sortBtn.on"
                     >
                       &darr;
@@ -105,6 +109,7 @@
                     <button
                       :class="['vts-table__sort-btn', classes.sortBtn]"
                       v-bind="header.sortBtn.bind"
+                      type="button"
                       v-on="header.sortBtn.on"
                     >
                       ↕
@@ -182,6 +187,7 @@
           :disabled="localPage === 1"
           aria-label="go to previous page"
           :class="['vts-table__prev', classes.previous]"
+          type="button"
           @click="goToPage(localPage - 1)"
         >
           Prev
@@ -204,6 +210,7 @@
                 { 'vts-table__page--current': pageNum === localPage },
                 classes.page,
               ]"
+              type="button"
               @click="goToPage(pageNum)"
             >
               {{ pageNum }}
@@ -214,6 +221,7 @@
           :disabled="localPage === lastPage"
           aria-label="go to next page"
           :class="['vts-table__next', classes.next]"
+          type="button"
           @click="goToPage(localPage + 1)"
         >
           Next
@@ -266,7 +274,7 @@ export default {
     sortDirection: {
       type: String,
       default: '',
-      validator: direction => {
+      validator: (direction) => {
         return new Set(['ASC', 'DESC', '']).has(direction.toUpperCase());
       },
     },
@@ -298,12 +306,12 @@ export default {
   },
 
   computed: {
-    /** @return {ComputedHeader[]} */
+    /** @returns {ComputedHeader[]} */
     computedHeaders() {
       const { headers, sortable, localSortBy, localSortDirection } = this;
       const computedHeaders = [];
 
-      headers.forEach(header => {
+      headers.forEach((header) => {
         /** @type {ComputedHeader} */
         const computedHeader = {
           ...header,
@@ -333,7 +341,7 @@ export default {
       return computedHeaders;
     },
 
-    /** @return {Array} */
+    /** @returns {Array} */
     computedItems() {
       const {
         computedHeaders,
@@ -347,7 +355,7 @@ export default {
       let computedItems = [...items];
 
       if (localSortBy && localSortDirection) {
-        const targetColumn = computedHeaders.find(header => {
+        const targetColumn = computedHeaders.find((header) => {
           return header.key === localSortBy;
         });
 
@@ -369,7 +377,7 @@ export default {
       return computedItems;
     },
 
-    /** @return {number} */
+    /** @returns {number} */
     lastPage() {
       return Math.ceil(this.items.length / +this.perPage);
     },
@@ -417,7 +425,7 @@ export default {
      * @param a
      * @param b
      * @param {boolean} isAscending
-     * @return {number}
+     * @returns {number}
      */
     defaultComparisonFn(a, b, isAscending) {
       const { localSortBy } = this;
@@ -460,7 +468,7 @@ export default {
 
     /**
      * @param page
-     * @return {void}
+     * @returns {void}
      */
     goToPage(page) {
       const { lastPage } = this;
