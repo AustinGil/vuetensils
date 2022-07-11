@@ -14,6 +14,7 @@
         :aria-label="dismissLabel"
         :class="['vts-alert__dismiss', classes.dismiss]"
         @click="dismiss"
+        type="button"
       >
         <!-- @slot The dismiss button content -->
         <slot name="dismiss">&times;</slot>
