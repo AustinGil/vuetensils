@@ -77,7 +77,6 @@
     ]
   ],
   "dependencies": {
-    "codemirror": "^5.65.5",
     "vue-demi": "^0.12.4"
   },
   "peerDependencies": {

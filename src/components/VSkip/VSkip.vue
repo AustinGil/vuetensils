@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style>
-.vts-skip {
+:where(.vts-skip) {
   position: fixed;
   z-index: 1000;
   inset-block-start: 0;
@@ -57,7 +57,7 @@ export default {
   background-color: #fff;
 }
 
-.vts-skip:focus {
+:where(.vts-skip:focus) {
   inset-inline-start: 0;
 }
 </style>

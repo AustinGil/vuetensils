@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style>
-.vts-btn__form {
+:where(.vts-btn__form) {
   display: inline;
 }
 </style>

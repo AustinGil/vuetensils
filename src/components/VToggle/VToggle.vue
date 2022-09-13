@@ -124,7 +124,7 @@ export default {
 </script>
 
 <style>
-.vts-toggle__content {
+:where(.vts-toggle__content) {
   transition: 300ms ease block-size;
 }
 </style>

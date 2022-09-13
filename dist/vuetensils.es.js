@@ -1372,8 +1372,8 @@ function _sfc_render$b(_ctx, _cache, $props, $setup, $data, $options) {
       "aria-expanded": !!_ctx.isHovered || !!_ctx.isFocused,
       "aria-haspopup": "true",
       class: normalizeClass(["vts-dropdown__trigger", $props.classes.trigger]),
-      onClick: _cache[0] || (_cache[0] = ($event) => _ctx.isFocused = !_ctx.isFocused),
-      type: "button"
+      type: "button",
+      onClick: _cache[0] || (_cache[0] = ($event) => _ctx.isFocused = !_ctx.isFocused)
     }, [
       renderSlot(_ctx.$slots, "trigger", {}, () => [
         createTextVNode(toDisplayString($props.text), 1)

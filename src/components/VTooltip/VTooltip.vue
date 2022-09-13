@@ -68,18 +68,18 @@ export default {
 </script>
 
 <style>
-.vts-tooltip {
+:where(.vts-tooltip) {
   position: relative;
 }
 
-.vts-tooltip__content {
+:where(.vts-tooltip__content) {
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 50%;
   transform: translate(-50%, -100%);
 }
 
-.vts-tooltip__content[aria-hidden='true'] {
+:where(.vts-tooltip__content[aria-hidden='true']) {
   display: none;
 }
 </style>

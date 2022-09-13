@@ -506,11 +506,11 @@ export default {
 </script>
 
 <style>
-.vtd-date {
+:where(.vtd-date) {
   position: relative;
 }
 
-.vts-date__navigation {
+:where(.vts-date__navigation) {
   display: flex;
   justify-content: space-around;
 }

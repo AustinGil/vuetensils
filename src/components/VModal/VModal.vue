@@ -197,27 +197,24 @@ export default {
 </script>
 
 <style>
-.vts-modal {
+:where(.vts-modal) {
   display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;
   z-index: 100;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   background: rgba(0, 0, 0, 0.2);
 }
 
-.vts-modal [tabindex='-1']:focus {
-  outline: 0;
-}
-
-.vts-modal__content {
+:where(.vts-modal__content) {
   overflow: auto;
   max-width: 70vw;
   max-height: 80vh;
   background: #fff;
+}
+
+:where(.vts-modal__content:focus) {
+  outline: 0;
 }
 </style>

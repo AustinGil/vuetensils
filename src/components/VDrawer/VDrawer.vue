@@ -243,23 +243,23 @@ export default {
 </script>
 
 <style>
-.vts-drawer {
+:where(.vts-drawer) {
   position: fixed;
   z-index: 100;
   inset: 0;
 }
 
-.vts-drawer__content {
+:where(.vts-drawer__content) {
   overflow: auto;
   max-inline-size: 20rem;
   block-size: 100%;
 }
 
-.vts-drawer__content:focus {
+:where(.vts-drawer__content:focus) {
   outline: 0;
 }
 
-.vts-drawer__content--right {
+:where(.vts-drawer__content--right) {
   margin-inline-start: auto;
 }
 </style>

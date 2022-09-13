@@ -107,18 +107,18 @@ export default {
 </script>
 
 <style>
-.vts-dropdown {
+:where(.vts-dropdown) {
   display: inline-block;
   position: relative;
 }
 
-.vts-dropdown__content {
+:where(.vts-dropdown__content) {
   position: absolute;
   z-index: 5;
   min-inline-size: 100%;
 }
 
-.vts-dropdown__content--top {
+:where(.vts-dropdown__content--top) {
   inset-block-start: 0;
   transform: translateY(-100%);
 }

@@ -201,32 +201,32 @@ export default {
 </script>
 
 <style>
-.vts-img {
+:where(.vts-img) {
   display: inline-block;
   position: relative;
 }
 
-.vts-img img {
+:where(.vts-img) img {
   vertical-align: top;
 }
 
-.vts-img__placeholder {
+:where(.vts-img__placeholder) {
   position: absolute;
   overflow: hidden;
 }
 
-.vts-img__placeholder img {
+:where(.vts-img__placeholder) img {
   transform: scale(1.05);
   filter: blur(10px);
 }
 
-.vts-img__img {
+:where(.vts-img__img) {
   opacity: 0;
   transition-property: opacity;
   transition-timing-function: ease;
 }
 
-.vts-img--loaded .vts-img__img {
+.vts-img--loaded :where(.vts-img__img) {
   opacity: 1;
 }
 </style>

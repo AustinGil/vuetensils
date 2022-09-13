@@ -252,7 +252,7 @@ export default {
 </script>
 
 <style>
-.vts-dialog {
+:where(.vts-dialog) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -261,7 +261,7 @@ export default {
   inset: 0;
 }
 
-.vts-dialog__content:focus {
+:where(.vts-dialog__content:focus) {
   outline: 0;
 }
 </style>
