@@ -22,6 +22,7 @@ declare const _default: {
             default: any;
         };
     };
+    emits: string[];
     data(): {
         pending: boolean;
         results: any;

@@ -164,6 +164,7 @@ const _sfc_main$i = {
       default: void 0
     }
   },
+  emits: ["pending", "resolve", "reject", "finally"],
   data() {
     return {
       pending: false,

@@ -25,6 +25,7 @@ export default {
       default: undefined,
     },
   },
+  emits: ['pending', 'resolve', 'reject', 'finally'],
 
   data() {
     return {
@@ -68,7 +69,7 @@ export default {
       this.error = null;
 
       return promise
-        .then(results => {
+        .then((results) => {
           this.results =
             typeof results === 'undefined' ? this.default : results;
           /**
@@ -79,7 +80,7 @@ export default {
            */
           this.$emit('resolve', results);
         })
-        .catch(error => {
+        .catch((error) => {
           if (error instanceof Error) {
             error = {
               name: error.name,
