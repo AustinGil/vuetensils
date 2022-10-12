@@ -57,7 +57,7 @@ Features:
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.slide-right-enter,
+.slide-right-enter-from,
 .slide-right-leave-to {
   opacity: 0;
   transform: translateX(-100%);
@@ -218,7 +218,7 @@ export default {
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.slide-right-enter,
+.slide-right-enter-from,
 .slide-right-leave-to {
   opacity: 0;
   transform: translateX(-100%);
