@@ -479,23 +479,23 @@ export default {
 </script>
 
 <style>
-:where(.vts-table table) {
+.vts-table table {
   inline-size: 100%;
   table-layout: fixed;
 }
 
-:where(.vts-table__pagination),
-:where(.vts-table__pages) {
+.vts-table__pagination,
+.vts-table__pages {
   display: flex;
 }
 
-:where(.vts-table__pagination) {
+.vts-table__pagination {
   align-items: center;
   justify-content: center;
 }
 
-:where(.vts-table__pages),
-:where(.vts-table__page-item) {
+.vts-table__pages,
+.vts-table__page-item {
   display: contents;
   list-style-type: none;
 }

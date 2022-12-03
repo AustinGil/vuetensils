@@ -1,6 +1,6 @@
 <template>
   <form
-    :method="$attrs.method || 'POST'"
+    :method="/** @type {{method?: string}} */ ($attrs).method || 'POST'"
     :class="[
       'vts-form',
       {
@@ -44,7 +44,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    /** @type {import('vue').PropOptions<Object>} */
+    /** @type {import('vue').Prop<Record<string, string>>} */
     errors: {
       type: Object,
       default: () => ({}),

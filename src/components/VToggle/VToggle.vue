@@ -6,7 +6,7 @@
       type="button"
       :disabled="disabled"
       :aria-controls="`${id}-content`"
-      :aria-expanded="String(isOpen)"
+      :aria-expanded="isOpen"
       :class="['vts-toggle__label', classes.label]"
       @click="isOpen = !isOpen"
       v-on="listeners"
@@ -124,7 +124,7 @@ export default {
 </script>
 
 <style>
-:where(.vts-toggle__content) {
+.vts-toggle__content {
   transition: 300ms ease block-size;
 }
 </style>

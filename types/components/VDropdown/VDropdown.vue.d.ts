@@ -19,6 +19,7 @@ declare const _default: {
         position: {
             type: StringConstructor;
             default: string;
+            /** @param {string} value */
             validator(value: any): boolean;
         };
         /**

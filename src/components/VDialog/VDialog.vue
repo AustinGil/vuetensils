@@ -219,6 +219,7 @@ export default {
         this.localShow = false;
       }
       if (event.keyCode === KEYCODES.TAB) {
+        /** @type {HTMLDivElement} */
         const content = this.$refs.content;
         if (!content) return;
 
@@ -252,7 +253,7 @@ export default {
 </script>
 
 <style>
-:where(.vts-dialog) {
+.vts-dialog {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -261,7 +262,7 @@ export default {
   inset: 0;
 }
 
-:where(.vts-dialog__content:focus) {
+.vts-dialog__content:focus {
   outline: 0;
 }
 </style>

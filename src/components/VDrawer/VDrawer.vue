@@ -210,6 +210,7 @@ export default {
         this.localShow = false;
       }
       if (event.keyCode === KEYCODES.TAB) {
+        /** @type {HTMLDivElement} */
         const content = this.$refs.content;
         if (!content) return;
 
@@ -243,23 +244,23 @@ export default {
 </script>
 
 <style>
-:where(.vts-drawer) {
+.vts-drawer {
   position: fixed;
   z-index: 100;
   inset: 0;
 }
 
-:where(.vts-drawer__content) {
+.vts-drawer__content {
   overflow: auto;
   max-inline-size: 20rem;
   block-size: 100%;
 }
 
-:where(.vts-drawer__content:focus) {
+.vts-drawer__content:focus {
   outline: 0;
 }
 
-:where(.vts-drawer__content--right) {
+.vts-drawer__content--right {
   margin-inline-start: auto;
 }
 </style>

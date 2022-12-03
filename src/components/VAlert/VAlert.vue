@@ -13,8 +13,8 @@
         v-if="dismissible"
         :aria-label="dismissLabel"
         :class="['vts-alert__dismiss', classes.dismiss]"
-        @click="dismiss"
         type="button"
+        @click="dismiss"
       >
         <!-- @slot The dismiss button content -->
         <slot name="dismiss">&times;</slot>
@@ -138,7 +138,7 @@ export default {
 
     countdown() {
       const { modelValue } = this;
-      if (modelValue <= 0) return;
+      if (typeof modelValue !== 'number' || modelValue <= 0) return;
       this.timerId = setTimeout(() => {
         /**
          * Fired whenever the visibility changes. Either through user interaction, or a countdown timer

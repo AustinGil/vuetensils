@@ -15,7 +15,7 @@
     <span
       :id="`${id}__content`"
       role="tooltip"
-      :aria-hidden="!show + ''"
+      :aria-hidden="!show"
       :class="[
         'vts-tooltip__content',
         {
@@ -68,18 +68,18 @@ export default {
 </script>
 
 <style>
-:where(.vts-tooltip) {
+.vts-tooltip {
   position: relative;
 }
 
-:where(.vts-tooltip__content) {
+.vts-tooltip__content {
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 50%;
   transform: translate(-50%, -100%);
 }
 
-:where(.vts-tooltip__content[aria-hidden='true']) {
+.vts-tooltip__content[aria-hidden='true'] {
   display: none;
 }
 </style>

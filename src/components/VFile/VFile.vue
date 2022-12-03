@@ -147,16 +147,16 @@ export default {
 </script>
 
 <style>
-:where(.vts-file__dropzone) {
+.vts-file__dropzone {
   position: relative;
 }
 
-:where(.vts-file__overlay) {
+.vts-file__overlay {
   position: absolute;
   inset: 0;
 }
 
-input:focus ~ :where(.vts-file__dropzone) {
+input:focus ~ .vts-file__dropzone {
   outline-width: 1px;
   outline-style: auto;
   outline-color: Highlight;

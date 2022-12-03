@@ -55,6 +55,7 @@ export default {
     position: {
       type: String,
       default: 'bottom',
+      /** @param {string} value */
       validator(value) {
         return ['top', 'bottom'].includes(value);
       },
@@ -107,18 +108,18 @@ export default {
 </script>
 
 <style>
-:where(.vts-dropdown) {
+.vts-dropdown {
   display: inline-block;
   position: relative;
 }
 
-:where(.vts-dropdown__content) {
+.vts-dropdown__content {
   position: absolute;
   z-index: 5;
   min-inline-size: 100%;
 }
 
-:where(.vts-dropdown__content--top) {
+.vts-dropdown__content--top {
   inset-block-start: 0;
   transform: translateY(-100%);
 }

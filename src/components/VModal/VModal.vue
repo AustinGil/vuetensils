@@ -197,7 +197,7 @@ export default {
 </script>
 
 <style>
-:where(.vts-modal) {
+.vts-modal {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -207,14 +207,14 @@ export default {
   background: rgba(0, 0, 0, 0.2);
 }
 
-:where(.vts-modal__content) {
+.vts-modal__content {
   overflow: auto;
   max-width: 70vw;
   max-height: 80vh;
   background: #fff;
 }
 
-:where(.vts-modal__content:focus) {
+.vts-modal__content:focus {
   outline: 0;
 }
 </style>

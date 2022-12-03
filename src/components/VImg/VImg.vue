@@ -157,19 +157,21 @@ export default {
     getDataUrl() {
       if (typeof window === 'undefined') return;
 
+      /** @type {import('vue').ImgHTMLAttributes} */
       const { width, height } = this.$attrs;
       if (!width || !height) return '';
 
       const w = 100;
       const canvas = document.createElement('canvas');
       canvas.width = w;
-      canvas.height = (height / width) * w;
+      canvas.height = (+height / +width) * w;
 
       return canvas.toDataURL();
     },
 
     loadImg() {
       const { src, srcset } = this;
+      /** @type {{ img?: HTMLImageElement }} */
       const { img } = this.$refs;
 
       img.addEventListener('load', this.onLoad);
@@ -182,6 +184,7 @@ export default {
 
     onLoad() {
       const { $el } = this;
+      /** @type {{ img?: HTMLImageElement, placeholder?: HTMLImageElement }} */
       const { img, placeholder } = this.$refs;
 
       $el.classList.remove(`${NAME}--loading`);
@@ -201,32 +204,32 @@ export default {
 </script>
 
 <style>
-:where(.vts-img) {
+.vts-img {
   display: inline-block;
   position: relative;
 }
 
-:where(.vts-img) img {
+.vts-img img {
   vertical-align: top;
 }
 
-:where(.vts-img__placeholder) {
+.vts-img__placeholder {
   position: absolute;
   overflow: hidden;
 }
 
-:where(.vts-img__placeholder) img {
+.vts-img__placeholder img {
   transform: scale(1.05);
   filter: blur(10px);
 }
 
-:where(.vts-img__img) {
+.vts-img__img {
   opacity: 0;
   transition-property: opacity;
   transition-timing-function: ease;
 }
 
-.vts-img--loaded :where(.vts-img__img) {
+.vts-img--loaded .vts-img__img {
   opacity: 1;
 }
 </style>

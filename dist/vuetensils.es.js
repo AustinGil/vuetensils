@@ -105,7 +105,7 @@ const _sfc_main$j = {
     },
     countdown() {
       const { modelValue } = this;
-      if (modelValue <= 0)
+      if (typeof modelValue !== "number" || modelValue <= 0)
         return;
       this.timerId = setTimeout(() => {
         this.$emit("update:modelValue", modelValue - 1);
@@ -137,8 +137,8 @@ function _sfc_render$g(_ctx, _cache, $props, $setup, $data, $options) {
             key: 0,
             "aria-label": $props.dismissLabel,
             class: normalizeClass(["vts-alert__dismiss", $props.classes.dismiss]),
-            onClick: _cache[0] || (_cache[0] = (...args) => $options.dismiss && $options.dismiss(...args)),
-            type: "button"
+            type: "button",
+            onClick: _cache[0] || (_cache[0] = (...args) => $options.dismiss && $options.dismiss(...args))
           }, [
             renderSlot(_ctx.$slots, "dismiss", {}, () => [
               _hoisted_2$a
@@ -287,7 +287,7 @@ function _sfc_render$f(_ctx, _cache, $props, $setup, $data, $options) {
       return openBlock(), createElementBlock("input", {
         key,
         value,
-        name: key,
+        name: String(key),
         type: "hidden",
         hidden: "",
         autocomplete: "off",
@@ -576,11 +576,11 @@ const _sfc_main$g = {
       const minDate = new Date(min);
       const maxDate = new Date(max);
       if (min) {
-        disableNav.prevYear = focusedDate.getYear() <= minDate.getYear();
+        disableNav.prevYear = focusedDate.getFullYear() <= minDate.getFullYear();
         disableNav.prevMonth = focusedDate.getMonth() <= minDate.getMonth();
       }
       if (max) {
-        disableNav.nextYear = focusedDate.getYear() >= maxDate.getYear();
+        disableNav.nextYear = focusedDate.getFullYear() >= maxDate.getFullYear();
         disableNav.nextMonth = focusedDate.getMonth() >= maxDate.getMonth();
       }
       return disableNav;
@@ -1820,7 +1820,7 @@ const _sfc_main$a = {
       const w = 100;
       const canvas = document.createElement("canvas");
       canvas.width = w;
-      canvas.height = height / width * w;
+      canvas.height = +height / +width * w;
       return canvas.toDataURL();
     },
     loadImg() {
@@ -3115,7 +3115,7 @@ function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
       type: "button",
       disabled: $props.disabled,
       "aria-controls": `${_ctx.id}-content`,
-      "aria-expanded": String($data.isOpen),
+      "aria-expanded": $data.isOpen,
       class: ["vts-toggle__label", $props.classes.label],
       onClick: _cache[0] || (_cache[0] = ($event) => $data.isOpen = !$data.isOpen)
     }, toHandlers($options.listeners)), [
@@ -3198,7 +3198,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       createElementVNode("span", {
         id: `${$props.id}__content`,
         role: "tooltip",
-        "aria-hidden": !_ctx.show + "",
+        "aria-hidden": !_ctx.show,
         class: normalizeClass([
           "vts-tooltip__content",
           {

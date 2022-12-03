@@ -6,7 +6,7 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
-        /** @type {import('vue').PropOptions<Object>} */
+        /** @type {import('vue').Prop<Record<string, string>>} */
         errors: {
             type: ObjectConstructor;
             default: () => {};

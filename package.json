@@ -7,15 +7,14 @@
     "email": "hey@austingil.com",
     "url": "https://austingil.com"
   },
-  "homepage": "https://vuetensils.stegosource.com",
+  "homepage": "https://vuetensils.com",
   "license": "MIT",
   "main": "dist/vuetensils.umd.js",
   "module": "dist/vuetensils.es.js",
   "files": [
     "/src",
     "/dist",
-    "/types",
-    "/vetur"
+    "/types"
   ],
   "typings": "types",
   "repository": {
@@ -33,7 +32,6 @@
     "lint:diff": "eslint $(git diff --name-only -- src/*.vue src/*.js docs/*.vue docs/*.js)",
     "ts": "tsc",
     "audit": "npm run lint:diff && npm run test:unit",
-    "vint": "vue-int --input src/components --output vetur --recursive",
     "build": "vue-typegen gen -s src -o types && vite build",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",

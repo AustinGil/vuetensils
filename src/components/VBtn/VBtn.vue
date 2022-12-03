@@ -11,7 +11,7 @@
       v-for="(value, key) in data"
       :key="key"
       :value="value"
-      :name="key"
+      :name="String(key)"
       type="hidden"
       hidden
       autocomplete="off"
@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style>
-:where(.vts-btn__form) {
+.vts-btn__form {
   display: inline;
 }
 </style>

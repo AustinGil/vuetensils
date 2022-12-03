@@ -295,17 +295,20 @@ export default {
     },
 
     disableNav() {
+      /** @type {typeof this & { focusedDate?: Date, min?: Date, max?: Date }} */
       const { focusedDate, min, max } = this;
       const disableNav = {};
       const minDate = new Date(min);
       const maxDate = new Date(max);
 
       if (min) {
-        disableNav.prevYear = focusedDate.getYear() <= minDate.getYear();
+        disableNav.prevYear =
+          focusedDate.getFullYear() <= minDate.getFullYear();
         disableNav.prevMonth = focusedDate.getMonth() <= minDate.getMonth();
       }
       if (max) {
-        disableNav.nextYear = focusedDate.getYear() >= maxDate.getYear();
+        disableNav.nextYear =
+          focusedDate.getFullYear() >= maxDate.getFullYear();
         disableNav.nextMonth = focusedDate.getMonth() >= maxDate.getMonth();
       }
       return disableNav;
@@ -506,11 +509,11 @@ export default {
 </script>
 
 <style>
-:where(.vtd-date) {
+.vtd-date {
   position: relative;
 }
 
-:where(.vts-date__navigation) {
+.vts-date__navigation {
   display: flex;
   justify-content: space-around;
 }
