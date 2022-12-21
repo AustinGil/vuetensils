@@ -60,6 +60,9 @@ Adds a button that can show/hide dropdown content when it is hovered over, or cl
 Dialog background colors have been removed. The following styles have been added to this site to make the dialogs easier to see:
 
 ```css
+.color-black {
+  color: #000;
+}
 .bg-white {
   background-color: #FFF;
 }
@@ -70,7 +73,7 @@ Dialog background colors have been removed. The following styles have been added
 ```vue live
 <template>
   <VDropdown text="Show me what you got!">
-    <div class="bg-white">
+    <div class="color-black bg-white">
       <p>This will close on click-out or focus-out.</p>
       <p>Try keyboard navigation.</p>
       <nav>
@@ -90,7 +93,7 @@ Dialog background colors have been removed. The following styles have been added
 ```vue live
 <template>
   <VDropdown text="Show me what you got!" position="top">
-    <div class="bg-white">
+    <div class="color-black bg-white">
       Here is the dropdown content.
     </div>
   </VDropdown>
@@ -102,7 +105,7 @@ Dialog background colors have been removed. The following styles have been added
 ```vue live
 <template>
   <VDropdown text="Show me what you got!" transition="slide-up">
-    <div class="bg-white">
+    <div class="color-black bg-white">
       Here is the dropdown content.
     </div>
   </VDropdown>

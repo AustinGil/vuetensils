@@ -1,8 +1,8 @@
 // const fs = require('fs');
 // const path = require('path');
-const { defaultTheme } = require('@vuepress/theme-default')
-const vuepressPluginLive = require('./vuepress-plugin-live/index.js')
-const pkg = require('../../package.json')
+import { defineUserConfig, defaultTheme } from 'vuepress'
+import vuepressPluginLive from './vuepress-plugin-live/index.js'
+import pkg from '../../package.json'
 
 // const vueDocs = require("vue-docgen-api")
 
@@ -21,7 +21,7 @@ const title = 'Vuetensils'
 //   path.join(__dirname, "../../src/components/VAlert/VAlert.vue")
 // )
 
-module.exports = {
+export default defineUserConfig({
   title: title,
   description: pkg.description,
   head: [
@@ -132,4 +132,4 @@ module.exports = {
     //   },
     // ],
   ],
-};
+});

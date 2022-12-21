@@ -1,9 +1,8 @@
 // https://github.com/vue-styleguidist/vuepress-plugin-live/blob/master/markDownPlugin.js
-const { path } = require('@vuepress/utils')
+import { path } from '@vuepress/utils'
 // const { parseComponent } = require("vue-template-compiler");
 // const { isCodeVueSfc, compile } = require("vue-inbrowser-compiler");
 // const getImports = require("./getImports");
-
 
 const LivePlugin = (app) => {
   return {

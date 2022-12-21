@@ -118,6 +118,7 @@ export default {
   border-radius: 7px;
   padding: 20px;
   font-family: sans-serif;
+  color: #000;
   background: #FFF;
   transition: 0.3s ease transform;
 }
@@ -142,10 +143,12 @@ export default {
 Dialog background colors have been removed. The following styles have been added to this site to make the dialogs easier to see:
 
 ```css
+.color-black {
+  color: #000;
+}
 .bg-white {
   background-color: #FFF;
 }
-
 .bg-black-alpha .vts-modal {
   background: rgba(0, 0, 0, 0.2);
 }
@@ -162,7 +165,7 @@ Dialog background colors have been removed. The following styles have been added
       </button>
     </template>
 
-    <div class="bg-white">
+    <div class="color-black bg-white">
       This is the dialog content.
     </div>
   </VDialog>
@@ -183,7 +186,7 @@ export default {
 <template>
   <div>
     <VDialog v-model="dialog" :classes="{ bg: 'bg-black-alpha' }">
-      <div class="bg-white">
+      <div class="color-black bg-white">
         This is the dialog content.
       </div>
     </VDialog>
@@ -208,7 +211,7 @@ export default {
 <template>
   <div>
     <VDialog v-model="dialog" :classes="{ bg: 'bg-black-alpha' }">
-      <div class="bg-white">
+      <div class="color-black bg-white">
         This is the dialog content.<br />
         <button @click="dialog = false">
           Close
@@ -241,7 +244,7 @@ export default {
       </button>
     </template>
 
-    <div class="bg-white">
+    <div class="color-black bg-white">
       This is the dialog content.
     </div>
   </VDialog>
@@ -259,7 +262,7 @@ export default {
       bg-transition="fade"
       :classes="{ bg: 'bg-black-alpha' }"
     >
-      <div class="bg-white">
+      <div class="color-black bg-white">
         This is the dialog content.<br />
         It traps the user focus.<br />
         <button @click="dialog = false">

@@ -204,14 +204,12 @@ export default {
   position: fixed;
   z-index: 100;
   inset: 0;
-  background: rgba(0, 0, 0, 0.2);
 }
 
 .vts-modal__content {
   overflow: auto;
   max-width: 70vw;
   max-height: 80vh;
-  background: #fff;
 }
 
 .vts-modal__content:focus {

@@ -68,17 +68,18 @@ Features:
 
 NOTE: drawer background colors have been removed.
 
-To add background colors to the content, you chave 3 options:
+To add background colors to the content, you have 3 options:
 
 1. Use the provided `.vts-drawer__content` class to add a background color:
    ```css
    .vts-drawer__content {
+     color: #000;
      background: #FFF;
    }
    ```
 2. Use the `classes` prop object to provide a custom class:
    ```vue
-   <VDrawer :classes="{ content: 'bg-white' }">
+   <VDrawer :classes="{ content: 'color-black bg-white' }">
     ...
    </VDrawer>
    ```
@@ -91,6 +92,7 @@ To add background colors to the content, you chave 3 options:
    ```css
    .sidebar {
      height: 100%;
+     color: #000;
      background: #FFF;
    }
    ```
@@ -100,10 +102,12 @@ To add background colors to the content, you chave 3 options:
 The following styles have been added to **this site** to make the drawers easier to see:
 
 ```css
+.color-black {
+  color: #000;
+}
 .bg-white {
   background-color: #FFF;
 }
-
 .bg-black-alpha {
   background: rgba(0, 0, 0, 0.2);
 }
@@ -111,7 +115,7 @@ The following styles have been added to **this site** to make the drawers easier
 
 ```vue live
 <template>
-  <VDrawer :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }">
+  <VDrawer :classes="{ bg: 'bg-black-alpha', content: 'color-black bg-white' }">
     <template #toggle="{ bind, on }">
       <button v-bind="bind" v-on="on">
         Toggle Drawer
@@ -130,7 +134,7 @@ The following styles have been added to **this site** to make the drawers easier
   <div>
     <VDrawer
       v-model="drawer"
-      :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }"
+      :classes="{ bg: 'bg-black-alpha', content: 'color-black bg-white' }"
     >
       My drawer content
     </VDrawer>
@@ -154,7 +158,7 @@ export default {
 
 ```vue live
 <template>
-  <VDrawer right :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }">
+  <VDrawer right :classes="{ bg: 'bg-black-alpha', content: 'color-black bg-white' }">
     <template #toggle="{ bind, on }">
       <button v-bind="bind" v-on="on">
         Toggle Drawer
@@ -170,7 +174,7 @@ export default {
 
 ```vue live
 <template>
-  <VDrawer no-scroll :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }">
+  <VDrawer no-scroll :classes="{ bg: 'bg-black-alpha', content: 'color-black bg-white' }">
     <template #toggle="{ bind, on }">
       <button v-bind="bind" v-on="on">
         Toggle Drawer
@@ -189,7 +193,7 @@ export default {
   <VDrawer
     transition="slide-right"
     bg-transition="fade"
-    :classes="{ bg: 'bg-black-alpha', content: 'bg-white' }"
+    :classes="{ bg: 'bg-black-alpha', content: 'color-black bg-white' }"
   >
     <template #toggle="{ bind, on }">
       <button v-bind="bind" v-on="on">

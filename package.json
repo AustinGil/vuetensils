@@ -23,9 +23,6 @@
   },
   "scripts": {
     "dev": "npm run docs:dev",
-    "test": "npm run test:unit",
-    "test:unit": "jest --coverage",
-    "testing": "jest --watch",
     "pa11y": "concurrently -k \"npm run docs:dev\" \"wait-on http://localhost:8080 && pa11y-ci --config=.pa11yci.js\"",
     "eslint": "eslint src/**/*.{js,ts,vue,tsx,jsx}",
     "lint": "eslint --no-error-on-unmatched-pattern src/**/*.{js,ts,vue,tsx,jsx,css,scss,md} docs/**/*.{js,ts,vue,tsx,jsx,css,scss,md}",
@@ -39,92 +36,45 @@
     "release": "release-it",
     "deploy": "release-it"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts,vue}": [
-      "eslint --fix src",
-      "git add"
-    ]
-  },
-  "ManifestComments": [
-    "Pinned jest to 24.9.0. 25.1.0+ is broken on Windows. Waiting for issue #9459 to be resolved.",
-    "Pinned vuepress-plugin-live to 1.4.2 because 1.5.3 broke the following examples in the docs:",
-    [
-      "http://localhost:8080/components/Async.html#call-promise-using-refs",
-      "http://localhost:8080/components/Dialog.html#prevent-scrolling",
-      "http://localhost:8080/components/Drawer.html#styled-examples",
-      "http://localhost:8080/components/Drawer.html#examples",
-      "http://localhost:8080/components/Drawer.html#using-v-model",
-      "http://localhost:8080/components/Drawer.html#right-aligned",
-      "http://localhost:8080/components/Drawer.html#prevent-page-scroll",
-      "http://localhost:8080/components/Drawer.html#add-transitions",
-      "http://localhost:8080/components/File.html#custom-dropzone-content",
-      "http://localhost:8080/components/Form.html#styled-example",
-      "http://localhost:8080/components/Form.html#form-status",
-      "http://localhost:8080/components/Form.html#clearing-inputs",
-      "http://localhost:8080/components/Input.html#styled-example",
-      "http://localhost:8080/components/Intersect.html#using-a-scoped-slot",
-      "http://localhost:8080/components/Resize.html#styled-example",
-      "http://localhost:8080/components/Toggle.html#scoped-slots",
-      "http://localhost:8080/directives/clickout.html#usage",
-      "http://localhost:8080/directives/intersect.html#default-behavior"
-    ]
-  ],
   "dependencies": {
-    "vue-demi": "^0.12.4"
-  },
-  "peerDependencies": {
-    "@vue/composition-api": "^1.4.3",
-    "vue": "^2.0.0 || >=3.0.0"
-  },
-  "peerDependenciesMeta": {
-    "@vue/composition-api": {
-      "optional": true
-    }
+    "vue-demi": "^0.13.11"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.17.0",
-    "@faker-js/faker": "^6.0.0",
-    "@testing-library/jest-dom": "^5.11.8",
-    "@testing-library/user-event": "^13.5.0",
-    "@testing-library/vue": "^6.5.1",
-    "@typescript-eslint/eslint-plugin": "^5.15.0",
-    "@vitejs/plugin-vue": "^2.3.3",
-    "@vue/test-utils": "^2.0.0",
+    "@babel/eslint-parser": "^7.19.1",
+    "@faker-js/faker": "^7.6.0",
+    "@typescript-eslint/eslint-plugin": "^5.47.0",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/test-utils": "^2.2.6",
+    "@vuepress/client": "^2.0.0-beta.59",
     "@vuepress/plugin-google-analytics": "^1.9.7",
-    "commitizen": "^4.2.1",
-    "concurrently": "^7.0.0",
+    "commitizen": "^4.2.6",
+    "concurrently": "^7.6.0",
     "cz-conventional-changelog": "^3.2.0",
-    "eslint": "^8.11.0",
+    "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jsdoc": "^38.0.6",
-    "eslint-plugin-markdown": "^2.2.1",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-vue": "^8.5.0",
-    "eslint-plugin-vuejs-accessibility": "^1.1.1",
-    "husky": "^4.3.8",
-    "lint-staged": "^12.4.3",
+    "eslint-plugin-jsdoc": "^39.6.4",
+    "eslint-plugin-markdown": "^3.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.8.0",
+    "eslint-plugin-vuejs-accessibility": "^2.0.0",
+    "lefthook": "^1.2.6",
     "pa11y-ci": "^3.0.1",
-    "prettier": "^2.6.2",
-    "release-it": "^14.12.5",
-    "stylelint": "^14.8.5",
+    "prettier": "^2.8.1",
+    "release-it": "^15.5.1",
+    "stylelint": "^14.16.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
-    "typescript": "^4.7.2",
-    "vite": "^2.9.9",
-    "vue": "^3.2.31",
-    "vue-docgen-api": "^4.47.0",
-    "vue-inbrowser-compiler": "^4.44.24",
-    "vue-live": "^2.0.1",
-    "vue-router": "^4.0.14",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.2",
+    "vue": "^3.2.45",
+    "vue-docgen-api": "^4.56.0",
+    "vue-inbrowser-compiler": "^4.55.0",
+    "vue-live": "^2.3.2",
+    "vue-router": "^4.1.6",
     "vue-typegen": "^0.2.0",
-    "vuepress": "^2.0.0-beta.48",
-    "vuepress-plugin-live": "^1.4.2",
-    "wait-on": "^6.0.1"
+    "vuepress": "^2.0.0-beta.59",
+    "vuepress-plugin-live": "^1.6.2",
+    "wait-on": "^7.0.1"
   },
   "keywords": [
     "vue",

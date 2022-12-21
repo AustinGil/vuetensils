@@ -85,6 +85,7 @@ export default {
 
 .vts-tabs [role="tab"][aria-selected="true"] {
   border-bottom-color: #FFF;
+  color: #000;
   background: #FFF;
 }
 

@@ -30,6 +30,10 @@ body .live-preview pre {
   text-align: center;
 }
 
+.color-black {
+  color: #000;
+}
+
 .bg-white {
   background-color: #FFF;
 }
@@ -238,6 +242,7 @@ body .live-preview pre {
   border-radius: 7px;
   padding: 20px;
   font-family: sans-serif;
+  color: #000;
   background: #FFF;
   transition: 0.3s ease transform;
 }
@@ -282,6 +287,7 @@ body .live-preview pre {
 
 .styled.vts-tabs [role="tab"][aria-selected="true"] {
   border-bottom-color: #FFF;
+  color: #000;
   background: #FFF;
 }
 
@@ -364,6 +370,7 @@ body .live-preview pre {
 }
 
 .VueLive-container {
+  display: flex;
   flex-direction: column-reverse;
 }
 

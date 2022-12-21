@@ -54,6 +54,7 @@ Keyboard navigation to the tabs only targets active tab. `right` key activates n
 
 .vts-tabs [role="tab"][aria-selected="true"] {
   border-bottom-color: #FFF;
+  color: #000;
   background: #FFF;
 }
 
