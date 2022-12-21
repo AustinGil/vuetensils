@@ -101,3 +101,5 @@ declare const _default: {
     };
 };
 export default _default;
+export declare const notEmpty = ".*\\S.*";
+export declare const email = "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/";
