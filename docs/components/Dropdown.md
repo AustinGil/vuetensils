@@ -18,9 +18,8 @@ Adds a button that can show/hide dropdown content when it is hovered over, or cl
     </div>
   </VDropdown>
 </template>
-```
 
-```css
+<style>
 .vts-dropdown__trigger {
   border: 0;
   border-radius: 5px;
@@ -30,29 +29,26 @@ Adds a button that can show/hide dropdown content when it is hovered over, or cl
   background: #008484;
   transition: 0.5s ease border-radius;
 }
-
-.vts-dropdown__trigger[aria-expanded] {
+.vts-dropdown__trigger[aria-expanded="true"] {
   border-radius: 5px 5px 0 0;
 }
-
 .dropdown-content {
   border: 1px solid #008484;
   border-radius: 0 0 5px 5px;
   padding: 10px;
   background-color: #FFF;
 }
-
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
 .slide-up-enter,
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(10px);
 }
+</style>
 ```
 
 ## NOTE:
@@ -110,20 +106,18 @@ Dialog background colors have been removed. The following styles have been added
     </div>
   </VDropdown>
 </template>
-```
-
-```css
+<style>
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
 .slide-up-enter,
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(10px);
 }
+</style>
 ```
 
 ## Custom Classes

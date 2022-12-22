@@ -24,7 +24,7 @@
         ]"
         role="tab"
         type="button"
-        @keydown="onKeydown($event, tab, index)"
+        @keydown="onKeydown"
         @click="onClick($event, tab, index)"
       >
         <slot :name="tab" />
@@ -86,7 +86,9 @@ export default {
       default: undefined,
     },
     orientation: {
-      type: String,
+      type: /** @type {import('vue').PropType<'horizontal'|'vertical'>} */ (
+        String
+      ),
       default: 'horizontal',
     },
 
@@ -136,7 +138,7 @@ export default {
       }
       this.activeIndex = index;
     },
-    onKeydown(event, tab, index) {
+    onKeydown(event) {
       const { keyCode } = event;
       const oldIndex = this.activeIndex;
       switch (keyCode) {
@@ -160,11 +162,13 @@ export default {
       }
 
       if (oldIndex !== this.activeIndex) {
-        this.$nextTick(() => this.$emit('tabChange', { 
-          event, 
-          tab: this.tablist[this.activeIndex], 
-          index: this.activeIndex 
-        }));
+        this.$nextTick(() =>
+          this.$emit('tabChange', {
+            event,
+            tab: this.tablist[this.activeIndex],
+            index: this.activeIndex,
+          })
+        );
       }
     },
 

@@ -33,34 +33,29 @@ Keyboard navigation to the tabs only targets active tab. `right` key activates n
     </template>
   </VTabs>
 </template>
-```
-
-```css
+<style>
 .vts-tabs {
   overflow: hidden;
   border: 1px solid #CCC;
   border-radius: 0.25rem;
 }
-
 .vts-tabs [role="tablist"] {
   display: flex;
 }
-
 .vts-tabs [role="tab"] {
   flex-grow: 1;
   border: 0;
   padding: 0.5rem;
 }
-
 .vts-tabs [role="tab"][aria-selected="true"] {
   border-bottom-color: #FFF;
   color: #000;
   background: #FFF;
 }
-
 .vts-tabs [role="tabpanel"] {
   padding: 1rem;
 }
+</style>
 ```
 
 ## Basic Usage

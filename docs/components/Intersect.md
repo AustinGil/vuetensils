@@ -42,9 +42,7 @@ export default {
   },
 };
 </script>
-```
-
-```css
+<style>
 .intersection-content {
   display: flex;
   align-items: center;
@@ -52,6 +50,7 @@ export default {
   height: 50vh;
   border: 1px solid;
 }
+</style>
 ```
 
 ## Using a scoped slot

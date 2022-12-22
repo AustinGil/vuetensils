@@ -28,40 +28,35 @@ Features:
     </VDrawer>
   </div>
 </template>
-```
 
-```css
+<style>
 .vts-drawer {
   background: rgba(0, 0, 255, 0.5);
 }
-
 .vts-drawer__content {
   padding: 20px;
   color: #FFF;
   background: #222;
   transition: 0.3s ease transform;
 }
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;
 }
-
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
 }
-
 .slide-right-enter-active,
 .slide-right-leave-active {
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
 .slide-right-enter-from,
 .slide-right-leave-to {
   opacity: 0;
   transform: translateX(-100%);
 }
+</style>
 ```
 
 ## Styling
@@ -204,29 +199,25 @@ export default {
     My drawer content
   </VDrawer>
 </template>
-```
-
-```css
+<style>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;
 }
-
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
 }
-
 .slide-right-enter-active,
 .slide-right-leave-active {
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
 .slide-right-enter-from,
 .slide-right-leave-to {
   opacity: 0;
   transform: translateX(-100%);
 }
+</style>
 ```
 
 ## Custom Classes

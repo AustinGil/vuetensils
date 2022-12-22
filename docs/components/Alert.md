@@ -21,17 +21,19 @@ Features:
     </VAlert>
   </div>
 </template>
-```
 
-```css
+<style>
 .vts-alert.error {
-  border: 1px solid currentColor;
+  border: 2px solid currentColor;
   border-radius: 4px;
   padding: 0 10px;
   color: #900;
   background: #FDD;
 }
+</style>
 ```
+
+<br>
 
 ```vue live
 <template>
@@ -41,14 +43,13 @@ Features:
     </VAlert>
   </div>
 </template>
-```
 
-```css
+<style>
 .vts-alert.info {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid currentColor;
+  border: 2px solid currentColor;
   border-radius: 4px;
   padding: 10px;
   color: #009;
@@ -60,6 +61,7 @@ Features:
   font: inherit;
   background: transparent;
 }
+</style>
 ```
 
 ## Unstyled Examples
@@ -193,18 +195,16 @@ export default {
   }),
 };
 </script>
-```
-
-```css
+<style>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;
 }
-
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
 }
+</style>
 ```
 
 ## Custom Classes

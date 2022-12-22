@@ -90,31 +90,6 @@ body .live-preview pre {
   transform: translateY(10px);
 }
 
-.vts-alert.error {
-  border: 1px solid currentColor;
-  border-radius: 4px;
-  padding: 0 10px;
-  color: #900;
-  background: #FDD;
-}
-
-.vts-alert.info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid currentColor;
-  border-radius: 4px;
-  padding: 10px;
-  color: #009;
-  background: #DFF;
-}
-
-.vts-alert.info .vts-alert__dismiss {
-  border: 0;
-  font: inherit;
-  background: transparent;
-}
-
 .styled .vts-drawer {
   background: rgba(0, 0, 255, 0.5);
 }
@@ -136,7 +111,7 @@ body .live-preview pre {
   transition: 0.5s ease border-radius;
 }
 
-.styled .vts-dropdown__trigger[aria-expanded] {
+.styled .vts-dropdown__trigger[aria-expanded="true"] {
   border-radius: 5px 5px 0 0;
 }
 

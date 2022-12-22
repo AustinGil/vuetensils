@@ -48,35 +48,29 @@ export default {
   }
 };
 </script>
-```
 
-```css
+<style>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;
 }
-
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
 }
-
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
 .slide-up-enter,
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(10px);
 }
-
 .my-dialog .vts-dialog {
   background: rgba(0, 0, 0, 0.7);
 }
-
 .my-dialog .vts-dialog__content {
   position: relative;
   border-radius: 7px;
@@ -86,12 +80,10 @@ export default {
   background: #FFF;
   transition: 0.3s ease transform;
 }
-
 .my-dialog .fade-enter .vts-dialog__content,
 .my-dialog .fade-leave-active .vts-dialog__content {
   transform: translateY(20px);
 }
-
 .my-dialog__close {
   position: absolute;
   top: 5px;
@@ -100,6 +92,7 @@ export default {
   padding: 5px;
   background: transparent;
 }
+</style>
 ```
 
 ## NOTE:
@@ -236,30 +229,26 @@ export default {
   }),
 };
 </script>
-```
-
-```css
+<style>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;
 }
-
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
 }
-
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
 .slide-up-enter,
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(10px);
 }
+</style>
 ```
 
 ## Custom Classes

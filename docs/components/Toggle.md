@@ -14,9 +14,8 @@ Toggle the visibility of content. Useful for something like an FAQ page, for exa
     </div>
   </VToggle>
 </template>
-```
 
-```css
+<style>
 .vts-toggle__button {
   display: block;
   width: 100%;
@@ -27,11 +26,11 @@ Toggle the visibility of content. Useful for something like an FAQ page, for exa
   color: #FFF;
   background-color: mediumseagreen;
 }
-
 .toggle-content {
   border: 1px solid #CCC;
   padding: 5px;
 }
+</style>
 ```
 
 ## Basic Usage
