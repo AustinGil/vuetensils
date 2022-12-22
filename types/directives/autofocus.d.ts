@@ -1,4 +1,4 @@
 declare namespace _default {
-    export const inserted: import('vue').DirectiveFunction;
+    const inserted: any;
 }
 export default _default;

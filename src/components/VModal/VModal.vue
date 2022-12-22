@@ -24,13 +24,15 @@
 </template>
 
 <script>
-import KEYCODES from '../../data/keycodes';
-import FOCUSABLE from '../../data/focusable';
+import KEYCODES from '../../data/keycodes.js';
+import FOCUSABLE from '../../data/focusable.js';
 
 /**
  * A modal/dialogue component for showing users content which overlays the rest of the applications. When opened, it traps the user's focus so that keyboard navigation will remain within the modal until it is closed. It supports being closed by clicking outside the modal content or pressing the ESC key.
  */
 export default {
+  name: 'VModal',
+
   model: {
     prop: 'showing',
     event: 'change',
@@ -60,14 +62,14 @@ export default {
      */
     width: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     /**
      * CSS max-width to set the modal to.
      */
     maxWidth: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     /**
      * Prevents the page from being scrolled while the modal is open.
@@ -78,14 +80,14 @@ export default {
      */
     transition: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     /**
      * Transition name to apply to the background.
      */
     bgTransition: {
       type: String,
-      default: undefined
+      default: undefined,
     },
 
     classes: {
@@ -114,7 +116,7 @@ export default {
 
   mounted() {
     console.warn(
-      'Vuetensil\'s VModal is deprecated. Please use VDialog instead.'
+      "Vuetensil's VModal is deprecated. Please use VDialog instead."
     );
   },
 
@@ -201,15 +203,8 @@ export default {
   justify-content: center;
   position: fixed;
   z-index: 100;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   background: rgba(0, 0, 0, 0.2);
-}
-
-.vts-modal [tabindex="-1"]:focus {
-  outline: 0;
 }
 
 .vts-modal__content {
@@ -217,5 +212,9 @@ export default {
   max-width: 70vw;
   max-height: 80vh;
   background: #fff;
+}
+
+.vts-modal__content:focus {
+  outline: 0;
 }
 </style>

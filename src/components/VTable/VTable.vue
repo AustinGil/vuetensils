@@ -1,114 +1,216 @@
 <template>
-  <!--
-    <div className="lists-container">
+  <div
+    ref="container"
+    role="region"
+    aria-labelledby="caption"
+    :class="['vts-table', { 'vts-table--sortable': sortable }, classes.root]"
+  >
+    <!-- <div className="lists-container">
       <h2 v-if="caption">
         {{ caption }}
       </h2>
-      <div v-for="item in cItems" :key="item.id">
-        <h3>{{ "todo header" }}</h3>
-        <dl>
-          {this.props.headers.map((header, i) =>
-              i > 0 &&
-              <React.Fragment key={i}>
-                <dt>{header}</dt>
-                <dd>{row[i]}</dd>
-              </React.Fragment>
-            )}
-        </dl>
-      </div>
-    </div>
-  -->
+      <dl v-for="item in computedItems" :key="item.id">
+        <template v-for="(header, index) in computedHeaders">
+          <dt :key="`${header.key}-term`">
+            {{ header.text || header.key }}:
+          </dt>
+          <dd :key="`${header.key}-definition`">
+            {{ computedItems[index][header.key] }}
+          </dd>
+        </template>
+      </dl>
+    </div> -->
 
-  <div
-    ref="container"
-    class="vts-table"
-    role="group"
-    aria-labelledby="caption"
-  >
+    <!-- :tabindex="tabindex" -->
     <table :class="[classes.table]">
-      <caption v-if="caption" id="caption" :class="[classes.caption]">
-        {{ caption }}
-      </caption>
-      <thead v-if="headers.length" :class="[classes.thead]">
-        <tr :class="[classes.tr]">
-          <th
-            v-for="(header, key) in cHeaders"
-            :key="key"
-            :aria-sort="ariaSort(header)"
-            :class="[classes.th]"
-          >
-            {{ header.text || header.key }}
+      <slot
+        v-bind="{
+          caption,
+          headers: computedHeaders,
+          items: computedItems,
+          sortBy: localSortBy,
+          sortDirection: localSortDirection,
+          page: localPage,
+          perPage: localPerPage,
+        }"
+      >
+        <caption
+          v-if="caption"
+          :id="`${id}__caption`"
+          :class="[classes.caption]"
+        >
+          {{
+            caption
+          }}
+        </caption>
 
-            <button
-              v-if="header.sortable"
-              :aria-label="ariaLabel(header)"
-              :class="[classes.sortBtn]"
-              @click="onSort(header.key)"
+        <thead v-if="computedHeaders.length" :class="[classes.thead]">
+          <tr :class="[classes.tr]">
+            <th
+              v-for="(header, index) in computedHeaders"
+              :key="header.key"
+              v-bind="header.bind"
+              :class="[classes.th]"
             >
-              <template v-if="header.key === sortBy && sortOrder === 'ASC'">
-                &uarr;
-              </template>
-              <template
-                v-else-if="header.key === sortBy && sortOrder === 'DESC'"
+              <slot
+                :name="`header.${header.key}`"
+                v-bind="{
+                  header,
+                  index,
+                }"
               >
-                &darr;
-              </template>
-              <template v-else>
-                ↕
-              </template>
-            </button>
-          </th>
-        </tr>
-      </thead>
-      <tbody :class="[classes.tbody]">
-        <slot v-bind="{ items: cItems, ...$data, perPage }">
-          <tr
-            v-for="(item, index) in cItems"
-            :key="item.id"
-            tabindex="0"
-            :class="[classes.tr]"
-            @click="emitRowClick(item)"
-            @keyup="emitRowClick(item)"
-          >
-            <slot
-              v-for="(value, key) in item.data"
-              :name="items[index].id ? `row.${items[index].id}` : null"
-              v-bind="{ item, column: key, row: index + 1 }"
-            >
-              <td :key="key" :class="[classes.td]">
-                <slot
-                  :name="`column.${key}`"
-                  v-bind="{ cell: value, item, column: key, row: index + 1 }"
-                >
-                  {{ value }}
-                </slot>
-              </td>
-            </slot>
-          </tr>
-        </slot>
-      </tbody>
+                {{ header.text || header.key }}
 
-      <!-- <tfoot v-if="$slots.tfoot">
-        <slot name="tfoot" />
-      </tfoot> -->
+                <template v-if="header.sortable">
+                  <slot
+                    v-if="
+                      header.key === localSortBy && localSortDirection === 'ASC'
+                    "
+                    name="sort-asc"
+                    v-bind="header.sortBtn"
+                  >
+                    <button
+                      :class="[
+                        'vts-table__sort-btn',
+                        'vts-table__sort-btn--asc',
+                        classes.sortBtn,
+                      ]"
+                      v-bind="header.sortBtn.bind"
+                      type="button"
+                      v-on="header.sortBtn.on"
+                    >
+                      &uarr;
+                    </button>
+                  </slot>
+
+                  <slot
+                    v-else-if="
+                      header.key === localSortBy &&
+                      localSortDirection === 'DESC'
+                    "
+                    name="sort-desc"
+                    v-bind="header.sortBtn"
+                  >
+                    <button
+                      :class="[
+                        'vts-table__sort-btn',
+                        'vts-table__sort-btn--desc',
+                        classes.sortBtn,
+                      ]"
+                      v-bind="header.sortBtn.bind"
+                      type="button"
+                      v-on="header.sortBtn.on"
+                    >
+                      &darr;
+                    </button>
+                  </slot>
+
+                  <slot v-else name="sort-none" v-bind="header.sortBtn">
+                    <button
+                      :class="['vts-table__sort-btn', classes.sortBtn]"
+                      v-bind="header.sortBtn.bind"
+                      type="button"
+                      v-on="header.sortBtn.on"
+                    >
+                      ↕
+                    </button>
+                  </slot>
+                </template>
+              </slot>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody :class="[classes.tbody]">
+          <slot
+            name="body"
+            v-bind="{
+              items: computedItems,
+              sortBy: localSortBy,
+              sortDirection: localSortDirection,
+              page: localPage,
+              perPage: localPerPage,
+            }"
+          >
+            <tr
+              v-for="(item, index) in computedItems"
+              :key="item.id"
+              :class="['vts-table__row', classes.tr]"
+            >
+              <slot name="row" v-bind="{ item, index, row: index + 1 }">
+                <!-- <td 
+                  v-for="(value, key) in item"
+                  :key="key"
+                  :class="[classes.td]"
+                > -->
+                <td
+                  v-for="column in computedHeaders"
+                  :key="column.key"
+                  :class="[classes.td]"
+                >
+                  <slot
+                    :name="`column.${column.key}`"
+                    v-bind="{
+                      item,
+                      index: (localPage - 1) * localPerPage + index,
+                      row: index + 1,
+                      key: column.key,
+                      column: column.key,
+                      value: item[column.key],
+                      cell: item[column.key],
+                      data: item[column.key],
+                    }"
+                  >
+                    {{ item[column.key] }}
+                  </slot>
+                </td>
+              </slot>
+            </tr>
+          </slot>
+        </tbody>
+
+        <tfoot v-if="$slots.tfoot" :class="[classes.tfoot]">
+          <slot name="tfoot" />
+        </tfoot>
+      </slot>
     </table>
 
-    <slot name="pagination" v-bind="{ currentPage, lastPage, goToPage }">
-      <div v-if="lastPage > 1" :class="[classes.pagination]">
+    <slot
+      name="pagination"
+      v-bind="{ page: localPage, perPage: localPerPage, lastPage, goToPage }"
+    >
+      <div
+        v-if="lastPage > 1"
+        :class="['vts-table__pagination', classes.pagination]"
+      >
         <button
-          :disabled="currentPage === 1"
+          :disabled="localPage === 1"
           aria-label="go to previous page"
-          :class="[classes.previous]"
-          @click="goToPage(currentPage - 1)"
+          :class="['vts-table__prev', classes.previous]"
+          type="button"
+          @click="goToPage(localPage - 1)"
         >
           Prev
         </button>
-        <ul :class="[classes.pageList]">
-          <li v-for="pageNum in lastPage" :key="pageNum" :class="[classes.pageItem]">
+        <ul :class="['vts-table__pages', classes.pageList]">
+          <li
+            v-for="pageNum in lastPage"
+            :key="pageNum"
+            :class="[
+              'vts-table__page-item',
+              { 'vts-table__page-item--current': pageNum === localPage },
+              classes.pageItem,
+            ]"
+          >
             <button
-              :disabled="pageNum === currentPage"
+              :disabled="pageNum === localPage"
               :aria-label="`go to page ${pageNum}`"
-              :class="[classes.page]"
+              :class="[
+                'vts-table__page',
+                { 'vts-table__page--current': pageNum === localPage },
+                classes.page,
+              ]"
+              type="button"
               @click="goToPage(pageNum)"
             >
               {{ pageNum }}
@@ -116,10 +218,11 @@
           </li>
         </ul>
         <button
-          :disabled="currentPage === lastPage"
+          :disabled="localPage === lastPage"
           aria-label="go to next page"
-          :class="[classes.next]"
-          @click="goToPage(currentPage + 1)"
+          :class="['vts-table__next', classes.next]"
+          type="button"
+          @click="goToPage(localPage + 1)"
         >
           Next
         </button>
@@ -129,181 +232,274 @@
 </template>
 
 <script>
+import { randomString } from '../../utils.js';
+
+/**
+ * @typedef {{ key: string, text: string, sortable: boolean, sort: (a, b, isAscending: boolean) => number }} Header
+ * @typedef {Header & { bind: object, sortBtn: object }} ComputedHeader
+ */
+
 export default {
   name: 'VTable',
+  provide() {
+    return {
+      $table: this,
+    };
+  },
   props: {
+    /** @type {import('vue').PropOptions<Header[]>} */
     headers: {
       type: Array,
       default: () => [],
     },
+    /** @type {import('vue').PropOptions<Object[]>} */
     items: {
       type: Array,
       default: () => [],
     },
     page: {
-      type: Number,
+      type: [Number, String],
       default: 1,
     },
     perPage: {
-      type: Number,
-      default: 100,
+      type: [Number, String],
+      default: -1,
     },
-    orderBy: {
+    sortBy: {
       type: String,
-      default: null,
+      default: '',
     },
-    order: {
+    /** @type {import('vue').PropOptions<'ASC'|'DESC'>} */
+    // @ts-ignore
+    sortDirection: {
       type: String,
-      default: null,
+      default: '',
+      validator: (direction) => {
+        return new Set(['ASC', 'DESC', '']).has(direction.toUpperCase());
+      },
+    },
+    id: {
+      type: String,
+      default: 'vts-' + randomString(4),
     },
     caption: {
       type: String,
       default: '',
     },
-    // TODO: sortable prop
+    sortable: Boolean,
+    classes: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   data() {
     return {
-      sortBy: this.orderBy,
-      sortOrder: this.order && this.order.toUpperCase(),
-      currentPage: this.page,
-      tabindex: null,
+      localSortBy: this.sortBy,
+      localSortDirection: this.sortDirection
+        ? this.sortDirection.toUpperCase()
+        : '',
+      localPage: Number(this.page),
+      localPerPage: Number(this.perPage),
+      // tabindex: null,
     };
   },
 
   computed: {
-    cHeaders() {
-      return this.headers.reduce((headers, item) => {
-        /* eslint-disable-next-line no-param-reassign */
-        headers[item.key] = {
-          sortable: true,
-          ...item,
+    /** @returns {ComputedHeader[]} */
+    computedHeaders() {
+      const { headers, sortable, localSortBy, localSortDirection } = this;
+      const computedHeaders = [];
+
+      headers.forEach((header) => {
+        /** @type {ComputedHeader} */
+        const computedHeader = {
+          ...header,
+          bind: {},
+          sortBtn: {
+            bind: { 'aria-label': `toggle sort direction` },
+            on: { click: () => this.onSort(header.key) },
+          },
         };
-        return headers;
-      }, {});
-    },
 
-    cItems() {
-      const { items, sortBy, sortOrder, currentPage, perPage, cHeaders } = this;
+        if (computedHeader.sortable === undefined) {
+          computedHeader.sortable = !!computedHeader.sort || sortable;
+        }
 
-      let cItems = items.map(original => {
-        const data = {};
-        Object.keys(cHeaders).forEach(key => {
-          data[key] = original[key];
-        });
-        return {
-          original,
-          data,
-        };
-      });
-
-      if (sortBy && sortOrder) {
-        const multiplier = sortOrder === 'ASC' ? 1 : -1;
-        const isNum = Number.isFinite(cItems[0].data[sortBy]);
-
-        cItems = cItems.sort((a, b) => {
-          const aVal = a.data[sortBy];
-          const bVal = b.data[sortBy];
-
-          if (isNum) {
-            return (aVal - bVal) * multiplier;
+        if (computedHeader.sortable) {
+          if (localSortBy === header.key && localSortDirection) {
+            if (localSortDirection === 'ASC') {
+              computedHeader.bind['aria-sort'] = 'ascending';
+            } else {
+              computedHeader.bind['aria-sort'] = 'descending';
+            }
           }
+        }
 
-          if (aVal < bVal) return -1 * multiplier;
-          if (aVal > bVal) return 1 * multiplier;
-          return 0;
+        computedHeaders.push(computedHeader);
+      });
+      return computedHeaders;
+    },
+
+    /** @returns {Array} */
+    computedItems() {
+      const {
+        computedHeaders,
+        items,
+        localSortBy,
+        localSortDirection,
+        localPage,
+        localPerPage,
+      } = this;
+
+      let computedItems = [...items];
+
+      if (localSortBy && localSortDirection) {
+        const targetColumn = computedHeaders.find((header) => {
+          return header.key === localSortBy;
+        });
+
+        let compareFn = this.defaultComparisonFn;
+        if (typeof targetColumn.sort === 'function') {
+          compareFn = targetColumn.sort;
+        }
+
+        computedItems = computedItems.sort((a, b) => {
+          return compareFn(a, b, localSortDirection === 'ASC');
         });
       }
 
-      if (perPage > -1) {
-        const offset = (Math.max(currentPage, 1) - 1) * perPage;
-        cItems = cItems.slice(offset, offset + perPage);
+      if (localPerPage > -1) {
+        const offset = (Math.max(localPage, 1) - 1) * localPerPage;
+        computedItems = computedItems.slice(offset, offset + localPerPage);
       }
 
-      return cItems;
+      return computedItems;
     },
 
+    /** @returns {number} */
     lastPage() {
-      return Math.ceil(this.items.length / this.perPage);
+      return Math.ceil(this.items.length / +this.perPage);
     },
   },
 
-  mounted() {
-    const { scrollWidth, clientWidth } = this.$refs.container;
-    const scrollable = scrollWidth > clientWidth;
-    this.tabindex = scrollable ? '0' : null;
+  watch: {
+    /** @param {string} value */
+    sortBy(value) {
+      this.localSortBy = value;
+    },
+    localSortBy(value) {
+      this.$emit('update:sort-by', value);
+    },
+    /** @param {string} value */
+    sortDirection(value) {
+      this.localSortDirection = (value && value.toUpperCase()) || '';
+    },
+    localSortDirection(value) {
+      this.$emit('update:sort-direction', value);
+    },
+    /** @param {string | number} value */
+    page(value) {
+      this.localPage = Number(value);
+    },
+    localPage(value) {
+      this.$emit('update:page', value);
+    },
+    /** @param {string | number} value */
+    perPage(value) {
+      this.localPerPage = Number(value);
+    },
+    localPerPage(value) {
+      this.$emit('update:per-page', value);
+    },
   },
+
+  // mounted() {
+  //   const { scrollWidth, clientWidth } = this.$refs.container;
+  //   const scrollable = scrollWidth > clientWidth;
+  //   this.tabindex = scrollable ? '0' : null;
+  // },
 
   methods: {
-    onSort(key) {
-      const { sortBy, sortOrder } = this;
-      this.currentPage = 1;
+    /**
+     * @param a
+     * @param b
+     * @param {boolean} isAscending
+     * @returns {number}
+     */
+    defaultComparisonFn(a, b, isAscending) {
+      const { localSortBy } = this;
+      const multiplier = isAscending ? 1 : -1;
 
-      if (key !== sortBy) {
-        this.sortBy = key;
-        this.sortOrder = 'ASC';
+      const aVal = a[localSortBy];
+      const bVal = b[localSortBy];
+
+      const isNumeric = Number.isFinite(aVal) && Number.isFinite(bVal);
+
+      if (isNumeric) {
+        return (aVal - bVal) * multiplier;
+      }
+      if (aVal < bVal) return -1 * multiplier;
+      if (aVal > bVal) return 1 * multiplier;
+      return 0;
+    },
+
+    onSort(key) {
+      const { localSortBy, localSortDirection } = this;
+      this.localPage = 1;
+
+      if (key !== localSortBy) {
+        this.localSortBy = key;
+        this.localSortDirection = 'ASC';
         return;
       }
 
-      switch (sortOrder) {
+      switch (localSortDirection) {
         case 'ASC':
-          this.sortOrder = 'DESC';
+          this.localSortDirection = 'DESC';
           break;
         case 'DESC':
-          this.sortOrder = null;
+          this.localSortDirection = '';
           break;
         default:
-          this.sortOrder = 'ASC';
+          this.localSortDirection = 'ASC';
       }
     },
 
+    /**
+     * @param page
+     * @returns {void}
+     */
     goToPage(page) {
       const { lastPage } = this;
-      this.currentPage = Math.min(Math.max(1, page), lastPage);
-    },
-
-    emitRowClick(item) {
-      this.$emit('click:row', item.original); // eslint-disable-line vue/custom-event-name-casing
-    },
-
-    ariaSort(header) {
-      let order = 'descending';
-
-      if (this.sortBy !== header.key) {
-        order = null;
-      } else if (this.sortOrder === 'ASC') {
-        order = 'ascending';
-      }
-
-      return order;
-    },
-    ariaLabel(header) {
-      let order = 'default';
-
-      if (!this.sortOrder) {
-        order = 'ascending';
-      } else if (this.sortOrder === 'ASC') {
-        order = 'descending';
-      }
-
-      return [
-        'sort by',
-        header.text || header.key,
-        'in',
-        order,
-        'order'
-      ].join(' ');
+      this.localPage = Math.min(Math.max(1, page), lastPage);
     },
   },
 };
 </script>
 
 <style>
-.vts-table {
-  overflow-x: auto;
+.vts-table table {
+  inline-size: 100%;
+  table-layout: fixed;
 }
-@media (min-width: 400px) {
+
+.vts-table__pagination,
+.vts-table__pages {
+  display: flex;
+}
+
+.vts-table__pagination {
+  align-items: center;
+  justify-content: center;
+}
+
+.vts-table__pages,
+.vts-table__page-item {
+  display: contents;
+  list-style-type: none;
+}
+/* @media (min-width: 400px) {
   .vts-table {
     display: block;
   }
@@ -311,5 +507,5 @@ export default {
   .lists-container {
     display: none;
   }
-}
+} */
 </style>

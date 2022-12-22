@@ -2,5 +2,5 @@ export default {
   /**
    * @type {import('vue').DirectiveFunction}
    */
-  inserted: el => el.focus(),
+  inserted: (el) => el.focus(),
 };

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VAlert Default Functionality render correctly without props 1`] = `
+<div
+  class="vts-alert"
+  role="alert"
+>
+   
+  <!---->
+</div>
+`;

@@ -2,43 +2,16 @@
 
 A functional component for logically rendering the appropriate actionable elements: `<RouterLink>`, `<a>`, or `<button>`. At first glance, this may not be a particularly helpful component, but it really simplifies list rendering.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VBtn/VBtn.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VBtn/VBtn.vue)
 
 Features:
 
 - Renders a `<button>` by default.
 - Renders a [`<RouterLink>`](https://router.vuejs.org/api/#router-link) when provided a `to` prop.
 - Renders an `<a>` link when provided a `href` prop.
+- Renders an `<form>` link when provided an `action` and `data` prop.
 - Adds `type="button"` to `<button>` elements.
 - Adds `rel="noopener"` to links with `target="blank"`
-
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VBtn } from 'vuetensils/src/components';
-
-Vue.component('VBtn', VBtn);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VBtn } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VBtn,
-  },
-  // ...
-};
-</script>
-```
 
 ## Button Example (Default)
 
@@ -78,13 +51,44 @@ export default {
 </template>
 ```
 
+## Form Example
+
+```vue live
+<script>
+export default {
+  methods: {
+    async onSubmit(event) {
+      console.log(event); // a standard form submit event
+      event.preventDefault();
+      const form = event.target
+      const data = new FormData(form);
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: data,
+      });
+    },
+  },
+}
+</script>
+
+<template>
+  <VBtn
+    action="https://jsonplaceholder.typicode.com/posts"
+    :data="{ key: 'example', key2: 'value 2' }"
+    @submit="onSubmit"
+  >
+    Vuetensils
+  </VBtn>
+</template>
+```
+
 ## List Example
 
 ```vue live
 <template>
   <ul>
     <li v-for="item in items" :key="item.text">
-      <VBtn v-bind="item.bind" v-on="item.on">
+      <VBtn v-bind="item.bind" v-on="item.on || {}">
         {{ item.text }}
       </VBtn>
     </li>
@@ -110,7 +114,20 @@ export default {
       {
         text: 'Third (button)',
         on: {
-          click: () => console.log('click')
+          click: console.log
+        }
+      },
+      {
+        text: 'Fourth (form)',
+        bind: {
+          action: "https://jsonplaceholder.typicode.com/posts",
+          data: { key: 'example', key2: 'value 2' }
+        },
+        on: {
+          submit(e) {
+            e.preventDefault()
+            console.log(e)
+          }
         }
       }
     ]

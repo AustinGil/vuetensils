@@ -1,7 +1,10 @@
 export default {
   mounted() {
     if (typeof document !== 'undefined') {
-      document.documentElement.addEventListener('click', this._clickOutListener);
+      document.documentElement.addEventListener(
+        'click',
+        this._clickOutListener
+      );
       this.$once('hook:beforeDestroy', () => {
         document.removeEventListener('click', this._clickOutListener);
       });
@@ -13,6 +16,6 @@ export default {
         return;
       }
       this.onClickOut && this.onClickOut();
-    }
-  }
+    },
+  },
 };

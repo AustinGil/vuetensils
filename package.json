@@ -1,37 +1,43 @@
 {
   "name": "vuetensils",
-  "version": "1.0.0-0",
-  "description": "A tasty toolset for Vue.js",
-  "author": "Austin Gil <austin@stegosource.com>",
+  "version": "0.12.5",
+  "description": "A 'naked' component library for building accessible, lightweight, on-brand applications.",
+  "author": {
+    "name": "Austin Gil",
+    "email": "hey@austingil.com",
+    "url": "https://austingil.com"
+  },
+  "homepage": "https://vuetensils.com",
   "license": "MIT",
   "main": "dist/vuetensils.umd.js",
-  "module": "dist/vuetensils.esm.js",
-  "unpkg": "dist/vuetensils.min.js",
+  "module": "dist/vuetensils.es.js",
   "files": [
     "/src",
-    "/dist"
+    "/dist",
+    "/types"
   ],
   "typings": "types",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Stegosource/vuetensils.git"
+    "url": "git+https://github.com/AustinGil/vuetensils.git"
   },
   "scripts": {
     "dev": "npm run docs:dev",
     "test": "npm run test:unit",
     "test:unit": "jest --coverage",
+    "testing": "jest --watch",
+    "pa11y": "concurrently -k \"npm run docs:dev\" \"wait-on http://localhost:8080 && pa11y-ci --config=.pa11yci.js\"",
+    "eslint": "eslint src/**/*.{js,ts,vue,tsx,jsx}",
     "lint": "eslint --no-error-on-unmatched-pattern src/**/*.{js,ts,vue,tsx,jsx,css,scss,md} docs/**/*.{js,ts,vue,tsx,jsx,css,scss,md}",
     "lint:diff": "eslint $(git diff --name-only -- src/*.vue src/*.js docs/*.vue docs/*.js)",
     "ts": "tsc",
     "audit": "npm run lint:diff && npm run test:unit",
-    "build": "npm run ts && npm run build:umd && npm run build:es && npm run build:unpkg",
-    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuetensils.umd.js",
-    "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuetensils.esm.js",
-    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vuetensils.min.js",
+    "build": "vue-typegen gen -s src -o types && vite build",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "commit": "git add . && git commit",
-    "release": "release-it"
+    "release": "release-it",
+    "deploy": "release-it"
   },
   "husky": {
     "hooks": {
@@ -40,7 +46,7 @@
   },
   "lint-staged": {
     "*.{js,ts,vue}": [
-      "npm run lint -- --fix",
+      "eslint --fix src",
       "git add"
     ]
   },
@@ -68,49 +74,57 @@
       "http://localhost:8080/directives/intersect.html#default-behavior"
     ]
   ],
-  "dependencies": {},
+  "dependencies": {
+    "vue-demi": "^0.12.4"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.4.3",
+    "vue": "^2.0.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  },
   "devDependencies": {
-    "@babel/core": "^7.11.1",
-    "@babel/preset-env": "^7.11.0",
-    "@commitlint/cli": "^9.1.1",
-    "@commitlint/config-conventional": "^9.1.1",
-    "@commitlint/prompt": "^9.1.1",
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@vue/test-utils": "^1.0.3",
-    "@vuepress/plugin-google-analytics": "^1.5.3",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.1.0",
-    "babel-jest": "^26.3.0",
-    "babel-loader": "^8.1.0",
-    "commitizen": "^4.1.2",
+    "@babel/eslint-parser": "^7.17.0",
+    "@faker-js/faker": "^6.0.0",
+    "@testing-library/jest-dom": "^5.11.8",
+    "@testing-library/user-event": "^13.5.0",
+    "@testing-library/vue": "^6.5.1",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vue/test-utils": "^2.0.0",
+    "@vuepress/plugin-google-analytics": "^1.9.7",
+    "commitizen": "^4.2.1",
+    "concurrently": "^7.0.0",
     "cz-conventional-changelog": "^3.2.0",
-    "eslint": "^7.6.0",
-    "eslint-plugin-jest": "^23.20.0",
-    "eslint-plugin-jsdoc": "^30.2.1",
-    "eslint-plugin-markdown": "^2.0.0-alpha.0",
-    "eslint-plugin-vue": "^7.0.0-beta.2",
-    "eslint-plugin-vuejs-accessibility": "^0.3.1",
-    "husky": "^4.2.5",
-    "jest": "^26.3.0",
-    "jest-serializer-vue-tjw": "^3.14.0",
-    "lint-staged": "^10.2.11",
-    "minimist": "^1.2.5",
-    "release-it": "^13.6.6",
-    "rollup": "^2.23.1",
-    "rollup-plugin-buble": "^0.19.8",
-    "rollup-plugin-filesize": "^9.0.2",
-    "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-uglify-es": "0.0.1",
-    "rollup-plugin-vue": "^5.1.9",
-    "stylelint": "^13.6.1",
-    "stylelint-config-sass-guidelines": "^7.0.0",
-    "typescript": "^3.9.7",
-    "vue-docgen-api": "^4.30.0",
-    "vue-jest": "^3.0.6",
-    "vue-router": "^3.4.2",
-    "vuepress": "^1.5.3",
-    "vuepress-plugin-docgen": "^1.2.9",
-    "vuepress-plugin-live": "^1.4.2"
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsdoc": "^38.0.6",
+    "eslint-plugin-markdown": "^2.2.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.5.0",
+    "eslint-plugin-vuejs-accessibility": "^1.1.1",
+    "husky": "^4.3.8",
+    "lint-staged": "^12.4.3",
+    "pa11y-ci": "^3.0.1",
+    "prettier": "^2.6.2",
+    "release-it": "^14.12.5",
+    "stylelint": "^14.8.5",
+    "stylelint-config-sass-guidelines": "^9.0.1",
+    "typescript": "^4.7.2",
+    "vite": "^2.9.9",
+    "vue": "^3.2.31",
+    "vue-docgen-api": "^4.47.0",
+    "vue-inbrowser-compiler": "^4.44.24",
+    "vue-live": "^2.0.1",
+    "vue-router": "^4.0.14",
+    "vue-typegen": "^0.2.0",
+    "vuepress": "^2.0.0-beta.48",
+    "vuepress-plugin-live": "^1.4.2",
+    "wait-on": "^6.0.1"
   },
   "keywords": [
     "vue",

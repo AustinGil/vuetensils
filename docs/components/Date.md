@@ -4,7 +4,7 @@
 
 A date picker with accessibility baked in.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDate/VDate.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VDate/VDate.vue)
 
 Features:
 - Manages ARIA roles, labels, and attributes.
@@ -30,34 +30,6 @@ Shift + PageDown | Move to next year.
 Esc              | Hide the calendar without selecting a date.
 
 **NOTE:** I would probably recommend using the browser's [built in date picker](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date) (`<input type="date">`) because it's simpler, consistent across website, and it's less code. However, it does not support custom styling.
-
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VDate } from 'vuetensils/src/components';
-
-Vue.component('VDate', VDate);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VDate } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VDate,
-  },
-  // ...
-};
-</script>
-```
 
 ## Default Example
 
@@ -106,11 +78,63 @@ export default {
 </template>
 ```
 
+## Localization
+
+```vue live
+<template>
+  <VDate
+    :days-of-week="daysOfWeek"
+    :month-labels="monthLabels"
+    :button-labels="buttonLabels"
+  />
+</template>
+
+<script>
+export default {
+  data: () => ({
+    daysOfWeek: Object.freeze({
+      Dim: 'Dimanche',
+      Lun: 'Lundi',
+      Mar: 'Mardi',
+      Mer: 'Mercredi',
+      Jeu: 'Jeudi',
+      Ven: 'Vendredi',
+      Sam: 'Samedi',
+    }),
+
+    monthLabels: [
+      'Janvier',
+      'Février',
+      'Mars',
+      'Avril',
+      'Mai',
+      'Juin',
+      'Juillet',
+      'Août',
+      'Septembre',
+      'Octobre',
+      'Novembre',
+      'Décembre',
+    ],
+
+    buttonLabels: Object.freeze({
+      selectDate: 'Sélectionner la date',
+      showCalendar: 'montrer le calendrier',
+      previousMonth: 'mois précédent',
+      nextMonth: 'mois suivant',
+      previousYear: 'année précédente',
+      nextYear: 'année suivante',
+    })
+  }),
+}
+</script>
+```
+
 
 
 <!-- ## Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', content: 'content-class' }"

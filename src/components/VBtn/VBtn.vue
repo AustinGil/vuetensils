@@ -1,45 +1,81 @@
+<template>
+  <form
+    v-if="action && data"
+    :action="action"
+    method="POST"
+    class="vts-btn__form"
+    @submit.prevent="$emit('submit', $event)"
+  >
+    <!-- target="_blank" ? -->
+    <input
+      v-for="(value, key) in data"
+      :key="key"
+      :value="value"
+      :name="String(key)"
+      type="hidden"
+      hidden
+      autocomplete="off"
+      aria-hidden="true"
+      tabindex="-1"
+    />
+    <button type="submit" v-bind="$attrs" class="vts-btn" v-on="listeners">
+      <slot />
+    </button>
+  </form>
+
+  <component
+    :is="tag"
+    v-else
+    class="vts-btn"
+    :type="type"
+    v-bind="$attrs"
+    v-on="listeners"
+  >
+    <slot />
+  </component>
+</template>
+
 <script>
-/**
- * Detects if a VDOM element is a <RouterLink>, <a>, or <button>
- *
- * @param {import('vue').PropOptions & { to?:string }} props props container
- * @param {import('vue').VNodeData} data data container
- * @return {'RouterLink' | 'a' | 'button'} 'RouterLink', 'a', or 'button'
- */
-export function getTag(props, data) {
-  if (props && props.to) {
-    return 'RouterLink';
-  }
-  if (data && data.attrs && data.attrs.href) {
-    return 'a';
-  }
-  return 'button';
-}
+import { isVue3 } from 'vue-demi';
 
 export default {
   name: 'VBtn',
-  functional: true,
-  render(h, { data, listeners, props, children }) {
-    data.attrs = data.attrs || {};
-    const tag = getTag(props, data);
-    const options = {
-      ...data,
-      props,
-      class: ['vts-action'],
-      on: listeners,
-    };
-
-    if (tag === 'RouterLink') {
-      options.nativeOn = listeners;
-    }
-    if (data.attrs.target === '_blank') {
-      options.attrs.rel = 'noopener';
-    }
-    if (tag === 'button') {
-      options.attrs.type = options.attrs.type || 'button';
-    }
-
-    return h(tag, options, children);
+  inheritAttrs: false,
+  props: {
+    action: { type: String, default: '' },
+    data: { type: Object, default: () => ({}) },
+  },
+  emits: ['submit'],
+  computed: {
+    /** @returns {'RouterLink' | 'a' | 'button'} */
+    tag() {
+      const attrs = this.$attrs || {};
+      if (attrs.to) {
+        return 'RouterLink';
+      }
+      if (attrs.href) {
+        return 'a';
+      }
+      return 'button';
+    },
+    /** @returns {string} */
+    type() {
+      if (this.tag !== 'button') return;
+      return this.$attrs.type || 'button';
+    },
+    /** @returns {Record<string, string> | Record<string, Function | Function[]>} */
+    listeners() {
+      if (isVue3) {
+        return this.$attrs;
+      }
+      return this.$listeners;
+    },
   },
 };
 </script>
+
+<style>
+.vts-btn__form {
+  display: inline;
+}
+</style>

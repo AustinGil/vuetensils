@@ -195,7 +195,7 @@ export default {
 <style>
 .fade-enter-active,
 .fade-leave-active {
-  transition: 0.5s ease opacity;
+  transition: opacity 0.5s ease;
 }
 
 .fade-enter,
@@ -207,7 +207,7 @@ export default {
 
 ### Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', dismiss: 'dismiss-class' }"

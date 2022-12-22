@@ -44,20 +44,20 @@ body .live-preview pre {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: 0.5s ease opacity;
+  transition: opacity 0.5s ease;
 }
 
-.fade-enter,
+.fade-enter-from,
 .fade-leave-to {
   opacity: 0;
 }
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: 0.5s ease opacity, 0.5s ease transform;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.slide-right-enter,
+.slide-right-enter-from,
 .slide-right-leave-to {
   opacity: 0;
   transform: translateX(-100%);
@@ -65,10 +65,10 @@ body .live-preview pre {
 
 .slide-left-enter-active,
 .slide-left-leave-active {
-  transition: 0.5s ease opacity, 0.5s ease transform;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.slide-left-enter,
+.slide-left-enter-from,
 .slide-left-leave-to {
   opacity: 0;
   transform: translateX(100%);
@@ -77,10 +77,10 @@ body .live-preview pre {
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: 0.5s ease opacity, 0.5s ease transform;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.slide-up-enter,
+.slide-up-enter-from,
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(10px);
@@ -128,7 +128,7 @@ body .live-preview pre {
   padding: 10px;
   font-size: 18px;
   color: #FFF;
-  background: darkcyan;
+  background: #008484;
   transition: 0.5s ease border-radius;
 }
 
@@ -137,7 +137,7 @@ body .live-preview pre {
 }
 
 .dropdown-content {
-  border: 1px solid darkcyan;
+  border: 1px solid #008484;
   border-radius: 0 0 5px 5px;
   padding: 10px;
   background-color: #FFF;
@@ -220,7 +220,8 @@ body .live-preview pre {
   border-color: red;
 }
 
-.styled .vts-input__description small {
+.styled .vts-input__error,
+.styled .vts-input__description .error {
   color: red;
 }
 
@@ -346,7 +347,7 @@ body .live-preview pre {
 }
 
 .cookbook input:checked ~ .vts-input__text:before {
-  background-color: darkcyan;
+  background-color: #008484;
 }
 
 .cookbook input:focus ~ .vts-input__text:before {
@@ -354,4 +355,57 @@ body .live-preview pre {
   outline-style: auto;
   outline-color: Highlight;
   outline-color: -webkit-focus-ring-color;
+}
+
+
+/* vuepress-plugin-live */
+.preview-code .block {
+  width: 100% !important;
+}
+
+.VueLive-container {
+  flex-direction: column-reverse;
+}
+
+.VueLive-editor,
+.VueLivePreview {
+  width: 100%;
+  padding: 1rem;
+}
+
+.VueLive-editor {
+  border-end-start-radius: 0.5rem;
+  border-end-end-radius: 0.5rem;
+  color: #fff;
+  background-color: #222;
+}
+
+.VueLivePreview {
+  border: 1px solid #666;
+  border-start-start-radius: 0.5rem;
+  border-start-end-radius: 0.5rem;
+  background: Canvas;
+}
+
+/* Fixes top left logo proportions */
+#app .navbar .logo {
+  min-width: auto;
+  width: auto;
+  max-width: 2.2rem
+}
+
+.live-preview table {
+  display: table;
+}
+
+/* PA11Y fixes */
+#app a {
+  /* #3EAF7C was 2.75 ratio */
+  color: #168754;
+}
+
+#app .home .hero .action-button {
+  /* #3EAF7C was 2.75 ratio */
+  background-color:  #2F855F;
+  color: #FFF;
 }

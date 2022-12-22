@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 
-import VBtn, { getTag } from '../../../../src/components/VBtn/VBtn.vue';
+import VBtn, { getTag } from '@components/VBtn/VBtn.vue';
 
 describe('VBtn', () => {
   describe('Created', () => {

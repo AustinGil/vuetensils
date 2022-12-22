@@ -1,11 +1,11 @@
-import { randomString, safeSlot } from '../../../src/utils.js';
+import { randomString } from '../../../src/utils.js';
 
 describe('Utilities', () => {
   describe('randomString', () => {
     test('No inputs', () => {
       const output = randomString();
 
-      expect(typeof(output))
+      expect(typeof (output))
         .toEqual('string');
 
       expect(output.length)
@@ -25,7 +25,7 @@ describe('Utilities', () => {
     test('Length 1', () => {
       const output = randomString(1);
 
-      expect(typeof(output))
+      expect(typeof (output))
         .toEqual('string');
 
       expect(output.length)
@@ -35,7 +35,7 @@ describe('Utilities', () => {
     test('Length 100', () => {
       const output = randomString(100);
 
-      expect(typeof(output))
+      expect(typeof (output))
         .toEqual('string');
 
       expect(output.length)
@@ -52,35 +52,6 @@ describe('Utilities', () => {
 
       expect(output.length)
         .toEqual(filtered.length);
-    });
-  });
-
-  describe('safeSlot', () => {
-    const render = function (element, slots) {
-      let markup = '';
-      slots.forEach(function (slot) {
-        markup = markup + '<' + element + '>' + slot + '</' + element + '>';
-      });
-      return markup;
-    };
-
-    test('No inputs', () => {
-      expect(safeSlot())
-        .toEqual(undefined);
-    });
-
-    test('One slot', () => {
-      const slot = ['a'];
-
-      expect(safeSlot(render, slot))
-        .toEqual(['a']);
-    });
-
-    test('Multiple slots', () => {
-      const slot = ['a', 'b'];
-
-      expect(safeSlot(render, slot))
-        .toEqual('<div>a</div><div>b</div>');
     });
   });
 });

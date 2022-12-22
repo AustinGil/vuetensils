@@ -2,7 +2,7 @@
   <div
     v-on-clickaway="
       () => {
-        isOpen ? cancel() : null
+        isOpen ? cancel() : null;
       }
     "
     class="relative"
@@ -18,10 +18,7 @@
       @keydown.space.prevent="open"
     >
       <span v-if="value !== null">{{ value }}</span>
-      <span
-        v-else
-        class="text-grey-dark"
-      >Select a band...</span>
+      <span v-else class="text-grey-dark">Select a band...</span>
     </div>
     <div
       v-show="isOpen"
@@ -63,10 +60,7 @@
           {{ option }}
         </li>
       </ul>
-      <div
-        v-show="options.length === 0"
-        class="px-3 py-2 text-grey"
-      >
+      <div v-show="options.length === 0" class="px-3 py-2 text-grey">
         No results found for "{{ search }}"
       </div>
     </div>
@@ -77,20 +71,21 @@
 // import { mixin as clickaway } from "vue-clickaway"
 
 export default {
+  name: 'VMultiselect',
   // mixins: [clickaway],
   props: {
     value: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     search: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     options: {
       type: Array,
-      default: undefined
-    }
+      default: undefined,
+    },
   },
 
   data() {

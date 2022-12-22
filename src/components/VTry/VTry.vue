@@ -1,37 +1,37 @@
 <script>
-import { safeSlot } from '../../utils';
+import { isVue3 } from 'vue-demi';
 
 export default {
   name: 'VTry',
 
   props: {
-    stopPropagation: Boolean,
+    propagate: Boolean,
   },
 
   data: () => ({
     error: null,
-    // vm: null,
-    // info: null,
   }),
 
-  errorCaptured(error /* vm, info */) {
+  errorCaptured(error) {
     this.error = error;
-    // this.vm = vm
-    // this.info = info
 
     this.$emit('catch', error);
 
-    return !this.stopPropagation;
+    return this.propagate;
   },
 
-  render(h) {
-    const { error, $scopedSlots } = this;
+  render() {
+    const { error, $slots } = this;
+    let slots = $slots;
 
-    if (error && $scopedSlots.catch) {
-      return safeSlot(h, $scopedSlots.catch(error));
+    if (!isVue3) {
+      slots = this.$scopedSlots;
+    }
+    if (error && slots.catch) {
+      return slots.catch(error);
     }
 
-    return safeSlot(h, $scopedSlots.default(error));
+    return slots.default(error);
   },
 };
 </script>

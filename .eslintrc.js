@@ -1,75 +1,55 @@
 module.exports = {
   root: true,
-  parserOptions: {
-    parser: 'babel-eslint',
-    ecmaVersion: 8,
-    sourceType: 'module',
-  },
   env: {
     browser: true,
     node: true,
+    es6: true,
+    // extras
+    jest: true,
   },
-  globals: {
-    jsdom: true,
-    Promise: true,
+  parserOptions: {
+    // "ecmaVersion": 6,
+    sourceType: 'module',
   },
-  'ignorePatterns': ['dist/**/*', 'types/**/*'],
-  plugins: ['jest', 'jsdoc', 'markdown', 'vue'],
+  globals: {},
+  ignorePatterns: ['dist/**/*', 'types/**/*', '**/TestAll.vue'],
+  plugins: [
+    '@typescript-eslint',
+    'jsdoc',
+    // "jest",
+    'vue',
+    'vuejs-accessibility',
+  ],
   extends: [
     'eslint:recommended',
+    'plugin:import/recommended',
     'plugin:jsdoc/recommended',
     'plugin:vue/recommended',
-    'plugin:jest/recommended',
     'plugin:vuejs-accessibility/recommended',
+    'plugin:prettier/recommended',
   ],
+
   rules: {
-    'array-bracket-newline': ['error', { multiline: true }],
-    'array-bracket-spacing': ['error', 'never'],
-    'array-element-newline': ['error', 'consistent'],
-    'comma-spacing': [
-      'error', {
-        'before': false,
-        'after': true
-      }
-    ],
     'comma-dangle': ['error', 'only-multiline'],
-    'computed-property-spacing': ['error', 'never'],
-    'max-len': [
-      'warn', {
-        'code': 80,
-        'ignoreComments': true
-      }
-    ],
-    indent: ['error', 2, { SwitchCase: 1 }],
     quotes: [
-      'error', 'single', {
-        avoidEscape: true,
-        allowTemplateLiterals: true
-      }
+      'error',
+      'single',
+      { avoidEscape: true, allowTemplateLiterals: true },
     ],
-    semi: ['error', 'always'],
-    'semi-spacing': ['error'],
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-multiple-empty-lines': ['error', { max: 1 }],
-    'no-multi-spaces': ['error'],
-    'space-before-blocks': ['error'],
-    'space-in-parens': ['error', 'never'],
-    'space-infix-ops': 'error',
-    'space-unary-ops': 'error',
-    'spaced-comment': ['error'],
-    'no-whitespace-before-property': 'error',
-    'no-mixed-spaces-and-tabs': 'error',
-    'block-spacing': ['error'],
-    'brace-style': 'error',
-    'object-curly-newline': [
-      'error', {
-        'multiline': true,
-        'consistent': true
-      }
+    'no-console': 'off',
+    'prefer-const': 'error',
+
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: true,
+        trailingComma: 'es5',
+      },
     ],
-    'object-curly-spacing': ['error', 'always'],
-    'object-property-newline': ['error'],
+
+    'import/extensions': ['error', 'always'],
+    'import/no-unresolved': 'off',
+    'import/order': 'error',
 
     'jsdoc/check-tag-names': [
       'error',
@@ -77,66 +57,72 @@ module.exports = {
         definedTags: ['model', 'slot'],
       },
     ],
+    'jsdoc/no-undefined-types': [
+      'error',
+      {
+        definedTypes: [
+          'Record',
+          'Pick',
+          'T',
+          'CytoProject',
+          'CytoUser',
+          'Job',
+          'Assay',
+          'NodeListOf',
+        ],
+      },
+    ],
+    'jsdoc/require-jsdoc': 'off',
+    'jsdoc/require-returns': 'off',
+    'jsdoc/require-param-description': 'off',
+    'jsdoc/require-returns-description': 'off',
+    'jsdoc/valid-types': 'off',
 
-    'vue/no-textarea-mustache': 'off',
+    // 'vue/require-prop-types': ['error']
+    'vue/max-attributes-per-line': 'off',
+    'vue/component-name-in-template-casing': [
+      'error',
+      'PascalCase',
+      {
+        ignores: [],
+      },
+    ],
+    'vue/custom-event-name-casing': 'off',
+    'vue/no-template-shadow': 'off',
     'vue/html-self-closing': [
       'error',
       {
         html: {
-          void: 'always',
-          normal: 'always',
-          component: 'always',
-        },
-        svg: 'always',
-        math: 'always',
-      },
-    ],
-    'vue/max-attributes-per-line': [
-      'error',
-      {
-        singleline: 3,
-        multiline: {
-          max: 1,
-          allowFirstLine: false,
+          void: 'any',
         },
       },
     ],
-    'vue/require-prop-types': ['error'],
+
     'vuejs-accessibility/label-has-for': [
       'error',
       {
-        components: ['Label'],
         required: {
           some: ['nesting', 'id'],
         },
-        allowChildren: false,
       },
     ],
   },
-  settings: {
-    jsdoc: {
-      tagNamePreference: {
-        property: 'prop',
-        returns: 'return',
-      },
-    },
-  },
-  overrides: [
-    {
-      files: ['**/*.md'],
-      processor: 'markdown/markdown',
-    },
-    {
-      files: ['**/*.vue live'],
-      processor: 'vue/.vue',
-      rules: {
-        'no-unused-vars': [
-          'error',
-          {
-            args: 'none',
-          },
-        ],
-      },
-    },
-  ],
+  // overrides: [
+  //   {
+  //     files: ['**/*.md'],
+  //     processor: 'markdown/markdown',
+  //   },
+  //   {
+  //     files: ['**/*.vue live'],
+  //     processor: 'vue/.vue',
+  //     rules: {
+  //       'no-unused-vars': [
+  //         'error',
+  //         {
+  //           args: 'none',
+  //         },
+  //       ],
+  //     },
+  //   },
+  // ],
 };

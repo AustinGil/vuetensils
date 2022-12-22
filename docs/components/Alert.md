@@ -2,41 +2,13 @@
 
 A simple component for notifiying users of specific information. Good for informative snippets, error messages, and more. It can be shown or hidden dynamically, and even supports auto-hiding after a given time.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VAlert/VAlert.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VAlert/VAlert.vue)
 
 Features:
 
-- Includes ARIA `role="alert"` attribute
-- Option for dismiss button
-- Option for timeout
-
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VAlert } from 'vuetensils/src/components';
-
-Vue.component('VAlert', VAlert);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VAlert } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VAlert,
-  },
-  // ...
-};
-</script>
-```
+- Includes ARIA `role="alert"` attribute.
+- Option for dismiss button.
+- Option for timeout.
 
 ## Styled Examples
 
@@ -167,7 +139,7 @@ You can provide your own content for the dismiss button with the `dismiss` slot.
   <VAlert dismissible>
     Click that button to make me go away
 
-    <template slot="dismiss">
+    <template #dismiss>
       Hide
     </template>
   </VAlert>
@@ -226,7 +198,7 @@ export default {
 ```css
 .fade-enter-active,
 .fade-leave-active {
-  transition: 0.5s ease opacity;
+  transition: opacity 0.5s ease;
 }
 
 .fade-enter,
@@ -237,7 +209,7 @@ export default {
 
 ## Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', dismiss: 'dismiss-class' }"

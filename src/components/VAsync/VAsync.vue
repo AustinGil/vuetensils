@@ -1,6 +1,6 @@
-
 <script>
-import { safeSlot } from '../../utils';
+import { isVue3 } from 'vue-demi';
+
 /**
  * A renderless component for awaiting promises to resolve;
  * great for making HTTP requests. Supports showing pending,
@@ -25,6 +25,7 @@ export default {
       default: undefined,
     },
   },
+  emits: ['pending', 'resolve', 'reject', 'finally'],
 
   data() {
     return {
@@ -68,8 +69,9 @@ export default {
       this.error = null;
 
       return promise
-        .then(results => {
-          this.results = typeof results === 'undefined' ? this.default : results;
+        .then((results) => {
+          this.results =
+            typeof results === 'undefined' ? this.default : results;
           /**
            * Fired after promise has resolved with the resolved value.
            *
@@ -78,7 +80,7 @@ export default {
            */
           this.$emit('resolve', results);
         })
-        .catch(error => {
+        .catch((error) => {
           if (error instanceof Error) {
             error = {
               name: error.name,
@@ -108,40 +110,45 @@ export default {
     },
   },
 
-  render(h) {
+  render() {
     const { pending, error, results, done } = this;
+    let slots = this.$slots;
+
+    if (!isVue3) {
+      slots = this.$scopedSlots;
+    }
 
     /** @slot Rendered while the promise is in a pending state */
-    const pendingSlot = this.$scopedSlots.pending;
+    const pendingSlot = slots.pending;
     /** @slot Rendered when the promise has rejected. Provides the caught error. */
-    const rejectedSlot = this.$scopedSlots.rejected;
+    const rejectedSlot = slots.rejected;
     /** @slot Rendered when the promise has resolved. Provides the results. */
-    const resolvedSlot = this.$scopedSlots.resolved;
+    const resolvedSlot = slots.resolved;
     /** @slot Provides the status of the component for pending state, error, or results. */
-    const defaultSlot = this.$scopedSlots.default;
+    const defaultSlot = slots.default;
 
     if (pending && pendingSlot) {
-      return safeSlot(h, pendingSlot());
+      return pendingSlot();
     }
 
     if (done && error && rejectedSlot) {
-      return safeSlot(h, rejectedSlot(error));
+      return rejectedSlot(error);
     }
 
     if (done && !error && resolvedSlot) {
-      return safeSlot(h, resolvedSlot(results));
+      return resolvedSlot(results);
     }
 
     if (!defaultSlot) return;
 
-    return safeSlot(
-      h,
-      defaultSlot({
-        pending,
-        results,
-        error,
-      })
-    );
+    return defaultSlot({
+      pending,
+      resolved: results,
+      rejected: error,
+      // TODO: update docs
+      results,
+      error,
+    });
   },
 };
 </script>

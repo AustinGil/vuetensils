@@ -2,7 +2,7 @@
 
 A dialog component for showing users content which overlays the rest of the application. When opened, it traps the user's focus so that keyboard navigation will remain within the dialog until it is closed. It supports being closed by clicking outside the dialog content or pressing the ESC key.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDialog/VDialog.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VDialog/VDialog.vue)
 
 Features:
 
@@ -12,40 +12,11 @@ Features:
 - Adds event listener to close dialog on the `esc` key.
 - Supports preventing page scroll while open.
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VDialog } from 'vuetensils/src/components';
-
-Vue.component('VDialog', VDialog);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VDialog } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VDialog,
-  },
-  // ...
-};
-</script>
-```
-
 ## Styled Example
 
 ```vue live
 <template>
   <VDialog
-    v-model="dialog"
     bg-transition="fade"
     class="my-dialog"
     @change="log"
@@ -56,23 +27,22 @@ export default {
       </button>
     </template>
 
-    This is the dialog content.<br />
-    It traps the user's focus.<br />
-    <button
-      aria-label="close"
-      class="my-dialog__close"
-      @click="dialog = false"
-    >
-      &times;
-    </button>
+    <template #default="{ close }">
+      This is the dialog content.<br />
+      It traps the user's focus.<br />
+      <button
+        aria-label="close"
+        class="my-dialog__close"
+        @click="close"
+      >
+        &times;
+      </button>
+    </template>
   </VDialog>
 </template>
 
 <script>
 export default {
-  data: () => ({
-    dialog: false,
-  }),
   methods: {
     log: console.log
   }
@@ -83,7 +53,7 @@ export default {
 ```css
 .fade-enter-active,
 .fade-leave-active {
-  transition: 0.5s ease opacity;
+  transition: opacity 0.5s ease;
 }
 
 .fade-enter,
@@ -94,7 +64,7 @@ export default {
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: 0.5s ease opacity, 0.5s ease transform;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .slide-up-enter,
@@ -161,14 +131,6 @@ Dialog background colors have been removed. The following styles have been added
     </div>
   </VDialog>
 </template>
-
-<script>
-export default {
-  data: () => ({
-    dialog: false,
-  }),
-};
-</script>
 ```
 
 ## Using v-model
@@ -201,27 +163,24 @@ export default {
 ```vue live
 <template>
   <div>
-    <VDialog v-model="dialog" :classes="{ bg: 'bg-black-alpha' }">
-      <div class="bg-white">
-        This is the dialog content.<br />
-        <button @click="dialog = false">
-          Close
+    <VDialog :classes="{ bg: 'bg-black-alpha' }">
+      <template #default="{ close }">
+        <div class="bg-white">
+          This is the dialog content.<br />
+          <button @click="close">
+            Close
+          </button>
+        </div>
+      </template>
+
+      <template #toggle="{ bind, on }">
+        <button v-bind="bind" v-on="on">
+          Show the dialog
         </button>
-      </div>
+      </template>
     </VDialog>
-    <button @click="dialog = !dialog">
-      Show the dialog
-    </button>
   </div>
 </template>
-
-<script>
-export default {
-  data: () => ({
-    dialog: false,
-  }),
-};
-</script>
 ```
 
 ## Prevent scrolling
@@ -279,7 +238,7 @@ export default {
 ```css
 .fade-enter-active,
 .fade-leave-active {
-  transition: 0.5s ease opacity;
+  transition: opacity 0.5s ease;
 }
 
 .fade-enter,
@@ -290,7 +249,7 @@ export default {
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: 0.5s ease opacity, 0.5s ease transform;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .slide-up-enter,
@@ -302,7 +261,7 @@ export default {
 
 ## Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', content: 'content-class' }"

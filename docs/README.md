@@ -1,8 +1,10 @@
 ---
 home: true
 heroImage: /static/logo.png
-actionText: Get Started →
-actionLink: /Introduction.html#introduction
+actions:
+  - text: Get Started →
+    link: /Introduction.html#introduction
+    type: primary
 features:
   - title: A11y Focused
     details: Follows WAI-ARIA authoring practices for accessibility baked in; semantics, ARIA attributes, roles, etc.
@@ -15,11 +17,12 @@ features:
   # - title: Adaptible
   # - title: Opt-in
   # - title: Easy to learn
-footer: MIT Licensed | Copyright © 2018-present </> with ❤️️ by Stegosource
+footer: MIT Licensed | Copyright © 2018-present | Made with ❤️️ by <a href="https://austingil.com">Austin Gil</a>
+footerHtml: true
 ---
 
 <h3 class="text-center">
-  <a href="https://3bb5fb5a.sibforms.com/serve/MUIEAAOwgrWtf43Lfv80ES_hibAhazPDEy4w9IxRIda1b8g1GNnmHYkDfvIKG-Ox35EtWkJfMyCMBTQ3nG2msGhc3WnHa7XKfkgBzYdL3ASbIEckbn47QtJDIvpOskWQuRIXYI-7dVuM5F25yKdcJch7VN8aAbrpEn8_PMXWpqENTJ6r9bOZgHj6vnAQwHDsdwXDOZIonAP3x3vx" class="nav-link action-button">
+  <a href="https://austingil.com/newsletter" class="nav-link action-button">
   Sign up for the newsletter to get the latest updates.
   </a>
 </h3>

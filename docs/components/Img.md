@@ -2,11 +2,12 @@
 
 Drop in replacement for the HTML `<img>` tag which supports lazy-loading. Improves load times by waiting for the image to scroll into view before actually downloading it.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VImg/VImg.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VImg/VImg.vue)
 
 Features:
 
 - Built to behave as close to native `<img>` element as possible.
+- Requires `alt` attribute. Sets `role` to `presentation` if empty.
 - Provides lazy-loading with more options than native.
 - Supports placeholder colors or images.
 
@@ -19,43 +20,11 @@ img {
 }
 ```
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VImg } from 'vuetensils/src/components';
-
-Vue.component('VImg', VImg);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VImg } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VImg,
-  },
-  // ...
-};
-</script>
-```
-
-For IE 11 support, you may want to add the following polyfill:
-
-`<script src='https://cdn.polyfill.io/v2/polyfill.js?features=IntersectionObserver'></script>`
-
 ## Default use
 
 ```vue live
 <template>
-  <VImg src="https://source.unsplash.com/random/900x600" />
+  <VImg src="https://source.unsplash.com/random/900x600" alt="some random image from unsplash" />
 </template>
 ```
 
@@ -64,7 +33,7 @@ Pass in the image dimensions to avoid the page jumping when the image loads
 ```vue live
 <template>
   <VImg
-    src="https://source.unsplash.com/random/900x550"
+    src="https://source.unsplash.com/random/900x550" alt="some random image from unsplash"
     width="900"
     height="550"
   />
@@ -76,7 +45,7 @@ Pass in the image dimensions to avoid the page jumping when the image loads
 ```vue live
 <template>
   <VImg
-    src="https://source.unsplash.com/random/1000x550"
+    src="https://source.unsplash.com/random/1000x550" alt="some random image from unsplash"
     width="1000"
     height="550"
     background="#DDD"
@@ -89,7 +58,7 @@ Pass in the image dimensions to avoid the page jumping when the image loads
 ```vue live
 <template>
   <VImg
-    src="https://images.unsplash.com/photo-1546094324-7fd2718befe3?w=1080"
+    src="https://images.unsplash.com/photo-1546094324-7fd2718befe3?w=1080" alt="some random image from unsplash"
     width="1080"
     height="864"
     placeholder="https://images.unsplash.com/photo-1546094324-7fd2718befe3?w=30"
@@ -104,7 +73,7 @@ If you don't like the default transition duration (300ms), you can pass a custom
 ```vue live
 <template>
   <VImg
-    src="https://source.unsplash.com/random/900x551"
+    src="https://source.unsplash.com/random/900x551" alt="some random image from unsplash"
     width="900"
     height="551"
     background="#DDD"
@@ -138,7 +107,7 @@ Don't forget all the other best practices such as `srcset` attribute and `alt` t
 
 ## Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', placeholder: 'placeholder-class', img: 'img-class' }"

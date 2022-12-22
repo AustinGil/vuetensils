@@ -6,36 +6,7 @@ The directive also supports modifiers to fire only when the element enters, only
 
 Check your JavaScript console and scroll around to see what's going on.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/directives/intersect.js)
-
-## Installation
-
-Global install:
-
-```js
-import Vue from 'vue';
-import { intersect } from 'vuetensils/src/directives';
-
-Vue.directive('intersect', intersect);
-```
-
-Local install:
-
-```html
-<script>
-  import { intersect } from 'vuetensils/src/directives';
-
-  export default {
-    directives: {
-      intersect,
-    },
-  };
-</script>
-```
-
-For IE 11 support, you may want to add the following polyfill:
-
-`<script src='https://cdn.polyfill.io/v2/polyfill.js?features=IntersectionObserver'></script>`
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/directives/intersect.js)
 
 **Note: This site adds styles for the .intersect-example class**
 

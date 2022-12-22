@@ -1,6 +1,10 @@
 <template>
   <nav role="navigation" class="vts-breadcrumbs">
-    <ol itemscope itemtype="http://schema.org/BreadcrumbList" class="vts-breadcrumbs__list">
+    <ol
+      itemscope
+      itemtype="http://schema.org/BreadcrumbList"
+      class="vts-breadcrumbs__list"
+    >
       <li
         v-for="(item, index) in routeBreadcrumbs"
         :key="index"
@@ -9,10 +13,7 @@
         itemtype="http://schema.org/ListItem"
         class="vts-breadcrumbs__item"
       >
-        <span
-          v-if="index === routeBreadcrumbs.length - 1"
-          class="active"
-        >
+        <span v-if="index === routeBreadcrumbs.length - 1" class="active">
           {{ item.text }}
         </span>
         <router-link
@@ -38,11 +39,11 @@ export default {
   },
 
   computed: {
-    routeBreadcrumbs() {
-      if (this.breadcrumbs.length) {
+    routeBreadcrumbs({ $route }) {
+      if (this.breadcrumbs['length']) {
         return this.breadcrumbs;
       }
-      if (this.$route.fullPath === '/dashboard') {
+      if ($route['fullPath'] === '/dashboard') {
         return [{ text: 'Home' }];
       }
 

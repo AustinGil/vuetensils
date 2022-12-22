@@ -2,40 +2,14 @@
 
 A renderless component for awaiting promises to resolve; great for making HTTP requests. Supports showing pending, resolved, or rejected promises.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VAsync/VAsync.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VAsync/VAsync.vue)
 
 Features:
 
 - Provides abstraction for `pending`, `error`, and `results` logic for Promises.
 - Scoped slots for `pending`, `rejected`, and `resolved` states.
 
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VAsync } from 'vuetensils/src/components';
-
-Vue.component('VAsync', VAsync);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VAsync } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VAsync,
-  },
-  // ...
-};
-</script>
-```
+## Example
 
 This component is great for handling any asynchronous tasks that involve promises. For example, HTTP requests:
 
@@ -43,8 +17,10 @@ This component is great for handling any asynchronous tasks that involve promise
 <template>
   <VAsync :await="httpRequest">
     <template #resolved="results">
-      <h3>{{ results.title }}</h3>
-      <p>{{ results.body }}</p>
+      <div>
+        <h3>{{ results.title }}</h3>
+        <p>{{ results.body }}</p>
+      </div>
     </template>
   </VAsync>
 </template>
@@ -88,7 +64,7 @@ export default {
 
 ```vue live
 <template>
-  <VAsync :await="sleep">
+  <VAsync :await="brokenPromise">
     <template #pending>
       just...a bit...more...
     </template>
@@ -102,12 +78,8 @@ export default {
 <script>
 export default {
   data: () => ({
-    sleep: new Promise((resolve, reject) =>
-      setTimeout(() => {
-        reject(new Error('something went wrong'));
-      }, 2000)
-    ),
-  }),
+    brokenPromise: Promise.reject(new Error('something went wrong'))
+  })
 };
 </script>
 ```
@@ -117,18 +89,16 @@ export default {
 ```vue live
 <template>
   <div>
-    <VAsync :await="sleep">
-      <template #default="{ pending, results, error }">
-        <p v-if="pending">
+    <VAsync v-slot="promise" :await="sleep">
+        <p v-if="promise.pending">
           just...a bit...more...
         </p>
-        <p v-else-if="error">
-          {{ results }}
+        <p v-else-if="promise.error">
+          {{ promise.error }}
         </p>
-        <p v-else-if="results">
-          {{ results }}
+        <p v-else-if="promise.results">
+          {{ promise.results }}
         </p>
-      </template>
     </VAsync>
   </div>
 </template>

@@ -1,0 +1,31 @@
+{
+  "name": "vuetensils-docs",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "styleguide": "concurrently \"vue-docgen --watch\" \"nuxt\"",
+    "styleguide:build": "vue-docgen && nuxt generate"
+  },
+  "dependencies": {
+    "@nuxt/content": "^1.11.1",
+    "@nuxt/content-theme-docs": "^0.8.2",
+    "@nuxtjs/google-analytics": "^2.4.0",
+    "core-js": "^3.8.2",
+    "nuxt": "^2.15.7",
+    "vue-codemirror": "^4.0.6",
+    "vue-live": "^1.16.1",
+    "vuep": "^0.8.1"
+  },
+  "devDependencies": {
+    "@vue/composition-api": "^1.0.0-rc.9",
+    "concurrently": "^6.2.0",
+    "remark-plugin-vue-live": "^1.0.5",
+    "vue-docgen-cli": "^4.39.0",
+    "vue-md-loader": "^1.1.9",
+    "vue-simple-docgen-loader": "^4.39.0"
+  }
+}

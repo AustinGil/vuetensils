@@ -2,122 +2,168 @@
   <div
     :class="[
       'vts-input',
-      `vts-input--${$attrs.type || 'text'}`,
+      `vts-input--${type}`,
       {
         'vts-input--required': $attrs.hasOwnProperty('required'),
         'vts-input--invalid': !valid,
         'vts-input--dirty': dirty,
         'vts-input--error': error,
       },
+      $attrs.class,
       classes.root,
     ]"
   >
     <fieldset
-      v-if="'radio' === $attrs.type"
+      v-if="'radio' === type || ('checkbox' === type && computedOptions.length)"
       :class="['vts-input__fieldset', classes.fieldset]"
     >
-      <legend v-if="label" :class="['vts-input__legend', classes.text]">
+      <legend v-if="label" :class="['vts-input__legend', classes.legend]">
         {{ label }}
       </legend>
-      <label
-        v-for="(option, index) in computedOptions"
-        :key="option.value"
-        :for="`${id}__input-${index}`"
-        :class="['vts-input__label', classes.label]"
-      >
-        <input
-          :id="`${id}__input-${index}`"
-          ref="input"
-          v-bind="{ ...bind, ...option }"
-          @input="localValue = option.value"
-          @blur.once="dirty = true"
-          v-on="$listeners"
-        />
-        <span :class="['vts-input__text', classes.text]">
-          {{ option.label }}
-        </span>
-      </label>
+
+      <div :class="['vts-input__fieldset-items', classes.fieldsetItems]">
+        <div
+          v-for="(option, index) in computedOptions"
+          :key="option.value"
+          :class="['vts-input__fieldset-item', classes.fieldsetItem]"
+        >
+          <input
+            v-bind="{ ...bind, ...option }"
+            :id="`${id}__input-${index}`"
+            ref="input"
+            :type="type"
+            @input="onFieldsetInput"
+            @blur.once="dirty = true"
+            v-on="listeners"
+          />
+          <label
+            :for="`${id}__input-${index}`"
+            :class="['vts-input__label', classes.label]"
+          >
+            {{ option.label }}
+          </label>
+        </div>
+      </div>
     </fieldset>
 
-    <label
-      v-else-if="'checkbox' === $attrs.type"
-      :for="`${id}__input`"
-      :class="['vts-input__label', classes.label]"
-    >
+    <template v-else-if="'checkbox' === type">
       <input
         ref="input"
         :checked="localValue === undefined ? $attrs.checked : localValue"
+        type="checkbox"
         v-bind="bind"
         @change="localValue = $event.target.checked"
         @blur.once="dirty = true"
-        v-on="$listeners"
+        v-on="listeners"
       />
-      <span :class="['vts-input__text', classes.text]">
+      <label :for="`${id}__input`" :class="['vts-input__label', classes.label]">
         {{ label }}
-      </span>
-    </label>
+      </label>
+    </template>
 
-    <label
-      v-else
-      :for="`${id}__input`"
-      :class="['vts-input__label', classes.label]"
-    >
-      <span :class="['vts-input__text', classes.text]">
+    <template v-else>
+      <label :for="`${id}__input`" :class="['vts-input__label', classes.label]">
         {{ label }}
-      </span>
+      </label>
 
       <select
-        v-if="'select' === $attrs.type"
+        v-if="'select' === type"
         ref="input"
-        :value="localValue"
+        v-model="localValue"
         v-bind="bind"
-        @input="localValue = $event.target.value"
-        @change="localValue = $event.target.value"
+        @input="onSelect"
+        @change="onSelect"
         @blur.once="dirty = true"
-        v-on="$listeners"
+        v-on="listeners"
       >
-        <option v-for="(option, i) in computedOptions" :key="i" v-bind="option">
-          {{ option.label }}
-        </option>
+        <slot name="options">
+          <option
+            v-for="option in computedOptions"
+            :key="option.value"
+            v-bind="option"
+            :label="null"
+          >
+            {{ option.label }}
+          </option>
+        </slot>
       </select>
 
       <textarea
-        v-else-if="'textarea' === $attrs.type"
+        v-else-if="'textarea' === type"
         ref="input"
         v-model="localValue"
         v-bind="bind"
         @blur.once="dirty = true"
-        v-on="$listeners"
+        v-on="listeners"
       />
 
       <input
         v-else
         ref="input"
         v-model="localValue"
+        :type="type"
         v-bind="bind"
         @blur.once="dirty = true"
-        v-on="$listeners"
+        v-on="listeners"
       />
-    </label>
+    </template>
 
     <div
-      v-if="$scopedSlots.description"
+      v-if="slots.description"
       :id="`${id}__description`"
       :class="['vts-input__description', classes.description]"
-      role="alert"
     >
       <!-- TODO: Test aria live region updates -->
       <!-- @slot Scoped slot for the input description. Provides the validation state. -->
       <slot
         name="description"
-        v-bind="{ valid, dirty, error, invalid, anyInvalid }"
+        v-bind="{
+          valid,
+          dirty,
+          error,
+          invalid,
+          anyInvalid,
+          errors: errorMessages,
+        }"
       />
+    </div>
+    <div
+      v-if="dirty && errorMessages.length"
+      :id="`${id}__errors`"
+      :class="['vts-input__errors', classes.errors]"
+    >
+      <span
+        v-for="error of errorMessages"
+        :key="error"
+        :class="['vts-input__error', classes.error]"
+      >
+        {{ error }}
+      </span>
     </div>
   </div>
 </template>
 
 <script>
-import { randomString } from '../../utils';
+import { isVue3 } from 'vue-demi';
+import { randomString, isType } from '../../utils.js';
+
+/**
+ * TODO:
+ * Provide prop for error,invalid classes on input
+ * Remove span from labels (breaking)
+ * Use validationMessage @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/validationMessage
+ */
+
+const valuePropDef = {
+  type: [String, Number, Boolean, Array],
+  default: undefined,
+};
+function updateLocalValue(value, previousValue) {
+  if (value === previousValue) return;
+  this.localValue = value;
+  // TODO: Do we want to do this to trigger event listeners?
+  // inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+}
 
 /**
  * Input component that automatically includes labels, validation, and aria descriptions for any errors.
@@ -127,7 +173,7 @@ export default {
   inheritAttrs: false,
 
   model: {
-    event: 'update',
+    event: 'update:modelValue',
   },
 
   props: {
@@ -140,21 +186,50 @@ export default {
     },
 
     /**
+     * Every input should have a label with the exception of `radio` which supports labels for the `options` prop.
+     */
+    name: {
+      type: String,
+      required: true,
+    },
+
+    /**
      * The input value. Works for all inputs except type `radio`. See `options` prop.
      */
-    value: {
-      type: [String, Number, Boolean, Array],
-      default: undefined,
+    value: valuePropDef,
+    modelValue: valuePropDef,
+
+    type: {
+      type: String,
+      default: 'text',
     },
 
     /**
      * An array of options used for inputs of type `radio` or type `select`
      */
     options: {
-      type: Array,
+      type: [Array, Object],
       default: () => [],
     },
 
+    errors: {
+      type: Object,
+      default: () => ({}),
+    },
+
+    /**
+     * @type {import('vue').PropOptions<{
+     * root: string,
+     * fieldset: string,
+     * fieldsetItem: string,
+     * legend: string,
+     * label: string,
+     * input: string,
+     * description: string,
+     * errors: string,
+     * error: string
+     * }>}
+     */
     classes: {
       type: Object,
       default: () => ({}),
@@ -163,7 +238,7 @@ export default {
 
   data() {
     return {
-      localValue: this.value, // Required for weird bug when nested in VForm
+      localValue: this.modelValue || this.value, // Required for weird bug when nested in VForm
       valid: true,
       anyInvalid: false, // TODO: deprecate
       dirty: false,
@@ -172,63 +247,116 @@ export default {
   },
 
   computed: {
+    /** @returns {any} */
     bind() {
-      const { id, valid, error, classes, $attrs } = this;
-      const attrs = {
+      const { id, name, valid, dirty, error, errorMessages, classes, $attrs } =
+        this;
+      // eslint-disable-next-line no-unused-vars
+      const { class: _, ...attrs } = $attrs;
+
+      const describedby = [];
+      if (error) describedby.push(`${id}__description`);
+      if (errorMessages.length) describedby.push(`${id}__errors`);
+
+      const bindings = {
         'aria-invalid': !valid,
-        'aria-describedby': error && `${id}__description`,
-        ...$attrs,
+        'aria-describedby':
+          dirty && describedby.length ? describedby.join(' ') : null,
+        ...attrs,
         id: `${id}__input`,
+        name: name,
         class: ['vts-input__input', classes.input],
       };
 
-      return attrs;
+      return bindings;
+    },
+    /** @returns {Record<string, string> | Record<string, Function | Function[]>} */
+    listeners() {
+      if (isVue3) {
+        return this.$attrs;
+      }
+      return this.$listeners;
+    },
+    slots() {
+      if (!isVue3) {
+        return this.$scopedSlots;
+      }
+      return this.$slots;
     },
 
     computedOptions() {
-      const { id, $attrs, localValue } = this;
-      return this.options.map((item) => {
+      const { $attrs, localValue, type } = this;
+      let options = this.options;
+      if (isType(options, 'object')) {
+        options = Object.entries(options).map(([key, value]) => ({
+          value: key,
+          label: value,
+        }));
+      }
+      return options.map((item) => {
         // Each item should be an object with at least value and label which we can bind to later
-        item = typeof item === 'object' ? item : { value: item };
-        return Object.assign(item, $attrs, {
+        item = isType(item, 'object') ? item : { value: item };
+        Object.assign(item, $attrs, {
           label: item.label || item.value,
-          name: item.name || id,
           value: item.value,
-          checked:
-            localValue !== undefined ? item.value === localValue : item.checked,
         });
+
+        if (localValue !== undefined) {
+          if ('checkbox' === type) {
+            item.checked = localValue.includes(item.value) || item.checked;
+          } else {
+            item.checked = item.value === localValue || item.checked;
+          }
+        }
+
+        return item;
       });
     },
-
+    /** @returns {boolean} */
     isMultiple() {
       const { multiple } = this.$attrs;
       return multiple != null && multiple != 'false';
     },
-
+    /** @returns {boolean} */
     error() {
       return !this.valid && this.dirty;
+    },
+
+    errorMessages() {
+      const { invalid, errors, $attrs } = this;
+      const errorMessages = [];
+
+      Object.keys(errors || {}).forEach((key) => {
+        if (!invalid[key]) return;
+
+        const errorHandlerOrMessage = errors[key];
+
+        const errorMessage = isType(errorHandlerOrMessage, 'function')
+          ? errorHandlerOrMessage($attrs[key])
+          : errorHandlerOrMessage;
+
+        errorMessages.push(errorMessage);
+      });
+
+      return errorMessages;
     },
   },
 
   watch: {
-    value(value, previousValue) {
-      if (value === previousValue) return;
-      this.localValue = value;
-    },
+    modelValue: updateLocalValue,
+    value: updateLocalValue,
     localValue(value) {
       /**
        * @event update
        * @type { any }
        */
-      this.$emit('update', value);
+      this.$emit('update:modelValue', value);
       this.validate();
     },
   },
 
   created() {
-    const { id, name } = this.$attrs;
-    this.id = id || 'vts-' + randomString(4);
-    this.name = name || this.id;
+    this.id = this.$attrs.id || 'vts-' + randomString(4);
   },
 
   mounted() {
@@ -236,10 +364,42 @@ export default {
   },
 
   methods: {
+    onSelect(event) {
+      const select = event.target;
+      if (this.isMultiple) {
+        const values = [];
+        for (const option of select.selectedOptions) {
+          values.push(option.value);
+        }
+        this.localValue = [...(values || [])];
+      } else {
+        this.localValue = select.value;
+      }
+    },
+    onFieldsetInput(event) {
+      const input = event.target;
+      const value = input.value;
+      if (input.type === 'radio') {
+        this.localValue = value;
+        return;
+      }
+
+      const newValue = [...(this.localValue || [])];
+      const index = newValue.indexOf(value);
+
+      if (index === -1) {
+        newValue.push(value);
+      } else {
+        newValue.splice(index, 1);
+      }
+
+      this.localValue = newValue;
+    },
     validate() {
       let input = this.$refs.input;
 
       if (Array.isArray(input)) {
+        if (!input.length) return;
         input = input[0];
       }
 
@@ -254,8 +414,8 @@ export default {
         required: validity.valueMissing,
         minlength: validity.tooShort,
         maxlength: validity.tooLong,
-        min: validity.rangeOverflow,
-        max: validity.rangeUnderflow,
+        min: validity.rangeUnderflow,
+        max: validity.rangeOverflow,
         pattern: validity.patternMismatch,
       };
     },

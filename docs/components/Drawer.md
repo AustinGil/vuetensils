@@ -2,7 +2,7 @@
 
 A convenient sidebar that can be toggled on or off. When opened, it traps the user's focus so that keyboard navigation will remain within the sidebar until it is closed. It also supports being closed by pressing the ESC key.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDrawer/VDrawer.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VDrawer/VDrawer.vue)
 
 Features:
 
@@ -11,34 +11,6 @@ Features:
 - Maintains focus states to remain within the drawer for keyboard users.
 - Adds event listener to close drawer on the `esc` key.
 - Supports preventing page scroll while open.
-
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VDrawer } from 'vuetensils/src/components';
-
-Vue.component('VDrawer', VDrawer);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VDrawer } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VDrawer,
-  },
-  // ...
-};
-</script>
-```
 
 ## Styled Examples
 
@@ -72,7 +44,7 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: 0.5s ease opacity;
+  transition: opacity 0.5s ease;
 }
 
 .fade-enter,
@@ -82,10 +54,10 @@ export default {
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: 0.5s ease opacity, 0.5s ease transform;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.slide-right-enter,
+.slide-right-enter-from,
 .slide-right-leave-to {
   opacity: 0;
   transform: translateX(-100%);
@@ -233,7 +205,7 @@ export default {
 ```css
 .fade-enter-active,
 .fade-leave-active {
-  transition: 0.5s ease opacity;
+  transition: opacity 0.5s ease;
 }
 
 .fade-enter,
@@ -243,10 +215,10 @@ export default {
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: 0.5s ease opacity, 0.5s ease transform;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.slide-right-enter,
+.slide-right-enter-from,
 .slide-right-leave-to {
   opacity: 0;
   transform: translateX(-100%);
@@ -255,7 +227,7 @@ export default {
 
 ## Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ bg: 'bg-class', content: 'content-class' }"

@@ -40,7 +40,7 @@ export default {};
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: 0.5s ease opacity, 0.5s ease transform;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .slide-up-enter,
@@ -97,7 +97,7 @@ export default {};
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: 0.5s ease opacity, 0.5s ease transform;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .slide-up-enter,
@@ -110,7 +110,7 @@ export default {};
 
 ### Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', trigger: 'trigger-class', content: 'content-class' }"

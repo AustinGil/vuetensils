@@ -1,28 +1,50 @@
 <template>
   <picture :class="['vts-img', classes.root]">
+    <noscript>
+      <img
+        :src="dataUrl"
+        :class="['vts-img__img', classes.img]"
+        :alt="alt"
+        :style="{
+          transitionDuration: `${transitionDuration}ms`,
+        }"
+        :decoding="$attrs.decoding || 'async'"
+        :role="$attrs.role || alt ? null : 'presentation'"
+        v-bind="$attrs"
+      />
+    </noscript>
     <div
       v-if="dataUrl"
       ref="placeholder"
       :class="['vts-img__placeholder', classes.placeholder]"
       :style="{ background }"
     >
-      <img :src="placeholder || dataUrl" alt="" v-bind="$attrs" />
+      <img
+        :src="placeholder || dataUrl"
+        alt=""
+        v-bind="$attrs"
+        :decoding="$attrs.decoding || 'async'"
+      />
     </div>
     <img
       ref="img"
       :src="dataUrl"
       :class="['vts-img__img', classes.img]"
-      :alt="$attrs.alt || ''"
+      :alt="alt"
       :style="{
         transitionDuration: `${transitionDuration}ms`,
       }"
+      :decoding="$attrs.decoding || 'async'"
+      :role="$attrs.role || alt ? null : 'presentation'"
       v-bind="$attrs"
-      v-on="$listeners"
+      v-on="listeners"
     />
   </picture>
 </template>
 
 <script>
+import { isVue3 } from 'vue-demi';
+
 const NAME = 'vts-img';
 
 /**
@@ -40,6 +62,10 @@ export default {
      * Same as the HTML attribute
      */
     src: {
+      type: String,
+      required: true,
+    },
+    alt: {
       type: String,
       required: true,
     },
@@ -80,6 +106,15 @@ export default {
     dataUrl: '',
   }),
 
+  computed: {
+    listeners() {
+      if (isVue3) {
+        return this.$attrs;
+      }
+      return this.$listeners;
+    },
+  },
+
   watch: {
     src: {
       handler: 'init',
@@ -92,6 +127,13 @@ export default {
   mounted() {
     this.init();
   },
+  beforeUnmount() {
+    this.observer.disconnect();
+  },
+  /** @deprecated */
+  beforeDestroy() {
+    this.observer.disconnect();
+  },
 
   methods: {
     init() {
@@ -99,10 +141,6 @@ export default {
 
       this.observer = new IntersectionObserver(this.handler);
       this.observer.observe(this.$el);
-
-      this.$once('hook:beforeDestroy', () => {
-        this.observer.disconnect();
-      });
     },
 
     handler([entry]) {
@@ -119,19 +157,21 @@ export default {
     getDataUrl() {
       if (typeof window === 'undefined') return;
 
+      /** @type {import('vue').ImgHTMLAttributes} */
       const { width, height } = this.$attrs;
       if (!width || !height) return '';
 
       const w = 100;
       const canvas = document.createElement('canvas');
       canvas.width = w;
-      canvas.height = (height / width) * w;
+      canvas.height = (+height / +width) * w;
 
       return canvas.toDataURL();
     },
 
     loadImg() {
       const { src, srcset } = this;
+      /** @type {{ img?: HTMLImageElement }} */
       const { img } = this.$refs;
 
       img.addEventListener('load', this.onLoad);
@@ -144,6 +184,7 @@ export default {
 
     onLoad() {
       const { $el } = this;
+      /** @type {{ img?: HTMLImageElement, placeholder?: HTMLImageElement }} */
       const { img, placeholder } = this.$refs;
 
       $el.classList.remove(`${NAME}--loading`);

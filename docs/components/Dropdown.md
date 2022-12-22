@@ -2,35 +2,7 @@
 
 Adds a button that can show/hide dropdown content when it is hovered over, or clicked. When it is clicked, the content will persist until the user clicks out or focuses out. Includes relevant ARIA attributes for the hidden content.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VDropdown/VDropdown.vue)
-
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VDropdown } from 'vuetensils/src/components';
-
-Vue.component('VDropdown', VDropdown);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VDropdown } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VDropdown,
-  },
-  // ...
-};
-</script>
-```
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VDropdown/VDropdown.vue)
 
 ## Styled Examples
 
@@ -55,7 +27,7 @@ export default {
   padding: 10px;
   font-size: 18px;
   color: #FFF;
-  background: darkcyan;
+  background: #008484;
   transition: 0.5s ease border-radius;
 }
 
@@ -64,7 +36,7 @@ export default {
 }
 
 .dropdown-content {
-  border: 1px solid darkcyan;
+  border: 1px solid #008484;
   border-radius: 0 0 5px 5px;
   padding: 10px;
   background-color: #FFF;
@@ -73,7 +45,7 @@ export default {
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: 0.5s ease opacity, 0.5s ease transform;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .slide-up-enter,
@@ -141,7 +113,7 @@ Dialog background colors have been removed. The following styles have been added
 .slide-up-enter-active,
 .slide-up-leave-active {
   transform: translateY(0);
-  transition: 0.5s ease opacity, 0.5s ease transform;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .slide-up-enter,
@@ -153,7 +125,7 @@ Dialog background colors have been removed. The following styles have been added
 
 ## Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', trigger: 'trigger-class', content: 'content-class' }"

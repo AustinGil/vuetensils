@@ -4,41 +4,13 @@
 
 A component that let's you add a tooltip to an element.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VTooltip/VTooltip.vue)
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VTooltip/VTooltip.vue)
 
 Features:
 - Supports keyboard navigation for the target DOM node.
 - Toggles the tooltip on hover and/or focus.
 - Includes `role="tooltip"` attribute for tooltip content.
 - Manages `aria-hidden` and `aria-describedby` attributes.
-
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VTooltip } from 'vuetensils/src/components';
-
-Vue.component('VTooltip', VTooltip);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VTooltip } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VTooltip,
-  },
-  // ...
-};
-</script>
-```
 
 ## Default Example
 
@@ -113,7 +85,7 @@ Hovering over the target will not do anything, but you can click on it or tab to
 
 ## Custom Classes
 
-This component can accept a `classes` prop to cusomize the output HTML classes:
+This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ root: 'root-class', content: 'content-class' }"

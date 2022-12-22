@@ -7,6 +7,8 @@ yarn-error.log*
 /tests/unit/coverage/
 /tests/e2e/reports/
 selenium-debug.log
+.cache
+.temp
 
 # Editor directories and files
 .idea
@@ -17,3 +19,4 @@ selenium-debug.log
 *.sln
 
 docs/.vuepress/dist
+.quokka

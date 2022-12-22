@@ -11,7 +11,7 @@ export default {
   bind(el, binding) {
     // TODO: add escape handler?
     el._vtsClickout = {
-      stop: e => e.stopPropagation(),
+      stop: (e) => e.stopPropagation(),
       // esc: e => e.key === 'Escape' && el.data.event()
     };
 
@@ -19,7 +19,7 @@ export default {
     // document.body.addEventListener('keydown', el._vtsClickout.esc)
     el.addEventListener('click', el._vtsClickout.stop);
   },
-  
+
   /**
    * @param {ClickoutEl} el directive target element
    * @type {import('vue').DirectiveFunction}

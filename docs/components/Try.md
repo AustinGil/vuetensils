@@ -2,35 +2,7 @@
 
 A utillity component to wrap around components that may or may not throw and error or reject a promise. Provides you with some logic to handle those errors.
 
-- [Source](https://github.com/Stegosource/vuetensils/blob/master/src/components/VTry/VTry.vue)
-
-## Installation
-
-Globally:
-
-```js
-// main.js
-import Vue from 'vue';
-import { VTry } from 'vuetensils/src/components';
-
-Vue.component('VTry', VTry);
-```
-
-Locally:
-
-```vue
-<script>
-// SomeComponent.vue
-import { VTry } from 'vuetensils/src/components';
-
-export default {
-  components: {
-    VTry,
-  },
-  // ...
-};
-</script>
-```
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VTry/VTry.vue)
 
 ## Default Example
 
@@ -49,16 +21,18 @@ export default {
 </template>
 
 <script>
-import Vue from 'vue';
-Vue.component('ThisWillThrow', {
-  methods: {
-    onClick() {
-      throw new Error('ThisWillThrow...threw...');
+export default {
+  components: {
+    ThisWillThrow: {
+      template: '<button @click="onClick">Throw</button>',
+      methods: {
+        onClick() {
+          throw new Error('ThisWillThrow...threw...');
+        }
+      },
     }
-  },
-  template: '<button @click="onClick">Throw</button>',
-});
-export default {};
+  }
+};
 </script>
 ```
 
@@ -79,16 +53,18 @@ export default {};
 </template>
 
 <script>
-import Vue from 'vue';
-Vue.component('ThisWillReject', {
-  methods: {
-    onClick() {
-      return Promise.reject(new Error('ThisWillReject...rejected...'));
-    }
-  },
-  template: '<button @click="onClick">Reject</button>',
-});
-export default {};
+export default {
+  components: {
+    ThisWillReject: {
+      methods: {
+        onClick() {
+          return Promise.reject(new Error('ThisWillReject...rejected...'));
+        }
+      },
+      template: '<button @click="onClick">Reject</button>',
+    },
+  }
+}
 </script>
 ```
 
@@ -105,15 +81,14 @@ export default {};
 </template>
 
 <script>
-import Vue from 'vue';
-Vue.component('ThisWillThrow', {
-  /* eslint-disable-next-line vue/require-render-return */
-  render() {
-    throw new Error('ThisWillThrow...threw...');
-  }
-});
-
 export default {
+  components: {
+    ThisWillThrow: {
+      render() {
+        throw new Error('ThisWillThrow...threw...');
+      }
+    }
+  },
   methods: {
     onError(error) {
       console.log('There was an error in the component:', error);
@@ -139,15 +114,17 @@ If you want to only show the error handling template on errors, then the catch s
 </template>
 
 <script>
-import Vue from 'vue';
-Vue.component('ThisWillThrow', {
-  methods: {
-    onClick() {
-      throw new Error('ThisWillThrow...threw...');
+export default {
+  components: {
+    ThisWillThrow: {
+      template: '<button @click="onClick">Throw</button>',
+      methods: {
+        onClick() {
+          throw new Error('ThisWillThrow...threw...');
+        }
+      },
     }
-  },
-  template: '<button @click="onClick">Throw</button>',
-});
-export default {};
+  }
+};
 </script>
 ```

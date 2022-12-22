@@ -15,16 +15,19 @@
       ref="input"
       v-bind="$attrs"
       type="file"
-      :class="['vts-file__input', classes.input]"
+      :class="['vts-visually-hidden', classes.input]"
       @change="onChange"
-      v-on="$listeners"
+      v-on="listeners"
     />
 
     <span :class="['vts-file__text', classes.text]">
       <slot name="label">{{ label }}</slot>
     </span>
 
-    <div class="vts-file__dropzone" @dragenter.prevent="droppable = true">
+    <div
+      :class="['vts-file__dropzone', classes.dropzone]"
+      @dragenter.prevent="droppable = true"
+    >
       <slot v-bind="{ files: localFiles, droppable }">
         <span v-if="localFiles.length" aria-hidden="true">
           <template v-if="localFiles.length > 1">
@@ -35,14 +38,12 @@
           </template>
         </span>
 
-        <span v-else aria-hidden="true">
-          Choose files or drop here
-        </span>
+        <span v-else aria-hidden="true"> Choose files or drop here </span>
       </slot>
 
       <span
         v-if="droppable"
-        class="vts-file__overlay"
+        :class="['vts-file__overlay', classes.overlay]"
         @drop.prevent="onDrop"
         @dragenter.stop="droppable = true"
         @dragleave.stop="droppable = false"
@@ -55,7 +56,9 @@
 </template>
 
 <script>
-import { randomString } from '../../utils';
+import { isVue3 } from 'vue-demi';
+import { randomString } from '../../utils.js';
+import '../../shared.css';
 
 export default {
   name: 'VFile',
@@ -67,17 +70,25 @@ export default {
   props: {
     label: {
       type: String,
-      required: true
+      required: true,
+    },
+    id: {
+      type: String,
+      default: () => 'vts-' + randomString(4),
     },
 
+    modelValue: {
+      type: Array,
+      default: () => [],
+    },
     files: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
 
     classes: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
   },
 
@@ -86,8 +97,20 @@ export default {
     droppable: false,
   }),
 
+  computed: {
+    listeners() {
+      if (isVue3) {
+        return this.$attrs;
+      }
+      return this.$listeners;
+    },
+  },
+
   watch: {
     files(files) {
+      this.localFiles = files;
+    },
+    modelValue(files) {
       this.localFiles = files;
     },
     localFiles() {
@@ -95,15 +118,12 @@ export default {
     },
   },
 
-  created() {
-    this.id = this.$attrs.id || 'vts-' + randomString(4);
-  },
-
   methods: {
     onChange(event) {
       const files = Array.from(event.target.files);
       this.localFiles = files;
       this.$emit('update', files);
+      this.$emit('update:modelValue', files);
     },
 
     onDrop(event) {
@@ -114,6 +134,7 @@ export default {
       }
       this.localFiles = files;
       this.$emit('update', files);
+      this.$emit('update:modelValue', files);
     },
 
     // clear() {
@@ -126,27 +147,13 @@ export default {
 </script>
 
 <style>
-.vts-file__input {
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  border: 0;
-  padding: 0;
-}
-
 .vts-file__dropzone {
   position: relative;
 }
 
 .vts-file__overlay {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
 }
 
 input:focus ~ .vts-file__dropzone {
@@ -156,4 +163,3 @@ input:focus ~ .vts-file__dropzone {
   outline-color: -webkit-focus-ring-color;
 }
 </style>
-

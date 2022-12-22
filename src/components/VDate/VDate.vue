@@ -7,7 +7,9 @@
         :class="['vtd-date__toggle', classes.toggle]"
         v-on="toggle.on"
       >
-        <span role="img" aria-label="show calendar">&#x1F4C5;</span>
+        <span role="img" :aria-label="buttonLabels.showCalendar">
+          &#x1F4C5;
+        </span>
       </button>
     </slot>
 
@@ -27,25 +29,21 @@
       <div class="vts-date__navigation">
         <button
           :class="['vtd-date__prev-year', classes.prevYear]"
-          aria-label="previous year"
+          :aria-label="buttonLabels.previousYear"
           type="button"
           :disabled="disableNav.prevYear"
           @click="incrementYearBy(-1)"
         >
-          <slot name="prevYearLabel">
-            &#8606;
-          </slot>
+          <slot name="prevYearLabel">&#8606;</slot>
         </button>
         <button
           :class="['vtd-date__prev-month', classes.prevMonth]"
-          aria-label="previous month"
+          :aria-label="buttonLabels.previousMonth"
           type="button"
           :disabled="disableNav.prevMonth"
           @click="incrementMonthBy(-1)"
         >
-          <slot name="prevMonthLabel">
-            &#8592;
-          </slot>
+          <slot name="prevMonthLabel">&#8592;</slot>
         </button>
         <h4
           :id="`${id}-dialog-label`"
@@ -56,25 +54,21 @@
         </h4>
         <button
           :class="['vtd-date__next-month', classes.nextMonth]"
-          aria-label="next month"
+          :aria-label="buttonLabels.nextMonth"
           type="button"
           :disabled="disableNav.nextMonth"
           @click="incrementMonthBy(1)"
         >
-          <slot name="nextMonthLabel">
-            &#8594;
-          </slot>
+          <slot name="nextMonthLabel">&#8594;</slot>
         </button>
         <button
           :class="['vtd-date__next-year', classes.nextYear]"
-          aria-label="next year"
+          :aria-label="buttonLabels.nextYear"
           type="button"
           :disabled="disableNav.nextYear"
           @click="incrementYearBy(1)"
         >
-          <slot name="nextYearLabel">
-            &#8608;
-          </slot>
+          <slot name="nextYearLabel">&#8608;</slot>
         </button>
       </div>
       <!-- eslint-disable-next-line vuejs-accessibility/no-redundant-roles -->
@@ -162,15 +156,15 @@
 
 <script>
 import KEYCODES from '../../data/keycodes.js';
-import { clickout } from '../../directives';
+import { clickout } from '../../directives/index.js';
 import { randomString, applyFocusTrap } from '../../utils.js';
 
 /**
  * Compares the year, month, and day of two dates to confirm if they match.
  *
- * @param  {object}  first   Date object
- * @param  {object}  second  Date object
- * @return {boolean}         True if dates match
+ * @param   {object}  first   Date object
+ * @param   {object}  second  Date object
+ * @returns {boolean}         True if dates match
  */
 function sameDays(first, second) {
   return (
@@ -193,6 +187,7 @@ const keysUsed = [
 
 // Based on https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/datepicker-dialog.html
 export default {
+  name: 'VDate',
   directives: {
     clickout,
   },
@@ -204,6 +199,10 @@ export default {
 
   props: {
     // TODO: include, exclude
+    modelValue: {
+      type: [Date, String],
+      default: () => new Date(),
+    },
     date: {
       type: [Date, String],
       default: () => new Date(),
@@ -257,18 +256,33 @@ export default {
       ],
     },
 
+    buttonLabels: {
+      type: Object,
+      default: () => {
+        return Object.freeze({
+          selectDate: 'Select Date',
+          showCalendar: 'show calendar',
+          previousMonth: 'previous month',
+          nextMonth: 'next month',
+          previousYear: 'previous year',
+          nextYear: 'next year',
+        });
+      },
+    },
+
     classes: {
       type: Object,
       default: () => ({}),
     },
   },
+  emits: ['update', 'update:modelValue'],
 
   data() {
     return {
       show: false,
       previousActiveEl: null,
-      focusedDate: new Date(this.date),
-      selectedDate: new Date(this.date),
+      focusedDate: new Date(this.modelValue || this.date),
+      selectedDate: new Date(this.modelValue || this.date),
     };
   },
 
@@ -281,17 +295,20 @@ export default {
     },
 
     disableNav() {
+      /** @type {typeof this & { focusedDate?: Date, min?: Date, max?: Date }} */
       const { focusedDate, min, max } = this;
       const disableNav = {};
       const minDate = new Date(min);
       const maxDate = new Date(max);
 
       if (min) {
-        disableNav.prevYear = focusedDate.getYear() <= minDate.getYear();
+        disableNav.prevYear =
+          focusedDate.getFullYear() <= minDate.getFullYear();
         disableNav.prevMonth = focusedDate.getMonth() <= minDate.getMonth();
       }
       if (max) {
-        disableNav.nextYear = focusedDate.getYear() >= maxDate.getYear();
+        disableNav.nextYear =
+          focusedDate.getFullYear() >= maxDate.getFullYear();
         disableNav.nextMonth = focusedDate.getMonth() >= maxDate.getMonth();
       }
       return disableNav;
@@ -347,7 +364,7 @@ export default {
       const { show } = this;
       return {
         bind: {
-          'aria-label': 'Select Date',
+          'aria-label': this.buttonLabels.selectDate,
           'aria-expanded': '' + show,
         },
         on: {
@@ -375,6 +392,7 @@ export default {
 
     selectedDate(date) {
       this.$emit('update', date);
+      this.$emit('update:modelValue', date);
       this.show = false;
     },
   },
@@ -414,7 +432,7 @@ export default {
       event.preventDefault();
 
       const { focusedDate, min, max } = this;
-      let d = new Date(focusedDate);
+      const d = new Date(focusedDate);
 
       switch (event.keyCode) {
         case KEYCODES.ENTER:
