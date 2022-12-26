@@ -1,6 +1,11 @@
+/** @typedef {import('vue').DirectiveHook} DirectiveHook */
+/** @type {DirectiveHook} */
+const mounted = (el) => el.focus();
+/**
+ * @type {import('vue').Directive & { inserted: import('vue').DirectiveHook}}
+ */
 export default {
-  /**
-   * @type {import('vue').DirectiveFunction}
-   */
-  inserted: (el) => el.focus(),
+  mounted,
+  // TODO: Drop Vue 2
+  inserted: mounted,
 };

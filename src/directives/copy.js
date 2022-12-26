@@ -1,3 +1,5 @@
+/** @typedef {import('vue').DirectiveHook} DirectiveHook */
+
 /**
  * Copies a string of text to the user's clipboard
  *
@@ -23,30 +25,35 @@ function copyToClipboard(content) {
   activeEl && activeEl.focus();
 }
 
-/**
- * @typedef {HTMLElement & { _vtsCopy?: EventListenerOrEventListenerObject }} CopyEl
- */
+/** @type {DirectiveHook} */
+function mounted(el, binding) {
+  el._vtsCopy = () => copyToClipboard(binding.value);
+  el.addEventListener('click', el._vtsCopy);
+}
+/** @type {DirectiveHook} */
+function updated(el, binding) {
+  el.removeEventListener('click', el._vtsCopy);
+  el._vtsCopy = () => copyToClipboard(binding.value);
+  el.addEventListener('click', el._vtsCopy);
+}
+/** @type {DirectiveHook} */
+function unmounted(el) {
+  el.removeEventListener('click', el._vtsCopy);
+}
 
+/**
+ * @type {import('vue').Directive & {
+ * bind: DirectiveHook,
+ * update: DirectiveHook,
+ * unbind: DirectiveHook,
+ * }}
+ */
 export default {
-  /**
-   * @type {import('vue').DirectiveFunction}
-   */
-  bind(/** @type {CopyEl} */ el, binding) {
-    el._vtsCopy = () => copyToClipboard(binding.value);
-    el.addEventListener('click', el._vtsCopy);
-  },
-  /**
-   * @type {import('vue').DirectiveFunction}
-   */
-  update(/** @type {CopyEl} */ el, binding) {
-    el.removeEventListener('click', el._vtsCopy);
-    el._vtsCopy = () => copyToClipboard(binding.value);
-    el.addEventListener('click', el._vtsCopy);
-  },
-  /**
-   * @type {import('vue').DirectiveFunction}
-   */
-  unbind(/** @type {CopyEl} */ el) {
-    el.removeEventListener('click', el._vtsCopy);
-  },
+  mounted,
+  updated,
+  unmounted,
+  // TODO: Drop Vue 2
+  bind: mounted,
+  update: updated,
+  unbind: unmounted,
 };

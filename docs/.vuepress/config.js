@@ -84,6 +84,7 @@ export default defineUserConfig({
           '/directives/autofocus',
           '/directives/clickout',
           '/directives/copy',
+          '/directives/focusout',
           '/directives/intersect',
         ],
       },
