@@ -88,5 +88,5 @@ Hovering over the target will not do anything, but you can click on it or tab to
 This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
-:classes="{ root: 'root-class', content: 'content-class' }"
+:classes="{ root: string, content: string }"
 ```

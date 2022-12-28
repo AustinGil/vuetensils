@@ -90,5 +90,5 @@ You can access the `open` status through the scoped slots.
 This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
-:classes="{ root: 'root-class', label: 'label-class', content: 'content-class' }"
+:classes="{ root: string, label: string, content: string }"
 ```

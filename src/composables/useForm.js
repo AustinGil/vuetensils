@@ -1,8 +1,8 @@
-import { reactive, watch, computed, nextTick } from 'vue-demi';
+import { reactive, watch, computed, nextTick } from 'vue';
 
 /**
- * @typedef {import('vue-demi').Ref<HTMLFormElement>} FormRef
- * @typedef {import('vue-demi').ComputedRef} ComputedRef
+ * @typedef {import('vue').Ref<HTMLFormElement>} FormRef
+ * @typedef {import('vue').ComputedRef} ComputedRef
  * @typedef {string | ((string) => string)} ErrorMessage
  * @typedef {{
  * value: string
@@ -66,7 +66,7 @@ const useForm = (formRef, options = {}) => {
 
     state.invalid = !form.checkValidity();
 
-    /** @type {HTMLInputElement[]} */
+    /** @type {NodeListOf<HTMLInputElement>} */
     const els = form.querySelectorAll('input, textarea, select');
     /** @type {typeof baseState.inputs} */
     const inputs = {};

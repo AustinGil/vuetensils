@@ -225,5 +225,5 @@ export default {
 This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
-:classes="{ bg: 'bg-class', content: 'content-class' }"
+:classes="{ bg: string, content: string }"
 ```

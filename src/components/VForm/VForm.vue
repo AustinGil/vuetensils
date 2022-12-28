@@ -222,10 +222,9 @@ export default {
     },
 
     clear() {
-      /** @type {HTMLInputElement[]} */
-      const els = Array.from(
-        this.$el.querySelectorAll('input, textarea, select')
-      );
+      /** @type {NodeListOf<HTMLInputElement>} */
+      const els = this.$el.querySelectorAll('input, textarea, select');
+
       els.forEach((input) => {
         if (['radio', 'checkbox'].includes(input.type)) {
           input.checked = false;

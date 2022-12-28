@@ -125,5 +125,5 @@ Dialog background colors have been removed. The following styles have been added
 This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
-:classes="{ root: 'root-class', trigger: 'trigger-class', content: 'content-class' }"
+:classes="{ root: string, trigger: string, content: string }"
 ```

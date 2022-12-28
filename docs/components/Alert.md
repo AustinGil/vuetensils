@@ -212,5 +212,5 @@ export default {
 This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
-:classes="{ root: 'root-class', dismiss: 'dismiss-class' }"
+:classes="{ root: string, dismiss: string }"
 ```

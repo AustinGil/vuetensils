@@ -1,4 +1,4 @@
-import { reactive } from 'vue-demi';
+import { reactive } from 'vue';
 
 /**
  * @param {Promise | (() => Promise)} [promise]

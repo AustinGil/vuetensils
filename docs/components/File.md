@@ -160,5 +160,5 @@ You can use these events to style any element within the root.
 This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
-:classes="{ root: 'root-class', input: 'input-class', text: 'text-class', dropzone: 'dropzone-class' }"
+:classes="{ root: string, input: string, text: string, dropzone: string }"
 ```

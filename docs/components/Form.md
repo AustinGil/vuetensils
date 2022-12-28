@@ -41,7 +41,7 @@ Features:
         />
       </label>
 
-      <button type="submit" :disabled="!form.valid">
+      <button :type="form.valid ? 'submit' : 'button'" :aria-disabled="!form.valid">
         Submit
       </button>
     </template>
@@ -104,7 +104,7 @@ The form provides the following status:
         <input name="name" required />
       </label>
 
-      <button type="submit" :disabled="!form.valid">
+      <button :type="form.valid ? 'submit' : 'button'" :aria-disabled="!form.valid">
         Submit
       </button>
 
@@ -213,7 +213,7 @@ Fortunately, VForm provides a `clear()` method.
         Clear
       </button>
 
-      <button type="submit" :disabled="!form.valid">
+      <button :type="form.valid ? 'submit' : 'button'" :aria-disabled="!form.valid">
         Submit
       </button>
     </template>

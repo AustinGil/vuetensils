@@ -85,12 +85,12 @@ This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
 :classes="{ 
-  root: 'root-class', 
-  tablist: 'tablist-class', 
-  tab: 'tab-class'
-  tabActive: 'tabActive-class'
-  panel: 'panel-class'
-  panelActive: 'panelActive-class'
+  root: string, 
+  tablist: string, 
+  tab: string
+  tabActive: string
+  panel: string
+  panelActive: string
 }"
 ```
 

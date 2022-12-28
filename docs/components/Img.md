@@ -110,5 +110,5 @@ Don't forget all the other best practices such as `srcset` attribute and `alt` t
 This component can accept a `classes` prop to customize the output HTML classes:
 
 ```
-:classes="{ root: 'root-class', placeholder: 'placeholder-class', img: 'img-class' }"
+:classes="{ root: string, placeholder: string, img: string }"
 ```
