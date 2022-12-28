@@ -4,39 +4,6 @@ Input component that simplifies accessibility and validation.
 
 - [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VInput/VInput.vue)
 
-```vue live
-<template>
-  <div>
-    <VInput
-      type="checkbox"
-      v-model="checked"
-      :options="options"
-      label="Checkbox Options"
-      name="options-2"
-    />
-    {{ checked }}
-  </div>
-</template>
-
-<script>
-export default {
-  data: () => ({
-    checked: ['2'],
-    options: [
-      'first',
-      '2',
-      {
-        label: "Third",
-        value: '3',
-      }
-    ]
-  })
-}
-</script>
-```
-
-
-
 **Features:**
 
 - Enforces including labels.
