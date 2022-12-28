@@ -45,6 +45,7 @@ declare const _default: {
     };
     created(): void;
     methods: {
+        onClick(event: any, tab: any, index: any): void;
         onKeydown(event: any): void;
         determineOrientation(event: any): void;
         switchTabOnArrowPress(event: any): void;

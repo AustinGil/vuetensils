@@ -50,9 +50,10 @@ declare const _default: {
             default: () => {};
         };
         /**
-         * @type {import('vue').PropOptions<{
+         * @type {import('vue').Prop<{
          * root: string,
          * fieldset: string,
+         * fieldsetItems: string,
          * fieldsetItem: string,
          * legend: string,
          * label: string,

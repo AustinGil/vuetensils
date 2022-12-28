@@ -1,10 +1,10 @@
-import { openBlock as r, createBlock as P, Transition as I, withCtx as D, resolveDynamicComponent as B, normalizeClass as d, renderSlot as f, createElementBlock as c, createTextVNode as O, createCommentVNode as m, withModifiers as x, Fragment as S, renderList as M, createElementVNode as h, mergeProps as b, toHandlers as V, resolveDirective as ce, withDirectives as j, normalizeProps as _, guardReactiveProps as E, withKeys as R, toDisplayString as w, vShow as te, createVNode as T, normalizeStyle as U, toHandlerKey as ue, vModelSelect as he, vModelText as fe, vModelDynamic as ve, reactive as se, watch as ye, nextTick as $, computed as be } from "vue";
-const k = (e, s) => {
+import { openBlock as r, createBlock as I, Transition as P, withCtx as V, resolveDynamicComponent as F, normalizeClass as d, renderSlot as f, createElementBlock as c, createTextVNode as E, createCommentVNode as g, withModifiers as x, Fragment as k, renderList as M, createElementVNode as h, mergeProps as b, toHandlers as O, resolveDirective as pe, withDirectives as j, normalizeProps as m, guardReactiveProps as w, withKeys as G, toDisplayString as S, vShow as de, createVNode as T, normalizeStyle as U, toHandlerKey as _e, vModelSelect as we, vModelText as Se, vModelDynamic as ke, reactive as ce, watch as De, nextTick as $, computed as Ee } from "vue";
+const D = (e, s) => {
   const t = e.__vccOpts || e;
-  for (const [l, a] of s)
-    t[l] = a;
+  for (const [l, i] of s)
+    t[l] = i;
   return t;
-}, me = {
+}, Ve = {
   name: "VAlert",
   model: {
     prop: "modelValue",
@@ -66,36 +66,36 @@ const k = (e, s) => {
       e && (clearInterval(e), this.timerId = null);
     }
   }
-}, ge = ["aria-label"];
-function pe(e, s, t, l, a, n) {
-  return r(), P(I, { name: t.transition }, {
-    default: D(() => [
-      !e.dismissed && t.modelValue ? (r(), P(B(t.tag), {
+}, Oe = ["aria-label"];
+function Me(e, s, t, l, i, n) {
+  return r(), I(P, { name: t.transition }, {
+    default: V(() => [
+      !e.dismissed && t.modelValue ? (r(), I(F(t.tag), {
         key: 0,
         role: "alert",
         class: d(["vts-alert", t.classes.root])
       }, {
-        default: D(() => [
+        default: V(() => [
           f(e.$slots, "default"),
           t.dismissible ? (r(), c("button", {
             key: 0,
             "aria-label": t.dismissLabel,
             class: d(["vts-alert__dismiss", t.classes.dismiss]),
             type: "button",
-            onClick: s[0] || (s[0] = (...i) => n.dismiss && n.dismiss(...i))
+            onClick: s[0] || (s[0] = (...a) => n.dismiss && n.dismiss(...a))
           }, [
             f(e.$slots, "dismiss", {}, () => [
-              O("×")
+              E("×")
             ])
-          ], 10, ge)) : m("", !0)
+          ], 10, Oe)) : g("", !0)
         ]),
         _: 3
-      }, 8, ["class"])) : m("", !0)
+      }, 8, ["class"])) : g("", !0)
     ]),
     _: 3
   }, 8, ["name"]);
 }
-const _e = /* @__PURE__ */ k(me, [["render", pe]]), we = {
+const Ce = /* @__PURE__ */ D(Ve, [["render", Me]]), Ie = {
   name: "VAsync",
   props: {
     await: {
@@ -145,12 +145,12 @@ const _e = /* @__PURE__ */ k(me, [["render", pe]]), we = {
   },
   render() {
     const { pending: e, error: s, results: t, done: l } = this;
-    let a = this.$slots;
-    const n = a.pending, i = a.rejected, o = a.resolved, u = a.default;
+    let i = this.$slots;
+    const n = i.pending, a = i.rejected, o = i.resolved, u = i.default;
     if (e && n)
       return n();
-    if (l && s && i)
-      return i(s);
+    if (l && s && a)
+      return a(s);
     if (l && !s && o)
       return o(t);
     if (u)
@@ -163,7 +163,7 @@ const _e = /* @__PURE__ */ k(me, [["render", pe]]), we = {
       });
   }
 };
-const Se = {
+const Pe = {
   name: "VBtn",
   inheritAttrs: !1,
   props: {
@@ -184,40 +184,40 @@ const Se = {
       return this.$attrs;
     }
   }
-}, ke = ["action"], De = ["value", "name"];
-function Ee(e, s, t, l, a, n) {
+}, Le = ["action"], Te = ["value", "name"];
+function Fe(e, s, t, l, i, n) {
   return t.action && t.data ? (r(), c("form", {
     key: 0,
     action: t.action,
     method: "POST",
     class: "vts-btn__form",
-    onSubmit: s[0] || (s[0] = x((i) => e.$emit("submit", i), ["prevent"]))
+    onSubmit: s[0] || (s[0] = x((a) => e.$emit("submit", a), ["prevent"]))
   }, [
-    (r(!0), c(S, null, M(t.data, (i, o) => (r(), c("input", {
+    (r(!0), c(k, null, M(t.data, (a, o) => (r(), c("input", {
       key: o,
-      value: i,
+      value: a,
       name: String(o),
       type: "hidden",
       hidden: "",
       autocomplete: "off",
       "aria-hidden": "true",
       tabindex: "-1"
-    }, null, 8, De))), 128)),
-    h("button", b({ type: "submit" }, e.$attrs, { class: "vts-btn" }, V(n.listeners, !0)), [
+    }, null, 8, Te))), 128)),
+    h("button", b({ type: "submit" }, e.$attrs, { class: "vts-btn" }, O(n.listeners, !0)), [
       f(e.$slots, "default")
     ], 16)
-  ], 40, ke)) : (r(), P(B(n.tag), b({
+  ], 40, Le)) : (r(), I(F(n.tag), b({
     key: 1,
     class: "vts-btn",
     type: n.type
-  }, e.$attrs, V(n.listeners)), {
-    default: D(() => [
+  }, e.$attrs, O(n.listeners)), {
+    default: V(() => [
       f(e.$slots, "default")
     ]),
     _: 3
   }, 16, ["type"]));
 }
-const Ve = /* @__PURE__ */ k(Se, [["render", Ee]]), v = Object.freeze({
+const Be = /* @__PURE__ */ D(Pe, [["render", Fe]]), v = Object.freeze({
   TAB: 9,
   ENTER: 13,
   ESC: 27,
@@ -230,59 +230,91 @@ const Ve = /* @__PURE__ */ k(Se, [["render", Ee]]), v = Object.freeze({
   UP: 38,
   RIGHT: 39,
   DOWN: 40
-}), Oe = {
-  inserted: (e) => e.focus()
-}, ne = {
-  bind(e, s) {
-    e._vtsClickout = {
-      stop: (t) => t.stopPropagation()
-    }, document.body.addEventListener("click", s.value), e.addEventListener("click", e._vtsClickout.stop);
-  },
-  unbind(e, s) {
-    document.body.removeEventListener("click", s.value), e.removeEventListener("click", e._vtsClickout.stop);
-  }
+}), J = (e) => e.focus(), Ae = {
+  mounted: J,
+  inserted: J
 };
-function G(e) {
+function X(e, s) {
+  e._vtsClickout = {
+    stop: (t) => t.stopPropagation()
+  }, document.body.addEventListener("click", s.value), e.addEventListener("click", e._vtsClickout.stop);
+}
+function Q(e, s) {
+  document.body.removeEventListener("click", s.value), e.removeEventListener("click", e._vtsClickout.stop);
+}
+const ue = {
+  mounted: X,
+  unmounted: Q,
+  bind: X,
+  unbind: Q
+};
+function he(e) {
   const s = document.activeElement, t = document.createElement("textarea");
   t.value = e, t.setAttribute("readonly", ""), t.style.position = "absolute", t.style.left = "-9999px", t.style.fontSize = "12pt", document.body.append(t), t.select(), document.execCommand("copy"), t.remove(), s && s.focus();
 }
-const Me = {
-  bind(e, s) {
-    e._vtsCopy = () => G(s.value), e.addEventListener("click", e._vtsCopy);
-  },
-  update(e, s) {
-    e.removeEventListener("click", e._vtsCopy), e._vtsCopy = () => G(s.value), e.addEventListener("click", e._vtsCopy);
-  },
-  unbind(e) {
-    e.removeEventListener("click", e._vtsCopy);
-  }
+function Z(e, s) {
+  e._vtsCopy = () => he(s.value), e.addEventListener("click", e._vtsCopy);
+}
+function ee(e, s) {
+  e.removeEventListener("click", e._vtsCopy), e._vtsCopy = () => he(s.value), e.addEventListener("click", e._vtsCopy);
+}
+function te(e) {
+  e.removeEventListener("click", e._vtsCopy);
+}
+const xe = {
+  mounted: Z,
+  updated: ee,
+  unmounted: te,
+  bind: Z,
+  update: ee,
+  unbind: te
 };
-function J(e) {
+function se(e, s) {
+  e._vtsFocusout = () => {
+    requestAnimationFrame(() => {
+      e.contains(document.activeElement) || s.value();
+    });
+  }, e.addEventListener("focusout", e._vtsFocusout);
+}
+function ne(e) {
+  e._vtsFocusout && e.removeEventListener("focusout", e._vtsFocusout);
+}
+const je = {
+  mounted: se,
+  unmounted: ne,
+  bind: se,
+  unbind: ne
+};
+function R(e) {
   e._vtsIntersect && (e._vtsIntersect.unobserve(e), delete e._vtsIntersect);
 }
-const Ce = {
-  inserted: (e, { value: s, modifiers: t }) => {
-    const l = {
-      ...s
-    }, { enter: a, exit: n, once: i } = t;
-    l.root && (l.root = typeof l.root == "string" ? document.querySelector(l.root) : l.root);
-    const o = { ...s };
-    s instanceof Function && (a && (o.onEnter = s), n && (o.onExit = s), !a && !n && (o.onChange = s));
-    const u = new IntersectionObserver(([y]) => {
-      const g = Array.isArray(l.threshold), p = {};
-      for (const C in y)
-        p[C] = y[C];
-      p.isIntersecting = g ? l.threshold.includes(y.intersectionRatio) : y.intersectionRatio === l.threshold, p.isIntersecting ? o.onEnter && o.onEnter(p, e) : o.onExit && o.onExit(p, e), o.onChange && o.onChange(p, e), i && J(e);
-    }, l);
-    u.observe(e), e._vtsIntersect = u;
-  },
-  unbind: J
-}, ae = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+function ie(e, { value: s, modifiers: t }) {
+  const l = {
+    ...s
+  }, { enter: i, exit: n, once: a } = t;
+  l.root && (l.root = typeof l.root == "string" ? document.querySelector(l.root) : l.root);
+  const o = { ...s };
+  s instanceof Function && (i && (o.onEnter = s), n && (o.onExit = s), !i && !n && (o.onChange = s));
+  const u = new IntersectionObserver(([y]) => {
+    const p = Array.isArray(l.threshold), _ = {};
+    for (const C in y)
+      _[C] = y[C];
+    _.isIntersecting = p ? l.threshold.includes(y.intersectionRatio) : y.intersectionRatio === l.threshold, _.isIntersecting ? o.onEnter && o.onEnter(_, e) : o.onExit && o.onExit(_, e), o.onChange && o.onChange(_, e), a && R(e);
+  }, l);
+  u.observe(e), e._vtsIntersect = u;
+}
+const Ne = {
+  mounted: ie,
+  unmounted: R,
+  inserted: ie,
+  unbind: R
+}, fe = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  autofocus: Oe,
-  clickout: ne,
-  copy: Me,
-  intersect: Ce
+  autofocus: Ae,
+  clickout: ue,
+  copy: xe,
+  focusout: je,
+  intersect: Ne
 }, Symbol.toStringTag, { value: "Module" })), H = [
   'a[href]:not([tabindex^="-"])',
   'area[href]:not([tabindex^="-"])',
@@ -296,7 +328,7 @@ const Ce = {
   '[contenteditable]:not([tabindex^="-"])',
   '[tabindex]:not([tabindex^="-"])'
 ];
-function F(e = 10, s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789") {
+function B(e = 10, s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789") {
   let t = "";
   for (let l = 0; l < e; l++)
     t += s.charAt(Math.floor(Math.random() * s.length));
@@ -305,7 +337,7 @@ function F(e = 10, s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123
 function W(e, s) {
   return Object.prototype.toString.call(e).slice(8, -1).toLowerCase() === s.toLowerCase();
 }
-function Pe(e, s) {
+function ze(e, s) {
   const t = Array.from(e.querySelectorAll(H));
   if (!t.length) {
     s.preventDefault();
@@ -318,10 +350,10 @@ function Pe(e, s) {
     s.shiftKey && l === 0 && (t[t.length - 1].focus(), s.preventDefault()), !s.shiftKey && l === t.length - 1 && (t[0].focus(), s.preventDefault());
   }
 }
-function X(e, s) {
+function ae(e, s) {
   return e.getFullYear() === s.getFullYear() && e.getMonth() === s.getMonth() && e.getDate() === s.getDate();
 }
-const Ie = [
+const Ue = [
   v.UP,
   v.DOWN,
   v.LEFT,
@@ -330,10 +362,10 @@ const Ie = [
   v.PAGEDOWN,
   v.HOME,
   v.END
-], Le = {
+], He = {
   name: "VDate",
   directives: {
-    clickout: ne
+    clickout: ue
   },
   model: {
     prop: "date",
@@ -358,7 +390,7 @@ const Ie = [
     },
     id: {
       type: String,
-      default: () => `vts-${F(4)}`
+      default: () => `vts-${B(4)}`
     },
     daysOfWeek: {
       type: Object,
@@ -420,30 +452,30 @@ const Ie = [
       return `${e[s.getMonth()]} ${s.getFullYear()}`;
     },
     disableNav() {
-      const { focusedDate: e, min: s, max: t } = this, l = {}, a = new Date(s), n = new Date(t);
-      return s && (l.prevYear = e.getFullYear() <= a.getFullYear(), l.prevMonth = e.getMonth() <= a.getMonth()), t && (l.nextYear = e.getFullYear() >= n.getFullYear(), l.nextMonth = e.getMonth() >= n.getMonth()), l;
+      const { focusedDate: e, min: s, max: t } = this, l = {}, i = new Date(s), n = new Date(t);
+      return s && (l.prevYear = e.getFullYear() <= i.getFullYear(), l.prevMonth = e.getMonth() <= i.getMonth()), t && (l.nextYear = e.getFullYear() >= n.getFullYear(), l.nextMonth = e.getMonth() >= n.getMonth()), l;
     },
     daysByWeeks() {
-      const { focusedDate: e, selectedDate: s, min: t, max: l } = this, a = new Date(
+      const { focusedDate: e, selectedDate: s, min: t, max: l } = this, i = new Date(
         e.getFullYear(),
         e.getMonth(),
         1
-      ), n = a.getDay();
-      a.setDate(a.getDate() - n);
-      const i = new Date(
+      ), n = i.getDay();
+      i.setDate(i.getDate() - n);
+      const a = new Date(
         e.getFullYear(),
         e.getMonth() + 1,
         0
-      ).getDate(), o = new Date(a), u = n + i < 36 ? 5 : 6, y = [];
-      for (let g = 0; g < u; g++) {
+      ).getDate(), o = new Date(i), u = n + a < 36 ? 5 : 6, y = [];
+      for (let p = 0; p < u; p++) {
         y.push([]);
-        for (let p = 0; p < 7; p++) {
+        for (let _ = 0; _ < 7; _++) {
           const C = new Date(o);
           let A = !1;
-          t && (A = C < new Date(t)), l && !A && (A = C > new Date(l)), y[g].push({
+          t && (A = C < new Date(t)), l && !A && (A = C > new Date(l)), y[p].push({
             date: C,
-            isFocused: X(C, e),
-            isSelected: X(C, s),
+            isFocused: ae(C, e),
+            isSelected: ae(C, s),
             disabled: A
           }), o.setDate(o.getDate() + 1);
         }
@@ -491,69 +523,69 @@ const Ie = [
       e.classList.contains("vts-date__day") && (this.selectedDate = new Date(e.value));
     },
     onKeydown(e) {
-      if (!e.target.classList.contains("vts-date__day") || !Ie.includes(e.keyCode))
+      if (!e.target.classList.contains("vts-date__day") || !Ue.includes(e.keyCode))
         return;
       e.stopPropagation(), e.preventDefault();
-      const { focusedDate: s, min: t, max: l } = this, a = new Date(s);
+      const { focusedDate: s, min: t, max: l } = this, i = new Date(s);
       switch (e.keyCode) {
         case v.ENTER:
         case v.SPACE:
-          this.selectedDate = a;
+          this.selectedDate = i;
           return;
         case v.RIGHT:
-          a.setDate(a.getDate() + 1);
+          i.setDate(i.getDate() + 1);
           break;
         case v.LEFT:
-          a.setDate(a.getDate() - 1);
+          i.setDate(i.getDate() - 1);
           break;
         case v.DOWN:
-          a.setDate(a.getDate() + 7);
+          i.setDate(i.getDate() + 7);
           break;
         case v.UP:
-          a.setDate(a.getDate() - 7);
+          i.setDate(i.getDate() - 7);
           break;
         case v.PAGEUP:
-          e.shiftKey ? a.setFullYear(s.getFullYear() - 1) : a.setMonth(s.getMonth() - 1);
+          e.shiftKey ? i.setFullYear(s.getFullYear() - 1) : i.setMonth(s.getMonth() - 1);
           break;
         case v.PAGEDOWN:
-          e.shiftKey ? a.setFullYear(s.getFullYear() + 1) : a.setMonth(s.getMonth() + 1);
+          e.shiftKey ? i.setFullYear(s.getFullYear() + 1) : i.setMonth(s.getMonth() + 1);
           break;
         case v.HOME:
-          a.setDate(a.getDate() - a.getDay());
+          i.setDate(i.getDate() - i.getDay());
           break;
         case v.END:
-          a.setDate(a.getDate() + (6 - a.getDay()));
+          i.setDate(i.getDate() + (6 - i.getDay()));
           break;
       }
-      const n = t && new Date(t), i = l && new Date(l);
-      n && a < n || i && a > i || (this.focusedDate = a, this.$nextTick(() => {
+      const n = t && new Date(t), a = l && new Date(l);
+      n && i < n || a && i > a || (this.focusedDate = i, this.$nextTick(() => {
         this.$el.querySelector('button[aria-selected="true"]').focus();
       }));
     },
     onTab(e) {
-      Pe(this.$refs.calendar, e);
+      ze(this.$refs.calendar, e);
     },
     onClickout(e) {
       const { show: s } = this;
       e.preventDefault(), s && (this.show = !1);
     }
   }
-}, Te = ["id"], Be = ["aria-label"], Fe = ["aria-labelledby"], Ae = { class: "vts-date__navigation" }, xe = ["aria-label", "disabled"], je = ["aria-label", "disabled"], Ne = ["id"], ze = ["aria-label", "disabled"], Ue = ["aria-label", "disabled"], He = ["aria-labelledby"], Ye = ["abbr"], Ke = ["tabindex", "aria-selected", "value", "disabled"];
-function We(e, s, t, l, a, n) {
-  const i = ce("clickout");
+}, Ye = ["id"], Ke = ["aria-label"], We = ["aria-labelledby"], qe = { class: "vts-date__navigation" }, Re = ["aria-label", "disabled"], Ge = ["aria-label", "disabled"], $e = ["id"], Je = ["aria-label", "disabled"], Xe = ["aria-label", "disabled"], Qe = ["aria-labelledby"], Ze = ["abbr"], et = ["tabindex", "aria-selected", "value", "disabled"];
+function tt(e, s, t, l, i, n) {
+  const a = pe("clickout");
   return j((r(), c("div", {
     id: t.id,
     class: d(["vtd-date", t.classes.root])
   }, [
-    f(e.$slots, "default", _(E(n.toggle)), () => [
+    f(e.$slots, "default", m(w(n.toggle)), () => [
       h("button", b(n.toggle.bind, {
         type: "button",
         class: ["vtd-date__toggle", t.classes.toggle]
-      }, V(n.toggle.on, !0)), [
+      }, O(n.toggle.on, !0)), [
         h("span", {
           role: "img",
           "aria-label": t.buttonLabels.showCalendar
-        }, " 📅 ", 8, Be)
+        }, " 📅 ", 8, Ke)
       ], 16)
     ]),
     j(h("div", {
@@ -565,11 +597,11 @@ function We(e, s, t, l, a, n) {
       onClick: s[4] || (s[4] = (...o) => n.onClick && n.onClick(...o)),
       onKeydown: [
         s[5] || (s[5] = (...o) => n.onKeydown && n.onKeydown(...o)),
-        s[6] || (s[6] = R((...o) => n.onTab && n.onTab(...o), ["tab"])),
-        s[7] || (s[7] = R((o) => a.show = !1, ["esc"]))
+        s[6] || (s[6] = G((...o) => n.onTab && n.onTab(...o), ["tab"])),
+        s[7] || (s[7] = G((o) => i.show = !1, ["esc"]))
       ]
     }, [
-      h("div", Ae, [
+      h("div", qe, [
         h("button", {
           class: d(["vtd-date__prev-year", t.classes.prevYear]),
           "aria-label": t.buttonLabels.previousYear,
@@ -578,9 +610,9 @@ function We(e, s, t, l, a, n) {
           onClick: s[0] || (s[0] = (o) => n.incrementYearBy(-1))
         }, [
           f(e.$slots, "prevYearLabel", {}, () => [
-            O("↞")
+            E("↞")
           ])
-        ], 10, xe),
+        ], 10, Re),
         h("button", {
           class: d(["vtd-date__prev-month", t.classes.prevMonth]),
           "aria-label": t.buttonLabels.previousMonth,
@@ -589,14 +621,14 @@ function We(e, s, t, l, a, n) {
           onClick: s[1] || (s[1] = (o) => n.incrementMonthBy(-1))
         }, [
           f(e.$slots, "prevMonthLabel", {}, () => [
-            O("←")
+            E("←")
           ])
-        ], 10, je),
+        ], 10, Ge),
         h("h4", {
           id: `${t.id}-dialog-label`,
           class: d(["vtd-date__title", t.classes.title]),
           "aria-live": "polite"
-        }, w(n.monthYear), 11, Ne),
+        }, S(n.monthYear), 11, $e),
         h("button", {
           class: d(["vtd-date__next-month", t.classes.nextMonth]),
           "aria-label": t.buttonLabels.nextMonth,
@@ -605,9 +637,9 @@ function We(e, s, t, l, a, n) {
           onClick: s[2] || (s[2] = (o) => n.incrementMonthBy(1))
         }, [
           f(e.$slots, "nextMonthLabel", {}, () => [
-            O("→")
+            E("→")
           ])
-        ], 10, ze),
+        ], 10, Je),
         h("button", {
           class: d(["vtd-date__next-year", t.classes.nextYear]),
           "aria-label": t.buttonLabels.nextYear,
@@ -616,9 +648,9 @@ function We(e, s, t, l, a, n) {
           onClick: s[3] || (s[3] = (o) => n.incrementYearBy(1))
         }, [
           f(e.$slots, "nextYearLabel", {}, () => [
-            O("↠")
+            E("↠")
           ])
-        ], 10, Ue)
+        ], 10, Xe)
       ]),
       h("table", {
         class: d(["vtd-date__calendar", t.classes.calendar]),
@@ -631,22 +663,22 @@ function We(e, s, t, l, a, n) {
           h("tr", {
             class: d(["vtd-date__week", t.classes.week])
           }, [
-            (r(!0), c(S, null, M(t.daysOfWeek, (o, u) => (r(), c("th", {
+            (r(!0), c(k, null, M(t.daysOfWeek, (o, u) => (r(), c("th", {
               key: u,
               abbr: o,
               scope: "col",
               class: d(["vtd-date__th", t.classes.th])
-            }, w(u), 11, Ye))), 128))
+            }, S(u), 11, Ze))), 128))
           ], 2)
         ], 2),
         h("tbody", {
           class: d(["vtd-date__tbody", t.classes.tbody])
         }, [
-          (r(), c(S, null, M(6, (o) => h("tr", {
+          (r(), c(k, null, M(6, (o) => h("tr", {
             key: o,
             class: d(["vtd-date__tr", t.classes.tr])
           }, [
-            (r(!0), c(S, null, M(n.daysByWeeks[o - 1], (u) => (r(), c("td", {
+            (r(!0), c(k, null, M(n.daysByWeeks[o - 1], (u) => (r(), c("td", {
               key: u.date.toString(),
               class: d([
                 "vts-date__td",
@@ -673,20 +705,20 @@ function We(e, s, t, l, a, n) {
                 value: u.date,
                 disabled: u.disabled,
                 type: "button"
-              }, w(u.date.getDate()), 11, Ke)
+              }, S(u.date.getDate()), 11, et)
             ], 2))), 128))
           ], 2)), 64))
         ], 2)
-      ], 10, He)
-    ], 42, Fe), [
-      [te, a.show]
+      ], 10, Qe)
+    ], 42, We), [
+      [de, i.show]
     ])
-  ], 10, Te)), [
-    [i, n.onClickout]
+  ], 10, Ye)), [
+    [a, n.onClickout]
   ]);
 }
-const qe = /* @__PURE__ */ k(Le, [["render", We]]);
-const Re = {
+const st = /* @__PURE__ */ D(He, [["render", tt]]);
+const nt = {
   name: "VDialog",
   inheritAttrs: !1,
   model: {
@@ -808,32 +840,32 @@ const Re = {
       }
     }
   }
-}, $e = { key: 0 };
-function Ge(e, s, t, l, a, n) {
-  return a.localShow || n.slots.toggle ? (r(), c("span", $e, [
-    n.slots.toggle ? f(e.$slots, "toggle", _(b({ key: 0 }, {
+}, it = { key: 0 };
+function at(e, s, t, l, i, n) {
+  return i.localShow || n.slots.toggle ? (r(), c("span", it, [
+    n.slots.toggle ? f(e.$slots, "toggle", m(b({ key: 0 }, {
       on: {
-        click: () => a.localShow = !a.localShow
+        click: () => i.localShow = !i.localShow
       },
       bind: {
         type: "button",
         role: "button",
         "aria-haspopup": !0,
-        "aria-expanded": "" + a.localShow
+        "aria-expanded": "" + i.localShow
       }
-    }))) : m("", !0),
-    T(I, {
+    }))) : g("", !0),
+    T(P, {
       name: t.bgTransition || t.transition,
       appear: !0
     }, {
-      default: D(() => [
-        a.localShow ? (r(), c("div", {
+      default: V(() => [
+        i.localShow ? (r(), c("div", {
           key: 0,
           class: d(["vts-dialog", t.classes.root, t.classes.bg, e.$attrs.class])
         }, [
-          T(I, { name: t.contentTransition }, {
-            default: D(() => [
-              (r(), P(B(t.tag), {
+          T(P, { name: t.contentTransition }, {
+            default: V(() => [
+              (r(), I(F(t.tag), {
                 ref: "content",
                 class: d(["vts-dialog__content", t.classes.content]),
                 style: U({
@@ -846,22 +878,22 @@ function Ge(e, s, t, l, a, n) {
                 role: "dialog",
                 "aria-modal": "true"
               }, {
-                default: D(() => [
-                  f(e.$slots, "default", _(E({ close: () => a.localShow = !a.localShow })))
+                default: V(() => [
+                  f(e.$slots, "default", m(w({ close: () => i.localShow = !i.localShow })))
                 ]),
                 _: 3
               }, 8, ["class", "style"]))
             ]),
             _: 3
           }, 8, ["name"])
-        ], 2)) : m("", !0)
+        ], 2)) : g("", !0)
       ]),
       _: 3
     }, 8, ["name"])
-  ])) : m("", !0);
+  ])) : g("", !0);
 }
-const Je = /* @__PURE__ */ k(Re, [["render", Ge]]);
-const Xe = "vts-drawer", Qe = {
+const lt = /* @__PURE__ */ D(nt, [["render", at]]);
+const ot = "vts-drawer", rt = {
   name: "VDrawer",
   model: {
     prop: "showing",
@@ -954,7 +986,7 @@ const Xe = "vts-drawer", Qe = {
       window.removeEventListener("click", e), window.removeEventListener("keydown", s), t && document.body.style.removeProperty("overflow"), this.$emit("close");
     },
     onClick(e) {
-      e.target.classList.contains(Xe) && (this.localShow = !1);
+      e.target.classList.contains(ot) && (this.localShow = !1);
     },
     onKeydown(e) {
       if (e.keyCode === v.ESC && (this.localShow = !1), e.keyCode === v.TAB) {
@@ -975,35 +1007,35 @@ const Xe = "vts-drawer", Qe = {
       }
     }
   }
-}, Ze = { key: 0 };
-function et(e, s, t, l, a, n) {
-  return a.localShow || n.slots.toggle ? (r(), c("span", Ze, [
-    n.slots.toggle ? f(e.$slots, "toggle", _(b({ key: 0 }, {
+}, dt = { key: 0 };
+function ct(e, s, t, l, i, n) {
+  return i.localShow || n.slots.toggle ? (r(), c("span", dt, [
+    n.slots.toggle ? f(e.$slots, "toggle", m(b({ key: 0 }, {
       on: {
-        click: () => a.localShow = !a.localShow
+        click: () => i.localShow = !i.localShow
       },
       bind: {
         type: "button",
         role: "button",
         "aria-haspopup": !0,
-        "aria-expanded": "" + a.localShow
+        "aria-expanded": "" + i.localShow
       }
-    }))) : m("", !0),
-    T(I, {
+    }))) : g("", !0),
+    T(P, {
       name: t.bgTransition || t.transition,
       appear: ""
     }, {
-      default: D(() => [
-        a.localShow ? (r(), c("div", {
+      default: V(() => [
+        i.localShow ? (r(), c("div", {
           key: 0,
           class: d(["vts-drawer", t.classes.root, t.classes.bg, e.$attrs.class])
         }, [
-          T(I, {
+          T(P, {
             name: t.transition,
             appear: ""
           }, {
-            default: D(() => [
-              a.localShow ? (r(), P(B(t.tag), {
+            default: V(() => [
+              i.localShow ? (r(), I(F(t.tag), {
                 key: 0,
                 ref: "content",
                 class: d([
@@ -1019,22 +1051,22 @@ function et(e, s, t, l, a, n) {
                 }),
                 tabindex: "-1"
               }, {
-                default: D(() => [
-                  f(e.$slots, "default", _(E({ close: () => a.localShow = !a.localShow })))
+                default: V(() => [
+                  f(e.$slots, "default", m(w({ close: () => i.localShow = !i.localShow })))
                 ]),
                 _: 3
-              }, 8, ["class", "style"])) : m("", !0)
+              }, 8, ["class", "style"])) : g("", !0)
             ]),
             _: 3
           }, 8, ["name"])
-        ], 2)) : m("", !0)
+        ], 2)) : g("", !0)
       ]),
       _: 3
     }, 8, ["name"])
-  ])) : m("", !0);
+  ])) : g("", !0);
 }
-const tt = /* @__PURE__ */ k(Qe, [["render", et]]);
-const st = {
+const ut = /* @__PURE__ */ D(rt, [["render", ct]]);
+const ht = {
   name: "VDrawer",
   props: {
     text: {
@@ -1078,42 +1110,42 @@ const st = {
       this.$el.contains(e.relatedTarget) || (this.isFocused = !1);
     }
   }
-}, nt = ["aria-expanded"];
-function at(e, s, t, l, a, n) {
+}, ft = ["aria-expanded"];
+function vt(e, s, t, l, i, n) {
   return r(), c("div", {
     class: d(["vts-dropdown", t.classes.root]),
-    onMouseenter: s[1] || (s[1] = (i) => e.isHovered = !0),
-    onMouseleave: s[2] || (s[2] = (i) => e.isHovered = !1),
-    onFocus: s[3] || (s[3] = (i) => e.isFocused = !0),
-    onBlur: s[4] || (s[4] = (i) => e.isFocused = !1),
-    onFocusout: s[5] || (s[5] = (...i) => n.onFocusout && n.onFocusout(...i))
+    onMouseenter: s[1] || (s[1] = (a) => e.isHovered = !0),
+    onMouseleave: s[2] || (s[2] = (a) => e.isHovered = !1),
+    onFocus: s[3] || (s[3] = (a) => e.isFocused = !0),
+    onBlur: s[4] || (s[4] = (a) => e.isFocused = !1),
+    onFocusout: s[5] || (s[5] = (...a) => n.onFocusout && n.onFocusout(...a))
   }, [
     h("button", {
       "aria-expanded": !!e.isHovered || !!e.isFocused,
       "aria-haspopup": "true",
       class: d(["vts-dropdown__trigger", t.classes.trigger]),
       type: "button",
-      onClick: s[0] || (s[0] = (i) => e.isFocused = !e.isFocused)
+      onClick: s[0] || (s[0] = (a) => e.isFocused = !e.isFocused)
     }, [
       f(e.$slots, "trigger", {}, () => [
-        O(w(t.text), 1)
+        E(S(t.text), 1)
       ])
-    ], 10, nt),
-    T(I, { name: t.transition }, {
-      default: D(() => [
+    ], 10, ft),
+    T(P, { name: t.transition }, {
+      default: V(() => [
         e.isHovered || e.isFocused ? (r(), c("div", {
           key: 0,
           class: d(["vts-dropdown__content", [`vts-dropdown__content--${t.position}`, t.classes.content]])
         }, [
           f(e.$slots, "default")
-        ], 2)) : m("", !0)
+        ], 2)) : g("", !0)
       ]),
       _: 3
     }, 8, ["name"])
   ], 34);
 }
-const it = /* @__PURE__ */ k(st, [["render", at]]);
-const lt = {
+const yt = /* @__PURE__ */ D(ht, [["render", vt]]);
+const mt = {
   name: "VFile",
   model: {
     prop: "files",
@@ -1126,7 +1158,7 @@ const lt = {
     },
     id: {
       type: String,
-      default: () => "vts-" + F(4)
+      default: () => "vts-" + B(4)
     },
     modelValue: {
       type: Array,
@@ -1171,14 +1203,14 @@ const lt = {
       !(this.$attrs.multiple != null) && s.length > 1 && (s.length = 1), this.localFiles = s, this.$emit("update", s), this.$emit("update:modelValue", s);
     }
   }
-}, ot = ["for"], rt = ["id"], dt = {
+}, bt = ["for"], gt = ["id"], pt = {
   key: 0,
   "aria-hidden": "true"
-}, ct = {
+}, _t = {
   key: 1,
   "aria-hidden": "true"
 };
-function ut(e, s, t, l, a, n) {
+function wt(e, s, t, l, i, n) {
   return r(), c("label", {
     for: t.id,
     class: d([
@@ -1196,43 +1228,43 @@ function ut(e, s, t, l, a, n) {
     }, e.$attrs, {
       type: "file",
       class: ["vts-visually-hidden", t.classes.input],
-      onChange: s[0] || (s[0] = (...i) => n.onChange && n.onChange(...i))
-    }, V(n.listeners, !0)), null, 16, rt),
+      onChange: s[0] || (s[0] = (...a) => n.onChange && n.onChange(...a))
+    }, O(n.listeners, !0)), null, 16, gt),
     h("span", {
       class: d(["vts-file__text", t.classes.text])
     }, [
       f(e.$slots, "label", {}, () => [
-        O(w(t.label), 1)
+        E(S(t.label), 1)
       ])
     ], 2),
     h("div", {
       class: d(["vts-file__dropzone", t.classes.dropzone]),
-      onDragenter: s[5] || (s[5] = x((i) => e.droppable = !0, ["prevent"]))
+      onDragenter: s[5] || (s[5] = x((a) => e.droppable = !0, ["prevent"]))
     }, [
-      f(e.$slots, "default", _(E({ files: e.localFiles, droppable: e.droppable })), () => [
-        e.localFiles.length ? (r(), c("span", dt, [
-          e.localFiles.length > 1 ? (r(), c(S, { key: 0 }, [
-            O(w(e.localFiles.length) + " files selected ", 1)
-          ], 64)) : (r(), c(S, { key: 1 }, [
-            O(w(e.localFiles[0].name), 1)
+      f(e.$slots, "default", m(w({ files: e.localFiles, droppable: e.droppable })), () => [
+        e.localFiles.length ? (r(), c("span", pt, [
+          e.localFiles.length > 1 ? (r(), c(k, { key: 0 }, [
+            E(S(e.localFiles.length) + " files selected ", 1)
+          ], 64)) : (r(), c(k, { key: 1 }, [
+            E(S(e.localFiles[0].name), 1)
           ], 64))
-        ])) : (r(), c("span", ct, " Choose files or drop here "))
+        ])) : (r(), c("span", _t, " Choose files or drop here "))
       ]),
       e.droppable ? (r(), c("span", {
         key: 0,
         class: d(["vts-file__overlay", t.classes.overlay]),
-        onDrop: s[1] || (s[1] = x((...i) => n.onDrop && n.onDrop(...i), ["prevent"])),
-        onDragenter: s[2] || (s[2] = x((i) => e.droppable = !0, ["stop"])),
-        onDragleave: s[3] || (s[3] = x((i) => e.droppable = !1, ["stop"])),
+        onDrop: s[1] || (s[1] = x((...a) => n.onDrop && n.onDrop(...a), ["prevent"])),
+        onDragenter: s[2] || (s[2] = x((a) => e.droppable = !0, ["stop"])),
+        onDragleave: s[3] || (s[3] = x((a) => e.droppable = !1, ["stop"])),
         onDragover: s[4] || (s[4] = x(() => {
         }, ["prevent"]))
       }, [
         f(e.$slots, "overlay")
-      ], 34)) : m("", !0)
+      ], 34)) : g("", !0)
     ], 34)
-  ], 10, ot);
+  ], 10, bt);
 }
-const ht = /* @__PURE__ */ k(lt, [["render", ut]]), Q = /* @__PURE__ */ new Set(["INPUT", "SELECT", "TEXTAREA"]), ft = {
+const St = /* @__PURE__ */ D(mt, [["render", wt]]), le = /* @__PURE__ */ new Set(["INPUT", "SELECT", "TEXTAREA"]), kt = {
   name: "VForm",
   props: {
     lazy: {
@@ -1273,17 +1305,17 @@ const ht = /* @__PURE__ */ k(lt, [["render", ut]]), Q = /* @__PURE__ */ new Set(
     inputs() {
       const e = {}, { localInputs: s, errors: t } = this;
       for (const l in s) {
-        const a = {
+        const i = {
           ...s[l],
           error: s[l].dirty && !s[l].valid,
           errors: []
         }, n = new Map(Object.entries(t || {}));
-        n.forEach((i, o) => {
-          if (!a.invalid[o])
+        n.forEach((a, o) => {
+          if (!i.invalid[o])
             return;
-          const u = n.get(o), y = o.replace("length", "Length"), g = typeof u == "string" ? u : u(a._inputEl[y]);
-          a.errors.push(g);
-        }), e[l] = a;
+          const u = n.get(o), y = o.replace("length", "Length"), p = typeof u == "string" ? u : u(i._inputEl[y]);
+          i.errors.push(p);
+        }), e[l] = i;
       }
       return e;
     }
@@ -1307,14 +1339,14 @@ const ht = /* @__PURE__ */ k(lt, [["render", ut]]), Q = /* @__PURE__ */ new Set(
   },
   methods: {
     checkModified({ target: e }) {
-      Q.has(e.tagName) && (this.modified = !0);
+      le.has(e.tagName) && (this.modified = !0);
     },
     validate() {
       const e = this.$el.querySelectorAll("input, textarea, select"), s = {};
       e.forEach((t) => {
-        const { name: l, id: a, validity: n } = t, i = l || a;
-        if (i)
-          switch (s[i] = {
+        const { name: l, id: i, validity: n } = t, a = l || i;
+        if (a)
+          switch (s[a] = {
             _inputEl: t,
             valid: n.valid,
             dirty: !1,
@@ -1329,13 +1361,13 @@ const ht = /* @__PURE__ */ k(lt, [["render", ut]]), Q = /* @__PURE__ */ new Set(
             }
           }, t.type) {
             case "checkbox":
-              s[i].value = t.checked;
+              s[a].value = t.checked;
               break;
             case "radio":
-              t.checked && (s[i].value = t.value);
+              t.checked && (s[a].value = t.value);
               break;
             default:
-              s[i].value = t.value;
+              s[a].value = t.value;
           }
       }), this.localInputs = s;
     },
@@ -1343,12 +1375,10 @@ const ht = /* @__PURE__ */ k(lt, [["render", ut]]), Q = /* @__PURE__ */ new Set(
       this.validate();
     },
     onBlur({ target: e }) {
-      Q.has(e.tagName) && (this.dirty = !0, this.localInputs[e.name].dirty = !0);
+      le.has(e.tagName) && (this.dirty = !0, this.localInputs[e.name].dirty = !0);
     },
     clear() {
-      Array.from(
-        this.$el.querySelectorAll("input, textarea, select")
-      ).forEach((s) => {
+      this.$el.querySelectorAll("input, textarea, select").forEach((s) => {
         ["radio", "checkbox"].includes(s.type) ? s.checked = !1 : s.value = "";
       });
     },
@@ -1366,8 +1396,8 @@ const ht = /* @__PURE__ */ k(lt, [["render", ut]]), Q = /* @__PURE__ */ new Set(
       this.modified && (e.preventDefault(), e.returnValue = "");
     }
   }
-}, vt = ["method"], yt = ["name"];
-function bt(e, s, t, l, a, n) {
+}, Dt = ["method"], Et = ["name"];
+function Vt(e, s, t, l, i, n) {
   return r(), c("form", b({
     method: e.$attrs.method || "POST",
     class: [
@@ -1379,13 +1409,13 @@ function bt(e, s, t, l, a, n) {
       }
     ]
   }, {
-    [ue(n.event)]: s[0] || (s[0] = (...i) => n.onEvent && n.onEvent(...i))
+    [_e(n.event)]: s[0] || (s[0] = (...a) => n.onEvent && n.onEvent(...a))
   }, {
-    onKeydown: s[1] || (s[1] = (...i) => n.checkModified && n.checkModified(...i)),
-    onChange: s[2] || (s[2] = (...i) => n.checkModified && n.checkModified(...i)),
-    onSubmit: s[3] || (s[3] = (...i) => n.onSubmit && n.onSubmit(...i)),
-    onBlurCapture: s[4] || (s[4] = (...i) => n.onBlur && n.onBlur(...i))
-  }, V(n.listeners, !0)), [
+    onKeydown: s[1] || (s[1] = (...a) => n.checkModified && n.checkModified(...a)),
+    onChange: s[2] || (s[2] = (...a) => n.checkModified && n.checkModified(...a)),
+    onSubmit: s[3] || (s[3] = (...a) => n.onSubmit && n.onSubmit(...a)),
+    onBlurCapture: s[4] || (s[4] = (...a) => n.onBlur && n.onBlur(...a))
+  }, O(n.listeners, !0)), [
     t.honeypot ? (r(), c("input", {
       key: 0,
       name: typeof t.honeypot == "string" ? t.honeypot : "vts-honeypot",
@@ -1393,12 +1423,12 @@ function bt(e, s, t, l, a, n) {
       tabindex: "-1",
       autocomplete: "off",
       "aria-hidden": "true"
-    }, null, 8, yt)) : m("", !0),
-    f(e.$slots, "default", _(E({ valid: n.valid, dirty: e.dirty, modified: e.modified, error: n.error, inputs: n.inputs, clear: n.clear, validate: n.validate })))
-  ], 16, vt);
+    }, null, 8, Et)) : g("", !0),
+    f(e.$slots, "default", m(w({ valid: n.valid, dirty: e.dirty, modified: e.modified, error: n.error, inputs: n.inputs, clear: n.clear, validate: n.validate })))
+  ], 16, Dt);
 }
-const mt = /* @__PURE__ */ k(ft, [["render", bt]]);
-const q = "vts-img", gt = {
+const Ot = /* @__PURE__ */ D(kt, [["render", Vt]]);
+const q = "vts-img", Mt = {
   name: "VImg",
   inheritAttrs: !1,
   props: {
@@ -1484,7 +1514,7 @@ const q = "vts-img", gt = {
       }), s.removeEventListener("load", this.onLoad);
     }
   }
-}, pt = /* @__PURE__ */ h("noscript", null, `
+}, Ct = /* @__PURE__ */ h("noscript", null, `
       <img
         :src="dataUrl"
         :class="['vts-img__img', classes.img]"
@@ -1496,12 +1526,12 @@ const q = "vts-img", gt = {
         :role="$attrs.role || alt ? null : 'presentation'"
         v-bind="$attrs"
       />
-    `, -1), _t = ["src", "decoding"], wt = ["src", "alt", "decoding", "role"];
-function St(e, s, t, l, a, n) {
+    `, -1), It = ["src", "decoding"], Pt = ["src", "alt", "decoding", "role"];
+function Lt(e, s, t, l, i, n) {
   return r(), c("picture", {
     class: d(["vts-img", t.classes.root])
   }, [
-    pt,
+    Ct,
     e.dataUrl ? (r(), c("div", {
       key: 0,
       ref: "placeholder",
@@ -1513,8 +1543,8 @@ function St(e, s, t, l, a, n) {
         alt: ""
       }, e.$attrs, {
         decoding: e.$attrs.decoding || "async"
-      }), null, 16, _t)
-    ], 6)) : m("", !0),
+      }), null, 16, It)
+    ], 6)) : g("", !0),
     h("img", b({
       ref: "img",
       src: e.dataUrl,
@@ -1525,17 +1555,17 @@ function St(e, s, t, l, a, n) {
       },
       decoding: e.$attrs.decoding || "async",
       role: e.$attrs.role || t.alt ? null : "presentation"
-    }, e.$attrs, V(n.listeners, !0)), null, 16, wt)
+    }, e.$attrs, O(n.listeners, !0)), null, 16, Pt)
   ], 2);
 }
-const kt = /* @__PURE__ */ k(gt, [["render", St]]), Z = {
+const Tt = /* @__PURE__ */ D(Mt, [["render", Lt]]), oe = {
   type: [String, Number, Boolean, Array],
   default: void 0
 };
-function ee(e, s) {
+function re(e, s) {
   e !== s && (this.localValue = e);
 }
-const Dt = {
+const Ft = {
   name: "VInput",
   inheritAttrs: !1,
   model: {
@@ -1550,8 +1580,8 @@ const Dt = {
       type: String,
       required: !0
     },
-    value: Z,
-    modelValue: Z,
+    value: oe,
+    modelValue: oe,
     type: {
       type: String,
       default: "text"
@@ -1580,14 +1610,14 @@ const Dt = {
   },
   computed: {
     bind() {
-      const { id: e, name: s, valid: t, dirty: l, error: a, errorMessages: n, classes: i, $attrs: o } = this, { class: u, ...y } = o, g = [];
-      return a && g.push(`${e}__description`), n.length && g.push(`${e}__errors`), {
+      const { id: e, name: s, valid: t, dirty: l, error: i, errorMessages: n, classes: a, $attrs: o } = this, { class: u, ...y } = o, p = [];
+      return i && p.push(`${e}__description`), n.length && p.push(`${e}__errors`), {
         "aria-invalid": !t,
-        "aria-describedby": l && g.length ? g.join(" ") : null,
+        "aria-describedby": l && p.length ? p.join(" ") : null,
         ...y,
         id: `${e}__input`,
         name: s,
-        class: ["vts-input__input", i.input]
+        class: ["vts-input__input", a.input]
       };
     },
     listeners() {
@@ -1599,13 +1629,20 @@ const Dt = {
     computedOptions() {
       const { $attrs: e, localValue: s, type: t } = this;
       let l = this.options;
-      return W(l, "object") && (l = Object.entries(l).map(([a, n]) => ({
-        value: a,
+      return W(l, "object") && (l = Object.entries(l).map(([i, n]) => ({
+        value: i,
         label: n
-      }))), l.map((a) => (a = W(a, "object") ? a : { value: a }, Object.assign(a, e, {
-        label: a.label || a.value,
-        value: a.value
-      }), s !== void 0 && (t === "checkbox" ? a.checked = s.includes(a.value) || a.checked : a.checked = a.value === s || a.checked), a));
+      }))), l.map((i) => {
+        if (i = W(i, "object") ? i : { value: i }, Object.assign(i, e, {
+          label: i.label || i.value,
+          value: i.value
+        }), t === "checkbox") {
+          const n = s || [];
+          i.checked = n.includes(i.value) || i.checked;
+        } else
+          s !== void 0 && typeof s == "string" && (i.checked = i.value === s || i.checked);
+        return i;
+      });
     },
     isMultiple() {
       const { multiple: e } = this.$attrs;
@@ -1616,23 +1653,23 @@ const Dt = {
     },
     errorMessages() {
       const { invalid: e, errors: s, $attrs: t } = this, l = [];
-      return Object.keys(s || {}).forEach((a) => {
-        if (!e[a])
+      return Object.keys(s || {}).forEach((i) => {
+        if (!e[i])
           return;
-        const n = s[a], i = W(n, "function") ? n(t[a]) : n;
-        l.push(i);
+        const n = s[i], a = W(n, "function") ? n(t[i]) : n;
+        l.push(a);
       }), l;
     }
   },
   watch: {
-    modelValue: ee,
-    value: ee,
+    modelValue: re,
+    value: re,
     localValue(e) {
       this.$emit("update:modelValue", e), this.validate();
     }
   },
   created() {
-    this.id = this.$attrs.id || "vts-" + F(4);
+    this.id = this.$attrs.id || "vts-" + B(4);
   },
   mounted() {
     this.validate();
@@ -1654,8 +1691,8 @@ const Dt = {
         this.localValue = t;
         return;
       }
-      const l = [...this.localValue || []], a = l.indexOf(t);
-      a === -1 ? l.push(t) : l.splice(a, 1), this.localValue = l;
+      const l = [...this.localValue || []], i = l.indexOf(t);
+      i === -1 ? l.push(t) : l.splice(i, 1), this.localValue = l;
     },
     validate() {
       let e = this.$refs.input;
@@ -1676,102 +1713,135 @@ const Dt = {
       };
     }
   }
-}, Et = ["id", "type"], Vt = ["for"], Ot = ["checked"], Mt = ["for"], Ct = ["for"], Pt = ["type"], It = ["id"], Lt = ["id"];
-function Tt(e, s, t, l, a, n) {
+}, Bt = ["id", "type"], At = ["for"], xt = ["checked"], jt = ["for"], Nt = ["for"], zt = ["type"], Ut = ["id"], Ht = ["id"];
+function Yt(e, s, t, l, i, n) {
   return r(), c("div", {
     class: d([
       "vts-input",
       `vts-input--${t.type}`,
       {
         "vts-input--required": e.$attrs.hasOwnProperty("required"),
-        "vts-input--invalid": !a.valid,
-        "vts-input--dirty": a.dirty,
+        "vts-input--invalid": !i.valid,
+        "vts-input--dirty": i.dirty,
         "vts-input--error": n.error
       },
       e.$attrs.class,
       t.classes.root
     ])
   }, [
-    t.type === "radio" || t.type === "checkbox" && n.computedOptions.length ? (r(), c("fieldset", {
+    ["radio", "checkbox"].includes(t.type) && n.computedOptions.length ? (r(), c("fieldset", {
       key: 0,
       class: d(["vts-input__fieldset", t.classes.fieldset])
     }, [
       t.label ? (r(), c("legend", {
         key: 0,
         class: d(["vts-input__legend", t.classes.legend])
-      }, w(t.label), 3)) : m("", !0),
+      }, [
+        f(e.$slots, "label", m(w({
+          valid: i.valid,
+          dirty: i.dirty,
+          error: n.error,
+          invalid: i.invalid,
+          anyInvalid: i.anyInvalid,
+          errors: n.errorMessages
+        })), () => [
+          E(S(t.label), 1)
+        ])
+      ], 2)) : g("", !0),
       h("div", {
         class: d(["vts-input__fieldset-items", t.classes.fieldsetItems])
       }, [
-        (r(!0), c(S, null, M(n.computedOptions, (i, o) => (r(), c("div", {
-          key: i.value,
+        (r(!0), c(k, null, M(n.computedOptions, (a, o) => (r(), c("div", {
+          key: a.value,
           class: d(["vts-input__fieldset-item", t.classes.fieldsetItem])
         }, [
-          h("input", b({ ...n.bind, ...i }, {
+          h("input", b({ ...n.bind, ...a }, {
             id: `${e.id}__input-${o}`,
             ref_for: !0,
             ref: "input",
             type: t.type,
             onInput: s[0] || (s[0] = (...u) => n.onFieldsetInput && n.onFieldsetInput(...u)),
-            onBlurOnce: s[1] || (s[1] = (u) => a.dirty = !0)
-          }, V(n.listeners, !0)), null, 16, Et),
+            onBlurOnce: s[1] || (s[1] = (u) => i.dirty = !0)
+          }, O(n.listeners, !0)), null, 16, Bt),
           h("label", {
             for: `${e.id}__input-${o}`,
             class: d(["vts-input__label", t.classes.label])
-          }, w(i.label), 11, Vt)
+          }, S(a.label), 11, At)
         ], 2))), 128))
       ], 2)
-    ], 2)) : t.type === "checkbox" ? (r(), c(S, { key: 1 }, [
+    ], 2)) : t.type === "checkbox" ? (r(), c(k, { key: 1 }, [
       h("input", b({
         ref: "input",
-        checked: a.localValue === void 0 ? e.$attrs.checked : a.localValue,
+        checked: i.localValue === void 0 ? e.$attrs.checked : i.localValue,
         type: "checkbox"
       }, n.bind, {
-        onChange: s[2] || (s[2] = (i) => a.localValue = i.target.checked),
-        onBlurOnce: s[3] || (s[3] = (i) => a.dirty = !0)
-      }, V(n.listeners, !0)), null, 16, Ot),
+        onChange: s[2] || (s[2] = (a) => i.localValue = a.target.checked),
+        onBlurOnce: s[3] || (s[3] = (a) => i.dirty = !0)
+      }, O(n.listeners, !0)), null, 16, xt),
       h("label", {
         for: `${e.id}__input`,
         class: d(["vts-input__label", t.classes.label])
-      }, w(t.label), 11, Mt)
-    ], 64)) : (r(), c(S, { key: 2 }, [
+      }, [
+        f(e.$slots, "label", m(w({
+          valid: i.valid,
+          dirty: i.dirty,
+          error: n.error,
+          invalid: i.invalid,
+          anyInvalid: i.anyInvalid,
+          errors: n.errorMessages
+        })), () => [
+          E(S(t.label), 1)
+        ])
+      ], 10, jt)
+    ], 64)) : (r(), c(k, { key: 2 }, [
       h("label", {
         for: `${e.id}__input`,
         class: d(["vts-input__label", t.classes.label])
-      }, w(t.label), 11, Ct),
+      }, [
+        f(e.$slots, "label", m(w({
+          valid: i.valid,
+          dirty: i.dirty,
+          error: n.error,
+          invalid: i.invalid,
+          anyInvalid: i.anyInvalid,
+          errors: n.errorMessages
+        })), () => [
+          E(S(t.label), 1)
+        ])
+      ], 10, Nt),
       t.type === "select" ? j((r(), c("select", b({
         key: 0,
         ref: "input",
-        "onUpdate:modelValue": s[4] || (s[4] = (i) => a.localValue = i)
+        "onUpdate:modelValue": s[4] || (s[4] = (a) => i.localValue = a)
       }, n.bind, {
-        onInput: s[5] || (s[5] = (...i) => n.onSelect && n.onSelect(...i)),
-        onChange: s[6] || (s[6] = (...i) => n.onSelect && n.onSelect(...i)),
-        onBlurOnce: s[7] || (s[7] = (i) => a.dirty = !0)
-      }, V(n.listeners, !0)), [
+        onInput: s[5] || (s[5] = (...a) => n.onSelect && n.onSelect(...a)),
+        onChange: s[6] || (s[6] = (...a) => n.onSelect && n.onSelect(...a)),
+        onBlurOnce: s[7] || (s[7] = (a) => i.dirty = !0)
+      }, O(n.listeners, !0)), [
         f(e.$slots, "options", {}, () => [
-          (r(!0), c(S, null, M(n.computedOptions, (i) => (r(), c("option", b({
-            key: i.value
-          }, i, { label: null }), w(i.label), 17))), 128))
+          (r(!0), c(k, null, M(n.computedOptions, (a) => (r(), c("option", b({
+            key: a.value
+          }, a, { label: null }), S(a.label), 17))), 128))
         ])
       ], 16)), [
-        [he, a.localValue]
+        [we, i.localValue]
       ]) : t.type === "textarea" ? j((r(), c("textarea", b({
         key: 1,
         ref: "input",
-        "onUpdate:modelValue": s[8] || (s[8] = (i) => a.localValue = i)
+        "onUpdate:modelValue": s[8] || (s[8] = (a) => i.localValue = a)
       }, n.bind, {
-        onBlurOnce: s[9] || (s[9] = (i) => a.dirty = !0)
-      }, V(n.listeners, !0)), null, 16)), [
-        [fe, a.localValue]
+        onBlurOnce: s[9] || (s[9] = (a) => i.dirty = !0)
+      }, O(n.listeners, !0)), null, 16)), [
+        [Se, i.localValue]
       ]) : j((r(), c("input", b({
         key: 2,
         ref: "input",
-        "onUpdate:modelValue": s[10] || (s[10] = (i) => a.localValue = i),
+        "onUpdate:modelValue": s[10] || (s[10] = (a) => i.localValue = a),
         type: t.type
       }, n.bind, {
-        onBlurOnce: s[11] || (s[11] = (i) => a.dirty = !0)
-      }, V(n.listeners, !0)), null, 16, Pt)), [
-        [ve, a.localValue]
+        onBlurOnce: s[11] || (s[11] = (a) => i.dirty = !0)
+      }, O(n.listeners, !0)), null, 16, zt)), [
+        [ke, i.localValue]
       ])
     ], 64)),
     n.slots.description ? (r(), c("div", {
@@ -1779,28 +1849,28 @@ function Tt(e, s, t, l, a, n) {
       id: `${e.id}__description`,
       class: d(["vts-input__description", t.classes.description])
     }, [
-      f(e.$slots, "description", _(E({
-        valid: a.valid,
-        dirty: a.dirty,
+      f(e.$slots, "description", m(w({
+        valid: i.valid,
+        dirty: i.dirty,
         error: n.error,
-        invalid: a.invalid,
-        anyInvalid: a.anyInvalid,
+        invalid: i.invalid,
+        anyInvalid: i.anyInvalid,
         errors: n.errorMessages
       })))
-    ], 10, It)) : m("", !0),
-    a.dirty && n.errorMessages.length ? (r(), c("div", {
+    ], 10, Ut)) : g("", !0),
+    i.dirty && n.errorMessages.length ? (r(), c("div", {
       key: 4,
       id: `${e.id}__errors`,
       class: d(["vts-input__errors", t.classes.errors])
     }, [
-      (r(!0), c(S, null, M(n.errorMessages, (i) => (r(), c("span", {
-        key: i,
+      (r(!0), c(k, null, M(n.errorMessages, (a) => (r(), c("span", {
+        key: a,
         class: d(["vts-input__error", t.classes.error])
-      }, w(i), 3))), 128))
-    ], 10, Lt)) : m("", !0)
+      }, S(a), 3))), 128))
+    ], 10, Ht)) : g("", !0)
   ], 2);
 }
-const Bt = /* @__PURE__ */ k(Dt, [["render", Tt]]), Ft = {
+const Kt = /* @__PURE__ */ D(Ft, [["render", Yt]]), Wt = {
   name: "VIntersect",
   props: {
     threshold: {
@@ -1827,13 +1897,13 @@ const Bt = /* @__PURE__ */ k(Dt, [["render", Tt]]), Ft = {
   mounted() {
     let e = this.$el;
     e = this.$el.nextElementSibling;
-    const { root: s, threshold: t, rootMargin: l, options: a, handler: n } = this, i = {
-      ...a,
+    const { root: s, threshold: t, rootMargin: l, options: i, handler: n } = this, a = {
+      ...i,
       root: s,
       threshold: t,
       rootMargin: l
     };
-    this.observer = new IntersectionObserver(n, i), this.observer.observe(e);
+    this.observer = new IntersectionObserver(n, a), this.observer.observe(e);
   },
   beforeUnmount() {
     this.observer.disconnect();
@@ -1851,7 +1921,7 @@ const Bt = /* @__PURE__ */ k(Dt, [["render", Tt]]), Ft = {
     return this.$slots.default(e);
   }
 };
-const At = {
+const qt = {
   name: "VModal",
   model: {
     prop: "showing",
@@ -1937,28 +2007,28 @@ const At = {
     }
   }
 };
-function xt(e, s, t, l, a, n) {
-  return r(), P(I, { name: t.bgTransition }, {
-    default: D(() => [
+function Rt(e, s, t, l, i, n) {
+  return r(), I(P, { name: t.bgTransition }, {
+    default: V(() => [
       t.showing ? (r(), c("div", {
         key: 0,
         class: d(["vts-modal", t.classes.root]),
-        onClick: s[0] || (s[0] = (...i) => n.onClick && n.onClick(...i)),
-        onKeydown: s[1] || (s[1] = (...i) => n.onKeydown && n.onKeydown(...i))
+        onClick: s[0] || (s[0] = (...a) => n.onClick && n.onClick(...a)),
+        onKeydown: s[1] || (s[1] = (...a) => n.onKeydown && n.onKeydown(...a))
       }, [
-        T(I, {
+        T(P, {
           name: t.transition,
           appear: ""
         }, {
-          default: D(() => [
-            (r(), P(B(t.tag), {
+          default: V(() => [
+            (r(), I(F(t.tag), {
               ref: "content",
               style: U({ width: t.width, maxWidth: t.maxWidth }),
               class: d(["vts-modal__content", t.classes.content]),
               tabindex: "-1",
               role: "dialog"
             }, {
-              default: D(() => [
+              default: V(() => [
                 f(e.$slots, "default")
               ]),
               _: 3
@@ -1966,12 +2036,12 @@ function xt(e, s, t, l, a, n) {
           ]),
           _: 3
         }, 8, ["name"])
-      ], 34)) : m("", !0)
+      ], 34)) : g("", !0)
     ]),
     _: 3
   }, 8, ["name"]);
 }
-const jt = /* @__PURE__ */ k(At, [["render", xt]]), Nt = {
+const Gt = /* @__PURE__ */ D(qt, [["render", Rt]]), $t = {
   name: "VResize",
   props: {
     tag: {
@@ -2000,16 +2070,16 @@ const jt = /* @__PURE__ */ k(At, [["render", xt]]), Nt = {
     }
   }
 };
-function zt(e, s, t, l, a, n) {
-  return r(), P(B(t.tag), { class: "vts-resize" }, {
-    default: D(() => [
-      f(e.$slots, "default", _(E({ width: e.width, height: e.height, inlineSize: e.width, blockSize: e.height })))
+function Jt(e, s, t, l, i, n) {
+  return r(), I(F(t.tag), { class: "vts-resize" }, {
+    default: V(() => [
+      f(e.$slots, "default", m(w({ width: e.width, height: e.height, inlineSize: e.width, blockSize: e.height })))
     ]),
     _: 3
   });
 }
-const Ut = /* @__PURE__ */ k(Nt, [["render", zt]]);
-const Ht = {
+const Xt = /* @__PURE__ */ D($t, [["render", Jt]]);
+const Qt = {
   name: "VSkip",
   props: {
     to: {
@@ -2027,20 +2097,20 @@ const Ht = {
       ) || s.setAttribute("tabindex", "-1"), s.focus());
     }
   }
-}, Yt = ["href"];
-function Kt(e, s, t, l, a, n) {
+}, Zt = ["href"];
+function es(e, s, t, l, i, n) {
   return r(), c("a", {
     class: "vts-skip",
     href: t.to,
-    onClick: s[0] || (s[0] = (i) => n.skipTo(t.to))
+    onClick: s[0] || (s[0] = (a) => n.skipTo(t.to))
   }, [
     f(e.$slots, "default", {}, () => [
-      O("Skip to main content")
+      E("Skip to main content")
     ])
-  ], 8, Yt);
+  ], 8, Zt);
 }
-const Wt = /* @__PURE__ */ k(Ht, [["render", Kt]]);
-const qt = {
+const ts = /* @__PURE__ */ D(Qt, [["render", es]]);
+const ss = {
   name: "VTable",
   provide() {
     return {
@@ -2075,7 +2145,7 @@ const qt = {
     },
     id: {
       type: String,
-      default: "vts-" + F(4)
+      default: "vts-" + B(4)
     },
     caption: {
       type: String,
@@ -2097,9 +2167,9 @@ const qt = {
   },
   computed: {
     computedHeaders() {
-      const { headers: e, sortable: s, localSortBy: t, localSortDirection: l } = this, a = [];
+      const { headers: e, sortable: s, localSortBy: t, localSortDirection: l } = this, i = [];
       return e.forEach((n) => {
-        const i = {
+        const a = {
           ...n,
           bind: {},
           sortBtn: {
@@ -2107,8 +2177,8 @@ const qt = {
             on: { click: () => this.onSort(n.key) }
           }
         };
-        i.sortable === void 0 && (i.sortable = !!i.sort || s), i.sortable && t === n.key && l && (l === "ASC" ? i.bind["aria-sort"] = "ascending" : i.bind["aria-sort"] = "descending"), a.push(i);
-      }), a;
+        a.sortable === void 0 && (a.sortable = !!a.sort || s), a.sortable && t === n.key && l && (l === "ASC" ? a.bind["aria-sort"] = "ascending" : a.bind["aria-sort"] = "descending"), i.push(a);
+      }), i;
     },
     computedItems() {
       const {
@@ -2116,20 +2186,20 @@ const qt = {
         items: s,
         localSortBy: t,
         localSortDirection: l,
-        localPage: a,
+        localPage: i,
         localPerPage: n
       } = this;
-      let i = [...s];
+      let a = [...s];
       if (t && l) {
         const o = e.find((y) => y.key === t);
         let u = this.defaultComparisonFn;
-        typeof o.sort == "function" && (u = o.sort), i = i.sort((y, g) => u(y, g, l === "ASC"));
+        typeof o.sort == "function" && (u = o.sort), a = a.sort((y, p) => u(y, p, l === "ASC"));
       }
       if (n > -1) {
-        const o = (Math.max(a, 1) - 1) * n;
-        i = i.slice(o, o + n);
+        const o = (Math.max(i, 1) - 1) * n;
+        a = a.slice(o, o + n);
       }
-      return i;
+      return a;
     },
     lastPage() {
       return Math.ceil(this.items.length / +this.perPage);
@@ -2163,8 +2233,8 @@ const qt = {
   },
   methods: {
     defaultComparisonFn(e, s, t) {
-      const { localSortBy: l } = this, a = t ? 1 : -1, n = e[l], i = s[l];
-      return Number.isFinite(n) && Number.isFinite(i) ? (n - i) * a : n < i ? -1 * a : n > i ? 1 * a : 0;
+      const { localSortBy: l } = this, i = t ? 1 : -1, n = e[l], a = s[l];
+      return Number.isFinite(n) && Number.isFinite(a) ? (n - a) * i : n < a ? -1 * i : n > a ? 1 * i : 0;
     },
     onSort(e) {
       const { localSortBy: s, localSortDirection: t } = this;
@@ -2188,8 +2258,8 @@ const qt = {
       this.localPage = Math.min(Math.max(1, e), s);
     }
   }
-}, Rt = ["id"], $t = ["disabled"], Gt = ["disabled", "aria-label", "onClick"], Jt = ["disabled"];
-function Xt(e, s, t, l, a, n) {
+}, ns = ["id"], is = ["disabled"], as = ["disabled", "aria-label", "onClick"], ls = ["disabled"];
+function os(e, s, t, l, i, n) {
   return r(), c("div", {
     ref: "container",
     role: "region",
@@ -2199,20 +2269,20 @@ function Xt(e, s, t, l, a, n) {
     h("table", {
       class: d([t.classes.table])
     }, [
-      f(e.$slots, "default", _(E({
+      f(e.$slots, "default", m(w({
         caption: t.caption,
         headers: n.computedHeaders,
         items: n.computedItems,
-        sortBy: a.localSortBy,
-        sortDirection: a.localSortDirection,
-        page: a.localPage,
-        perPage: a.localPerPage
+        sortBy: i.localSortBy,
+        sortDirection: i.localSortDirection,
+        page: i.localPage,
+        perPage: i.localPerPage
       })), () => [
         t.caption ? (r(), c("caption", {
           key: 0,
           id: `${t.id}__caption`,
           class: d([t.classes.caption])
-        }, w(t.caption), 11, Rt)) : m("", !0),
+        }, S(t.caption), 11, ns)) : g("", !0),
         n.computedHeaders.length ? (r(), c("thead", {
           key: 1,
           class: d([t.classes.thead])
@@ -2220,73 +2290,73 @@ function Xt(e, s, t, l, a, n) {
           h("tr", {
             class: d([t.classes.tr])
           }, [
-            (r(!0), c(S, null, M(n.computedHeaders, (i, o) => (r(), c("th", b({
-              key: i.key
-            }, i.bind, {
+            (r(!0), c(k, null, M(n.computedHeaders, (a, o) => (r(), c("th", b({
+              key: a.key
+            }, a.bind, {
               class: [t.classes.th]
             }), [
-              f(e.$slots, `header.${i.key}`, _(E({
-                header: i,
+              f(e.$slots, `header.${a.key}`, m(w({
+                header: a,
                 index: o
               })), () => [
-                O(w(i.text || i.key) + " ", 1),
-                i.sortable ? (r(), c(S, { key: 0 }, [
-                  i.key === a.localSortBy && a.localSortDirection === "ASC" ? f(e.$slots, "sort-asc", _(b({ key: 0 }, i.sortBtn)), () => [
+                E(S(a.text || a.key) + " ", 1),
+                a.sortable ? (r(), c(k, { key: 0 }, [
+                  a.key === i.localSortBy && i.localSortDirection === "ASC" ? f(e.$slots, "sort-asc", m(b({ key: 0 }, a.sortBtn)), () => [
                     h("button", b({
                       class: [
                         "vts-table__sort-btn",
                         "vts-table__sort-btn--asc",
                         t.classes.sortBtn
                       ]
-                    }, i.sortBtn.bind, { type: "button" }, V(i.sortBtn.on, !0)), " ↑ ", 16)
-                  ]) : i.key === a.localSortBy && a.localSortDirection === "DESC" ? f(e.$slots, "sort-desc", _(b({ key: 1 }, i.sortBtn)), () => [
+                    }, a.sortBtn.bind, { type: "button" }, O(a.sortBtn.on, !0)), " ↑ ", 16)
+                  ]) : a.key === i.localSortBy && i.localSortDirection === "DESC" ? f(e.$slots, "sort-desc", m(b({ key: 1 }, a.sortBtn)), () => [
                     h("button", b({
                       class: [
                         "vts-table__sort-btn",
                         "vts-table__sort-btn--desc",
                         t.classes.sortBtn
                       ]
-                    }, i.sortBtn.bind, { type: "button" }, V(i.sortBtn.on, !0)), " ↓ ", 16)
-                  ]) : f(e.$slots, "sort-none", _(b({ key: 2 }, i.sortBtn)), () => [
+                    }, a.sortBtn.bind, { type: "button" }, O(a.sortBtn.on, !0)), " ↓ ", 16)
+                  ]) : f(e.$slots, "sort-none", m(b({ key: 2 }, a.sortBtn)), () => [
                     h("button", b({
                       class: ["vts-table__sort-btn", t.classes.sortBtn]
-                    }, i.sortBtn.bind, { type: "button" }, V(i.sortBtn.on, !0)), " ↕ ", 16)
+                    }, a.sortBtn.bind, { type: "button" }, O(a.sortBtn.on, !0)), " ↕ ", 16)
                   ])
-                ], 64)) : m("", !0)
+                ], 64)) : g("", !0)
               ])
             ], 16))), 128))
           ], 2)
-        ], 2)) : m("", !0),
+        ], 2)) : g("", !0),
         h("tbody", {
           class: d([t.classes.tbody])
         }, [
-          f(e.$slots, "body", _(E({
+          f(e.$slots, "body", m(w({
             items: n.computedItems,
-            sortBy: a.localSortBy,
-            sortDirection: a.localSortDirection,
-            page: a.localPage,
-            perPage: a.localPerPage
+            sortBy: i.localSortBy,
+            sortDirection: i.localSortDirection,
+            page: i.localPage,
+            perPage: i.localPerPage
           })), () => [
-            (r(!0), c(S, null, M(n.computedItems, (i, o) => (r(), c("tr", {
-              key: i.id,
+            (r(!0), c(k, null, M(n.computedItems, (a, o) => (r(), c("tr", {
+              key: a.id,
               class: d(["vts-table__row", t.classes.tr])
             }, [
-              f(e.$slots, "row", _(E({ item: i, index: o, row: o + 1 })), () => [
-                (r(!0), c(S, null, M(n.computedHeaders, (u) => (r(), c("td", {
+              f(e.$slots, "row", m(w({ item: a, index: o, row: o + 1 })), () => [
+                (r(!0), c(k, null, M(n.computedHeaders, (u) => (r(), c("td", {
                   key: u.key,
                   class: d([t.classes.td])
                 }, [
-                  f(e.$slots, `column.${u.key}`, _(E({
-                    item: i,
-                    index: (a.localPage - 1) * a.localPerPage + o,
+                  f(e.$slots, `column.${u.key}`, m(w({
+                    item: a,
+                    index: (i.localPage - 1) * i.localPerPage + o,
                     row: o + 1,
                     key: u.key,
                     column: u.key,
-                    value: i[u.key],
-                    cell: i[u.key],
-                    data: i[u.key]
+                    value: a[u.key],
+                    cell: a[u.key],
+                    data: a[u.key]
                   })), () => [
-                    O(w(i[u.key]), 1)
+                    E(S(a[u.key]), 1)
                   ])
                 ], 2))), 128))
               ])
@@ -2298,57 +2368,57 @@ function Xt(e, s, t, l, a, n) {
           class: d([t.classes.tfoot])
         }, [
           f(e.$slots, "tfoot")
-        ], 2)) : m("", !0)
+        ], 2)) : g("", !0)
       ])
     ], 2),
-    f(e.$slots, "pagination", _(E({ page: a.localPage, perPage: a.localPerPage, lastPage: n.lastPage, goToPage: n.goToPage })), () => [
+    f(e.$slots, "pagination", m(w({ page: i.localPage, perPage: i.localPerPage, lastPage: n.lastPage, goToPage: n.goToPage })), () => [
       n.lastPage > 1 ? (r(), c("div", {
         key: 0,
         class: d(["vts-table__pagination", t.classes.pagination])
       }, [
         h("button", {
-          disabled: a.localPage === 1,
+          disabled: i.localPage === 1,
           "aria-label": "go to previous page",
           class: d(["vts-table__prev", t.classes.previous]),
           type: "button",
-          onClick: s[0] || (s[0] = (i) => n.goToPage(a.localPage - 1))
-        }, " Prev ", 10, $t),
+          onClick: s[0] || (s[0] = (a) => n.goToPage(i.localPage - 1))
+        }, " Prev ", 10, is),
         h("ul", {
           class: d(["vts-table__pages", t.classes.pageList])
         }, [
-          (r(!0), c(S, null, M(n.lastPage, (i) => (r(), c("li", {
-            key: i,
+          (r(!0), c(k, null, M(n.lastPage, (a) => (r(), c("li", {
+            key: a,
             class: d([
               "vts-table__page-item",
-              { "vts-table__page-item--current": i === a.localPage },
+              { "vts-table__page-item--current": a === i.localPage },
               t.classes.pageItem
             ])
           }, [
             h("button", {
-              disabled: i === a.localPage,
-              "aria-label": `go to page ${i}`,
+              disabled: a === i.localPage,
+              "aria-label": `go to page ${a}`,
               class: d([
                 "vts-table__page",
-                { "vts-table__page--current": i === a.localPage },
+                { "vts-table__page--current": a === i.localPage },
                 t.classes.page
               ]),
               type: "button",
-              onClick: (o) => n.goToPage(i)
-            }, w(i), 11, Gt)
+              onClick: (o) => n.goToPage(a)
+            }, S(a), 11, as)
           ], 2))), 128))
         ], 2),
         h("button", {
-          disabled: a.localPage === n.lastPage,
+          disabled: i.localPage === n.lastPage,
           "aria-label": "go to next page",
           class: d(["vts-table__next", t.classes.next]),
           type: "button",
-          onClick: s[1] || (s[1] = (i) => n.goToPage(a.localPage + 1))
-        }, " Next ", 10, Jt)
-      ], 2)) : m("", !0)
+          onClick: s[1] || (s[1] = (a) => n.goToPage(i.localPage + 1))
+        }, " Next ", 10, ls)
+      ], 2)) : g("", !0)
     ])
   ], 2);
 }
-const Qt = /* @__PURE__ */ k(qt, [["render", Xt]]), Zt = {
+const rs = /* @__PURE__ */ D(ss, [["render", os]]), ds = {
   name: "VTabs",
   model: {
     prop: "active",
@@ -2397,11 +2467,14 @@ const Qt = /* @__PURE__ */ k(qt, [["render", Xt]]), Zt = {
     }
   },
   created() {
-    this.id = this.$attrs.id || `vts-${F(4)}`;
+    this.id = this.$attrs.id || `vts-${B(4)}`;
   },
   methods: {
+    onClick(e, s, t) {
+      this.activeIndex !== t && this.$nextTick(() => this.$emit("tabChange", { event: e, tab: s, index: t })), this.activeIndex = t;
+    },
     onKeydown(e) {
-      const { keyCode: s } = e;
+      const { keyCode: s } = e, t = this.activeIndex;
       switch (s) {
         case v.END:
           e.preventDefault(), this.activeIndex = this.tabList.length - 1, this.setFocus();
@@ -2416,6 +2489,13 @@ const Qt = /* @__PURE__ */ k(qt, [["render", Xt]]), Zt = {
           this.determineOrientation(e);
           break;
       }
+      t !== this.activeIndex && this.$nextTick(
+        () => this.$emit("tabChange", {
+          event: e,
+          tab: this.tablist[this.activeIndex],
+          index: this.activeIndex
+        })
+      );
     },
     determineOrientation(e) {
       const s = e.keyCode;
@@ -2431,16 +2511,16 @@ const Qt = /* @__PURE__ */ k(qt, [["render", Xt]]), Zt = {
       };
       if (!t[s])
         return;
-      const l = this.activeIndex, a = this.tabList.length, n = l + t[s];
-      n < 0 ? this.activeIndex = a - 1 : n >= a ? this.activeIndex = 0 : this.activeIndex = n;
+      const l = this.activeIndex, i = this.tabList.length, n = l + t[s];
+      n < 0 ? this.activeIndex = i - 1 : n >= i ? this.activeIndex = 0 : this.activeIndex = n;
     },
     setFocus() {
       const { $refs: e, tabList: s, activeIndex: t } = this, l = s[t];
       return e[l][0].focus();
     }
   }
-}, es = ["aria-label", "aria-orientation"], ts = ["id", "aria-selected", "tabindex", "aria-controls", "onClick"], ss = ["id", "aria-labelledby", "hidden"];
-function ns(e, s, t, l, a, n) {
+}, cs = ["aria-label", "aria-orientation"], us = ["id", "aria-selected", "tabindex", "aria-controls", "onClick"], hs = ["id", "aria-labelledby", "hidden"];
+function fs(e, s, t, l, i, n) {
   return r(), c("div", {
     class: d(["vts-tabs", t.classes.root])
   }, [
@@ -2450,52 +2530,52 @@ function ns(e, s, t, l, a, n) {
       "aria-orientation": t.orientation,
       class: d(["vts-tabs__tablist", t.classes.tablist])
     }, [
-      (r(!0), c(S, null, M(n.tabList, (i, o) => (r(), c("button", {
-        id: `${e.id}-${i}`,
-        key: i,
+      (r(!0), c(k, null, M(n.tabList, (a, o) => (r(), c("button", {
+        id: `${e.id}-${a}`,
+        key: a,
         ref_for: !0,
-        ref: i,
-        "aria-selected": o === a.activeIndex,
-        tabindex: o === a.activeIndex ? null : -1,
-        "aria-controls": `${e.id}-${i.replace("tab", "panel")}`,
+        ref: a,
+        "aria-selected": o === i.activeIndex,
+        tabindex: o === i.activeIndex ? null : -1,
+        "aria-controls": `${e.id}-${a.replace("tab", "panel")}`,
         class: d([
-          `vts-tabs__tab vts-tabs__tab--${i} vts-tabs__tab--${o}`,
+          `vts-tabs__tab vts-tabs__tab--${a} vts-tabs__tab--${o}`,
           {
-            "vts-tabs__tab--active": o === a.activeIndex,
-            [t.classes.tabActive]: o === a.activeIndex
+            "vts-tabs__tab--active": o === i.activeIndex,
+            [t.classes.tabActive]: o === i.activeIndex
           },
           t.classes.tab
         ]),
         role: "tab",
         type: "button",
         onKeydown: s[0] || (s[0] = (...u) => n.onKeydown && n.onKeydown(...u)),
-        onClick: (u) => a.activeIndex = o
+        onClick: (u) => n.onClick(u, a, o)
       }, [
-        f(e.$slots, i)
-      ], 42, ts))), 128))
-    ], 10, es),
-    (r(!0), c(S, null, M(n.panelList, (i, o) => (r(), c("div", {
+        f(e.$slots, a)
+      ], 42, us))), 128))
+    ], 10, cs),
+    (r(!0), c(k, null, M(n.panelList, (a, o) => (r(), c("div", {
       id: `${e.id}-panel-${o}`,
-      key: i,
+      key: a,
       "aria-labelledby": `${e.id}-tab-${o}`,
-      hidden: o !== a.activeIndex,
+      hidden: o !== i.activeIndex,
       class: d([
         `vts-tabs__panel vts-tabs__panel--${o}`,
         {
-          "vts-tabs__panel--active": o === a.activeIndex,
-          [t.classes.panelActive]: o === a.activeIndex
+          "vts-tabs__panel--active": o === i.activeIndex,
+          [t.classes.panelActive]: o === i.activeIndex
         },
         t.classes.panel
       ]),
       tabindex: "0",
       role: "tabpanel"
     }, [
-      f(e.$slots, i)
-    ], 10, ss))), 128))
+      f(e.$slots, a)
+    ], 10, hs))), 128))
   ], 2);
 }
-const as = /* @__PURE__ */ k(Zt, [["render", ns]]);
-const is = {
+const vs = /* @__PURE__ */ D(ds, [["render", fs]]);
+const ys = {
   name: "VToggle",
   model: {
     prop: "open",
@@ -2533,7 +2613,7 @@ const is = {
   },
   created() {
     const { id: e } = this.$attrs;
-    this.id = e || `vts-${F(4)}`;
+    this.id = e || `vts-${B(4)}`;
   },
   methods: {
     collapse(e) {
@@ -2546,10 +2626,10 @@ const is = {
       e.style.overflow = "visible", e.style.blockSize = "";
     }
   }
-}, ls = ["id", "disabled", "aria-controls", "aria-expanded"], os = ["id", "aria-labelledby", "aria-hidden"];
-function rs(e, s, t, l, a, n) {
+}, ms = ["id", "disabled", "aria-controls", "aria-expanded"], bs = ["id", "aria-labelledby", "aria-hidden"];
+function gs(e, s, t, l, i, n) {
   return r(), c("div", {
-    class: d(["vts-toggle", { "vts-toggle--open": a.isOpen }, t.classes.root])
+    class: d(["vts-toggle", { "vts-toggle--open": i.isOpen }, t.classes.root])
   }, [
     h("button", b({
       id: `${e.id}-label`,
@@ -2557,39 +2637,39 @@ function rs(e, s, t, l, a, n) {
       type: "button",
       disabled: t.disabled,
       "aria-controls": `${e.id}-content`,
-      "aria-expanded": a.isOpen,
+      "aria-expanded": i.isOpen,
       class: ["vts-toggle__label", t.classes.label],
-      onClick: s[0] || (s[0] = (i) => a.isOpen = !a.isOpen)
-    }, V(n.listeners, !0)), [
-      O(w(t.label) + " ", 1),
-      f(e.$slots, "label", _(E({ isOpen: a.isOpen })))
-    ], 16, ls),
-    T(I, {
+      onClick: s[0] || (s[0] = (a) => i.isOpen = !i.isOpen)
+    }, O(n.listeners, !0)), [
+      E(S(t.label) + " ", 1),
+      f(e.$slots, "label", m(w({ isOpen: i.isOpen })))
+    ], 16, ms),
+    T(P, {
       onBeforeEnter: n.collapse,
       onEnter: n.expand,
       onAfterEnter: n.resetHeight,
       onBeforeLeave: n.expand,
       onLeave: n.collapse
     }, {
-      default: D(() => [
+      default: V(() => [
         j(h("div", {
           id: `${e.id}-content`,
           "aria-labelledby": `${e.id}-label`,
-          "aria-hidden": !a.isOpen,
+          "aria-hidden": !i.isOpen,
           role: "region",
           class: d(["vts-toggle__content", t.classes.content])
         }, [
-          f(e.$slots, "default", _(E({ isOpen: a.isOpen })))
-        ], 10, os), [
-          [te, a.isOpen && !t.disabled]
+          f(e.$slots, "default", m(w({ isOpen: i.isOpen })))
+        ], 10, bs), [
+          [de, i.isOpen && !t.disabled]
         ])
       ]),
       _: 3
     }, 8, ["onBeforeEnter", "onEnter", "onAfterEnter", "onBeforeLeave", "onLeave"])
   ], 2);
 }
-const ds = /* @__PURE__ */ k(is, [["render", rs]]);
-const cs = {
+const ps = /* @__PURE__ */ D(ys, [["render", gs]]);
+const _s = {
   name: "VTooltip",
   props: {
     tag: {
@@ -2598,7 +2678,7 @@ const cs = {
     },
     id: {
       type: String,
-      default: () => `vts-${F(4)}`
+      default: () => `vts-${B(4)}`
     },
     focus: Boolean,
     classes: {
@@ -2617,19 +2697,19 @@ const cs = {
       this.focus || (this.show = !1);
     }
   }
-}, us = ["id", "aria-hidden"];
-function hs(e, s, t, l, a, n) {
-  return r(), P(B(t.tag), {
+}, ws = ["id", "aria-hidden"];
+function Ss(e, s, t, l, i, n) {
+  return r(), I(F(t.tag), {
     id: t.id,
     tabindex: "0",
     "aria-describedby": `${t.id}__content`,
     class: d(["vts-tooltip", t.classes.toggle]),
-    onFocus: s[0] || (s[0] = (i) => e.show = !0),
-    onBlur: s[1] || (s[1] = (i) => e.show = !1),
+    onFocus: s[0] || (s[0] = (a) => e.show = !0),
+    onBlur: s[1] || (s[1] = (a) => e.show = !1),
     onMouseenter: n.onMouseenter,
     onMouseleave: n.onMouseleave
   }, {
-    default: D(() => [
+    default: V(() => [
       f(e.$slots, "default"),
       h("span", {
         id: `${t.id}__content`,
@@ -2644,12 +2724,12 @@ function hs(e, s, t, l, a, n) {
         ])
       }, [
         f(e.$slots, "tooltip")
-      ], 10, us)
+      ], 10, ws)
     ]),
     _: 3
   }, 40, ["id", "aria-describedby", "class", "onMouseenter", "onMouseleave"]);
 }
-const fs = /* @__PURE__ */ k(cs, [["render", hs]]), vs = {
+const ks = /* @__PURE__ */ D(_s, [["render", Ss]]), Ds = {
   name: "VTry",
   props: {
     propagate: Boolean
@@ -2665,56 +2745,56 @@ const fs = /* @__PURE__ */ k(cs, [["render", hs]]), vs = {
     let t = s;
     return e && t.catch ? t.catch(e) : t.default(e);
   }
-}, ie = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, ve = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  VAlert: _e,
-  VAsync: we,
-  VBtn: Ve,
-  VDate: qe,
-  VDialog: Je,
-  VDrawer: tt,
-  VDropdown: it,
-  VFile: ht,
-  VForm: mt,
-  VImg: kt,
-  VInput: Bt,
-  VIntersect: Ft,
-  VModal: jt,
-  VResize: Ut,
-  VSkip: Wt,
-  VTable: Qt,
-  VTabs: as,
-  VToggle: ds,
-  VTooltip: fs,
-  VTry: vs
-}, Symbol.toStringTag, { value: "Module" })), ys = (e) => e[0].toUpperCase() + e.slice(1);
-function bs(e, s, t = navigator.language) {
+  VAlert: Ce,
+  VAsync: Ie,
+  VBtn: Be,
+  VDate: st,
+  VDialog: lt,
+  VDrawer: ut,
+  VDropdown: yt,
+  VFile: St,
+  VForm: Ot,
+  VImg: Tt,
+  VInput: Kt,
+  VIntersect: Wt,
+  VModal: Gt,
+  VResize: Xt,
+  VSkip: ts,
+  VTable: rs,
+  VTabs: vs,
+  VToggle: ps,
+  VTooltip: ks,
+  VTry: Ds
+}, Symbol.toStringTag, { value: "Module" })), Es = (e) => e[0].toUpperCase() + e.slice(1);
+function Vs(e, s, t = navigator.language) {
   return new Intl.NumberFormat(t, {
     style: "currency",
     currency: s
   }).format(e);
 }
-function ms(e, s = navigator.language) {
+function Os(e, s = navigator.language) {
   return new Intl.NumberFormat(s).format(e);
 }
-const gs = (e, s) => e || s;
-function ps(e, s, t) {
+const Ms = (e, s) => e || s;
+function Cs(e, s, t) {
   return t !== 1 ? s : e;
 }
-function _s(e, s = 100, t = "...") {
+function Is(e, s = 100, t = "...") {
   return e.length > s ? e.substring(0, s - t.length) + t : e;
 }
-const le = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const ye = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  capitalize: ys,
-  currency: bs,
-  number: ms,
-  placeholder: gs,
-  plural: ps,
-  truncate: _s
+  capitalize: Es,
+  currency: Vs,
+  number: Os,
+  placeholder: Ms,
+  plural: Cs,
+  truncate: Is
 }, Symbol.toStringTag, { value: "Module" }));
-function ks(e, s = {}) {
-  const t = se({
+function Ts(e, s = {}) {
+  const t = ce({
     pending: !1,
     results: s.placeholder || null,
     error: null
@@ -2726,13 +2806,13 @@ function ks(e, s = {}) {
         error: t.error
       }), s.onPending && s.onPending(t.pending);
       try {
-        const i = await n;
-        i !== void 0 ? t.results = i : s.default !== void 0 ? t.results = s.default : t.results = null, s.onResolve && s.onResolve(t.results);
-      } catch (i) {
-        i instanceof Error ? t.error = {
-          name: i.name,
-          message: i.message
-        } : t.error = i, console.error(i), s.onReject && s.onReject(t.error);
+        const a = await n;
+        a !== void 0 ? t.results = a : s.default !== void 0 ? t.results = s.default : t.results = null, s.onResolve && s.onResolve(t.results);
+      } catch (a) {
+        a instanceof Error ? t.error = {
+          name: a.name,
+          message: a.message
+        } : t.error = a, console.error(a), s.onReject && s.onReject(t.error);
       } finally {
         t.pending = !1, s.onChange && s.onChange({
           pending: t.pending,
@@ -2744,19 +2824,19 @@ function ks(e, s = {}) {
   };
   return e && l(e), Object.assign(t, { watch: l });
 }
-const Ds = (e, s = {}) => {
-  const l = se({
+const Fs = (e, s = {}) => {
+  const l = ce({
     invalid: !1,
     dirty: !1,
     error: !1,
     inputs: {}
-  }), a = new Map(Object.entries(s.errors || {})), n = async (y) => {
+  }), i = new Map(Object.entries(s.errors || {})), n = async (y) => {
     if (!y)
       return;
     await $(), l.invalid = !y.checkValidity();
-    const g = y.querySelectorAll("input, textarea, select"), p = {};
-    g.forEach((C) => {
-      const { name: A, id: oe, validity: L } = C, N = A || oe;
+    const p = y.querySelectorAll("input, textarea, select"), _ = {};
+    p.forEach((C) => {
+      const { name: A, id: me, validity: L } = C, N = A || me;
       if (!N)
         return;
       const z = {
@@ -2774,89 +2854,90 @@ const Ds = (e, s = {}) => {
         },
         errors: []
       };
-      a.forEach((ws, Y) => {
+      i.forEach((Ps, Y) => {
         if (!z.invalid[Y])
           return;
-        const K = a.get(Y), re = Y.replace("length", "Length"), de = typeof K == "string" ? K : K(C[re]);
-        z.errors.push(de);
-      }), z.dirty = l.inputs[N] ? l.inputs[N].dirty : !1, p[N] = z;
-    }), l.inputs = p;
-  }, i = () => n(e.value), o = (y) => {
+        const K = i.get(Y), be = Y.replace("length", "Length"), ge = typeof K == "string" ? K : K(C[be]);
+        z.errors.push(ge);
+      }), z.dirty = l.inputs[N] ? l.inputs[N].dirty : !1, _[N] = z;
+    }), l.inputs = _;
+  }, a = () => n(e.value), o = (y) => {
     n(e.value);
-    const g = y.target, p = g.name || g.id;
-    l.dirty = !0, p && l.inputs[p] && (l.inputs[p].dirty = !0);
-  }, u = new MutationObserver(i);
-  return ye(e, async (y, g, p) => {
-    y && (await $(), n(y), y.addEventListener("input", i), y.addEventListener("blur", o, {
+    const p = y.target, _ = p.name || p.id;
+    l.dirty = !0, _ && l.inputs[_] && (l.inputs[_].dirty = !0);
+  }, u = new MutationObserver(a);
+  return De(e, async (y, p, _) => {
+    y && (await $(), n(y), y.addEventListener("input", a), y.addEventListener("blur", o, {
       capture: !0
     }), u.observe(y, {
       childList: !0,
       subtree: !0
-    }), p(() => {
-      y.removeEventListener("input", i), y.removeEventListener("blur", o), u.disconnect();
+    }), _(() => {
+      y.removeEventListener("input", a), y.removeEventListener("blur", o), u.disconnect();
     }));
-  }), l.error = be(() => l.invalid && l.dirty), l.validate = () => n(e.value), l.reset = () => {
+  }), l.error = Ee(() => l.invalid && l.dirty), l.validate = () => n(e.value), l.reset = () => {
     l.dirty = !1, n(e.value);
   }, l.clear = () => {
-    e.value.querySelectorAll("input, textarea, select").forEach((p) => {
-      p.value = "";
+    e.value.querySelectorAll("input, textarea, select").forEach((_) => {
+      _.value = "";
     });
   }, l;
-}, Es = ie, Vs = ae, Os = le, Ms = {
+}, Bs = ve, As = fe, xs = ye, js = {
   install(e, s = {}) {
     s.components && (Array.isArray(s.components) && (s.components = s.components.reduce(
       (t, l) => (t[l] = !0, t),
       {}
     )), Object.entries(s.components).forEach((t) => {
-      const [l, a] = t, n = ie[l], i = typeof a == "boolean" && a.name || l;
-      e.component(i, n);
+      const [l, i] = t, n = ve[l], a = typeof i == "boolean" && i.name || l;
+      e.component(a, n);
     })), s.directives && (Array.isArray(s.directives) && (s.directives = s.directives.reduce(
       (t, l) => (t[l] = !0, t),
       {}
     )), Object.entries(s.directives).forEach((t) => {
-      const [l] = t, a = ae[l];
-      e.directive(l, a);
+      const [l] = t, i = fe[l];
+      e.directive(l, i);
     })), s.filters && (Array.isArray(s.filters) && (s.filters = s.filters.reduce((t, l) => (t[l] = !0, t), {})), Object.entries(s.filters).forEach((t) => {
-      const [l] = t, a = le[l];
-      e.filter(l, a);
+      const [l] = t, i = ye[l];
+      e.filter(l, i);
     }));
   }
 };
 export {
-  _e as VAlert,
-  we as VAsync,
-  Ve as VBtn,
-  qe as VDate,
-  Je as VDialog,
-  tt as VDrawer,
-  it as VDropdown,
-  ht as VFile,
-  mt as VForm,
-  kt as VImg,
-  Bt as VInput,
-  Ft as VIntersect,
-  jt as VModal,
-  Ut as VResize,
-  Wt as VSkip,
-  Qt as VTable,
-  as as VTabs,
-  ds as VToggle,
-  fs as VTooltip,
-  vs as VTry,
-  Oe as autofocus,
-  ys as capitalize,
-  ne as clickout,
-  Es as components,
-  Me as copy,
-  bs as currency,
-  Ms as default,
-  Vs as directives,
-  Os as filters,
-  Ce as intersect,
-  ms as number,
-  gs as placeholder,
-  ps as plural,
-  _s as truncate,
-  ks as useAsync,
-  Ds as useForm
+  Ce as VAlert,
+  Ie as VAsync,
+  Be as VBtn,
+  st as VDate,
+  lt as VDialog,
+  ut as VDrawer,
+  yt as VDropdown,
+  St as VFile,
+  Ot as VForm,
+  Tt as VImg,
+  Kt as VInput,
+  Wt as VIntersect,
+  Gt as VModal,
+  Xt as VResize,
+  ts as VSkip,
+  rs as VTable,
+  vs as VTabs,
+  ps as VToggle,
+  ks as VTooltip,
+  Ds as VTry,
+  Ae as autofocus,
+  Es as capitalize,
+  ue as clickout,
+  Bs as components,
+  xe as copy,
+  Vs as currency,
+  js as default,
+  As as directives,
+  xs as filters,
+  je as focusout,
+  Ne as intersect,
+  Os as number,
+  Ms as placeholder,
+  Cs as plural,
+  Is as truncate,
+  Ts as useAsync,
+  Fs as useForm
 };
