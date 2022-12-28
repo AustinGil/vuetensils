@@ -14,11 +14,23 @@
     ]"
   >
     <fieldset
-      v-if="'radio' === type || ('checkbox' === type && computedOptions.length)"
+      v-if="['radio', 'checkbox'].includes(type) && computedOptions.length"
       :class="['vts-input__fieldset', classes.fieldset]"
     >
       <legend v-if="label" :class="['vts-input__legend', classes.legend]">
-        {{ label }}
+        <slot
+          name="label"
+          v-bind="{
+            valid,
+            dirty,
+            error,
+            invalid,
+            anyInvalid,
+            errors: errorMessages,
+          }"
+        >
+          {{ label }}
+        </slot>
       </legend>
 
       <div :class="['vts-input__fieldset-items', classes.fieldsetItems]">
@@ -57,13 +69,37 @@
         v-on="listeners"
       />
       <label :for="`${id}__input`" :class="['vts-input__label', classes.label]">
-        {{ label }}
+        <slot
+          name="label"
+          v-bind="{
+            valid,
+            dirty,
+            error,
+            invalid,
+            anyInvalid,
+            errors: errorMessages,
+          }"
+        >
+          {{ label }}
+        </slot>
       </label>
     </template>
 
     <template v-else>
       <label :for="`${id}__input`" :class="['vts-input__label', classes.label]">
-        {{ label }}
+        <slot
+          name="label"
+          v-bind="{
+            valid,
+            dirty,
+            error,
+            invalid,
+            anyInvalid,
+            errors: errorMessages,
+          }"
+        >
+          {{ label }}
+        </slot>
       </label>
 
       <select
@@ -218,9 +254,10 @@ export default {
     },
 
     /**
-     * @type {import('vue').PropOptions<{
+     * @type {import('vue').Prop<{
      * root: string,
      * fieldset: string,
+     * fieldsetItems: string,
      * fieldsetItem: string,
      * legend: string,
      * label: string,
@@ -301,12 +338,11 @@ export default {
           value: item.value,
         });
 
-        if (localValue !== undefined) {
-          if ('checkbox' === type) {
-            item.checked = localValue.includes(item.value) || item.checked;
-          } else {
-            item.checked = item.value === localValue || item.checked;
-          }
+        if ('checkbox' === type) {
+          const localValues = localValue || []
+          item.checked = localValues.includes(item.value) || item.checked;
+        } else if (localValue !== undefined && typeof localValue === 'string') {
+          item.checked = item.value === localValue || item.checked;
         }
 
         return item;
@@ -396,6 +432,7 @@ export default {
       this.localValue = newValue;
     },
     validate() {
+      /** @type {HTMLInputElement} */
       let input = this.$refs.input;
 
       if (Array.isArray(input)) {
