@@ -11,7 +11,7 @@
 
       <button
         v-if="dismissible"
-        :aria-label="dismissLabel"
+        :aria-label="dismissLabel || null"
         :class="['vts-alert__dismiss', classes.dismiss]"
         type="button"
         @click="dismiss"
@@ -66,8 +66,10 @@ export default {
      */
     dismissible: Boolean,
     /**
+     * @type {import('vue').Prop<string | false>}
      * Aria-label that is not visibly, but screen readers will read for the dismiss button.
      */
+    // @ts-ignore
     dismissLabel: {
       type: [String, Boolean],
       default: 'Dismiss this alert',

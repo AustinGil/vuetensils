@@ -44,7 +44,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    /** @type {import('vue').Prop<Record<string, string>>} */
+    /** @type {import('vue').Prop<Record<string, string | function(string):string>>} */
     errors: {
       type: Object,
       default: () => ({}),

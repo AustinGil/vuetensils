@@ -47,7 +47,6 @@ export default {
   },
   emits: ['submit'],
   computed: {
-    /** @returns {'RouterLink' | 'a' | 'button'} */
     tag() {
       const attrs = this.$attrs || {};
       if (attrs.to) {
@@ -58,12 +57,10 @@ export default {
       }
       return 'button';
     },
-    /** @returns {string} */
     type() {
       if (this.tag !== 'button') return;
       return this.$attrs.type || 'button';
     },
-    /** @returns {Record<string, string> | Record<string, Function | Function[]>} */
     listeners() {
       if (isVue3) {
         return this.$attrs;

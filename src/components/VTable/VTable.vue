@@ -247,12 +247,12 @@ export default {
     };
   },
   props: {
-    /** @type {import('vue').PropOptions<Header[]>} */
+    /** @type {import('vue').Prop<Header[]>} */
     headers: {
       type: Array,
       default: () => [],
     },
-    /** @type {import('vue').PropOptions<Object[]>} */
+    /** @type {import('vue').Prop<Object[]>} */
     items: {
       type: Array,
       default: () => [],
@@ -269,11 +269,12 @@ export default {
       type: String,
       default: '',
     },
-    /** @type {import('vue').PropOptions<'ASC'|'DESC'>} */
+    /** @type {import('vue').Prop<'ASC'|'DESC'>} */
     // @ts-ignore
     sortDirection: {
       type: String,
       default: '',
+      /** @param {string} direction */
       validator: (direction) => {
         return new Set(['ASC', 'DESC', '']).has(direction.toUpperCase());
       },

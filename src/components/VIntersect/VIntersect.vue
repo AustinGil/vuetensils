@@ -8,6 +8,7 @@ export default {
   name: 'VIntersect',
   props: {
     /**
+     * @type {import('vue').Prop<IntersectionObserverInit['threshold']>}
      * The IntersectionObserver threshold value.
      */
     threshold: {
@@ -49,7 +50,9 @@ export default {
     const { root, threshold, rootMargin, options, handler } = this;
     const observerOptions = {
       ...options,
-      root,
+      root: /** @type {IntersectionObserverInit['root']} */ (
+        /** @type {unknown} */ (root)
+      ),
       threshold,
       rootMargin,
     };

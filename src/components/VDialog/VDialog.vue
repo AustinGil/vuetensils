@@ -196,10 +196,13 @@ export default {
   methods: {
     onOpen() {
       const { onClick, onKeydown, noScroll } = this;
+      /** @type {HTMLElement} */
+      // @ts-ignore
+      const content = this.$refs.content;
       window.addEventListener('click', onClick);
       window.addEventListener('keydown', onKeydown);
       noScroll && document.body.style.setProperty('overflow', 'hidden');
-      this.$nextTick(() => this.$refs.content.focus());
+      this.$nextTick(() => content.focus());
       this.$emit('open');
     },
     onClose() {
@@ -219,11 +222,15 @@ export default {
         this.localShow = false;
       }
       if (event.keyCode === KEYCODES.TAB) {
-        /** @type {HTMLDivElement} */
+        /** @type {HTMLElement} */
+        // @ts-ignore
         const content = this.$refs.content;
         if (!content) return;
 
-        const focusable = Array.from(content.querySelectorAll(FOCUSABLE));
+        /** @type {Array<HTMLElement>} */
+        const focusable = Array.from(
+          content.querySelectorAll(FOCUSABLE.join(','))
+        );
 
         if (!focusable.length) {
           event.preventDefault();
@@ -234,7 +241,9 @@ export default {
           event.preventDefault();
           focusable[0].focus();
         } else {
-          const focusedItemIndex = focusable.indexOf(document.activeElement);
+          const focusedItemIndex = focusable.indexOf(
+            /** @type {HTMLElement} */ (document.activeElement)
+          );
 
           if (event.shiftKey && focusedItemIndex === 0) {
             focusable[focusable.length - 1].focus();

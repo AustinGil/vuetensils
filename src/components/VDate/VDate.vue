@@ -2,10 +2,11 @@
   <div :id="id" v-clickout="onClickout" :class="['vtd-date', classes.root]">
     <slot v-bind="toggle">
       <button
-        v-bind="toggle.bind"
+        :aria-label="buttonLabels.selectDate"
+        :aria-expanded="show ? 'true' : 'false'"
         type="button"
         :class="['vtd-date__toggle', classes.toggle]"
-        v-on="toggle.on"
+        @click="show = !show"
       >
         <span role="img" :aria-label="buttonLabels.showCalendar">
           &#x1F4C5;
@@ -184,6 +185,14 @@ const keysUsed = [
   KEYCODES.HOME,
   KEYCODES.END,
 ];
+const defaultButtonLabels = {
+  selectDate: 'Select Date',
+  showCalendar: 'show calendar',
+  previousMonth: 'previous month',
+  nextMonth: 'next month',
+  previousYear: 'previous year',
+  nextYear: 'next year',
+};
 
 // Based on https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/datepicker-dialog.html
 export default {
@@ -255,18 +264,11 @@ export default {
         'December',
       ],
     },
-
+    /** @type {import('vue').Prop<Record<keyof defaultButtonLabels, string>>} */
     buttonLabels: {
       type: Object,
       default: () => {
-        return Object.freeze({
-          selectDate: 'Select Date',
-          showCalendar: 'show calendar',
-          previousMonth: 'previous month',
-          nextMonth: 'next month',
-          previousYear: 'previous year',
-          nextYear: 'next year',
-        });
+        return Object.freeze(defaultButtonLabels);
       },
     },
 
@@ -295,7 +297,6 @@ export default {
     },
 
     disableNav() {
-      /** @type {typeof this & { focusedDate?: Date, min?: Date, max?: Date }} */
       const { focusedDate, min, max } = this;
       const disableNav = {};
       const minDate = new Date(min);
@@ -358,21 +359,6 @@ export default {
       }
 
       return weeks;
-    },
-
-    toggle() {
-      const { show } = this;
-      return {
-        bind: {
-          'aria-label': this.buttonLabels.selectDate,
-          'aria-expanded': '' + show,
-        },
-        on: {
-          click: () => {
-            this.show = !show;
-          },
-        },
-      };
     },
   },
 
@@ -494,7 +480,10 @@ export default {
     },
 
     onTab(event) {
-      applyFocusTrap(this.$refs.calendar, event);
+      /** @type {HTMLElement} */
+      // @ts-ignore
+      const calendar = this.$refs.calendar;
+      applyFocusTrap(calendar, event);
     },
 
     onClickout(event) {

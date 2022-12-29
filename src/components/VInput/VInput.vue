@@ -64,7 +64,9 @@
         :checked="localValue === undefined ? $attrs.checked : localValue"
         type="checkbox"
         v-bind="bind"
-        @change="localValue = $event.target.checked"
+        @change="
+          localValue = /** @type {HTMLInputElement} */ ($event.target).checked
+        "
         @blur.once="dirty = true"
         v-on="listeners"
       />
@@ -307,7 +309,6 @@ export default {
 
       return bindings;
     },
-    /** @returns {Record<string, string> | Record<string, Function | Function[]>} */
     listeners() {
       if (isVue3) {
         return this.$attrs;
@@ -339,7 +340,7 @@ export default {
         });
 
         if ('checkbox' === type) {
-          const localValues = localValue || []
+          const localValues = /** @type {Array} */ (localValue) || [];
           item.checked = localValues.includes(item.value) || item.checked;
         } else if (localValue !== undefined && typeof localValue === 'string') {
           item.checked = item.value === localValue || item.checked;
@@ -420,7 +421,8 @@ export default {
         return;
       }
 
-      const newValue = [...(this.localValue || [])];
+      const values = /** @type {Array} */ (this.localValue) || [];
+      const newValue = [...values];
       const index = newValue.indexOf(value);
 
       if (index === -1) {
@@ -433,6 +435,7 @@ export default {
     },
     validate() {
       /** @type {HTMLInputElement} */
+      // @ts-ignore
       let input = this.$refs.input;
 
       if (Array.isArray(input)) {
