@@ -1,6 +1,6 @@
 {
   "name": "vuetensils",
-  "version": "0.12.8",
+  "version": "0.12.9",
   "description": "A 'naked' component library for building accessible, lightweight, on-brand applications.",
   "author": {
     "name": "Austin Gil",
@@ -10,7 +10,7 @@
   "homepage": "https://vuetensils.com",
   "license": "MIT",
   "main": "dist/vuetensils.umd.js",
-  "module": "dist/vuetensils.es.js",
+  "module": "dist/vuetensils.mjs",
   "files": [
     "/src",
     "/dist",
