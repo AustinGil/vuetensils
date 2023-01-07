@@ -11,7 +11,7 @@ export { default as VForm } from './VForm/VForm.vue';
 export { default as VImg } from './VImg/VImg.vue';
 export { default as VInput } from './VInput/VInput.vue';
 export { default as VIntersect } from './VIntersect/VIntersect.vue';
-export { default as VModal } from './VModal/VModal.vue'; // TODO: Deprecate this later on
+// export { default as VNotifications } from './VNotifications/VNotifications.vue';
 export { default as VResize } from './VResize/VResize.vue';
 export { default as VSkip } from './VSkip/VSkip.vue';
 export { default as VTable } from './VTable/VTable.vue';

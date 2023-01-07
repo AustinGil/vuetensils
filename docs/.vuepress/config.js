@@ -68,6 +68,7 @@ export default defineUserConfig({
           '/components/Img',
           '/components/Input',
           '/components/Intersect',
+          // '/components/Notifications',
           '/components/Resize',
           '/components/Skip',
           '/components/Tabs',

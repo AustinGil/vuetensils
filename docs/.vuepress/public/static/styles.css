@@ -244,6 +244,19 @@ body .live-preview pre {
   border: 1px solid;
 }
 
+.styled .vts-notifications {
+  right: 0;
+  bottom: 0;
+  padding: 1rem;
+  max-width: 20rem;
+}
+.styled .vts-notification {
+  margin-top: .5rem;
+  border: 2px solid;
+  padding: .5rem;
+  background: #fff;
+}
+
 .styled.vts-tabs {
   overflow: hidden;
   border: 1px solid #CCC;
