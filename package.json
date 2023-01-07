@@ -10,7 +10,7 @@
   "homepage": "https://vuetensils.com",
   "license": "MIT",
   "main": "dist/vuetensils.umd.js",
-  "module": "dist/vuetensils.es.js",
+  "module": "dist/vuetensils.mjs",
   "files": [
     "/src",
     "/dist",
