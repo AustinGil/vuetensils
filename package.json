@@ -37,7 +37,7 @@
     "deploy": "release-it"
   },
   "dependencies": {
-    "vue-demi": "^0.13.11"
+    "vue-demi": "latest"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
