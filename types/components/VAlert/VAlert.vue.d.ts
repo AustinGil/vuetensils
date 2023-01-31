@@ -38,6 +38,7 @@ declare const _default: {
          */
         dismissible: BooleanConstructor;
         /**
+         * @type {import('vue').Prop<string | false>}
          * Aria-label that is not visibly, but screen readers will read for the dismiss button.
          */
         dismissLabel: {

@@ -2,7 +2,7 @@
 import * as allComponents from './components/index.js';
 import * as allDirectives from './directives/index.js';
 import * as allFilters from './filters/index.js';
-// import { notify } from './components/VNotifications/VNotifications.vue';
+import { notify } from './components/VNotifications/VNotifications.vue';
 
 export const components = allComponents;
 export const directives = allDirectives;
@@ -47,7 +47,7 @@ export default {
         app.component(name, component);
 
         if (key === 'VNotifications') {
-          // // app.config.globalProperties.$vnotify = notify;
+          app.config.globalProperties.$vnotify = notify;
         }
       });
     }

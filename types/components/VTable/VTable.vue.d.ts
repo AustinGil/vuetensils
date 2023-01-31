@@ -8,12 +8,12 @@ declare const _default: {
         $table: any;
     };
     props: {
-        /** @type {import('vue').PropOptions<Header[]>} */
+        /** @type {import('vue').Prop<Header[]>} */
         headers: {
             type: ArrayConstructor;
             default: () => any[];
         };
-        /** @type {import('vue').PropOptions<Object[]>} */
+        /** @type {import('vue').Prop<Object[]>} */
         items: {
             type: ArrayConstructor;
             default: () => any[];
@@ -30,10 +30,11 @@ declare const _default: {
             type: StringConstructor;
             default: string;
         };
-        /** @type {import('vue').PropOptions<'ASC'|'DESC'>} */
+        /** @type {import('vue').Prop<'ASC'|'DESC'>} */
         sortDirection: {
             type: StringConstructor;
             default: string;
+            /** @param {string} direction */
             validator: (direction: any) => boolean;
         };
         id: {

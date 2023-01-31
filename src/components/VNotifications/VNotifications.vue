@@ -6,19 +6,19 @@ import { randomString } from '../../utils.js';
  * @typedef {{
  * id?: string,
  * text: string,
- * dismissible?: boolean,
- * timeout?: number,
+ * persistent?: boolean,
+ * timeout?: number|false,
  * timeoutId?: number,
  * }} VNotification
  */
 
-export const data = reactive({
+const state = reactive({
   /** @type {VNotification[]} */
   notifications: [],
 });
 
 /**
- * @param {VNotification | string} notification
+ * @param {Omit<VNotification, 'timeoutId'> | string} notification
  */
 export function notify(notification) {
   if (typeof notification === 'string') {
@@ -28,11 +28,11 @@ export function notify(notification) {
   }
   notification = {
     id: `vts_${randomString(4)}`,
-    dismissible: true,
-    timeout: 0,
+    persistent: undefined,
+    timeout: undefined,
     ...notification,
   };
-  data.notifications.push(notification);
+  state.notifications.push(notification);
 }
 
 export default {
@@ -41,6 +41,14 @@ export default {
       type: [String, Number],
       default: 0,
     },
+    persistent: {
+      type: Boolean,
+      default: false,
+    },
+    transition: {
+      type: String,
+      default: '',
+    },
     classes: {
       type: Object,
       default: () => ({}),
@@ -48,60 +56,69 @@ export default {
   },
   computed: {
     notifications() {
-      return data.notifications;
+      const { persistent } = this;
+      return state.notifications.map((notification) => {
+        if (notification.persistent == null) {
+          notification.persistent = persistent;
+        }
+        return notification;
+      });
     },
   },
   watch: {
     'notifications.length': {
       handler(length, oldLength) {
         if (oldLength > length) return;
-        const newNotification = data.notifications[length - 1];
-        const timeout = newNotification.timeout || this.timeout;
+        const newNotification = state.notifications[length - 1];
+        let timeout = Number(this.timeout);
+        if (newNotification.timeout != null) {
+          timeout = Number(newNotification.timeout);
+        }
 
         if (!timeout) return;
 
         // @ts-ignore
         newNotification.timeoutId = setTimeout(() => {
           this.remove(newNotification);
-        }, Number(timeout));
+        }, timeout);
       },
-      // deep: true,
     },
   },
   unmounted() {
-    for (const notification of data.notifications) {
+    for (const notification of state.notifications) {
       if (!notification.timeoutId) continue;
       clearTimeout(notification.timeoutId);
     }
   },
   methods: {
-    add: notify,
-    /**
-     * @param {VNotification} notification
-     */
+    /** @param {VNotification} notification */
     remove: (notification) => {
-      const index = data.notifications.findIndex(
+      const index = state.notifications.findIndex(
         (n) => n.id === notification.id
       );
-      data.notifications.splice(index, 1);
+      state.notifications.splice(index, 1);
     },
   },
 };
 </script>
 
 <template>
-  <div :class="['vts-notifications', classes.notifications]">
-    <ul v-if="notifications.length" :class="['vts-notifications__list', classes.notifications]">
-      <li v-for="notification of notifications" :class="['vts-notification', classes.notification]">
-        {{ notification }}
-
-        <button v-if="notification.dismissible" @click="remove(notification)">
+  <ul :class="['vts-notifications', classes.root]">
+    <TransitionGroup :name="transition">
+      <li v-for="notification of notifications" :key="notification.id"
+        :class="['vts-notification', classes.notification]">
+        <span role="alert" :class="['vts-notification__text', classes.text]">{{
+          notification.text
+        }}</span>
+  
+        <button v-if="!notification.persistent" :class="['vts-notification__dismiss', classes.dismiss]"
+          @click="remove(notification)">
           &times;
-          <span class="vts-visually-hidden"> Remove notification </span>
+          <span class="vts-visually-hidden">Remove notification</span>
         </button>
       </li>
-    </ul>
-  </div>
+    </TransitionGroup>
+  </ul>
 </template>
 
 <style>
@@ -115,9 +132,4 @@ export default {
   padding: 0;
   list-style-type: none;
 }
-
-/* .vts-notification {
-  display: flex;
-  align-items: center;
-} */
 </style>

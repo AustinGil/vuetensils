@@ -5,6 +5,7 @@ declare const _default: {
     name: string;
     props: {
         /**
+         * @type {import('vue').Prop<IntersectionObserverInit['threshold']>}
          * The IntersectionObserver threshold value.
          */
         threshold: {

@@ -78,7 +78,6 @@ declare const _default: {
     computed: {
         /** @returns {any} */
         bind(): any;
-        /** @returns {Record<string, string> | Record<string, Function | Function[]>} */
         listeners(): any;
         slots(): any;
         computedOptions(): any;

@@ -63,6 +63,7 @@ module.exports = {
         definedTypes: [
           'Record',
           'Pick',
+          'Omit',
           'T',
           'Job',
           'Assay',

@@ -13,11 +13,8 @@ declare const _default: {
     };
     emits: string[];
     computed: {
-        /** @returns {'RouterLink' | 'a' | 'button'} */
         tag(): "a" | "button" | "RouterLink";
-        /** @returns {string} */
         type(): any;
-        /** @returns {Record<string, string> | Record<string, Function | Function[]>} */
         listeners(): any;
     };
 };

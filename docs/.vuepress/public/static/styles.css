@@ -35,7 +35,7 @@ body .live-preview pre {
 }
 
 .bg-white {
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .bg-black-alpha {
@@ -96,7 +96,7 @@ body .live-preview pre {
 
 .styled .vts-drawer__content {
   padding: 20px;
-  color: #FFF;
+  color: #fff;
   background: #222;
   transition: 0.3s ease transform;
 }
@@ -106,7 +106,7 @@ body .live-preview pre {
   border-radius: 5px;
   padding: 10px;
   font-size: 18px;
-  color: #FFF;
+  color: #fff;
   background: #008484;
   transition: 0.5s ease border-radius;
 }
@@ -119,7 +119,7 @@ body .live-preview pre {
   border: 1px solid #008484;
   border-radius: 0 0 5px 5px;
   padding: 10px;
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .styled.vts-form input {
@@ -190,7 +190,7 @@ body .live-preview pre {
 .styled .vts-input__input {
   display: block;
   width: 100%;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   border-radius: 3px;
   padding: 5px;
 }
@@ -218,7 +218,7 @@ body .live-preview pre {
   padding: 20px;
   font-family: sans-serif;
   color: #000;
-  background: #FFF;
+  background: #fff;
   transition: 0.3s ease transform;
 }
 
@@ -245,21 +245,35 @@ body .live-preview pre {
 }
 
 .styled .vts-notifications {
+  display: grid;
+  justify-items: end;
   right: 0;
   bottom: 0;
-  padding: 1rem;
   max-width: 20rem;
+  padding: 1rem;
 }
+
 .styled .vts-notification {
-  margin-top: .5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.5rem;
   border: 2px solid;
-  padding: .5rem;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
   background: #fff;
+}
+
+.styled .vts-notification__dismiss {
+  border: 0;
+  padding: 0;
+  font-size: 1.5rem;
+  background-color: transparent;
 }
 
 .styled.vts-tabs {
   overflow: hidden;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   border-radius: 0.25rem;
 }
 
@@ -274,9 +288,9 @@ body .live-preview pre {
 }
 
 .styled.vts-tabs [role="tab"][aria-selected="true"] {
-  border-bottom-color: #FFF;
+  border-bottom-color: #fff;
   color: #000;
-  background: #FFF;
+  background: #fff;
 }
 
 .styled.vts-tabs [role="tabpanel"] {
@@ -290,18 +304,18 @@ body .live-preview pre {
   padding: 5px;
   font-size: 18px;
   text-align: left;
-  color: #FFF;
+  color: #fff;
   background-color: mediumseagreen;
 }
 
 .toggle-content {
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   padding: 5px;
 }
 
 /* .vts-toggle__content {
   box-sizing: border-box;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   padding: 5px;
 } */
 
@@ -384,9 +398,9 @@ body .live-preview pre {
 
 /* Fixes top left logo proportions */
 #app .navbar .logo {
-  min-width: auto;
   width: auto;
-  max-width: 2.2rem
+  min-width: auto;
+  max-width: 2.2rem;
 }
 
 .live-preview table {
@@ -401,6 +415,6 @@ body .live-preview pre {
 
 #app .home .hero .action-button {
   /* #3EAF7C was 2.75 ratio */
-  background-color:  #2F855F;
-  color: #FFF;
+  background-color: #2F855F;
+  color: #fff;
 }

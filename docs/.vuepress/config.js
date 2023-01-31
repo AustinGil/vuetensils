@@ -22,6 +22,9 @@ const title = 'Vuetensils'
 // )
 
 export default defineUserConfig({
+  alias: {
+    vuetensils: '../../src'
+  },
   title: title,
   description: pkg.description,
   head: [
@@ -68,7 +71,7 @@ export default defineUserConfig({
           '/components/Img',
           '/components/Input',
           '/components/Intersect',
-          // '/components/Notifications',
+          '/components/Notifications',
           '/components/Resize',
           '/components/Skip',
           '/components/Tabs',

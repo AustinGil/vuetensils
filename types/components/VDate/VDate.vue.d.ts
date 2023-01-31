@@ -44,15 +44,16 @@ declare const _default: {
             type: ArrayConstructor;
             default: () => string[];
         };
+        /** @type {import('vue').Prop<Record<keyof defaultButtonLabels, string>>} */
         buttonLabels: {
             type: ObjectConstructor;
             default: () => Readonly<{
-                selectDate: "Select Date";
-                showCalendar: "show calendar";
-                previousMonth: "previous month";
-                nextMonth: "next month";
-                previousYear: "previous year";
-                nextYear: "next year";
+                selectDate: string;
+                showCalendar: string;
+                previousMonth: string;
+                nextMonth: string;
+                previousYear: string;
+                nextYear: string;
             }>;
         };
         classes: {
@@ -71,15 +72,6 @@ declare const _default: {
         monthYear(): string;
         disableNav(): {};
         daysByWeeks(): any[];
-        toggle(): {
-            bind: {
-                'aria-label': any;
-                'aria-expanded': string;
-            };
-            on: {
-                click: () => void;
-            };
-        };
     };
     watch: {
         show(isShow: any): void;
