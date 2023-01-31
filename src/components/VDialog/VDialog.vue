@@ -198,11 +198,10 @@ export default {
       const { onClick, onKeydown, noScroll } = this;
       /** @type {HTMLElement} */
       // @ts-ignore
-      const content = this.$refs.content;
       window.addEventListener('click', onClick);
       window.addEventListener('keydown', onKeydown);
       noScroll && document.body.style.setProperty('overflow', 'hidden');
-      this.$nextTick(() => content.focus());
+      this.$nextTick(() => this.$refs.content?.focus());
       this.$emit('open');
     },
     onClose() {

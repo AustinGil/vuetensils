@@ -1,10 +1,8 @@
-# Notifications WIP
+# Notifications
 
-<!-- Uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to fire events when content enters or exits the screen.
+A component and triggering method for showing notifications to users. It supports timeouts and persistent notifications and is designed to work with assistive technology.
 
-The components accepts four props: `root`, `rootMargin`, `threshold`, and `options`. The first three correspond to the [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) options properties, or you can pass them all together to the `options` prop.
-
-- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VIntersect/VIntersect.vue) -->
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VNotifications/VNotifications.vue) -->
 
 # Usage
 

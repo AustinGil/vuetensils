@@ -72,6 +72,15 @@ declare const _default: {
         monthYear(): string;
         disableNav(): {};
         daysByWeeks(): any[];
+        toggle(): {
+            bind: {
+                'aria-label': any;
+                'aria-expanded': string;
+            };
+            on: {
+                click: () => void;
+            };
+        };
     };
     watch: {
         show(isShow: any): void;

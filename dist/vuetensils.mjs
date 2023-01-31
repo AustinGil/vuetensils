@@ -481,6 +481,20 @@ const Ye = [
         }
       }
       return m;
+    },
+    toggle() {
+      const { show: e } = this;
+      return {
+        bind: {
+          "aria-label": this.buttonLabels.selectDate,
+          "aria-expanded": "" + e
+        },
+        on: {
+          click: () => {
+            this.show = !e;
+          }
+        }
+      };
     }
   },
   watch: {
@@ -564,7 +578,7 @@ function at(e, s, t, l, n, i) {
     id: t.id,
     class: d(["vtd-date", t.classes.root])
   }, [
-    h(e.$slots, "default", y(S(e.toggle)), () => [
+    h(e.$slots, "default", y(S(i.toggle)), () => [
       f("button", {
         "aria-label": t.buttonLabels.selectDate,
         "aria-expanded": n.show ? "true" : "false",
@@ -801,8 +815,11 @@ const ot = {
   },
   methods: {
     onOpen() {
-      const { onClick: e, onKeydown: s, noScroll: t } = this, l = this.$refs.content;
-      window.addEventListener("click", e), window.addEventListener("keydown", s), t && document.body.style.setProperty("overflow", "hidden"), this.$nextTick(() => l.focus()), this.$emit("open");
+      const { onClick: e, onKeydown: s, noScroll: t } = this;
+      window.addEventListener("click", e), window.addEventListener("keydown", s), t && document.body.style.setProperty("overflow", "hidden"), this.$nextTick(() => {
+        var l;
+        return (l = this.$refs.content) == null ? void 0 : l.focus();
+      }), this.$emit("open");
     },
     onClose() {
       const { onClick: e, onKeydown: s, noScroll: t } = this;
@@ -972,8 +989,8 @@ const ut = "vts-drawer", ft = {
   },
   methods: {
     onOpen() {
-      const { onClick: e, onKeydown: s, noScroll: t } = this, l = this.$refs.content;
-      window.addEventListener("click", e), window.addEventListener("keydown", s), t && document.body.style.setProperty("overflow", "hidden"), this.$nextTick(() => l.focus()), this.$emit("open");
+      const { onClick: e, onKeydown: s, noScroll: t } = this;
+      window.addEventListener("click", e), window.addEventListener("keydown", s), t && document.body.style.setProperty("overflow", "hidden"), this.$nextTick(() => this.$refs.content.focus()), this.$emit("open");
     },
     onClose() {
       const { onClick: e, onKeydown: s, noScroll: t } = this;

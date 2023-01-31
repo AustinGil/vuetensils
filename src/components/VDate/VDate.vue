@@ -360,6 +360,21 @@ export default {
 
       return weeks;
     },
+
+    toggle() {
+      const { show } = this;
+      return {
+        bind: {
+          'aria-label': this.buttonLabels.selectDate,
+          'aria-expanded': '' + show,
+        },
+        on: {
+          click: () => {
+            this.show = !show;
+          },
+        },
+      };
+    },
   },
 
   watch: {
