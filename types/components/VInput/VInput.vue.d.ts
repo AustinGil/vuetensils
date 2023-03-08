@@ -91,6 +91,13 @@ declare const _default: {
         modelValue: typeof updateLocalValue;
         value: typeof updateLocalValue;
         localValue(value: any): void;
+        '$attrs.required': string;
+        '$attrs.type': string;
+        '$attrs.min': string;
+        '$attrs.max': string;
+        '$attrs.minlength': string;
+        '$attrs.maxlength': string;
+        '$attrs.pattern': string;
     };
     created(): void;
     mounted(): void;

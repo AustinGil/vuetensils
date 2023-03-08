@@ -187,6 +187,7 @@ import { randomString, isType } from '../../utils.js';
 
 /**
  * TODO:
+ * add listener for "invalid" event
  * Provide prop for error,invalid classes on input
  * Remove span from labels (breaking)
  * Use validationMessage @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/validationMessage
@@ -390,6 +391,14 @@ export default {
       this.$emit('update:modelValue', value);
       this.validate();
     },
+    '$attrs.required': 'validate',
+    '$attrs.type': 'validate',
+    '$attrs.min': 'validate',
+    '$attrs.max': 'validate',
+    '$attrs.minlength': 'validate',
+    '$attrs.maxlength': 'validate',
+    '$attrs.pattern': 'validate',
+    // '$attrs.step': 'validate',
   },
 
   created() {

@@ -1,4 +1,4 @@
-import { openBlock as r, createBlock as L, Transition as T, withCtx as I, resolveDynamicComponent as j, normalizeClass as d, renderSlot as h, createElementBlock as c, createTextVNode as D, createCommentVNode as g, withModifiers as A, Fragment as k, renderList as O, createElementVNode as f, mergeProps as b, toHandlers as V, resolveDirective as _e, withDirectives as N, normalizeProps as y, guardReactiveProps as S, withKeys as J, toDisplayString as w, vShow as ue, createVNode as F, normalizeStyle as R, toHandlerKey as we, vModelSelect as ke, vModelText as Se, vModelDynamic as De, reactive as G, TransitionGroup as Ee, watch as Ve, nextTick as X, computed as Oe } from "vue";
+import { openBlock as o, createBlock as L, Transition as T, withCtx as I, resolveDynamicComponent as j, normalizeClass as d, renderSlot as h, createElementBlock as c, createTextVNode as D, createCommentVNode as g, withModifiers as A, Fragment as k, renderList as O, createElementVNode as f, mergeProps as b, toHandlers as V, resolveDirective as _e, withDirectives as N, normalizeProps as y, guardReactiveProps as S, withKeys as J, toDisplayString as w, vShow as ue, createVNode as F, normalizeStyle as R, toHandlerKey as we, vModelSelect as ke, vModelText as Se, vModelDynamic as De, reactive as $, TransitionGroup as Ee, watch as Ve, nextTick as X, computed as Oe } from "vue";
 const E = (e, s) => {
   const t = e.__vccOpts || e;
   for (const [l, n] of s)
@@ -68,16 +68,16 @@ const E = (e, s) => {
   }
 }, Me = ["aria-label"];
 function Ce(e, s, t, l, n, i) {
-  return r(), L(T, { name: t.transition }, {
+  return o(), L(T, { name: t.transition }, {
     default: I(() => [
-      !e.dismissed && t.modelValue ? (r(), L(j(t.tag), {
+      !e.dismissed && t.modelValue ? (o(), L(j(t.tag), {
         key: 0,
         role: "alert",
         class: d(["vts-alert", t.classes.root])
       }, {
         default: I(() => [
           h(e.$slots, "default"),
-          t.dismissible ? (r(), c("button", {
+          t.dismissible ? (o(), c("button", {
             key: 0,
             "aria-label": t.dismissLabel || null,
             class: d(["vts-alert__dismiss", t.classes.dismiss]),
@@ -146,13 +146,13 @@ const Pe = /* @__PURE__ */ E(Ie, [["render", Ce]]), Le = {
   render() {
     const { pending: e, error: s, results: t, done: l } = this;
     let n = this.$slots;
-    const i = n.pending, a = n.rejected, o = n.resolved, u = n.default;
+    const i = n.pending, a = n.rejected, r = n.resolved, u = n.default;
     if (e && i)
       return i();
     if (l && s && a)
       return a(s);
-    if (l && !s && o)
-      return o(t);
+    if (l && !s && r)
+      return r(t);
     if (u)
       return u({
         pending: e,
@@ -186,17 +186,17 @@ const Te = {
   }
 }, Fe = ["action"], Be = ["value", "name"];
 function Ae(e, s, t, l, n, i) {
-  return t.action && t.data ? (r(), c("form", {
+  return t.action && t.data ? (o(), c("form", {
     key: 0,
     action: t.action,
     method: "POST",
     class: "vts-btn__form",
     onSubmit: s[0] || (s[0] = A((a) => e.$emit("submit", a), ["prevent"]))
   }, [
-    (r(!0), c(k, null, O(t.data, (a, o) => (r(), c("input", {
-      key: o,
+    (o(!0), c(k, null, O(t.data, (a, r) => (o(), c("input", {
+      key: r,
       value: a,
-      name: String(o),
+      name: String(r),
       type: "hidden",
       hidden: "",
       autocomplete: "off",
@@ -206,7 +206,7 @@ function Ae(e, s, t, l, n, i) {
     f("button", b({ type: "submit" }, e.$attrs, { class: "vts-btn" }, V(i.listeners, !0)), [
       h(e.$slots, "default")
     ], 16)
-  ], 40, Fe)) : (r(), L(j(i.tag), b({
+  ], 40, Fe)) : (o(), L(j(i.tag), b({
     key: 1,
     class: "vts-btn",
     type: i.type
@@ -293,13 +293,13 @@ function le(e, { value: s, modifiers: t }) {
     ...s
   }, { enter: n, exit: i, once: a } = t;
   l.root && (l.root = typeof l.root == "string" ? document.querySelector(l.root) : l.root);
-  const o = { ...s };
-  s instanceof Function && (n && (o.onEnter = s), i && (o.onExit = s), !n && !i && (o.onChange = s));
+  const r = { ...s };
+  s instanceof Function && (n && (r.onEnter = s), i && (r.onExit = s), !n && !i && (r.onChange = s));
   const u = new IntersectionObserver(([m]) => {
     const p = Array.isArray(l.threshold), _ = {};
     for (const M in m)
       _[M] = m[M];
-    _.isIntersecting = p ? l.threshold.includes(m.intersectionRatio) : m.intersectionRatio === l.threshold, _.isIntersecting ? o.onEnter && o.onEnter(_, e) : o.onExit && o.onExit(_, e), o.onChange && o.onChange(_, e), a && q(e);
+    _.isIntersecting = p ? l.threshold.includes(m.intersectionRatio) : m.intersectionRatio === l.threshold, _.isIntersecting ? r.onEnter && r.onEnter(_, e) : r.onExit && r.onExit(_, e), r.onChange && r.onChange(_, e), a && q(e);
   }, l);
   u.observe(e), e._vtsIntersect = u;
 }
@@ -315,7 +315,7 @@ const Ue = {
   copy: je,
   focusout: ze,
   intersect: Ue
-}, Symbol.toStringTag, { value: "Module" })), $ = [
+}, Symbol.toStringTag, { value: "Module" })), G = [
   'a[href]:not([tabindex^="-"])',
   'area[href]:not([tabindex^="-"])',
   'input:not([disabled]):not([type="hidden"]):not([aria-hidden]):not([tabindex^="-"])',
@@ -338,7 +338,7 @@ function K(e, s) {
   return Object.prototype.toString.call(e).slice(8, -1).toLowerCase() === s.toLowerCase();
 }
 function He(e, s) {
-  const t = Array.from(e.querySelectorAll($));
+  const t = Array.from(e.querySelectorAll(G));
   if (!t.length) {
     s.preventDefault();
     return;
@@ -350,7 +350,7 @@ function He(e, s) {
     s.shiftKey && l === 0 && (t[t.length - 1].focus(), s.preventDefault()), !s.shiftKey && l === t.length - 1 && (t[0].focus(), s.preventDefault());
   }
 }
-function oe(e, s) {
+function re(e, s) {
   return e.getFullYear() === s.getFullYear() && e.getMonth() === s.getMonth() && e.getDate() === s.getDate();
 }
 const Ye = [
@@ -466,18 +466,18 @@ const Ye = [
         e.getFullYear(),
         e.getMonth() + 1,
         0
-      ).getDate(), o = new Date(n), u = i + a < 36 ? 5 : 6, m = [];
+      ).getDate(), r = new Date(n), u = i + a < 36 ? 5 : 6, m = [];
       for (let p = 0; p < u; p++) {
         m.push([]);
         for (let _ = 0; _ < 7; _++) {
-          const M = new Date(o);
+          const M = new Date(r);
           let B = !1;
           t && (B = M < new Date(t)), l && !B && (B = M > new Date(l)), m[p].push({
             date: M,
-            isFocused: oe(M, e),
-            isSelected: oe(M, s),
+            isFocused: re(M, e),
+            isSelected: re(M, s),
             disabled: B
-          }), o.setDate(o.getDate() + 1);
+          }), r.setDate(r.getDate() + 1);
         }
       }
       return m;
@@ -571,10 +571,10 @@ const Ye = [
       e.preventDefault(), s && (this.show = !1);
     }
   }
-}, qe = ["id"], Re = ["aria-label", "aria-expanded"], Ge = ["aria-label"], $e = ["aria-labelledby"], Je = { class: "vts-date__navigation" }, Xe = ["aria-label", "disabled"], Qe = ["aria-label", "disabled"], Ze = ["id"], et = ["aria-label", "disabled"], tt = ["aria-label", "disabled"], st = ["aria-labelledby"], nt = ["abbr"], it = ["tabindex", "aria-selected", "value", "disabled"];
+}, qe = ["id"], Re = ["aria-label", "aria-expanded"], $e = ["aria-label"], Ge = ["aria-labelledby"], Je = { class: "vts-date__navigation" }, Xe = ["aria-label", "disabled"], Qe = ["aria-label", "disabled"], Ze = ["id"], et = ["aria-label", "disabled"], tt = ["aria-label", "disabled"], st = ["aria-labelledby"], nt = ["abbr"], it = ["tabindex", "aria-selected", "value", "disabled"];
 function at(e, s, t, l, n, i) {
   const a = _e("clickout");
-  return N((r(), c("div", {
+  return N((o(), c("div", {
     id: t.id,
     class: d(["vtd-date", t.classes.root])
   }, [
@@ -584,12 +584,12 @@ function at(e, s, t, l, n, i) {
         "aria-expanded": n.show ? "true" : "false",
         type: "button",
         class: d(["vtd-date__toggle", t.classes.toggle]),
-        onClick: s[0] || (s[0] = (o) => n.show = !n.show)
+        onClick: s[0] || (s[0] = (r) => n.show = !n.show)
       }, [
         f("span", {
           role: "img",
           "aria-label": t.buttonLabels.showCalendar
-        }, " 📅 ", 8, Ge)
+        }, " 📅 ", 8, $e)
       ], 10, Re)
     ]),
     N(f("div", {
@@ -598,11 +598,11 @@ function at(e, s, t, l, n, i) {
       role: "dialog",
       "aria-modal": "true",
       "aria-labelledby": `${t.id}-dialog-label`,
-      onClick: s[5] || (s[5] = (...o) => i.onClick && i.onClick(...o)),
+      onClick: s[5] || (s[5] = (...r) => i.onClick && i.onClick(...r)),
       onKeydown: [
-        s[6] || (s[6] = (...o) => i.onKeydown && i.onKeydown(...o)),
-        s[7] || (s[7] = J((...o) => i.onTab && i.onTab(...o), ["tab"])),
-        s[8] || (s[8] = J((o) => n.show = !1, ["esc"]))
+        s[6] || (s[6] = (...r) => i.onKeydown && i.onKeydown(...r)),
+        s[7] || (s[7] = J((...r) => i.onTab && i.onTab(...r), ["tab"])),
+        s[8] || (s[8] = J((r) => n.show = !1, ["esc"]))
       ]
     }, [
       f("div", Je, [
@@ -611,7 +611,7 @@ function at(e, s, t, l, n, i) {
           "aria-label": t.buttonLabels.previousYear,
           type: "button",
           disabled: i.disableNav.prevYear,
-          onClick: s[1] || (s[1] = (o) => i.incrementYearBy(-1))
+          onClick: s[1] || (s[1] = (r) => i.incrementYearBy(-1))
         }, [
           h(e.$slots, "prevYearLabel", {}, () => [
             D("↞")
@@ -622,7 +622,7 @@ function at(e, s, t, l, n, i) {
           "aria-label": t.buttonLabels.previousMonth,
           type: "button",
           disabled: i.disableNav.prevMonth,
-          onClick: s[2] || (s[2] = (o) => i.incrementMonthBy(-1))
+          onClick: s[2] || (s[2] = (r) => i.incrementMonthBy(-1))
         }, [
           h(e.$slots, "prevMonthLabel", {}, () => [
             D("←")
@@ -638,7 +638,7 @@ function at(e, s, t, l, n, i) {
           "aria-label": t.buttonLabels.nextMonth,
           type: "button",
           disabled: i.disableNav.nextMonth,
-          onClick: s[3] || (s[3] = (o) => i.incrementMonthBy(1))
+          onClick: s[3] || (s[3] = (r) => i.incrementMonthBy(1))
         }, [
           h(e.$slots, "nextMonthLabel", {}, () => [
             D("→")
@@ -649,7 +649,7 @@ function at(e, s, t, l, n, i) {
           "aria-label": t.buttonLabels.nextYear,
           type: "button",
           disabled: i.disableNav.nextYear,
-          onClick: s[4] || (s[4] = (o) => i.incrementYearBy(1))
+          onClick: s[4] || (s[4] = (r) => i.incrementYearBy(1))
         }, [
           h(e.$slots, "nextYearLabel", {}, () => [
             D("↠")
@@ -667,9 +667,9 @@ function at(e, s, t, l, n, i) {
           f("tr", {
             class: d(["vtd-date__week", t.classes.week])
           }, [
-            (r(!0), c(k, null, O(t.daysOfWeek, (o, u) => (r(), c("th", {
+            (o(!0), c(k, null, O(t.daysOfWeek, (r, u) => (o(), c("th", {
               key: u,
-              abbr: o,
+              abbr: r,
               scope: "col",
               class: d(["vtd-date__th", t.classes.th])
             }, w(u), 11, nt))), 128))
@@ -678,11 +678,11 @@ function at(e, s, t, l, n, i) {
         f("tbody", {
           class: d(["vtd-date__tbody", t.classes.tbody])
         }, [
-          (r(), c(k, null, O(6, (o) => f("tr", {
-            key: o,
+          (o(), c(k, null, O(6, (r) => f("tr", {
+            key: r,
             class: d(["vtd-date__tr", t.classes.tr])
           }, [
-            (r(!0), c(k, null, O(i.daysByWeeks[o - 1], (u) => (r(), c("td", {
+            (o(!0), c(k, null, O(i.daysByWeeks[r - 1], (u) => (o(), c("td", {
               key: u.date.toString(),
               class: d([
                 "vts-date__td",
@@ -714,7 +714,7 @@ function at(e, s, t, l, n, i) {
           ], 2)), 64))
         ], 2)
       ], 10, st)
-    ], 42, $e), [
+    ], 42, Ge), [
       [ue, n.show]
     ])
   ], 10, qe)), [
@@ -722,7 +722,7 @@ function at(e, s, t, l, n, i) {
   ]);
 }
 const lt = /* @__PURE__ */ E(We, [["render", at]]);
-const ot = {
+const rt = {
   name: "VDialog",
   inheritAttrs: !1,
   model: {
@@ -834,7 +834,7 @@ const ot = {
         if (!s)
           return;
         const t = Array.from(
-          s.querySelectorAll($.join(","))
+          s.querySelectorAll(G.join(","))
         );
         if (!t.length) {
           e.preventDefault();
@@ -851,9 +851,9 @@ const ot = {
       }
     }
   }
-}, rt = { key: 0 };
+}, ot = { key: 0 };
 function dt(e, s, t, l, n, i) {
-  return n.localShow || i.slots.toggle ? (r(), c("span", rt, [
+  return n.localShow || i.slots.toggle ? (o(), c("span", ot, [
     i.slots.toggle ? h(e.$slots, "toggle", y(b({ key: 0 }, {
       on: {
         click: () => n.localShow = !n.localShow
@@ -870,13 +870,13 @@ function dt(e, s, t, l, n, i) {
       appear: !0
     }, {
       default: I(() => [
-        n.localShow ? (r(), c("div", {
+        n.localShow ? (o(), c("div", {
           key: 0,
           class: d(["vts-dialog", t.classes.root, t.classes.bg, e.$attrs.class])
         }, [
           F(T, { name: t.contentTransition }, {
             default: I(() => [
-              (r(), L(j(t.tag), {
+              (o(), L(j(t.tag), {
                 ref: "content",
                 class: d(["vts-dialog__content", t.classes.content]),
                 style: R({
@@ -903,7 +903,7 @@ function dt(e, s, t, l, n, i) {
     }, 8, ["name"])
   ])) : g("", !0);
 }
-const ct = /* @__PURE__ */ E(ot, [["render", dt]]);
+const ct = /* @__PURE__ */ E(rt, [["render", dt]]);
 const ut = "vts-drawer", ft = {
   name: "VDrawer",
   model: {
@@ -1005,7 +1005,7 @@ const ut = "vts-drawer", ft = {
         if (!s)
           return;
         const t = Array.from(
-          s.querySelectorAll($.join(","))
+          s.querySelectorAll(G.join(","))
         );
         if (!t.length) {
           e.preventDefault();
@@ -1024,7 +1024,7 @@ const ut = "vts-drawer", ft = {
   }
 }, ht = { key: 0 };
 function vt(e, s, t, l, n, i) {
-  return n.localShow || i.slots.toggle ? (r(), c("span", ht, [
+  return n.localShow || i.slots.toggle ? (o(), c("span", ht, [
     i.slots.toggle ? h(e.$slots, "toggle", y(b({ key: 0 }, {
       on: {
         click: () => n.localShow = !n.localShow
@@ -1041,7 +1041,7 @@ function vt(e, s, t, l, n, i) {
       appear: ""
     }, {
       default: I(() => [
-        n.localShow ? (r(), c("div", {
+        n.localShow ? (o(), c("div", {
           key: 0,
           class: d(["vts-drawer", t.classes.root, t.classes.bg, e.$attrs.class])
         }, [
@@ -1050,7 +1050,7 @@ function vt(e, s, t, l, n, i) {
             appear: ""
           }, {
             default: I(() => [
-              n.localShow ? (r(), L(j(t.tag), {
+              n.localShow ? (o(), L(j(t.tag), {
                 key: 0,
                 ref: "content",
                 class: d([
@@ -1127,7 +1127,7 @@ const yt = {
   }
 }, bt = ["aria-expanded"];
 function gt(e, s, t, l, n, i) {
-  return r(), c("div", {
+  return o(), c("div", {
     class: d(["vts-dropdown", t.classes.root]),
     onMouseenter: s[1] || (s[1] = (a) => e.isHovered = !0),
     onMouseleave: s[2] || (s[2] = (a) => e.isHovered = !1),
@@ -1148,7 +1148,7 @@ function gt(e, s, t, l, n, i) {
     ], 10, bt),
     F(T, { name: t.transition }, {
       default: I(() => [
-        e.isHovered || e.isFocused ? (r(), c("div", {
+        e.isHovered || e.isFocused ? (o(), c("div", {
           key: 0,
           class: d(["vts-dropdown__content", [`vts-dropdown__content--${t.position}`, t.classes.content]])
         }, [
@@ -1226,7 +1226,7 @@ const _t = {
   "aria-hidden": "true"
 };
 function Et(e, s, t, l, n, i) {
-  return r(), c("label", {
+  return o(), c("label", {
     for: t.id,
     class: d([
       "vts-file",
@@ -1257,15 +1257,15 @@ function Et(e, s, t, l, n, i) {
       onDragenter: s[5] || (s[5] = A((a) => e.droppable = !0, ["prevent"]))
     }, [
       h(e.$slots, "default", y(S({ files: e.localFiles, droppable: e.droppable })), () => [
-        e.localFiles.length ? (r(), c("span", St, [
-          e.localFiles.length > 1 ? (r(), c(k, { key: 0 }, [
+        e.localFiles.length ? (o(), c("span", St, [
+          e.localFiles.length > 1 ? (o(), c(k, { key: 0 }, [
             D(w(e.localFiles.length) + " files selected ", 1)
-          ], 64)) : (r(), c(k, { key: 1 }, [
+          ], 64)) : (o(), c(k, { key: 1 }, [
             D(w(e.localFiles[0].name), 1)
           ], 64))
-        ])) : (r(), c("span", Dt, " Choose files or drop here "))
+        ])) : (o(), c("span", Dt, " Choose files or drop here "))
       ]),
-      e.droppable ? (r(), c("span", {
+      e.droppable ? (o(), c("span", {
         key: 0,
         class: d(["vts-file__overlay", t.classes.overlay]),
         onDrop: s[1] || (s[1] = A((...a) => i.onDrop && i.onDrop(...a), ["prevent"])),
@@ -1279,7 +1279,7 @@ function Et(e, s, t, l, n, i) {
     ], 34)
   ], 10, wt);
 }
-const Vt = /* @__PURE__ */ E(_t, [["render", Et]]), re = /* @__PURE__ */ new Set(["INPUT", "SELECT", "TEXTAREA"]), Ot = {
+const Vt = /* @__PURE__ */ E(_t, [["render", Et]]), oe = /* @__PURE__ */ new Set(["INPUT", "SELECT", "TEXTAREA"]), Ot = {
   name: "VForm",
   props: {
     lazy: {
@@ -1325,10 +1325,10 @@ const Vt = /* @__PURE__ */ E(_t, [["render", Et]]), re = /* @__PURE__ */ new Set
           error: s[l].dirty && !s[l].valid,
           errors: []
         }, i = new Map(Object.entries(t || {}));
-        i.forEach((a, o) => {
-          if (!n.invalid[o])
+        i.forEach((a, r) => {
+          if (!n.invalid[r])
             return;
-          const u = i.get(o), m = o.replace("length", "Length"), p = typeof u == "string" ? u : u(n._inputEl[m]);
+          const u = i.get(r), m = r.replace("length", "Length"), p = typeof u == "string" ? u : u(n._inputEl[m]);
           n.errors.push(p);
         }), e[l] = n;
       }
@@ -1354,7 +1354,7 @@ const Vt = /* @__PURE__ */ E(_t, [["render", Et]]), re = /* @__PURE__ */ new Set
   },
   methods: {
     checkModified({ target: e }) {
-      re.has(e.tagName) && (this.modified = !0);
+      oe.has(e.tagName) && (this.modified = !0);
     },
     validate() {
       const e = this.$el.querySelectorAll("input, textarea, select"), s = {};
@@ -1390,7 +1390,7 @@ const Vt = /* @__PURE__ */ E(_t, [["render", Et]]), re = /* @__PURE__ */ new Set
       this.validate();
     },
     onBlur({ target: e }) {
-      re.has(e.tagName) && (this.dirty = !0, this.localInputs[e.name].dirty = !0);
+      oe.has(e.tagName) && (this.dirty = !0, this.localInputs[e.name].dirty = !0);
     },
     clear() {
       this.$el.querySelectorAll("input, textarea, select").forEach((s) => {
@@ -1413,7 +1413,7 @@ const Vt = /* @__PURE__ */ E(_t, [["render", Et]]), re = /* @__PURE__ */ new Set
   }
 }, It = ["method"], Mt = ["name"];
 function Ct(e, s, t, l, n, i) {
-  return r(), c("form", b({
+  return o(), c("form", b({
     method: e.$attrs.method || "POST",
     class: [
       "vts-form",
@@ -1431,7 +1431,7 @@ function Ct(e, s, t, l, n, i) {
     onSubmit: s[3] || (s[3] = (...a) => i.onSubmit && i.onSubmit(...a)),
     onBlurCapture: s[4] || (s[4] = (...a) => i.onBlur && i.onBlur(...a))
   }, V(i.listeners, !0)), [
-    t.honeypot ? (r(), c("input", {
+    t.honeypot ? (o(), c("input", {
       key: 0,
       name: typeof t.honeypot == "string" ? t.honeypot : "vts-honeypot",
       class: "visually-hidden",
@@ -1543,11 +1543,11 @@ const W = "vts-img", Lt = {
       />
     `, -1), Ft = ["src", "decoding"], Bt = ["src", "alt", "decoding", "role"];
 function At(e, s, t, l, n, i) {
-  return r(), c("picture", {
+  return o(), c("picture", {
     class: d(["vts-img", t.classes.root])
   }, [
     Tt,
-    e.dataUrl ? (r(), c("div", {
+    e.dataUrl ? (o(), c("div", {
       key: 0,
       ref: "placeholder",
       class: d(["vts-img__placeholder", t.classes.placeholder]),
@@ -1625,7 +1625,7 @@ const Nt = {
   },
   computed: {
     bind() {
-      const { id: e, name: s, valid: t, dirty: l, error: n, errorMessages: i, classes: a, $attrs: o } = this, { class: u, ...m } = o, p = [];
+      const { id: e, name: s, valid: t, dirty: l, error: n, errorMessages: i, classes: a, $attrs: r } = this, { class: u, ...m } = r, p = [];
       return n && p.push(`${e}__description`), i.length && p.push(`${e}__errors`), {
         "aria-invalid": !t,
         "aria-describedby": l && p.length ? p.join(" ") : null,
@@ -1681,7 +1681,14 @@ const Nt = {
     value: ce,
     localValue(e) {
       this.$emit("update:modelValue", e), this.validate();
-    }
+    },
+    "$attrs.required": "validate",
+    "$attrs.type": "validate",
+    "$attrs.min": "validate",
+    "$attrs.max": "validate",
+    "$attrs.minlength": "validate",
+    "$attrs.maxlength": "validate",
+    "$attrs.pattern": "validate"
   },
   created() {
     this.id = this.$attrs.id || "vts-" + P(4);
@@ -1730,7 +1737,7 @@ const Nt = {
   }
 }, jt = ["id", "type"], zt = ["for"], Ut = ["checked"], Ht = ["for"], Yt = ["for"], Kt = ["type"], Wt = ["id"], qt = ["id"];
 function Rt(e, s, t, l, n, i) {
-  return r(), c("div", {
+  return o(), c("div", {
     class: d([
       "vts-input",
       `vts-input--${t.type}`,
@@ -1744,11 +1751,11 @@ function Rt(e, s, t, l, n, i) {
       t.classes.root
     ])
   }, [
-    ["radio", "checkbox"].includes(t.type) && i.computedOptions.length ? (r(), c("fieldset", {
+    ["radio", "checkbox"].includes(t.type) && i.computedOptions.length ? (o(), c("fieldset", {
       key: 0,
       class: d(["vts-input__fieldset", t.classes.fieldset])
     }, [
-      t.label ? (r(), c("legend", {
+      t.label ? (o(), c("legend", {
         key: 0,
         class: d(["vts-input__legend", t.classes.legend])
       }, [
@@ -1766,12 +1773,12 @@ function Rt(e, s, t, l, n, i) {
       f("div", {
         class: d(["vts-input__fieldset-items", t.classes.fieldsetItems])
       }, [
-        (r(!0), c(k, null, O(i.computedOptions, (a, o) => (r(), c("div", {
+        (o(!0), c(k, null, O(i.computedOptions, (a, r) => (o(), c("div", {
           key: a.value,
           class: d(["vts-input__fieldset-item", t.classes.fieldsetItem])
         }, [
           f("input", b({ ...i.bind, ...a }, {
-            id: `${e.id}__input-${o}`,
+            id: `${e.id}__input-${r}`,
             ref_for: !0,
             ref: "input",
             type: t.type,
@@ -1779,12 +1786,12 @@ function Rt(e, s, t, l, n, i) {
             onBlurOnce: s[1] || (s[1] = (u) => n.dirty = !0)
           }, V(i.listeners, !0)), null, 16, jt),
           f("label", {
-            for: `${e.id}__input-${o}`,
+            for: `${e.id}__input-${r}`,
             class: d(["vts-input__label", t.classes.label])
           }, w(a.label), 11, zt)
         ], 2))), 128))
       ], 2)
-    ], 2)) : t.type === "checkbox" ? (r(), c(k, { key: 1 }, [
+    ], 2)) : t.type === "checkbox" ? (o(), c(k, { key: 1 }, [
       f("input", b({
         ref: "input",
         checked: n.localValue === void 0 ? e.$attrs.checked : n.localValue,
@@ -1808,7 +1815,7 @@ function Rt(e, s, t, l, n, i) {
           D(w(t.label), 1)
         ])
       ], 10, Ht)
-    ], 64)) : (r(), c(k, { key: 2 }, [
+    ], 64)) : (o(), c(k, { key: 2 }, [
       f("label", {
         for: `${e.id}__input`,
         class: d(["vts-input__label", t.classes.label])
@@ -1824,7 +1831,7 @@ function Rt(e, s, t, l, n, i) {
           D(w(t.label), 1)
         ])
       ], 10, Yt),
-      t.type === "select" ? N((r(), c("select", b({
+      t.type === "select" ? N((o(), c("select", b({
         key: 0,
         ref: "input",
         "onUpdate:modelValue": s[4] || (s[4] = (a) => n.localValue = a)
@@ -1834,13 +1841,13 @@ function Rt(e, s, t, l, n, i) {
         onBlurOnce: s[7] || (s[7] = (a) => n.dirty = !0)
       }, V(i.listeners, !0)), [
         h(e.$slots, "options", {}, () => [
-          (r(!0), c(k, null, O(i.computedOptions, (a) => (r(), c("option", b({
+          (o(!0), c(k, null, O(i.computedOptions, (a) => (o(), c("option", b({
             key: a.value
           }, a, { label: null }), w(a.label), 17))), 128))
         ])
       ], 16)), [
         [ke, n.localValue]
-      ]) : t.type === "textarea" ? N((r(), c("textarea", b({
+      ]) : t.type === "textarea" ? N((o(), c("textarea", b({
         key: 1,
         ref: "input",
         "onUpdate:modelValue": s[8] || (s[8] = (a) => n.localValue = a)
@@ -1848,7 +1855,7 @@ function Rt(e, s, t, l, n, i) {
         onBlurOnce: s[9] || (s[9] = (a) => n.dirty = !0)
       }, V(i.listeners, !0)), null, 16)), [
         [Se, n.localValue]
-      ]) : N((r(), c("input", b({
+      ]) : N((o(), c("input", b({
         key: 2,
         ref: "input",
         "onUpdate:modelValue": s[10] || (s[10] = (a) => n.localValue = a),
@@ -1859,7 +1866,7 @@ function Rt(e, s, t, l, n, i) {
         [De, n.localValue]
       ])
     ], 64)),
-    i.slots.description ? (r(), c("div", {
+    i.slots.description ? (o(), c("div", {
       key: 3,
       id: `${e.id}__description`,
       class: d(["vts-input__description", t.classes.description])
@@ -1873,19 +1880,19 @@ function Rt(e, s, t, l, n, i) {
         errors: i.errorMessages
       })))
     ], 10, Wt)) : g("", !0),
-    n.dirty && i.errorMessages.length ? (r(), c("div", {
+    n.dirty && i.errorMessages.length ? (o(), c("div", {
       key: 4,
       id: `${e.id}__errors`,
       class: d(["vts-input__errors", t.classes.errors])
     }, [
-      (r(!0), c(k, null, O(i.errorMessages, (a) => (r(), c("span", {
+      (o(!0), c(k, null, O(i.errorMessages, (a) => (o(), c("span", {
         key: a,
         class: d(["vts-input__error", t.classes.error])
       }, w(a), 3))), 128))
     ], 10, qt)) : g("", !0)
   ], 2);
 }
-const Gt = /* @__PURE__ */ E(Nt, [["render", Rt]]), $t = {
+const $t = /* @__PURE__ */ E(Nt, [["render", Rt]]), Gt = {
   name: "VIntersect",
   props: {
     threshold: {
@@ -1936,7 +1943,7 @@ const Gt = /* @__PURE__ */ E(Nt, [["render", Rt]]), $t = {
     return this.$slots.default(e);
   }
 };
-const x = G({
+const x = $({
   notifications: []
 });
 function Jt(e) {
@@ -2001,12 +2008,12 @@ const Xt = {
   }
 }, Qt = ["onClick"], Zt = /* @__PURE__ */ f("span", { class: "vts-visually-hidden" }, "Remove notification", -1);
 function es(e, s, t, l, n, i) {
-  return r(), c("ul", {
+  return o(), c("ul", {
     class: d(["vts-notifications", t.classes.root])
   }, [
     F(Ee, { name: t.transition }, {
       default: I(() => [
-        (r(!0), c(k, null, O(i.notifications, (a) => (r(), c("li", {
+        (o(!0), c(k, null, O(i.notifications, (a) => (o(), c("li", {
           key: a.id,
           class: d(["vts-notification", t.classes.notification])
         }, [
@@ -2014,10 +2021,10 @@ function es(e, s, t, l, n, i) {
             role: "alert",
             class: d(["vts-notification__text", t.classes.text])
           }, w(a.text), 3),
-          a.persistent ? g("", !0) : (r(), c("button", {
+          a.persistent ? g("", !0) : (o(), c("button", {
             key: 0,
             class: d(["vts-notification__dismiss", t.classes.dismiss]),
-            onClick: (o) => i.remove(a)
+            onClick: (r) => i.remove(a)
           }, [
             D(" × "),
             Zt
@@ -2058,7 +2065,7 @@ const ts = /* @__PURE__ */ E(Xt, [["render", es]]), ss = {
   }
 };
 function ns(e, s, t, l, n, i) {
-  return r(), L(j(t.tag), { class: "vts-resize" }, {
+  return o(), L(j(t.tag), { class: "vts-resize" }, {
     default: I(() => [
       h(e.$slots, "default", y(S({ width: e.width, height: e.height, inlineSize: e.width, blockSize: e.height })))
     ]),
@@ -2085,8 +2092,8 @@ const as = {
     }
   }
 }, ls = ["href"];
-function os(e, s, t, l, n, i) {
-  return r(), c("a", {
+function rs(e, s, t, l, n, i) {
+  return o(), c("a", {
     class: "vts-skip",
     href: t.to,
     onClick: s[0] || (s[0] = (a) => i.skipTo(t.to))
@@ -2096,7 +2103,7 @@ function os(e, s, t, l, n, i) {
     ])
   ], 8, ls);
 }
-const rs = /* @__PURE__ */ E(as, [["render", os]]);
+const os = /* @__PURE__ */ E(as, [["render", rs]]);
 const ds = {
   name: "VTable",
   provide() {
@@ -2178,13 +2185,13 @@ const ds = {
       } = this;
       let a = [...s];
       if (t && l) {
-        const o = e.find((m) => m.key === t);
+        const r = e.find((m) => m.key === t);
         let u = this.defaultComparisonFn;
-        typeof o.sort == "function" && (u = o.sort), a = a.sort((m, p) => u(m, p, l === "ASC"));
+        typeof r.sort == "function" && (u = r.sort), a = a.sort((m, p) => u(m, p, l === "ASC"));
       }
       if (i > -1) {
-        const o = (Math.max(n, 1) - 1) * i;
-        a = a.slice(o, o + i);
+        const r = (Math.max(n, 1) - 1) * i;
+        a = a.slice(r, r + i);
       }
       return a;
     },
@@ -2247,7 +2254,7 @@ const ds = {
   }
 }, cs = ["id"], us = ["disabled"], fs = ["disabled", "aria-label", "onClick"], hs = ["disabled"];
 function vs(e, s, t, l, n, i) {
-  return r(), c("div", {
+  return o(), c("div", {
     ref: "container",
     role: "region",
     "aria-labelledby": "caption",
@@ -2265,29 +2272,29 @@ function vs(e, s, t, l, n, i) {
         page: n.localPage,
         perPage: n.localPerPage
       })), () => [
-        t.caption ? (r(), c("caption", {
+        t.caption ? (o(), c("caption", {
           key: 0,
           id: `${t.id}__caption`,
           class: d([t.classes.caption])
         }, w(t.caption), 11, cs)) : g("", !0),
-        i.computedHeaders.length ? (r(), c("thead", {
+        i.computedHeaders.length ? (o(), c("thead", {
           key: 1,
           class: d([t.classes.thead])
         }, [
           f("tr", {
             class: d([t.classes.tr])
           }, [
-            (r(!0), c(k, null, O(i.computedHeaders, (a, o) => (r(), c("th", b({
+            (o(!0), c(k, null, O(i.computedHeaders, (a, r) => (o(), c("th", b({
               key: a.key
             }, a.bind, {
               class: [t.classes.th]
             }), [
               h(e.$slots, `header.${a.key}`, y(S({
                 header: a,
-                index: o
+                index: r
               })), () => [
                 D(w(a.text || a.key) + " ", 1),
-                a.sortable ? (r(), c(k, { key: 0 }, [
+                a.sortable ? (o(), c(k, { key: 0 }, [
                   a.key === n.localSortBy && n.localSortDirection === "ASC" ? h(e.$slots, "sort-asc", y(b({ key: 0 }, a.sortBtn)), () => [
                     f("button", b({
                       class: [
@@ -2324,19 +2331,19 @@ function vs(e, s, t, l, n, i) {
             page: n.localPage,
             perPage: n.localPerPage
           })), () => [
-            (r(!0), c(k, null, O(i.computedItems, (a, o) => (r(), c("tr", {
+            (o(!0), c(k, null, O(i.computedItems, (a, r) => (o(), c("tr", {
               key: a.id,
               class: d(["vts-table__row", t.classes.tr])
             }, [
-              h(e.$slots, "row", y(S({ item: a, index: o, row: o + 1 })), () => [
-                (r(!0), c(k, null, O(i.computedHeaders, (u) => (r(), c("td", {
+              h(e.$slots, "row", y(S({ item: a, index: r, row: r + 1 })), () => [
+                (o(!0), c(k, null, O(i.computedHeaders, (u) => (o(), c("td", {
                   key: u.key,
                   class: d([t.classes.td])
                 }, [
                   h(e.$slots, `column.${u.key}`, y(S({
                     item: a,
-                    index: (n.localPage - 1) * n.localPerPage + o,
-                    row: o + 1,
+                    index: (n.localPage - 1) * n.localPerPage + r,
+                    row: r + 1,
                     key: u.key,
                     column: u.key,
                     value: a[u.key],
@@ -2350,7 +2357,7 @@ function vs(e, s, t, l, n, i) {
             ], 2))), 128))
           ])
         ], 2),
-        e.$slots.tfoot ? (r(), c("tfoot", {
+        e.$slots.tfoot ? (o(), c("tfoot", {
           key: 2,
           class: d([t.classes.tfoot])
         }, [
@@ -2359,7 +2366,7 @@ function vs(e, s, t, l, n, i) {
       ])
     ], 2),
     h(e.$slots, "pagination", y(S({ page: n.localPage, perPage: n.localPerPage, lastPage: i.lastPage, goToPage: i.goToPage })), () => [
-      i.lastPage > 1 ? (r(), c("div", {
+      i.lastPage > 1 ? (o(), c("div", {
         key: 0,
         class: d(["vts-table__pagination", t.classes.pagination])
       }, [
@@ -2373,7 +2380,7 @@ function vs(e, s, t, l, n, i) {
         f("ul", {
           class: d(["vts-table__pages", t.classes.pageList])
         }, [
-          (r(!0), c(k, null, O(i.lastPage, (a) => (r(), c("li", {
+          (o(!0), c(k, null, O(i.lastPage, (a) => (o(), c("li", {
             key: a,
             class: d([
               "vts-table__page-item",
@@ -2390,7 +2397,7 @@ function vs(e, s, t, l, n, i) {
                 t.classes.page
               ]),
               type: "button",
-              onClick: (o) => i.goToPage(a)
+              onClick: (r) => i.goToPage(a)
             }, w(a), 11, fs)
           ], 2))), 128))
         ], 2),
@@ -2508,7 +2515,7 @@ const ms = /* @__PURE__ */ E(ds, [["render", vs]]), ys = {
   }
 }, bs = ["aria-label", "aria-orientation"], gs = ["id", "aria-selected", "tabindex", "aria-controls", "onClick"], ps = ["id", "aria-labelledby", "hidden"];
 function _s(e, s, t, l, n, i) {
-  return r(), c("div", {
+  return o(), c("div", {
     class: d(["vts-tabs", t.classes.root])
   }, [
     f("div", {
@@ -2517,40 +2524,40 @@ function _s(e, s, t, l, n, i) {
       "aria-orientation": t.orientation,
       class: d(["vts-tabs__tablist", t.classes.tablist])
     }, [
-      (r(!0), c(k, null, O(i.tabList, (a, o) => (r(), c("button", {
+      (o(!0), c(k, null, O(i.tabList, (a, r) => (o(), c("button", {
         id: `${e.id}-${a}`,
         key: a,
         ref_for: !0,
         ref: a,
-        "aria-selected": o === n.activeIndex,
-        tabindex: o === n.activeIndex ? null : -1,
+        "aria-selected": r === n.activeIndex,
+        tabindex: r === n.activeIndex ? null : -1,
         "aria-controls": `${e.id}-${a.replace("tab", "panel")}`,
         class: d([
-          `vts-tabs__tab vts-tabs__tab--${a} vts-tabs__tab--${o}`,
+          `vts-tabs__tab vts-tabs__tab--${a} vts-tabs__tab--${r}`,
           {
-            "vts-tabs__tab--active": o === n.activeIndex,
-            [t.classes.tabActive]: o === n.activeIndex
+            "vts-tabs__tab--active": r === n.activeIndex,
+            [t.classes.tabActive]: r === n.activeIndex
           },
           t.classes.tab
         ]),
         role: "tab",
         type: "button",
         onKeydown: s[0] || (s[0] = (...u) => i.onKeydown && i.onKeydown(...u)),
-        onClick: (u) => i.onClick(u, a, o)
+        onClick: (u) => i.onClick(u, a, r)
       }, [
         h(e.$slots, a)
       ], 42, gs))), 128))
     ], 10, bs),
-    (r(!0), c(k, null, O(i.panelList, (a, o) => (r(), c("div", {
-      id: `${e.id}-panel-${o}`,
+    (o(!0), c(k, null, O(i.panelList, (a, r) => (o(), c("div", {
+      id: `${e.id}-panel-${r}`,
       key: a,
-      "aria-labelledby": `${e.id}-tab-${o}`,
-      hidden: o !== n.activeIndex,
+      "aria-labelledby": `${e.id}-tab-${r}`,
+      hidden: r !== n.activeIndex,
       class: d([
-        `vts-tabs__panel vts-tabs__panel--${o}`,
+        `vts-tabs__panel vts-tabs__panel--${r}`,
         {
-          "vts-tabs__panel--active": o === n.activeIndex,
-          [t.classes.panelActive]: o === n.activeIndex
+          "vts-tabs__panel--active": r === n.activeIndex,
+          [t.classes.panelActive]: r === n.activeIndex
         },
         t.classes.panel
       ]),
@@ -2615,7 +2622,7 @@ const ks = {
   }
 }, Ss = ["id", "disabled", "aria-controls", "aria-expanded"], Ds = ["id", "aria-labelledby", "aria-hidden"];
 function Es(e, s, t, l, n, i) {
-  return r(), c("div", {
+  return o(), c("div", {
     class: d(["vts-toggle", { "vts-toggle--open": n.isOpen }, t.classes.root])
   }, [
     f("button", b({
@@ -2686,7 +2693,7 @@ const Os = {
   }
 }, Is = ["id", "aria-hidden"];
 function Ms(e, s, t, l, n, i) {
-  return r(), L(j(t.tag), {
+  return o(), L(j(t.tag), {
     id: t.id,
     tabindex: "0",
     "aria-describedby": `${t.id}__content`,
@@ -2744,11 +2751,11 @@ const Cs = /* @__PURE__ */ E(Os, [["render", Ms]]), Ps = {
   VFile: Vt,
   VForm: Pt,
   VImg: xt,
-  VInput: Gt,
-  VIntersect: $t,
+  VInput: $t,
+  VIntersect: Gt,
   VNotifications: ts,
   VResize: is,
-  VSkip: rs,
+  VSkip: os,
   VTable: ms,
   VTabs: ws,
   VToggle: Vs,
@@ -2781,7 +2788,7 @@ const ye = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   truncate: xs
 }, Symbol.toStringTag, { value: "Module" }));
 function zs(e, s = {}) {
-  const t = G({
+  const t = $({
     pending: !1,
     results: s.placeholder || null,
     error: null
@@ -2812,7 +2819,7 @@ function zs(e, s = {}) {
   return e && l(e), Object.assign(t, { watch: l });
 }
 const Us = (e, s = {}) => {
-  const l = G({
+  const l = $({
     invalid: !1,
     dirty: !1,
     error: !1,
@@ -2848,19 +2855,19 @@ const Us = (e, s = {}) => {
         U.errors.push(pe);
       }), U.dirty = l.inputs[z] ? l.inputs[z].dirty : !1, _[z] = U;
     }), l.inputs = _;
-  }, a = () => i(e.value), o = (m) => {
+  }, a = () => i(e.value), r = (m) => {
     i(e.value);
     const p = m.target, _ = p.name || p.id;
     l.dirty = !0, _ && l.inputs[_] && (l.inputs[_].dirty = !0);
   }, u = new MutationObserver(a);
   return Ve(e, async (m, p, _) => {
-    m && (await X(), i(m), m.addEventListener("input", a), m.addEventListener("blur", o, {
+    m && (await X(), i(m), m.addEventListener("input", a), m.addEventListener("blur", r, {
       capture: !0
     }), u.observe(m, {
       childList: !0,
       subtree: !0
     }), _(() => {
-      m.removeEventListener("input", a), m.removeEventListener("blur", o), u.disconnect();
+      m.removeEventListener("input", a), m.removeEventListener("blur", r), u.disconnect();
     }));
   }), l.error = Oe(() => l.invalid && l.dirty), l.validate = () => i(e.value), l.reset = () => {
     l.dirty = !1, i(e.value);
@@ -2900,11 +2907,11 @@ export {
   Vt as VFile,
   Pt as VForm,
   xt as VImg,
-  Gt as VInput,
-  $t as VIntersect,
+  $t as VInput,
+  Gt as VIntersect,
   ts as VNotifications,
   is as VResize,
-  rs as VSkip,
+  os as VSkip,
   ms as VTable,
   ws as VTabs,
   Vs as VToggle,
