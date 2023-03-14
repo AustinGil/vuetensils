@@ -391,14 +391,14 @@ export default {
       this.$emit('update:modelValue', value);
       this.validate();
     },
-    '$attrs.required': 'validate',
-    '$attrs.type': 'validate',
-    '$attrs.min': 'validate',
-    '$attrs.max': 'validate',
-    '$attrs.minlength': 'validate',
-    '$attrs.maxlength': 'validate',
-    '$attrs.pattern': 'validate',
-    // '$attrs.step': 'validate',
+    '$attrs.required': 'validateAfterNextTick',
+    '$attrs.type': 'validateAfterNextTick',
+    '$attrs.min': 'validateAfterNextTick',
+    '$attrs.max': 'validateAfterNextTick',
+    '$attrs.minlength': 'validateAfterNextTick',
+    '$attrs.maxlength': 'validateAfterNextTick',
+    '$attrs.pattern': 'validateAfterNextTick',
+    // '$attrs.step': 'validateAfterNextTick',
   },
 
   created() {
@@ -467,6 +467,10 @@ export default {
         max: validity.rangeOverflow,
         pattern: validity.patternMismatch,
       };
+    },
+    async validateAfterNextTick() {
+      await this.$nextTick();
+      this.validate();
     },
   },
 };

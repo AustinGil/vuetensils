@@ -105,6 +105,7 @@ declare const _default: {
         onSelect(event: any): void;
         onFieldsetInput(event: any): void;
         validate(): void;
+        validateAfterNextTick(): Promise<void>;
     };
 };
 export default _default;
