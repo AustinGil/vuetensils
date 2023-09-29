@@ -2,7 +2,7 @@
 
 A component and triggering method for showing notifications to users. It supports timeouts and persistent notifications and is designed to work with assistive technology.
 
-- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VNotifications/VNotifications.vue) -->
+- [Source](https://github.com/AustinGil/vuetensils/blob/master/src/components/VNotifications/VNotifications.vue)
 
 # Usage
 
@@ -129,7 +129,13 @@ export default {
       this.$vnotify({
         text: "With an object, I can be more specific.",
         timeout: false,
-        persistent: false   
+        persistent: false,
+        class: 'these',
+        classes: {
+          root: 'are',
+          text: 'custom',
+          dismiss: 'classes'
+        }
       })
     }
   },
@@ -145,6 +151,12 @@ export default {
   text: string, // Notification text
   persistent?: boolean, // Determines if the dismiss button should be displayed
   timeout?: number|false, // Time in milliseconds to display the notification
+  class?: string, // Class to apply to the notification wrapper
+  classes?: {
+    root?: string, // Class to apply to the notification wrapper
+    text?: string, // Class to apply to the notification text
+    dismiss?: string // Class to apply to the notification dismiss button
+  },
 }
 ```
 
@@ -160,3 +172,13 @@ By default, notifications will pop in and just kind of hang out until you ask th
 ## Persistent vs. Dismissible
 
 Sometimes you want notifications that the user can acknowledge and dismiss, and other times you want notifications that persist. You can control that through the `persistent` prop on `<VNotifications>` which accepts a boolean value. You can also overwrite the settings on an individual notification through the `notify` functions 
+
+## Custom Classes
+
+This component can accept a `classes` prop to customize the output HTML classes:
+
+```
+:classes="{ root: string, notification: string, text: string, dismiss: string }"
+```
+
+Custom classes can also be applied on a single notification. See [Notify Object Argument](#notify-object-argument).

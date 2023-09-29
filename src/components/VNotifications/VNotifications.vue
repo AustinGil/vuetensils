@@ -9,6 +9,12 @@ import { randomString } from '../../utils.js';
  * persistent?: boolean,
  * timeout?: number|false,
  * timeoutId?: number,
+ * class?: string,
+ * classes?: {
+ *  notification?: string,
+ *  text?: string,
+ *  dismiss?: string,
+ * }
  * }} VNotification
  */
 
@@ -30,6 +36,8 @@ export function notify(notification) {
     id: `vts_${randomString(4)}`,
     persistent: undefined,
     timeout: undefined,
+    class: undefined,
+    classes: {},
     ...notification,
   };
   state.notifications.push(notification);
@@ -106,12 +114,12 @@ export default {
   <ul :class="['vts-notifications', classes.root]">
     <TransitionGroup :name="transition">
       <li v-for="notification of notifications" :key="notification.id"
-        :class="['vts-notification', classes.notification]">
-        <span role="alert" :class="['vts-notification__text', classes.text]">{{
-          notification.text
-        }}</span>
+                  :class="['vts-notification', classes.notification, notification.class, notification.classes?.notification]">
+                <span role="alert" :class="['vts-notification__text', classes.text, notification.classes?.text]">{{
+                  notification.text
+                }}</span>
   
-        <button v-if="!notification.persistent" :class="['vts-notification__dismiss', classes.dismiss]"
+                <button v-if="!notification.persistent" :class="['vts-notification__dismiss', classes.dismiss, notification.classes?.dismiss]"
           @click="remove(notification)">
           &times;
           <span class="vts-visually-hidden">Remove notification</span>
