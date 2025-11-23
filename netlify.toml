@@ -3,31 +3,26 @@
 # Redirect default Netlify subdomain to primary domain
 [[redirects]]
   from = "https://vuetensils.netlify.com/*"
-  to = "https://vuetensils.com/:splat"
+  to = "https://vuetensils.austingil.com/:splat"
   status = 301
   force = true
 [[redirects]]
   from = "http://vuetensils.netlify.com/*"
-  to = "https://vuetensils.com/:splat"
-  status = 301
-  force = true
-[[redirects]]
-  from = "https://vuetensils.austingil.com/*"
-  to = "https://vuetensils.com/:splat"
+  to = "https://vuetensils.austingil.com/:splat"
   status = 301
   force = true
 [[redirects]]
   from = "http://vuetensils.austingil.com/*"
-  to = "https://vuetensils.com/:splat"
+  to = "https://vuetensils.austingil.com/:splat"
   status = 301
   force = true
 [[redirects]]
   from = "https://vuetensils.stegosource.com/*"
-  to = "https://vuetensils.com/:splat"
+  to = "https://vuetensils.austingil.com/:splat"
   status = 301
   force = true
 [[redirects]]
   from = "http://vuetensils.stegosource.com/*"
-  to = "https://vuetensils.com/:splat"
+  to = "https://vuetensils.austingil.com/:splat"
   status = 301
   force = true
